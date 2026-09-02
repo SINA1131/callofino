@@ -1,0 +1,2007 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GALAXY | Gaming</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #050507;
+            color: white;
+            overflow-x: hidden;
+        }
+
+
+        /* =========================
+           BACKGROUND WAVES
+        ========================= */
+
+        .wave-background {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            z-index: -5;
+
+            background:
+                radial-gradient(
+                    circle at 50% 20%,
+                    rgba(130, 0, 255, 0.12),
+                    transparent 35%
+                ),
+                #050507;
+        }
+
+        .wave {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(70px);
+            opacity: 0.35;
+        }
+
+        .wave-one {
+            width: 600px;
+            height: 600px;
+            background: #7b00ff;
+            top: -250px;
+            left: -200px;
+
+            animation:
+                waveOne 12s infinite alternate ease-in-out;
+        }
+
+        .wave-two {
+            width: 500px;
+            height: 500px;
+            background: #4d00ff;
+            right: -180px;
+            top: 20%;
+
+            animation:
+                waveTwo 15s infinite alternate ease-in-out;
+        }
+
+        .wave-three {
+            width: 450px;
+            height: 450px;
+            background: #9d00ff;
+            left: 15%;
+            bottom: -250px;
+
+            animation:
+                waveThree 14s infinite alternate ease-in-out;
+        }
+
+        .wave-four {
+            width: 350px;
+            height: 350px;
+            background: #6200ff;
+            right: 20%;
+            bottom: -150px;
+
+            animation:
+                waveFour 11s infinite alternate ease-in-out;
+        }
+
+
+        @keyframes waveOne {
+
+            from {
+                transform: translate(0, 0);
+            }
+
+            to {
+                transform: translate(100px, 80px);
+            }
+
+        }
+
+        @keyframes waveTwo {
+
+            from {
+                transform: translate(0, 0);
+            }
+
+            to {
+                transform: translate(-100px, 70px);
+            }
+
+        }
+
+        @keyframes waveThree {
+
+            from {
+                transform: translate(0, 0);
+            }
+
+            to {
+                transform: translate(120px, -80px);
+            }
+
+        }
+
+        @keyframes waveFour {
+
+            from {
+                transform: translate(0, 0);
+            }
+
+            to {
+                transform: translate(-80px, -100px);
+            }
+
+        }
+
+
+        /* =========================
+           ORBS
+        ========================= */
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(2px);
+            z-index: -3;
+            pointer-events: none;
+        }
+
+        .orb-one {
+            width: 6px;
+            height: 6px;
+
+            background: #b86cff;
+
+            box-shadow:
+                0 0 20px #9d4dff;
+
+            top: 30%;
+            left: 10%;
+
+            animation:
+                orbOne 5s infinite alternate ease-in-out;
+        }
+
+        .orb-two {
+            width: 5px;
+            height: 5px;
+
+            background: white;
+
+            box-shadow:
+                0 0 18px #b66cff;
+
+            top: 60%;
+            right: 15%;
+
+            animation:
+                orbTwo 7s infinite alternate ease-in-out;
+        }
+
+
+        @keyframes orbOne {
+
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(-80px);
+            }
+
+        }
+
+        @keyframes orbTwo {
+
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(100px);
+            }
+
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+
+            position: fixed;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 76px;
+
+            z-index: 1000;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 7%;
+
+            background:
+                rgba(5, 5, 7, 0.72);
+
+            backdrop-filter:
+                blur(18px);
+
+            border-bottom:
+                1px solid
+                rgba(157, 78, 255, 0.12);
+        }
+
+
+        .logo {
+
+            text-decoration: none;
+
+            font-size: 27px;
+
+            font-weight: 900;
+
+            letter-spacing: 4px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ffffff,
+                    #b66cff,
+                    #7b00ff,
+                    #ffffff
+                );
+
+            background-size: 250%;
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            animation:
+                logoMove 5s linear infinite;
+        }
+
+
+        @keyframes logoMove {
+
+            from {
+                background-position: 0%;
+            }
+
+            to {
+                background-position: 250%;
+            }
+
+        }
+
+
+        nav {
+
+            display: flex;
+
+            gap: 30px;
+        }
+
+
+        nav a {
+
+            color: #ddd;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            position: relative;
+
+            transition: 0.3s;
+        }
+
+
+        nav a::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 0;
+
+            height: 2px;
+
+            right: 0;
+
+            bottom: -8px;
+
+            background: #a64dff;
+
+            box-shadow:
+                0 0 10px #8a2be2;
+
+            transition: 0.3s;
+        }
+
+
+        nav a:hover {
+
+            color: white;
+        }
+
+
+        nav a:hover::after {
+
+            width: 100%;
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+
+            min-height: 100vh;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            position: relative;
+
+            overflow: hidden;
+
+            padding:
+                100px 20px 80px;
+        }
+
+
+        .hero-content {
+
+            position: relative;
+
+            z-index: 2;
+
+            max-width: 900px;
+        }
+
+
+        .welcome {
+
+            color: #b77aff;
+
+            font-size: 14px;
+
+            letter-spacing: 6px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .hero h1 {
+
+            font-size:
+                clamp(70px, 13vw, 150px);
+
+            font-weight: 1000;
+
+            letter-spacing: 8px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ffffff,
+                    #b66cff,
+                    #7b00ff,
+                    #ffffff
+                );
+
+            background-size: 250%;
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+
+            animation:
+                logoMove 5s linear infinite;
+
+            filter:
+                drop-shadow(
+                    0 0 25px
+                    rgba(143, 50, 255, 0.2)
+                );
+        }
+
+
+        .hero p {
+
+            max-width: 650px;
+
+            margin:
+                25px auto;
+
+            color: #aaa;
+
+            line-height: 2;
+
+            font-size: 16px;
+        }
+
+
+        .hero-btn {
+
+            display: inline-block;
+
+            margin-top: 20px;
+
+            padding:
+                15px 35px;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7000e8,
+                    #a64dff
+                );
+
+            box-shadow:
+                0 0 30px
+                rgba(126, 0, 255, 0.25);
+
+            transition: 0.3s;
+        }
+
+
+        .hero-btn:hover {
+
+            transform:
+                translateY(-5px);
+
+            box-shadow:
+                0 12px 35px
+                rgba(126, 0, 255, 0.35);
+        }
+
+
+        /* =========================
+           SECTIONS
+        ========================= */
+
+        .section {
+
+            padding:
+                90px 7%;
+        }
+
+
+        .title {
+
+            text-align: center;
+
+            margin-bottom: 45px;
+        }
+
+
+        .title span {
+
+            color: #a34dff;
+
+            font-size: 12px;
+
+            letter-spacing: 4px;
+        }
+
+
+        .title h2 {
+
+            margin-top: 12px;
+
+            font-size: 36px;
+        }
+
+
+        .title p {
+
+            color: #999;
+
+            margin-top: 12px;
+        }
+
+
+        /* =========================
+           TRAILER
+        ========================= */
+
+        .video {
+
+            max-width: 1000px;
+
+            height: 500px;
+
+            margin: auto;
+
+            border-radius: 25px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(130,0,255,0.1),
+                    rgba(255,255,255,0.025)
+                );
+
+            border:
+                1px solid
+                rgba(174,93,255,0.18);
+
+            backdrop-filter:
+                blur(15px);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            box-shadow:
+                0 20px 70px
+                rgba(0,0,0,0.3);
+        }
+
+
+        .play {
+
+            width: 80px;
+            height: 80px;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7000e8,
+                    #a64dff
+                );
+
+            font-size: 28px;
+
+            box-shadow:
+                0 0 40px
+                rgba(126,0,255,0.4);
+
+            transition: 0.3s;
+        }
+
+
+        .play:hover {
+
+            transform:
+                scale(1.12);
+        }
+
+
+        /* =========================
+           CODM
+        ========================= */
+
+        .cod-section {
+
+            padding:
+                100px 7%;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+
+        .cod-background {
+
+            position: absolute;
+
+            width: 600px;
+            height: 600px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(123,0,255,0.12);
+
+            filter:
+                blur(100px);
+
+            left: 50%;
+
+            top: 50%;
+
+            transform:
+                translate(-50%, -50%);
+        }
+
+
+        .cod-main {
+
+            max-width: 1150px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 40px;
+
+            align-items: center;
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        .cod-info .cod-label {
+
+            color: #a64dff;
+
+            letter-spacing: 4px;
+
+            font-size: 12px;
+        }
+
+
+        .cod-info h2 {
+
+            font-size:
+                clamp(40px, 6vw, 70px);
+
+            margin:
+                15px 0;
+
+            line-height: 1.1;
+        }
+
+
+        .cod-info p {
+
+            color: #aaa;
+
+            line-height: 2;
+
+            font-size: 15px;
+        }
+
+
+        .cod-button {
+
+            display: inline-block;
+
+            margin-top: 25px;
+
+            padding:
+                14px 25px;
+
+            border-radius: 11px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7000e8,
+                    #a64dff
+                );
+
+            color: white;
+
+            text-decoration: none;
+
+            transition: 0.3s;
+        }
+
+
+        .cod-button:hover {
+
+            transform:
+                translateY(-5px);
+        }
+
+
+        .cod-visual {
+
+            min-height: 350px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            position: relative;
+        }
+
+
+        .cod-glow {
+
+            position: absolute;
+
+            width: 280px;
+            height: 280px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(130,0,255,0.25);
+
+            filter:
+                blur(70px);
+        }
+
+
+        .cod-logo {
+
+            position: relative;
+
+            z-index: 2;
+
+            font-size:
+                clamp(35px, 5vw, 65px);
+
+            font-weight: 1000;
+
+            letter-spacing: 3px;
+
+            text-align: center;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #fff,
+                    #b66cff,
+                    #8b2cff,
+                    #fff
+                );
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+        }
+
+
+        .cod-small {
+
+            display: block;
+
+            margin-top: 12px;
+
+            font-size: 12px;
+
+            letter-spacing: 5px;
+
+            color: #999;
+
+            text-align: center;
+        }
+
+
+        .cod-bottom {
+
+            max-width: 1150px;
+
+            margin:
+                50px auto 0;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        .cod-box {
+
+            padding:
+                25px;
+
+            border-radius:
+                18px;
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border:
+                1px solid
+                rgba(174,93,255,0.14);
+
+            transition:
+                0.3s;
+        }
+
+
+        .cod-box:hover {
+
+            transform:
+                translateY(-7px);
+
+            border-color:
+                rgba(174,93,255,0.45);
+        }
+
+
+        .cod-box h3 {
+
+            font-size: 18px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .cod-box p {
+
+            color: #888;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+        }
+
+
+        /* =========================
+           NEWS
+        ========================= */
+
+        .news-section {
+
+            padding:
+                100px 7%;
+        }
+
+
+        .news {
+
+            max-width: 1150px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+
+        .news-card {
+
+            padding:
+                30px;
+
+            min-height: 230px;
+
+            border-radius:
+                22px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.06),
+                    rgba(255,255,255,0.015)
+                );
+
+            border:
+                1px solid
+                rgba(174,93,255,0.15);
+
+            backdrop-filter:
+                blur(15px);
+
+            transition:
+                0.4s;
+        }
+
+
+        .news-card:hover {
+
+            transform:
+                translateY(-9px);
+
+            border-color:
+                rgba(174,93,255,0.5);
+
+            box-shadow:
+                0 18px 50px
+                rgba(94,0,255,0.15);
+        }
+
+
+        .news-icon {
+
+            color:
+                #a64dff;
+
+            font-size:
+                13px;
+
+            letter-spacing:
+                2px;
+        }
+
+
+        .news-card h3 {
+
+            margin-top:
+                20px;
+
+            font-size:
+                20px;
+
+            line-height:
+                1.6;
+        }
+
+
+        .news-card p {
+
+            color:
+                #999;
+
+            line-height:
+                1.8;
+
+            font-size:
+                14px;
+
+            margin-top:
+                10px;
+        }
+
+
+        .news-date {
+
+            display:
+                block;
+
+            margin-top:
+                20px;
+
+            color:
+                #666;
+
+            font-size:
+                11px;
+        }
+
+
+        /* =========================
+           GTA VI
+        ========================= */
+
+        .gta-section {
+
+            padding:
+                100px 7%;
+
+            position:
+                relative;
+
+            overflow:
+                hidden;
+        }
+
+
+        .gta-container {
+
+            max-width:
+                1150px;
+
+            margin:
+                auto;
+
+            position:
+                relative;
+
+            padding:
+                55px;
+
+            border-radius:
+                28px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(130,0,255,0.10),
+                    rgba(255,255,255,0.025)
+                );
+
+            border:
+                1px solid
+                rgba(174,93,255,0.2);
+
+            backdrop-filter:
+                blur(16px);
+
+            overflow:
+                hidden;
+        }
+
+
+        .gta-container::before {
+
+            content:
+                "";
+
+            position:
+                absolute;
+
+            width:
+                350px;
+
+            height:
+                350px;
+
+            border-radius:
+                50%;
+
+            background:
+                rgba(125,0,255,0.17);
+
+            filter:
+                blur(90px);
+
+            left:
+                -130px;
+
+            bottom:
+                -170px;
+        }
+
+
+        .gta-content {
+
+            position:
+                relative;
+
+            z-index:
+                2;
+
+            max-width:
+                750px;
+        }
+
+
+        .gta-label {
+
+            color:
+                #a64dff;
+
+            letter-spacing:
+                4px;
+
+            font-size:
+                12px;
+        }
+
+
+        .gta-container h2 {
+
+            font-size:
+                clamp(40px, 6vw, 70px);
+
+            margin:
+                15px 0;
+        }
+
+
+        .gta-container p {
+
+            color:
+                #aaa;
+
+            line-height:
+                2;
+
+            font-size:
+                15px;
+        }
+
+
+        .gta-btn {
+
+            display:
+                inline-block;
+
+            margin-top:
+                25px;
+
+            padding:
+                14px 28px;
+
+            border-radius:
+                11px;
+
+            color:
+                white;
+
+            text-decoration:
+                none;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7000e8,
+                    #a64dff
+                );
+
+            box-shadow:
+                0 0 25px
+                rgba(126,0,255,0.25);
+
+            transition:
+                0.3s;
+        }
+
+
+        .gta-btn:hover {
+
+            transform:
+                translateY(-5px);
+
+            box-shadow:
+                0 10px 30px
+                rgba(126,0,255,0.35);
+        }
+
+
+        .gta-date {
+
+            margin-top:
+                20px;
+
+            color:
+                #777;
+
+            font-size:
+                13px;
+        }
+
+
+        /* =========================
+           MEMBERSHIP
+        ========================= */
+
+        .membership-section {
+
+            padding:
+                100px 7%;
+        }
+
+
+        .membership {
+
+            max-width:
+                800px;
+
+            margin:
+                auto;
+
+            padding:
+                50px;
+
+            text-align:
+                center;
+
+            border-radius:
+                25px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(130,0,255,0.10),
+                    rgba(255,255,255,0.025)
+                );
+
+            border:
+                1px solid
+                rgba(174,93,255,0.18);
+
+            backdrop-filter:
+                blur(15px);
+        }
+
+
+        .membership h2 {
+
+            font-size:
+                35px;
+        }
+
+
+        .membership p {
+
+            color:
+                #999;
+
+            line-height:
+                1.9;
+
+            margin:
+                15px 0 25px;
+        }
+
+
+        .membership a {
+
+            display:
+                inline-block;
+
+            padding:
+                14px 28px;
+
+            color:
+                white;
+
+            text-decoration:
+                none;
+
+            border-radius:
+                11px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7000e8,
+                    #a64dff
+                );
+
+            transition:
+                0.3s;
+        }
+
+
+        .membership a:hover {
+
+            transform:
+                translateY(-4px);
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .footer {
+
+            text-align:
+                center;
+
+            padding:
+                45px 20px;
+
+            border-top:
+                1px solid
+                rgba(174,93,255,0.1);
+
+            background:
+                rgba(0,0,0,0.2);
+        }
+
+
+        .footer-logo {
+
+            font-size:
+                24px;
+
+            font-weight:
+                900;
+
+            letter-spacing:
+                4px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #fff,
+                    #9f4cff,
+                    #fff
+                );
+
+            -webkit-background-clip:
+                text;
+
+            -webkit-text-fill-color:
+                transparent;
+        }
+
+
+        .footer p {
+
+            margin-top:
+                12px;
+
+            color:
+                #777;
+
+            font-size:
+                13px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .cod-main {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .cod-bottom {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .news {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            nav {
+
+                gap:
+                    15px;
+            }
+
+
+            nav a {
+
+                font-size:
+                    12px;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            header {
+
+                padding:
+                    0 20px;
+            }
+
+
+            .logo {
+
+                font-size:
+                    21px;
+            }
+
+
+            nav {
+
+                gap:
+                    9px;
+            }
+
+
+            nav a {
+
+                font-size:
+                    9px;
+            }
+
+
+            .hero h1 {
+
+                font-size:
+                    65px;
+
+                letter-spacing:
+                    4px;
+            }
+
+
+            .hero p {
+
+                font-size:
+                    14px;
+            }
+
+
+            .video {
+
+                height:
+                    300px;
+            }
+
+
+            .cod-bottom {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .news {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .section,
+            .cod-section,
+            .news-section,
+            .gta-section,
+            .membership-section {
+
+                padding:
+                    60px 20px;
+            }
+
+
+            .gta-container {
+
+                padding:
+                    30px;
+            }
+
+
+            .membership {
+
+                padding:
+                    30px 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         BACKGROUND
+    ========================= -->
+
+    <div class="wave-background">
+
+        <div class="wave wave-one"></div>
+
+        <div class="wave wave-two"></div>
+
+        <div class="wave wave-three"></div>
+
+        <div class="wave wave-four"></div>
+
+    </div>
+
+
+    <div class="orb orb-one"></div>
+
+    <div class="orb orb-two"></div>
+
+
+
+    <!-- =========================
+         HEADER
+    ========================= -->
+
+    <header>
+
+        <a
+            href="index.html"
+            class="logo"
+        >
+            GALAXY
+        </a>
+
+
+        <nav>
+
+            <a href="index.html">
+                خانه
+            </a>
+
+            <a href="news.html">
+                اخبار
+            </a>
+
+            <a href="trailers.html">
+                تریلر
+            </a>
+
+            <a href="codm.html">
+                کالاف موبایل
+            </a>
+
+            <!-- GTA VI BUTTON -->
+
+            <a href="gta6.html">
+                GTA VI
+            </a>
+
+            <a href="membership.html">
+                عضویت
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- =========================
+         HERO
+    ========================= -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="welcome">
+                WELCOME TO
+            </div>
+
+
+            <h1>
+                GALAXY
+            </h1>
+
+
+            <p>
+
+                به GALAXY خوش آمدی؛
+                دنیای اخبار، بازی‌ها، تریلرها و
+                اتفاقات مهم دنیای گیم.
+
+            </p>
+
+
+            <a
+                href="#games"
+                class="hero-btn"
+            >
+                ورود به دنیای GALAXY
+            </a>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         TRAILER
+    ========================= -->
+
+    <section
+        class="section"
+        id="trailer"
+    >
+
+        <div class="title">
+
+            <span>
+                GALAXY MEDIA
+            </span>
+
+
+            <h2>
+                تریلر
+            </h2>
+
+
+            <p>
+                جدیدترین ویدیوهای دنیای گیم
+            </p>
+
+        </div>
+
+
+        <div class="video">
+
+            <div class="play">
+                ▶
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         GAMES
+    ========================= -->
+
+    <section
+        class="cod-section"
+        id="games"
+    >
+
+        <div class="cod-background"></div>
+
+
+        <div class="cod-main">
+
+
+            <div class="cod-info">
+
+                <div class="cod-label">
+                    GALAXY GAMING
+                </div>
+
+
+                <h2>
+                    CALL OF DUTY MOBILE
+                </h2>
+
+
+                <p>
+
+                    وارد بخش اختصاصی Call of Duty Mobile
+                    شو و اخبار، رویدادها، کلن‌ها و
+                    تورنمنت‌های GALAXY را دنبال کن.
+
+                </p>
+
+
+                <a
+                    href="codm.html"
+                    class="cod-button"
+                >
+                    ورود به بخش CODM
+                </a>
+
+            </div>
+
+
+
+            <div class="cod-visual">
+
+                <div class="cod-glow"></div>
+
+
+                <div>
+
+                    <div class="cod-logo">
+                        CODM
+                    </div>
+
+
+                    <span class="cod-small">
+                        CALL OF DUTY MOBILE
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="cod-bottom">
+
+
+            <div class="cod-box">
+
+                <h3>
+                    Multiplayer
+                </h3>
+
+                <p>
+                    رقابت‌های سریع و هیجان‌انگیز.
+                </p>
+
+            </div>
+
+
+            <div class="cod-box">
+
+                <h3>
+                    Battle Royale
+                </h3>
+
+                <p>
+                    نبردهای بزرگ و طولانی.
+                </p>
+
+            </div>
+
+
+            <div class="cod-box">
+
+                <h3>
+                    Clan
+                </h3>
+
+                <p>
+                    عضویت در کلن GALAXY.
+                </p>
+
+            </div>
+
+
+            <div class="cod-box">
+
+                <h3>
+                    Tournament
+                </h3>
+
+                <p>
+                    ثبت تیم برای تورنمنت.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         NEWS
+    ========================= -->
+
+    <section
+        class="news-section"
+        id="news"
+    >
+
+        <div class="title">
+
+            <span>
+                GALAXY NEWS
+            </span>
+
+
+            <h2>
+                آخرین اخبار
+            </h2>
+
+
+            <p>
+                اخبار مهم دنیای بازی
+            </p>
+
+        </div>
+
+
+        <div class="news">
+
+
+            <article class="news-card">
+
+                <div class="news-icon">
+                    CODM
+                </div>
+
+
+                <h3>
+                    آخرین اخبار Call of Duty Mobile
+                </h3>
+
+
+                <p>
+                    جدیدترین اتفاقات و اطلاعات CODM
+                    را در بخش اختصاصی دنبال کن.
+                </p>
+
+
+                <span class="news-date">
+                    GALAXY NEWS
+                </span>
+
+            </article>
+
+
+
+            <article class="news-card">
+
+                <div class="news-icon">
+                    GTA VI
+                </div>
+
+
+                <h3>
+                    اخبار جدید GTA VI
+                </h3>
+
+
+                <p>
+                    جدیدترین اطلاعات مربوط به
+                    Grand Theft Auto VI را دنبال کن.
+                </p>
+
+
+                <span class="news-date">
+                    GTA VI
+                </span>
+
+            </article>
+
+
+
+            <article class="news-card">
+
+                <div class="news-icon">
+                    GAMING
+                </div>
+
+
+                <h3>
+                    اخبار دنیای گیم
+                </h3>
+
+
+                <p>
+                    اتفاقات مهم و جدید صنعت بازی
+                    در GALAXY.
+                </p>
+
+
+                <span class="news-date">
+                    GALAXY
+                </span>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         GTA VI
+    ========================= -->
+
+    <section class="gta-section">
+
+        <div class="gta-container">
+
+            <div class="gta-content">
+
+                <div class="gta-label">
+                    GALAXY • GTA VI
+                </div>
+
+
+                <h2>
+                    GTA VI
+                </h2>
+
+
+                <p>
+
+                    وارد بخش اختصاصی GTA VI شو؛
+                    جایی برای دنبال کردن اخبار،
+                    تریلرها و اطلاعات جدید بازی.
+
+                </p>
+
+
+                <a
+                    href="gta6.html"
+                    class="gta-btn"
+                >
+                    ورود به بخش GTA VI
+                </a>
+
+
+                <div class="gta-date">
+                    RELEASE • 19 NOVEMBER 2026
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         MEMBERSHIP
+    ========================= -->
+
+    <section
+        class="membership-section"
+        id="login"
+    >
+
+        <div class="membership">
+
+            <h2>
+                عضویت در GALAXY
+            </h2>
+
+
+            <p>
+
+                به جامعه GALAXY بپیوند و
+                از بخش‌های مختلف سایت استفاده کن.
+
+            </p>
+
+
+            <a href="membership.html">
+                عضویت
+            </a>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer class="footer">
+
+        <div class="footer-logo">
+            GALAXY
+        </div>
+
+
+        <p>
+            © 2026 GALAXY — Gaming Community
+        </p>
+
+    </footer>
+
+
+</body>
+</html>

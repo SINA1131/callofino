@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GALAXY | GTA VI</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #050509;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Background */
+
+        .background {
+            position: fixed;
+            inset: 0;
+            z-index: -5;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(130, 40, 255, .14), transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(190, 60, 255, .10), transparent 30%),
+                #050509;
+        }
+
+        .wave {
+            position: absolute;
+            width: 900px;
+            height: 900px;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: .18;
+        }
+
+        .wave.one {
+            background: #7b2cff;
+            top: -450px;
+            left: -300px;
+            animation: moveOne 12s infinite alternate ease-in-out;
+        }
+
+        .wave.two {
+            background: #b026ff;
+            right: -400px;
+            bottom: -400px;
+            animation: moveTwo 15s infinite alternate ease-in-out;
+        }
+
+        .wave.three {
+            background: #5420ff;
+            top: 40%;
+            left: 35%;
+            width: 500px;
+            height: 500px;
+            opacity: .10;
+            animation: moveThree 10s infinite alternate ease-in-out;
+        }
+
+        @keyframes moveOne {
+            from {
+                transform: translate(0, 0);
+            }
+
+            to {
+                transform: translate(150px, 100px);
+            }
+        }
+
+        @keyframes moveTwo {
+            from {
+                transform: translate(0, 0);
+            }
+
+            to {
+                transform: translate(-120px, -100px);
+            }
+        }
+
+        @keyframes moveThree {
+            from {
+                transform: translate(0, 0);
+            }
+
+            to {
+                transform: translate(100px, -80px);
+            }
+        }
+
+        /* Header */
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 75px;
+            padding: 0 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(5, 5, 9, .72);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(255,255,255,.06);
+            z-index: 1000;
+        }
+
+        .logo {
+            color: white;
+            text-decoration: none;
+            font-size: 25px;
+            font-weight: 900;
+            letter-spacing: 4px;
+        }
+
+        .logo span {
+            color: #a855ff;
+        }
+
+        nav {
+            display: flex;
+            gap: 28px;
+        }
+
+        nav a {
+            color: #ddd;
+            text-decoration: none;
+            font-size: 14px;
+            transition: .3s;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: white;
+        }
+
+        nav a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 0;
+            height: 2px;
+            background: #a855ff;
+            transition: .3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero */
+
+        .hero {
+            min-height: 90vh;
+            padding: 150px 8% 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 950px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 8px 18px;
+            border: 1px solid rgba(168,85,255,.4);
+            border-radius: 30px;
+            color: #c78cff;
+            font-size: 13px;
+            margin-bottom: 25px;
+            background: rgba(168,85,255,.07);
+        }
+
+        .hero h1 {
+            font-size: clamp(70px, 12vw, 150px);
+            font-weight: 900;
+            letter-spacing: -7px;
+            line-height: .85;
+            text-shadow: 0 0 50px rgba(168,85,255,.35);
+        }
+
+        .hero h1 span {
+            color: #a855ff;
+        }
+
+        .hero p {
+            max-width: 700px;
+            margin: 30px auto;
+            color: #aaa;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: white;
+            border: 1px solid rgba(168,85,255,.5);
+            background: rgba(168,85,255,.12);
+            transition: .3s;
+        }
+
+        .btn:hover {
+            background: #8b35e8;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 35px rgba(168,85,255,.25);
+        }
+
+        /* Release */
+
+        .release {
+            width: min(900px, 90%);
+            margin: -20px auto 80px;
+            padding: 35px;
+            text-align: center;
+            border: 1px solid rgba(168,85,255,.25);
+            border-radius: 22px;
+            background: rgba(255,255,255,.035);
+            backdrop-filter: blur(15px);
+        }
+
+        .release h2 {
+            font-size: 18px;
+            color: #aaa;
+            margin-bottom: 15px;
+        }
+
+        .release-date {
+            font-size: 35px;
+            font-weight: 800;
+            color: #c179ff;
+            letter-spacing: 2px;
+        }
+
+        /* Sections */
+
+        section {
+            padding: 80px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-title h2 {
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #888;
+        }
+
+        /* News */
+
+        .news-grid {
+            max-width: 1150px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .card {
+            padding: 28px;
+            border-radius: 18px;
+            background: rgba(255,255,255,.035);
+            border: 1px solid rgba(255,255,255,.07);
+            transition: .3s;
+        }
+
+        .card:hover {
+            transform: translateY(-7px);
+            border-color: rgba(168,85,255,.35);
+            box-shadow: 0 15px 45px rgba(0,0,0,.3);
+        }
+
+        .card .number {
+            color: #a855ff;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 21px;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: #999;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        /* Features */
+
+        .features {
+            max-width: 1150px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .feature {
+            min-height: 180px;
+            padding: 25px;
+            border-radius: 18px;
+            background: linear-gradient(
+                145deg,
+                rgba(168,85,255,.09),
+                rgba(255,255,255,.025)
+            );
+            border: 1px solid rgba(168,85,255,.16);
+        }
+
+        .feature-icon {
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+
+        .feature h3 {
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            color: #929292;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* Vice City */
+
+        .vice {
+            max-width: 1150px;
+            margin: auto;
+            padding: 55px;
+            border-radius: 25px;
+            text-align: center;
+            background:
+                radial-gradient(
+                    circle at center,
+                    rgba(168,85,255,.14),
+                    transparent 60%
+                ),
+                rgba(255,255,255,.025);
+            border: 1px solid rgba(168,85,255,.18);
+        }
+
+        .vice h2 {
+            font-size: 45px;
+            margin-bottom: 20px;
+        }
+
+        .vice p {
+            max-width: 750px;
+            margin: auto;
+            color: #999;
+            line-height: 1.8;
+        }
+
+        /* Trailer */
+
+        .trailer-box {
+            max-width: 1000px;
+            min-height: 350px;
+            margin: auto;
+            border-radius: 22px;
+            border: 1px solid rgba(168,85,255,.2);
+            background: rgba(255,255,255,.025);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .play {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #a855ff;
+            font-size: 28px;
+            box-shadow: 0 0 40px rgba(168,85,255,.4);
+        }
+
+        .trailer-box h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .trailer-box p {
+            color: #888;
+        }
+
+        /* Footer */
+
+        footer {
+            margin-top: 80px;
+            padding: 45px 8%;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,.06);
+            color: #666;
+        }
+
+        footer .footer-logo {
+            font-size: 25px;
+            font-weight: 900;
+            color: white;
+            letter-spacing: 4px;
+            margin-bottom: 12px;
+        }
+
+        footer span {
+            color: #a855ff;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 850px) {
+
+            header {
+                padding: 0 5%;
+            }
+
+            nav {
+                gap: 12px;
+            }
+
+            nav a {
+                font-size: 11px;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero h1 {
+                letter-spacing: -4px;
+            }
+        }
+
+        @media (max-width: 550px) {
+
+            header {
+                height: auto;
+                padding: 18px 5%;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero {
+                padding-top: 180px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .release-date {
+                font-size: 25px;
+            }
+
+            .vice {
+                padding: 30px 20px;
+            }
+
+            .vice h2 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background -->
+    <div class="background">
+        <div class="wave one"></div>
+        <div class="wave two"></div>
+        <div class="wave three"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+
+        <a href="index.html" class="logo">
+            GALAX<span>Y</span>
+        </a>
+
+        <nav>
+            <a href="index.html">خانه</a>
+            <a href="news.html">اخبار</a>
+            <a href="trailers.html">تریلر</a>
+            <a href="codm.html">کالاف موبایل</a>
+            <a href="gta6.html">GTA VI</a>
+            <a href="membership.html">عضویت</a>
+        </nav>
+
+    </header>
+
+
+    <!-- Hero -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="tag">ROCKSTAR GAMES • GTA VI</div>
+
+            <h1>
+                GTA <span>VI</span>
+            </h1>
+
+            <p>
+                Welcome to the next generation of Grand Theft Auto.
+                Discover Vice City, explore a massive open world,
+                and follow a new story filled with action, characters,
+                vehicles and unforgettable moments.
+            </p>
+
+            <div class="buttons">
+
+                <a href="#news" class="btn">
+                    آخرین اخبار
+                </a>
+
+                <a href="#features" class="btn">
+                    ویژگی‌ها
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Release -->
+    <div class="release">
+
+        <h2>EXPECTED RELEASE DATE</h2>
+
+        <div class="release-date">
+            19 NOVEMBER 2026
+        </div>
+
+    </div>
+
+
+    <!-- News -->
+    <section id="news">
+
+        <div class="section-title">
+
+            <h2>GTA VI News</h2>
+
+            <p>
+                Latest information and important updates
+            </p>
+
+        </div>
+
+        <div class="news-grid">
+
+            <div class="card">
+                <div class="number">01 — STORY</div>
+
+                <h3>New Characters</h3>
+
+                <p>
+                    GTA VI introduces a new story and new characters
+                    in the world of Vice City.
+                </p>
+            </div>
+
+
+            <div class="card">
+                <div class="number">02 — WORLD</div>
+
+                <h3>Vice City</h3>
+
+                <p>
+                    Explore a huge world inspired by the fictional
+                    state of Leonida and the iconic Vice City.
+                </p>
+            </div>
+
+
+            <div class="card">
+                <div class="number">03 — GAMEPLAY</div>
+
+                <h3>New Gameplay</h3>
+
+                <p>
+                    Discover new activities, vehicles, locations
+                    and gameplay systems.
+                </p>
+            </div>
+
+
+            <div class="card">
+                <div class="number">04 — VEHICLES</div>
+
+                <h3>Cars & Vehicles</h3>
+
+                <p>
+                    Fast cars, boats, aircraft and many other
+                    vehicles are part of the GTA VI experience.
+                </p>
+            </div>
+
+
+            <div class="card">
+                <div class="number">05 — MAP</div>
+
+                <h3>Leonida</h3>
+
+                <p>
+                    The game takes players across different
+                    environments throughout the state of Leonida.
+                </p>
+            </div>
+
+
+            <div class="card">
+                <div class="number">06 — NEWS</div>
+
+                <h3>More Updates</h3>
+
+                <p>
+                    GALAXY will collect important GTA VI news
+                    and updates in this section.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Features -->
+    <section id="features">
+
+        <div class="section-title">
+
+            <h2>Explore GTA VI</h2>
+
+            <p>
+                Everything you need to know
+            </p>
+
+        </div>
+
+        <div class="features">
+
+            <div class="feature">
+
+                <div class="feature-icon">🎬</div>
+
+                <h3>Story</h3>
+
+                <p>
+                    Follow a brand-new story and meet new characters.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">🌴</div>
+
+                <h3>Vice City</h3>
+
+                <p>
+                    Return to the iconic world of Vice City.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">🚗</div>
+
+                <h3>Vehicles</h3>
+
+                <p>
+                    Drive cars, boats, aircraft and more.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">🌎</div>
+
+                <h3>Open World</h3>
+
+                <p>
+                    Explore a large and detailed open world.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Vice City -->
+    <section>
+
+        <div class="vice">
+
+            <h2>WELCOME TO VICE CITY</h2>
+
+            <p>
+                A new adventure is coming to Leonida.
+                From the streets of Vice City to the surrounding
+                areas, GTA VI is built around a huge world waiting
+                to be explored.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- Trailer -->
+    <section>
+
+        <div class="section-title">
+
+            <h2>GTA VI Trailer</h2>
+
+            <p>
+                Watch the latest trailer
+            </p>
+
+        </div>
+
+        <div class="trailer-box">
+
+            <div>
+
+                <div class="play">▶</div>
+
+                <h2>GTA VI</h2>
+
+                <p>
+                    Trailer section — video can be added here.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <div class="footer-logo">
+            GALAX<span>Y</span>
+        </div>
+
+        <p>
+            Gaming • News • Trailers • GTA VI • Call of Duty Mobile
+        </p>
+
+        <p style="margin-top:15px;">
+            © 2026 GALAXY
+        </p>
+
+    </footer>
+
+</body>
+</html>

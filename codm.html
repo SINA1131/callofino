@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GALAXY | CODM</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #030305;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* ================= BACKGROUND ================= */
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -5;
+
+            background:
+                radial-gradient(
+                    circle at 15% 15%,
+                    rgba(145, 55, 255, .18),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 85% 75%,
+                    rgba(91, 25, 190, .16),
+                    transparent 30%
+                ),
+                #030305;
+        }
+
+        .glow {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+
+            border-radius: 50%;
+
+            filter: blur(130px);
+
+            opacity: .13;
+
+            z-index: -4;
+
+            pointer-events: none;
+        }
+
+        .glow.one {
+            background: #8b2cff;
+            top: -250px;
+            left: -200px;
+            animation: glowOne 12s infinite alternate ease-in-out;
+        }
+
+        .glow.two {
+            background: #b53cff;
+            right: -250px;
+            bottom: -250px;
+            animation: glowTwo 15s infinite alternate ease-in-out;
+        }
+
+        @keyframes glowOne {
+            from {
+                transform: translate(0,0);
+            }
+
+            to {
+                transform: translate(180px,130px);
+            }
+        }
+
+        @keyframes glowTwo {
+            from {
+                transform: translate(0,0);
+            }
+
+            to {
+                transform: translate(-150px,-100px);
+            }
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            position: fixed;
+
+            top: 15px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            width: 88%;
+            max-width: 1250px;
+
+            height: 65px;
+
+            padding: 0 25px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            background: rgba(10,10,15,.68);
+
+            backdrop-filter: blur(22px);
+
+            border: 1px solid rgba(255,255,255,.08);
+
+            border-radius: 18px;
+
+            z-index: 1000;
+
+            box-shadow:
+                0 15px 50px rgba(0,0,0,.35);
+        }
+
+        .logo {
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 24px;
+
+            font-weight: 900;
+
+            letter-spacing: 4px;
+        }
+
+        .logo span {
+            color: #a855ff;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        nav a {
+            position: relative;
+
+            color: #aaa;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            transition: .3s;
+        }
+
+        nav a:hover {
+            color: white;
+        }
+
+        nav a::after {
+            content: "";
+
+            position: absolute;
+
+            left: 50%;
+            bottom: -8px;
+
+            width: 0;
+            height: 2px;
+
+            transform: translateX(-50%);
+
+            background: #a855ff;
+
+            border-radius: 10px;
+
+            transition: .3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            min-height: 100vh;
+
+            padding:
+                170px 7%
+                100px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 950px;
+        }
+
+        .small-label {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            padding: 9px 17px;
+
+            border-radius: 50px;
+
+            color: #cfa8ff;
+
+            font-size: 12px;
+
+            background:
+                rgba(168,85,255,.08);
+
+            border:
+                1px solid
+                rgba(168,85,255,.25);
+
+            box-shadow:
+                0 0 35px
+                rgba(168,85,255,.08);
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+
+            background: #a855ff;
+
+            border-radius: 50%;
+
+            box-shadow:
+                0 0 15px #a855ff;
+        }
+
+        .hero h1 {
+            margin-top: 28px;
+
+            font-size:
+                clamp(55px, 10vw, 125px);
+
+            line-height: .86;
+
+            font-weight: 950;
+
+            letter-spacing: -6px;
+
+            text-shadow:
+                0 0 70px
+                rgba(168,85,255,.28);
+        }
+
+        .hero h1 span {
+            color: #a855ff;
+        }
+
+        .hero-description {
+            max-width: 650px;
+
+            margin: 30px auto;
+
+            color: #8f8f96;
+
+            line-height: 1.9;
+
+            font-size: 15px;
+        }
+
+        .hero-buttons {
+            display: flex;
+
+            justify-content: center;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+
+            margin-top: 30px;
+        }
+
+        .hero-btn {
+            padding: 14px 25px;
+
+            border-radius: 12px;
+
+            text-decoration: none;
+
+            color: white;
+
+            font-size: 13px;
+
+            border:
+                1px solid
+                rgba(168,85,255,.3);
+
+            background:
+                rgba(168,85,255,.09);
+
+            transition: .3s;
+        }
+
+        .hero-btn.primary {
+            background: #8d38dc;
+
+            border-color: #a855ff;
+
+            box-shadow:
+                0 0 30px
+                rgba(168,85,255,.2);
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-4px);
+
+            box-shadow:
+                0 12px 35px
+                rgba(168,85,255,.2);
+        }
+
+        /* ================= SCROLL ================= */
+
+        .scroll {
+            position: absolute;
+
+            bottom: 35px;
+
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            color: #666;
+
+            font-size: 10px;
+
+            letter-spacing: 3px;
+        }
+
+        .scroll::after {
+            content: "";
+
+            display: block;
+
+            width: 1px;
+            height: 35px;
+
+            margin: 10px auto 0;
+
+            background:
+                linear-gradient(
+                    #a855ff,
+                    transparent
+                );
+        }
+
+        /* ================= SECTION ================= */
+
+        .section {
+            padding: 100px 7%;
+        }
+
+        .section-head {
+            max-width: 1100px;
+
+            margin: 0 auto 45px;
+        }
+
+        .section-head .mini {
+            color: #a855ff;
+
+            font-size: 11px;
+
+            letter-spacing: 3px;
+
+            margin-bottom: 12px;
+        }
+
+        .section-head h2 {
+            font-size: 42px;
+
+            letter-spacing: -1px;
+        }
+
+        .section-head p {
+            margin-top: 10px;
+
+            color: #777;
+
+            font-size: 14px;
+        }
+
+        /* ================= GAME CARDS ================= */
+
+        .game-grid {
+            max-width: 1100px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4,1fr);
+
+            gap: 15px;
+        }
+
+        .game-card {
+            min-height: 190px;
+
+            padding: 25px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.055),
+                    rgba(255,255,255,.018)
+                );
+
+            border:
+                1px solid
+                rgba(255,255,255,.07);
+
+            position: relative;
+
+            overflow: hidden;
+
+            transition: .35s;
+        }
+
+        .game-card::before {
+            content: "";
+
+            position: absolute;
+
+            width: 170px;
+            height: 170px;
+
+            border-radius: 50%;
+
+            background: #a855ff;
+
+            filter: blur(80px);
+
+            opacity: .07;
+
+            right: -90px;
+            top: -90px;
+        }
+
+        .game-card:hover {
+            transform: translateY(-8px);
+
+            border-color:
+                rgba(168,85,255,.35);
+
+            box-shadow:
+                0 20px 60px
+                rgba(0,0,0,.3);
+        }
+
+        .game-icon {
+            font-size: 30px;
+
+            margin-bottom: 25px;
+        }
+
+        .game-card h3 {
+            font-size: 18px;
+
+            margin-bottom: 10px;
+        }
+
+        .game-card p {
+            color: #777;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+        }
+
+        /* ================= COMING SOON ================= */
+
+        .coming {
+            padding: 110px 7%;
+        }
+
+        .coming-title {
+            text-align: center;
+
+            margin-bottom: 50px;
+        }
+
+        .coming-title .mini {
+            color: #a855ff;
+
+            font-size: 11px;
+
+            letter-spacing: 4px;
+        }
+
+        .coming-title h2 {
+            margin-top: 12px;
+
+            font-size: 46px;
+        }
+
+        .coming-title p {
+            color: #777;
+
+            margin-top: 12px;
+
+            font-size: 14px;
+        }
+
+        .coming-grid {
+            max-width: 1050px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2,1fr);
+
+            gap: 22px;
+        }
+
+        .coming-card {
+            min-height: 330px;
+
+            border-radius: 25px;
+
+            position: relative;
+
+            overflow: hidden;
+
+            padding: 45px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(168,85,255,.11),
+                    rgba(255,255,255,.025)
+                );
+
+            border:
+                1px solid
+                rgba(168,85,255,.18);
+
+            transition: .4s;
+        }
+
+        .coming-card:hover {
+            transform: translateY(-8px);
+
+            border-color:
+                rgba(168,85,255,.42);
+
+            box-shadow:
+                0 25px 70px
+                rgba(99,35,160,.18);
+        }
+
+        .coming-card::before {
+            content: "";
+
+            position: absolute;
+
+            width: 300px;
+            height: 300px;
+
+            border-radius: 50%;
+
+            background: #a855ff;
+
+            filter: blur(110px);
+
+            opacity: .08;
+
+            right: -160px;
+            bottom: -160px;
+        }
+
+        .coming-number {
+            position: absolute;
+
+            top: 25px;
+            right: 28px;
+
+            color: #555;
+
+            font-size: 11px;
+
+            letter-spacing: 2px;
+        }
+
+        .coming-icon {
+            width: 65px;
+            height: 65px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 18px;
+
+            font-size: 30px;
+
+            background:
+                rgba(168,85,255,.1);
+
+            border:
+                1px solid
+                rgba(168,85,255,.2);
+
+            box-shadow:
+                0 0 35px
+                rgba(168,85,255,.08);
+
+            margin-bottom: 25px;
+        }
+
+        .coming-card h3 {
+            font-size: 28px;
+
+            margin-bottom: 13px;
+        }
+
+        .coming-card p {
+            max-width: 430px;
+
+            color: #81818a;
+
+            line-height: 1.8;
+
+            font-size: 14px;
+        }
+
+        .coming-badge {
+            display: inline-flex;
+
+            width: fit-content;
+
+            margin-top: 25px;
+
+            padding: 8px 16px;
+
+            border-radius: 50px;
+
+            color: #d4b2ff;
+
+            background:
+                rgba(168,85,255,.08);
+
+            border:
+                1px solid
+                rgba(168,85,255,.25);
+
+            font-size: 11px;
+
+            letter-spacing: 2px;
+        }
+
+        /* ================= INFO BAR ================= */
+
+        .info-bar {
+            max-width: 1050px;
+
+            margin: 0 auto;
+
+            padding: 22px 25px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            border-radius: 16px;
+
+            background:
+                rgba(255,255,255,.025);
+
+            border:
+                1px solid
+                rgba(255,255,255,.06);
+
+            color: #777;
+
+            font-size: 13px;
+        }
+
+        .info-bar span {
+            color: #a855ff;
+
+            margin-right: 7px;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            margin-top: 70px;
+
+            padding: 50px 7%;
+
+            text-align: center;
+
+            border-top:
+                1px solid
+                rgba(255,255,255,.06);
+        }
+
+        .footer-logo {
+            font-size: 25px;
+
+            font-weight: 900;
+
+            letter-spacing: 4px;
+
+            margin-bottom: 12px;
+        }
+
+        .footer-logo span {
+            color: #a855ff;
+        }
+
+        footer p {
+            color: #555;
+
+            font-size: 12px;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media(max-width:900px) {
+
+            header {
+                width: 94%;
+            }
+
+            nav {
+                gap: 13px;
+            }
+
+            nav a {
+                font-size: 10px;
+            }
+
+            .game-grid {
+                grid-template-columns:
+                    repeat(2,1fr);
+            }
+
+        }
+
+        @media(max-width:600px) {
+
+            header {
+                height: auto;
+
+                padding: 17px;
+
+                flex-direction: column;
+
+                gap: 15px;
+            }
+
+            nav {
+                flex-wrap: wrap;
+
+                justify-content: center;
+            }
+
+            .hero {
+                padding-top: 200px;
+            }
+
+            .hero h1 {
+                letter-spacing: -4px;
+            }
+
+            .section-head h2 {
+                font-size: 32px;
+            }
+
+            .game-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .coming-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .coming-card {
+                min-height: 300px;
+
+                padding: 30px;
+            }
+
+            .coming-title h2 {
+                font-size: 34px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+    <!-- BACKGROUND -->
+
+    <div class="glow one"></div>
+    <div class="glow two"></div>
+
+
+    <!-- HEADER -->
+
+    <header>
+
+        <a href="index.html" class="logo">
+            GALAX<span>Y</span>
+        </a>
+
+        <nav>
+
+            <a href="index.html">
+                خانه
+            </a>
+
+            <a href="news.html">
+                اخبار
+            </a>
+
+            <a href="trailers.html">
+                تریلر
+            </a>
+
+            <a href="codm.html">
+                کالاف موبایل
+            </a>
+
+            <a href="gta6.html">
+                GTA VI
+            </a>
+
+            <a href="membership.html">
+                عضویت
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="small-label">
+
+                <div class="dot"></div>
+
+                GALAXY • COD MOBILE
+
+            </div>
+
+
+            <h1>
+
+                CALL OF
+                <span>DUTY</span>
+
+            </h1>
+
+
+            <p class="hero-description">
+
+                به مرکز اختصاصی Call of Duty Mobile در GALAXY خوش آمدید.
+                اخبار، رقابت‌ها، کلن و امکانات اختصاصی CODM
+                در این بخش قرار خواهند گرفت.
+
+            </p>
+
+
+            <div class="hero-buttons">
+
+                <a href="#coming" class="hero-btn primary">
+                    امکانات اختصاصی
+                </a>
+
+                <a href="index.html" class="hero-btn">
+                    بازگشت به GALAXY
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="scroll">
+            SCROLL
+        </div>
+
+    </section>
+
+
+    <!-- GAME MODES -->
+
+    <section class="section">
+
+        <div class="section-head">
+
+            <div class="mini">
+                CODM
+            </div>
+
+            <h2>
+                تجربه بازی
+            </h2>
+
+            <p>
+                بخش‌های اصلی Call of Duty Mobile
+            </p>
+
+        </div>
+
+
+        <div class="game-grid">
+
+
+            <div class="game-card">
+
+                <div class="game-icon">
+                    🎯
+                </div>
+
+                <h3>
+                    Multiplayer
+                </h3>
+
+                <p>
+                    نبردهای سریع و رقابتی
+                    در حالت چندنفره.
+                </p>
+
+            </div>
+
+
+            <div class="game-card">
+
+                <div class="game-icon">
+                    🌎
+                </div>
+
+                <h3>
+                    Battle Royale
+                </h3>
+
+                <p>
+                    برای بقا بجنگ و آخرین بازیکن
+                    باقی‌مانده باش.
+                </p>
+
+            </div>
+
+
+            <div class="game-card">
+
+                <div class="game-icon">
+                    👥
+                </div>
+
+                <h3>
+                    Clan
+                </h3>
+
+                <p>
+                    با بازیکنان دیگر تیم تشکیل بده
+                    و در کنار هم بازی کنید.
+                </p>
+
+            </div>
+
+
+            <div class="game-card">
+
+                <div class="game-icon">
+                    🏆
+                </div>
+
+                <h3>
+                    Tournament
+                </h3>
+
+                <p>
+                    در رقابت‌های آینده GALAXY
+                    شرکت کنید.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- COMING SOON -->
+
+    <section class="coming" id="coming">
+
+
+        <div class="coming-title">
+
+            <div class="mini">
+                GALAXY EXCLUSIVE
+            </div>
+
+            <h2>
+                به‌زودی
+            </h2>
+
+            <p>
+                امکانات اختصاصی GALAXY برای CODM
+            </p>
+
+        </div>
+
+
+        <div class="coming-grid">
+
+
+            <!-- CLAN -->
+
+            <div class="coming-card">
+
+                <div class="coming-number">
+                    01 / 02
+                </div>
+
+
+                <div class="coming-icon">
+                    👥
+                </div>
+
+
+                <h3>
+                    عضویت کلن
+                </h3>
+
+
+                <p>
+                    به‌زودی امکان درخواست عضویت
+                    در کلن GALAXY فعال می‌شود.
+                    بازیکنان می‌توانند برای پیوستن
+                    به تیم درخواست ارسال کنند.
+                </p>
+
+
+                <div class="coming-badge">
+                    COMING SOON
+                </div>
+
+            </div>
+
+
+            <!-- TOURNAMENT -->
+
+            <div class="coming-card">
+
+                <div class="coming-number">
+                    02 / 02
+                </div>
+
+
+                <div class="coming-icon">
+                    🏆
+                </div>
+
+
+                <h3>
+                    رجیستری تورنمنت
+                </h3>
+
+
+                <p>
+                    ثبت‌نام تیم‌ها برای تورنمنت‌های
+                    اختصاصی GALAXY به‌زودی فعال خواهد شد.
+                    آماده رقابت باشید.
+                </p>
+
+
+                <div class="coming-badge">
+                    COMING SOON
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <br><br>
+
+
+        <div class="info-bar">
+
+            <span>✦</span>
+
+            این امکانات در حال آماده‌سازی هستند
+            و پس از فعال شدن از همین صفحه قابل استفاده خواهند بود.
+
+        </div>
+
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div class="footer-logo">
+
+            GALAX<span>Y</span>
+
+        </div>
+
+        <p>
+            Gaming • Call of Duty Mobile • GTA VI • News
+        </p>
+
+        <p style="margin-top:15px;">
+            © 2026 GALAXY
+        </p>
+
+    </footer>
+
+
+</body>
+</html>
