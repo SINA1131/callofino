@@ -80,10 +80,6 @@ button{
     cursor:pointer;
 }
 
-button:hover{
-    background:#ffca28;
-}
-
 button:disabled{
     opacity:.6;
     cursor:not-allowed;
@@ -92,7 +88,6 @@ button:disabled{
 .message{
     margin-top:18px;
     text-align:center;
-    color:#ff5252;
     min-height:20px;
 }
 
@@ -122,6 +117,7 @@ button:disabled{
     <form id="registerForm">
 
         <label for="username">نام کاربری</label>
+
         <input
             type="text"
             id="username"
@@ -131,6 +127,7 @@ button:disabled{
         >
 
         <label for="email">ایمیل</label>
+
         <input
             type="email"
             id="email"
@@ -139,6 +136,7 @@ button:disabled{
         >
 
         <label for="password">رمز عبور</label>
+
         <input
             type="password"
             id="password"
@@ -197,6 +195,7 @@ form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     message.textContent = "";
+    message.style.color = "#ff5252";
 
     const username =
     document.getElementById("username")
@@ -233,20 +232,14 @@ form.addEventListener("submit", async (event) => {
 
     try{
 
+        /* ساخت حساب */
+
         const { data, error } =
         await supabase.auth.signUp({
 
             email: email,
 
-            password: password,
-
-            options: {
-
-                data: {
-                    username: username
-                }
-
-            }
+            password: password
 
         });
 
@@ -258,8 +251,35 @@ form.addEventListener("submit", async (event) => {
 
         if(!data || !data.user){
             throw new Error(
-                "ثبت نام انجام نشد."
+                "حساب کاربری ساخته نشد."
             );
+        }
+
+
+        const userId =
+        data.user.id;
+
+
+        /* ساخت پروفایل */
+
+        const { error: profileError } =
+        await supabase
+        .from("profiles")
+        .insert({
+
+            id: userId,
+
+            username: username
+
+        });
+
+
+        if(profileError){
+
+            /* اگر پروفایل ساخته نشد،
+               حساب ساخته‌شده باقی می‌ماند */
+
+            throw profileError;
         }
 
 
