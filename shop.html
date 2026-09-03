@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Callafino | Shop</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,Tahoma,sans-serif;
+    background:
+        radial-gradient(circle at 50% -10%,rgba(255,193,7,.12),transparent 35%),
+        #050505;
+    color:#fff;
+    overflow-x:hidden;
+    min-height:100vh;
+}
+
+/* GOLD LIGHT */
+
+body::before{
+    content:"";
+    position:fixed;
+    width:650px;
+    height:650px;
+    border-radius:50%;
+    background:#ffc107;
+    filter:blur(180px);
+    opacity:.06;
+    top:-350px;
+    right:-250px;
+    z-index:-2;
+    pointer-events:none;
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    background:#ffb300;
+    filter:blur(170px);
+    opacity:.035;
+    bottom:-250px;
+    left:-200px;
+    z-index:-2;
+    pointer-events:none;
+}
+
+/* HEADER */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:18px 7%;
+
+    background:rgba(5,5,5,.88);
+    backdrop-filter:blur(20px);
+
+    border-bottom:1px solid rgba(255,193,7,.18);
+
+    box-shadow:
+        0 10px 35px rgba(0,0,0,.7),
+        0 0 30px rgba(255,193,7,.03);
+}
+
+.logo{
+    text-decoration:none;
+    color:#fff;
+
+    font-size:25px;
+    font-weight:1000;
+    letter-spacing:2px;
+
+    text-shadow:0 0 15px rgba(255,193,7,.25);
+}
+
+.logo span{
+    color:#ffc107;
+}
+
+nav{
+    display:flex;
+    align-items:center;
+    gap:25px;
+}
+
+nav a{
+    color:#fff;
+    text-decoration:none;
+    font-size:14px;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:#ffc107;
+    text-shadow:0 0 12px rgba(255,193,7,.8);
+}
+
+/* HERO */
+
+.hero{
+    text-align:center;
+
+    padding:95px 20px 70px;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255,193,7,.10),
+            transparent 58%
+        );
+}
+
+.badge{
+    display:inline-block;
+
+    padding:9px 20px;
+
+    border-radius:30px;
+
+    margin-bottom:22px;
+
+    color:#ffc107;
+
+    border:1px solid rgba(255,193,7,.3);
+
+    background:rgba(255,193,7,.045);
+
+    font-size:12px;
+
+    letter-spacing:2px;
+
+    box-shadow:0 0 25px rgba(255,193,7,.06);
+}
+
+.hero h1{
+    font-size:clamp(55px,10vw,100px);
+
+    line-height:.95;
+
+    letter-spacing:-5px;
+
+    margin-bottom:22px;
+
+    text-shadow:0 0 40px rgba(255,193,7,.08);
+}
+
+.hero h1 span{
+    color:#ffc107;
+
+    text-shadow:
+        0 0 20px rgba(255,193,7,.45),
+        0 0 50px rgba(255,193,7,.15);
+}
+
+.hero p{
+    max-width:650px;
+
+    margin:auto;
+
+    color:#fff;
+
+    opacity:.55;
+
+    line-height:2;
+
+    font-size:14px;
+}
+
+/* SHOP BAR */
+
+.shop-bar{
+    max-width:1150px;
+
+    margin:0 auto 35px;
+
+    padding:18px 22px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,193,7,.06),
+            rgba(255,255,255,.015)
+        );
+
+    border:1px solid rgba(255,193,7,.18);
+
+    border-radius:16px;
+
+    box-shadow:0 10px 35px rgba(0,0,0,.3);
+}
+
+.shop-bar span{
+    color:#fff;
+
+    opacity:.6;
+
+    font-size:13px;
+}
+
+.shop-bar strong{
+    color:#ffc107;
+}
+
+/* CONTAINER */
+
+.shop-container{
+    max-width:1150px;
+
+    margin:auto;
+
+    padding:0 20px 100px;
+}
+
+/* PRODUCTS */
+
+.products{
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:25px;
+}
+
+.product{
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:24px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,193,7,.055),
+            rgba(255,255,255,.012)
+        );
+
+    border:1px solid rgba(255,193,7,.14);
+
+    transition:.4s;
+
+    box-shadow:0 15px 45px rgba(0,0,0,.4);
+}
+
+.product:hover{
+    transform:translateY(-10px);
+
+    border-color:rgba(255,193,7,.5);
+
+    box-shadow:
+        0 25px 65px rgba(0,0,0,.65),
+        0 0 40px rgba(255,193,7,.08);
+}
+
+/* PRODUCT IMAGE */
+
+.product-image{
+    height:200px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,193,7,.12),
+            transparent 65%
+        );
+
+    border-bottom:1px solid rgba(255,193,7,.1);
+}
+
+.product-image::before{
+    content:"";
+
+    position:absolute;
+
+    width:170px;
+    height:170px;
+
+    border-radius:50%;
+
+    background:#ffc107;
+
+    filter:blur(90px);
+
+    opacity:.08;
+}
+
+.product-symbol{
+    font-size:75px;
+
+    position:relative;
+
+    z-index:2;
+
+    filter:drop-shadow(
+        0 0 20px rgba(255,193,7,.3)
+    );
+
+    transition:.4s;
+}
+
+.product:hover .product-symbol{
+    transform:scale(1.12);
+
+    filter:drop-shadow(
+        0 0 30px rgba(255,193,7,.55)
+    );
+}
+
+/* CONTENT */
+
+.product-content{
+    padding:26px;
+}
+
+.product-tag{
+    display:inline-block;
+
+    padding:6px 11px;
+
+    border-radius:20px;
+
+    color:#ffc107;
+
+    background:rgba(255,193,7,.05);
+
+    border:1px solid rgba(255,193,7,.18);
+
+    font-size:9px;
+
+    margin-bottom:14px;
+
+    letter-spacing:1px;
+}
+
+.product h2{
+    color:#fff;
+
+    font-size:20px;
+
+    margin-bottom:10px;
+}
+
+.product-description{
+    color:#fff;
+
+    opacity:.5;
+
+    font-size:13px;
+
+    line-height:1.9;
+
+    min-height:50px;
+
+    margin-bottom:22px;
+}
+
+/* PRODUCT BOTTOM */
+
+.product-bottom{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+}
+
+.price{
+    display:flex;
+
+    flex-direction:column;
+
+    gap:4px;
+}
+
+.price small{
+    color:#fff;
+
+    opacity:.35;
+
+    font-size:9px;
+}
+
+.price strong{
+    color:#ffc107;
+
+    font-size:18px;
+
+    text-shadow:0 0 12px rgba(255,193,7,.3);
+}
+
+/* BUTTON */
+
+.buy-btn{
+    border:none;
+
+    padding:11px 20px;
+
+    border-radius:11px;
+
+    color:#000;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffd54f,
+            #ffc107
+        );
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.buy-btn:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 0 25px rgba(255,193,7,.35);
+}
+
+/* COMING SOON */
+
+.coming{
+    position:absolute;
+
+    top:15px;
+
+    left:15px;
+
+    z-index:5;
+
+    padding:7px 13px;
+
+    border-radius:20px;
+
+    color:#ffc107;
+
+    background:rgba(0,0,0,.8);
+
+    border:1px solid rgba(255,193,7,.35);
+
+    font-size:9px;
+
+    font-weight:bold;
+
+    letter-spacing:1px;
+
+    box-shadow:
+        0 0 18px rgba(255,193,7,.08);
+}
+
+.product.soon{
+    opacity:.82;
+}
+
+.product.soon:hover{
+    opacity:1;
+}
+
+.product.soon .buy-btn{
+    color:#ffc107;
+
+    background:rgba(255,193,7,.05);
+
+    border:1px solid rgba(255,193,7,.25);
+
+    cursor:not-allowed;
+
+    box-shadow:none;
+}
+
+/* MESSAGE */
+
+.shop-message{
+    max-width:900px;
+
+    margin:60px auto 0;
+
+    padding:50px 25px;
+
+    text-align:center;
+
+    border-radius:25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,193,7,.045),
+            rgba(255,255,255,.01)
+        );
+
+    border:1px solid rgba(255,193,7,.15);
+
+    box-shadow:
+        0 0 60px rgba(255,193,7,.025);
+}
+
+.shop-message-icon{
+    font-size:45px;
+
+    margin-bottom:15px;
+}
+
+.shop-message h2{
+    color:#fff;
+
+    font-size:25px;
+
+    margin-bottom:12px;
+}
+
+.shop-message h2 span{
+    color:#ffc107;
+}
+
+.shop-message p{
+    color:#fff;
+
+    opacity:.5;
+
+    font-size:13px;
+
+    line-height:2;
+}
+
+/* FOOTER */
+
+footer{
+    text-align:center;
+
+    padding:35px 20px;
+
+    border-top:1px solid rgba(255,193,7,.12);
+
+    color:#fff;
+
+    opacity:.5;
+
+    font-size:12px;
+}
+
+footer span{
+    color:#ffc107;
+
+    opacity:1;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+    .products{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:700px){
+
+    header{
+        padding:15px 5%;
+    }
+
+    .logo{
+        font-size:20px;
+    }
+
+    nav{
+        gap:9px;
+
+        flex-wrap:wrap;
+
+        justify-content:flex-end;
+    }
+
+    nav a{
+        font-size:10px;
+    }
+
+    .hero{
+        padding:60px 15px 45px;
+    }
+
+    .hero h1{
+        letter-spacing:-3px;
+    }
+
+    .shop-container{
+        padding:0 10px 70px;
+    }
+
+    .shop-bar{
+        margin:0 10px 25px;
+
+        flex-direction:column;
+
+        gap:8px;
+
+        text-align:center;
+    }
+
+    .products{
+        grid-template-columns:1fr;
+    }
+
+    .product-image{
+        height:210px;
+    }
+
+    .shop-message{
+        margin:45px 10px 0;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<a href="index.html" class="logo">
+    CALLAFINO<span>.</span>
+</a>
+
+<nav>
+    <a href="index.html">خانه</a>
+    <a href="shop.html">SHOP</a>
+    <a href="codm.html">کالاف موبایل</a>
+    <a href="membership.html">عضویت</a>
+</nav>
+
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="badge">
+        CALLAFINO STORE
+    </div>
+
+    <h1>
+        CALLAfino<span>SHOP</span>
+    </h1>
+
+    <p>
+        فروشگاه کالافینو؛ خدمات و امکانات گیمینگ
+        برای بازیکنان حرفه‌ای.
+    </p>
+
+</section>
+
+
+<!-- SHOP BAR -->
+
+<div class="shop-bar">
+
+    <span>
+        فروشگاه رسمی <strong>CALLAFINO</strong>
+    </span>
+
+    <span>
+        خدمات جدید به‌زودی اضافه می‌شوند
+    </span>
+
+</div>
+
+
+<main class="shop-container">
+
+
+<!-- PRODUCTS -->
+
+<div class="products">
+
+
+    <!-- GAMING SERVER -->
+
+    <div class="product soon">
+
+        <div class="coming">
+            COMING SOON
+        </div>
+
+        <div class="product-image">
+            <div class="product-symbol">
+                🎮
+            </div>
+        </div>
+
+        <div class="product-content">
+
+            <div class="product-tag">
+                GAMING SERVER
+            </div>
+
+            <h2>
+                سرور گیمینگ
+            </h2>
+
+            <p class="product-description">
+                سرورهای گیمینگ اختصاصی و باکیفیت
+                برای تجربه‌ای سریع، پایدار و حرفه‌ای.
+            </p>
+
+            <div class="product-bottom">
+
+                <div class="price">
+                    <small>وضعیت</small>
+                    <strong>به‌زودی</strong>
+                </div>
+
+                <button class="buy-btn" disabled>
+                    به‌زودی
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CP SERVICE -->
+
+    <div class="product soon">
+
+        <div class="coming">
+            COMING SOON
+        </div>
+
+        <div class="product-image">
+            <div class="product-symbol">
+                ⚡
+            </div>
+        </div>
+
+        <div class="product-content">
+
+            <div class="product-tag">
+                CP SERVICE
+            </div>
+
+            <h2>
+                خدمات CP
+            </h2>
+
+            <p class="product-description">
+                خدمات ویژه CP برای بازیکنان
+                Call of Duty Mobile.
+            </p>
+
+            <div class="product-bottom">
+
+                <div class="price">
+                    <small>وضعیت</small>
+                    <strong>به‌زودی</strong>
+                </div>
+
+                <button class="buy-btn" disabled>
+                    به‌زودی
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- TOURNAMENT -->
+
+    <div class="product soon">
+
+        <div class="coming">
+            COMING SOON
+        </div>
+
+        <div class="product-image">
+            <div class="product-symbol">
+                🏆
+            </div>
+        </div>
+
+        <div class="product-content">
+
+            <div class="product-tag">
+                TOURNAMENT
+            </div>
+
+            <h2>
+                خدمات تورنومنت
+            </h2>
+
+            <p class="product-description">
+                امکانات و خدمات ویژه برای مسابقات
+                و رقابت‌های گیمینگ کالافینو.
+            </p>
+
+            <div class="product-bottom">
+
+                <div class="price">
+                    <small>وضعیت</small>
+                    <strong>به‌زودی</strong>
+                </div>
+
+                <button class="buy-btn" disabled>
+                    به‌زودی
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<!-- MESSAGE -->
+
+<div class="shop-message">
+
+    <div class="shop-message-icon">
+        🛒
+    </div>
+
+    <h2>
+        فروشگاه <span>CALLAFINO</span>
+        در حال توسعه است
+    </h2>
+
+    <p>
+        خدمات و امکانات جدید به‌زودی در فروشگاه
+        کالافینو فعال خواهند شد.
+        منتظر آپدیت‌های بعدی باشید.
+    </p>
+
+</div>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+© 2026 <span>CALLAFINO</span>
+— Gaming Community
+
+</footer>
+
+
+</body>
+</html>

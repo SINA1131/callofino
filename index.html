@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CALLAFINO | Gaming</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Tahoma,sans-serif;
+}
+
+html{scroll-behavior:smooth}
+
+body{
+    background:#020403;
+    color:#fff;
+    overflow-x:hidden;
+}
+
+/* BACKGROUND */
+
+body:before,
+body:after{
+    content:"";
+    position:fixed;
+    width:450px;
+    height:450px;
+    border-radius:50%;
+    background:#00ff66;
+    filter:blur(130px);
+    opacity:.06;
+    z-index:-1;
+    pointer-events:none;
+}
+
+body:before{
+    top:-180px;
+    left:-150px;
+    animation:glow1 8s infinite alternate;
+}
+
+body:after{
+    bottom:-180px;
+    right:-150px;
+    animation:glow2 10s infinite alternate;
+}
+
+@keyframes glow1{
+    to{transform:translate(180px,150px)}
+}
+
+@keyframes glow2{
+    to{transform:translate(-150px,-120px)}
+}
+
+/* HEADER */
+
+header{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index:1000;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:20px 7%;
+
+    background:rgba(2,4,3,.75);
+    backdrop-filter:blur(15px);
+
+    border-bottom:1px solid rgba(0,255,102,.12);
+}
+
+.logo{
+    font-size:28px;
+    font-weight:900;
+    letter-spacing:3px;
+}
+
+.logo span{
+    color:#00ff66;
+}
+
+nav{
+    display:flex;
+    gap:30px;
+}
+
+nav a{
+    color:#aaa;
+    text-decoration:none;
+    font-size:14px;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:#00ff66;
+}
+
+/* HERO */
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:130px 20px 70px;
+    position:relative;
+}
+
+.hero-content{
+    max-width:900px;
+    animation:heroIn 1.2s ease;
+}
+
+@keyframes heroIn{
+    from{
+        opacity:0;
+        transform:translateY(35px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.badge{
+    display:inline-block;
+    padding:8px 18px;
+    border:1px solid rgba(0,255,102,.35);
+    border-radius:30px;
+    color:#00ff66;
+    font-size:12px;
+    letter-spacing:2px;
+    margin-bottom:25px;
+    animation:pulse 2s infinite alternate;
+}
+
+@keyframes pulse{
+    to{
+        box-shadow:0 0 25px rgba(0,255,102,.2);
+    }
+}
+
+.hero h1{
+    font-size:clamp(55px,11vw,125px);
+    font-weight:900;
+    letter-spacing:7px;
+    line-height:1;
+    margin-bottom:25px;
+    animation:float 4s infinite ease-in-out;
+}
+
+.hero h1 span{
+    color:#00ff66;
+    text-shadow:0 0 35px rgba(0,255,102,.35);
+}
+
+@keyframes float{
+    50%{transform:translateY(-8px)}
+}
+
+.hero p{
+    color:#888;
+    font-size:17px;
+    line-height:2;
+    margin-bottom:40px;
+}
+
+/* BUTTONS */
+
+.buttons{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    display:inline-block;
+    padding:15px 38px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:bold;
+    transition:.35s;
+}
+
+.primary{
+    background:#00ff66;
+    color:#000;
+    box-shadow:0 0 25px rgba(0,255,102,.15);
+}
+
+.primary:hover{
+    transform:translateY(-5px) scale(1.03);
+    box-shadow:0 0 35px rgba(0,255,102,.35);
+}
+
+.secondary{
+    color:#00ff66;
+    border:1px solid rgba(0,255,102,.35);
+    background:rgba(0,255,102,.03);
+}
+
+.secondary:hover{
+    transform:translateY(-5px);
+    background:rgba(0,255,102,.08);
+}
+
+/* SECTIONS */
+
+section{
+    padding:100px 7%;
+}
+
+.title{
+    text-align:center;
+    margin-bottom:55px;
+}
+
+.title h2{
+    font-size:38px;
+    margin-bottom:12px;
+}
+
+.title span{
+    color:#00ff66;
+}
+
+.title p{
+    color:#666;
+}
+
+/* CARDS */
+
+.cards{
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.card{
+    padding:35px 25px;
+    text-align:center;
+
+    background:linear-gradient(145deg,#101512,#060807);
+
+    border:1px solid #18201b;
+    border-radius:18px;
+
+    transition:.4s;
+
+    animation:cardIn .8s ease both;
+}
+
+.card:nth-child(2){animation-delay:.15s}
+.card:nth-child(3){animation-delay:.3s}
+.card:nth-child(4){animation-delay:.45s}
+.card:nth-child(5){animation-delay:.6s}
+
+@keyframes cardIn{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    border-color:rgba(0,255,102,.45);
+    box-shadow:0 15px 40px rgba(0,0,0,.5);
+}
+
+.icon{
+    font-size:45px;
+    margin-bottom:20px;
+    transition:.4s;
+}
+
+.card:hover .icon{
+    transform:scale(1.15) rotate(-5deg);
+}
+
+.card h3{
+    margin-bottom:12px;
+}
+
+.card p{
+    color:#777;
+    line-height:1.9;
+    font-size:14px;
+}
+
+/* ABOUT */
+
+.about{
+    background:rgba(0,255,102,.015);
+    text-align:center;
+}
+
+.about-box{
+    max-width:850px;
+    margin:auto;
+    padding:45px;
+
+    background:#080a09;
+    border:1px solid #141b16;
+    border-radius:20px;
+}
+
+.about-box p{
+    color:#888;
+    line-height:2.3;
+}
+
+/* STATS */
+
+.stats{
+    max-width:900px;
+    margin:auto;
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:20px;
+}
+
+.stat{
+    padding:30px;
+    text-align:center;
+    background:#080a09;
+    border:1px solid #151b17;
+    border-radius:16px;
+    transition:.3s;
+}
+
+.stat:hover{
+    transform:translateY(-7px);
+    border-color:rgba(0,255,102,.3);
+}
+
+.stat h3{
+    color:#00ff66;
+    font-size:42px;
+    margin-bottom:8px;
+}
+
+.stat p{
+    color:#666;
+}
+
+/* CTA */
+
+.cta{
+    min-height:430px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+
+    background:radial-gradient(
+        circle,
+        rgba(0,255,102,.08),
+        transparent 55%
+    );
+}
+
+.cta h2{
+    font-size:42px;
+    margin-bottom:15px;
+}
+
+.cta p{
+    color:#777;
+    margin-bottom:30px;
+}
+
+/* FOOTER */
+
+footer{
+    padding:30px;
+    text-align:center;
+    color:#444;
+    border-top:1px solid #111;
+    font-size:13px;
+}
+
+footer span{
+    color:#00ff66;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    header{
+        padding:17px 5%;
+        flex-direction:column;
+        gap:16px;
+    }
+
+    nav{
+        gap:20px;
+    }
+
+    nav a{
+        font-size:12px;
+    }
+
+    .hero{
+        padding-top:160px;
+    }
+
+    .hero h1{
+        letter-spacing:4px;
+    }
+
+    .hero p{
+        font-size:14px;
+    }
+
+    section{
+        padding:70px 5%;
+    }
+
+    .title h2{
+        font-size:30px;
+    }
+
+    .cta h2{
+        font-size:30px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        CALLAFINO<span>.</span>
+    </div>
+
+    <nav>
+        <a href="index.html">خانه</a>
+        <a href="codm.html">کالاف موبایل</a>
+
+        <!-- مهم: لینک مستقیم به Register -->
+        <a href="register.html">MEMBERSHIP</a>
+    </nav>
+
+</header>
+
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="badge">
+            GAMING • COMPETITION • COMMUNITY
+        </div>
+
+        <h1>
+            CALLA<span>FINO</span>
+        </h1>
+
+        <p>
+            دنیای رقابت، گیم و کالاف دیوتی موبایل
+            <br>
+            جایی برای گیمرهایی که همیشه یک قدم جلوترند.
+        </p>
+
+        <div class="buttons">
+
+            <a href="register.html" class="btn primary">
+                JOIN CALLAFINO
+            </a>
+
+            <a href="codm.html" class="btn secondary">
+                EXPLORE CODM
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section>
+
+    <div class="title">
+
+        <h2>
+            چرا <span>CALLAFINO؟</span>
+        </h2>
+
+        <p>
+            ساخته شده برای گیمرها
+        </p>
+
+    </div>
+
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="icon">🏆</div>
+            <h3>رقابت حرفه‌ای</h3>
+            <p>
+                وارد رقابت شو و مهارت خودت را به نمایش بگذار.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="icon">🛡️</div>
+            <h3>محیط قابل اعتماد</h3>
+            <p>
+                یک محیط امن و حرفه‌ای برای گیمرها.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="icon">🎮</div>
+            <h3>دنیای گیم</h3>
+            <p>
+                همه‌چیز برای علاقه‌مندان به بازی و رقابت.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="icon">⚡</div>
+            <h3>سریع و مدرن</h3>
+            <p>
+                تجربه‌ای سریع، ساده و مدرن.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="icon">🚀</div>
+            <h3>همیشه جلوتر</h3>
+            <p>
+                امکانات جدید و تجربه‌های تازه در راه هستند.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="about">
+
+    <div class="title">
+        <h2>
+            درباره <span>CALLAFINO</span>
+        </h2>
+    </div>
+
+    <div class="about-box">
+
+        <p>
+            CALLAFINO یک پلتفرم گیمینگ برای گیمرهاست؛
+            جایی برای رقابت، ساخت تیم، پیدا کردن دوستان
+            و شرکت در رویدادهای مختلف.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section>
+
+    <div class="title">
+
+        <h2>
+            CALLAFINO <span>STATS</span>
+        </h2>
+
+    </div>
+
+    <div class="stats">
+
+        <div class="stat">
+            <h3>24/7</h3>
+            <p>همیشه فعال</p>
+        </div>
+
+        <div class="stat">
+            <h3>100%</h3>
+            <p>تمرکز روی گیم</p>
+        </div>
+
+        <div class="stat">
+            <h3>∞</h3>
+            <p>رقابت</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="cta">
+
+    <h2>
+        آماده‌ای وارد CALLAFINO بشی؟
+    </h2>
+
+    <p>
+        حساب خودت را بساز و به جمع گیمرها بپیوند.
+    </p>
+
+    <a href="register.html" class="btn primary">
+        CREATE ACCOUNT
+    </a>
+
+</section>
+
+
+<footer>
+
+    © 2026
+    <span>CALLAFINO</span>
+    — All Rights Reserved.
+
+</footer>
+
+</body>
+</html>

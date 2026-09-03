@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Register | CALLAFINO</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Tahoma,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:#050505;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.container{
+    width:100%;
+    max-width:430px;
+}
+
+.logo{
+    text-align:center;
+    font-size:34px;
+    font-weight:900;
+    letter-spacing:3px;
+    margin-bottom:25px;
+}
+
+.logo span{
+    color:#ffc107;
+}
+
+.card{
+    background:#0d0d0d;
+    border:1px solid rgba(255,193,7,.45);
+    border-radius:20px;
+    padding:35px 28px;
+    box-shadow:0 0 35px rgba(255,193,7,.12);
+}
+
+h1{
+    text-align:center;
+    color:#ffc107;
+    font-size:27px;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#888;
+    font-size:14px;
+    margin-bottom:28px;
+}
+
+label{
+    display:block;
+    margin:15px 0 8px;
+    color:#ddd;
+    font-size:14px;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    background:#050505;
+    border:1px solid #333;
+    border-radius:10px;
+    color:white;
+    outline:none;
+    font-size:15px;
+}
+
+input:focus{
+    border-color:#ffc107;
+    box-shadow:0 0 10px rgba(255,193,7,.15);
+}
+
+button{
+    width:100%;
+    margin-top:25px;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:#ffc107;
+    color:#000;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    box-shadow:0 0 20px rgba(255,193,7,.35);
+}
+
+.message{
+    text-align:center;
+    margin-top:18px;
+    min-height:20px;
+    font-size:14px;
+}
+
+.login{
+    text-align:center;
+    margin-top:22px;
+    color:#888;
+    font-size:14px;
+}
+
+.login a{
+    color:#ffc107;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.back{
+    display:block;
+    text-align:center;
+    margin-top:20px;
+    color:#666;
+    text-decoration:none;
+    font-size:13px;
+}
+
+.back:hover{
+    color:#ffc107;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="logo">
+        CALLAFINO<span>.</span>
+    </div>
+
+    <div class="card">
+
+        <h1>REGISTER</h1>
+
+        <p class="subtitle">
+            حساب خودت را در CALLAFINO بساز
+        </p>
+
+        <form id="registerForm">
+
+            <label>نام کاربری</label>
+            <input
+                type="text"
+                id="username"
+                placeholder="نام کاربری"
+                minlength="3"
+                required
+            >
+
+            <label>ایمیل</label>
+            <input
+                type="email"
+                id="email"
+                placeholder="example@email.com"
+                dir="ltr"
+                required
+            >
+
+            <label>رمز عبور</label>
+            <input
+                type="password"
+                id="password"
+                placeholder="حداقل ۶ کاراکتر"
+                minlength="6"
+                dir="ltr"
+                required
+            >
+
+            <label>تکرار رمز عبور</label>
+            <input
+                type="password"
+                id="confirmPassword"
+                placeholder="رمز عبور را دوباره وارد کنید"
+                minlength="6"
+                dir="ltr"
+                required
+            >
+
+            <button type="submit">
+                CREATE ACCOUNT
+            </button>
+
+        </form>
+
+        <div class="message" id="message"></div>
+
+        <div class="login">
+            قبلاً حساب داری؟
+            <a href="login.html">LOGIN</a>
+        </div>
+
+        <a href="index.html" class="back">
+            ← بازگشت به CALLAFINO
+        </a>
+
+    </div>
+
+</div>
+
+<script type="module">
+
+import { createClient }
+from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+const SUPABASE_URL =
+"https://oisqrkqwbskvqkparmiw.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_FGoXFElayJeRdyFxyc61hQ_c5CUn5HL";
+
+const supabase =
+createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const form =
+document.getElementById("registerForm");
+
+const message =
+document.getElementById("message");
+
+form.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const username =
+    document.getElementById("username").value.trim();
+
+    const email =
+    document.getElementById("email").value.trim();
+
+    const password =
+    document.getElementById("password").value;
+
+    const confirmPassword =
+    document.getElementById("confirmPassword").value;
+
+    message.style.color="#ffc107";
+
+    if(username.length < 3){
+        message.textContent =
+        "نام کاربری باید حداقل ۳ کاراکتر باشد.";
+        return;
+    }
+
+    if(password !== confirmPassword){
+        message.textContent =
+        "رمزهای عبور یکسان نیستند.";
+        return;
+    }
+
+    message.textContent =
+    "در حال ساخت حساب...";
+
+    try{
+
+        const {data,error} =
+        await supabase.auth.signUp({
+            email:email,
+            password:password
+        });
+
+        if(error) throw error;
+
+        if(!data.user){
+            throw new Error("ساخت حساب انجام نشد.");
+        }
+
+        const {error:profileError} =
+        await supabase
+        .from("profiles")
+        .insert({
+            id:data.user.id,
+            username:username
+        });
+
+        if(profileError) throw profileError;
+
+        message.style.color="#4caf50";
+
+        message.textContent =
+        "حساب با موفقیت ساخته شد!";
+
+        setTimeout(()=>{
+            window.location.href="login.html";
+        },1500);
+
+    }catch(error){
+
+        console.error(error);
+
+        message.style.color="#ff5252";
+
+        message.textContent =
+        error.message || "خطایی رخ داد.";
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>

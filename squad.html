@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CALLAFINO | Squad</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Tahoma,sans-serif;
+}
+
+body{
+    background:#050505;
+    color:#fff;
+    min-height:100vh;
+}
+
+header{
+    height:75px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 7%;
+    border-bottom:1px solid #222;
+    background:#080808;
+}
+
+.logo{
+    font-size:26px;
+    font-weight:bold;
+    color:#ffd000;
+    letter-spacing:2px;
+}
+
+.back{
+    color:#aaa;
+    text-decoration:none;
+    font-size:14px;
+}
+
+.back:hover{
+    color:#ffd000;
+}
+
+.container{
+    width:90%;
+    max-width:900px;
+    margin:45px auto;
+}
+
+.title{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.title h1{
+    color:#ffd000;
+    font-size:38px;
+    margin-bottom:10px;
+}
+
+.title p{
+    color:#888;
+}
+
+.card{
+    background:#0c0c0c;
+    border:1px solid #242424;
+    border-radius:16px;
+    padding:25px;
+    margin-bottom:20px;
+}
+
+.card h2{
+    color:#ffd000;
+    margin-bottom:20px;
+}
+
+.player{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:#111;
+    border:1px solid #222;
+    padding:18px;
+    border-radius:12px;
+    margin-bottom:12px;
+}
+
+.player-info{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.avatar{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    background:#ffd000;
+    color:#000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+}
+
+.status{
+    color:#00ff88;
+    font-size:13px;
+}
+
+.empty{
+    color:#777;
+    text-align:center;
+    padding:20px;
+}
+
+button{
+    border:none;
+    border-radius:9px;
+    padding:11px 18px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.invite-btn{
+    background:#ffd000;
+    color:#000;
+}
+
+.accept-btn{
+    background:#00d084;
+    color:#000;
+    margin-left:7px;
+}
+
+.reject-btn{
+    background:#d93636;
+    color:#fff;
+}
+
+.ready-btn{
+    background:#ffd000;
+    color:#000;
+    width:100%;
+    margin-top:15px;
+}
+
+.leave-btn{
+    background:#222;
+    color:#ff4444;
+    width:100%;
+    margin-top:10px;
+}
+
+.friend-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:15px;
+    background:#111;
+    border-radius:10px;
+    margin-bottom:10px;
+}
+
+.message{
+    text-align:center;
+    color:#ffd000;
+    margin:15px 0;
+    min-height:20px;
+}
+
+@media(max-width:600px){
+    header{
+        padding:0 5%;
+    }
+
+    .title h1{
+        font-size:30px;
+    }
+
+    .player,
+    .friend-row{
+        flex-direction:column;
+        gap:12px;
+        align-items:stretch;
+    }
+
+    button{
+        width:100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">CALLAFINO</div>
+    <a href="dashboard.html" class="back">← داشبورد</a>
+</header>
+
+<div class="container">
+
+    <div class="title">
+        <h1>MY SQUAD</h1>
+        <p>تیم خودت رو بساز و برای تورنومنت آماده شو</p>
+    </div>
+
+    <div id="message" class="message"></div>
+
+    <!-- SQUAD -->
+    <div class="card">
+        <h2>🎮 Squad</h2>
+
+        <div id="players">
+            <div class="empty">در حال بارگذاری...</div>
+        </div>
+
+        <button id="readyBtn" class="ready-btn" style="display:none;">
+            READY
+        </button>
+
+        <button id="leaveBtn" class="leave-btn" style="display:none;">
+            LEAVE SQUAD
+        </button>
+    </div>
+
+    <!-- FRIENDS -->
+    <div class="card" id="friendsCard">
+        <h2>👥 دعوت از دوستان</h2>
+
+        <div id="friends">
+            <div class="empty">در حال بارگذاری...</div>
+        </div>
+    </div>
+
+    <!-- INVITATIONS -->
+    <div class="card">
+        <h2>📩 دعوت‌های Squad</h2>
+
+        <div id="invitations">
+            <div class="empty">در حال بررسی...</div>
+        </div>
+    </div>
+
+</div>
+
+<script type="module">
+
+import { createClient }
+from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+
+const SUPABASE_URL =
+"https://oisqrkqwbskvqkparmiw.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_FGoXFElayJeRdyFxyc61hQ_c5CUn5HL";
+
+const supabase =
+createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+
+let currentUser = null;
+let currentProfile = null;
+let currentSquad = null;
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+function showMessage(text){
+    document.getElementById("message").textContent = text;
+
+    setTimeout(()=>{
+        document.getElementById("message").textContent = "";
+    },3000);
+}
+
+
+/* =========================
+   AUTH
+========================= */
+
+async function checkAuth(){
+
+    const {
+        data:{
+            user
+        }
+    } = await supabase.auth.getUser();
+
+    if(!user){
+        window.location.href="login.html";
+        return;
+    }
+
+    currentUser = user;
+
+    const {
+        data:profile
+    } = await supabase
+        .from("profiles")
+        .select("id,username")
+        .eq("id",user.id)
+        .single();
+
+    currentProfile = profile;
+
+    await loadSquad();
+    await loadFriends();
+    await loadInvitations();
+}
+
+
+/* =========================
+   LOAD SQUAD
+========================= */
+
+async function loadSquad(){
+
+    const { data, error } =
+        await supabase
+        .from("squads")
+        .select("*")
+        .or(
+            `player1_id.eq.${currentUser.id},player2_id.eq.${currentUser.id}`
+        )
+        .order("created_at",{ascending:false})
+        .limit(1);
+
+    if(error){
+        console.error(error);
+        return;
+    }
+
+    currentSquad = data && data.length
+        ? data[0]
+        : null;
+
+    renderSquad();
+}
+
+
+/* =========================
+   RENDER SQUAD
+========================= */
+
+async function renderSquad(){
+
+    const players =
+        document.getElementById("players");
+
+    const readyBtn =
+        document.getElementById("readyBtn");
+
+    const leaveBtn =
+        document.getElementById("leaveBtn");
+
+
+    if(!currentSquad){
+
+        players.innerHTML =
+            `<div class="empty">
+                هنوز Squad نساختی.
+             </div>`;
+
+        readyBtn.style.display="none";
+        leaveBtn.style.display="none";
+
+        return;
+    }
+
+
+    let html="";
+
+
+    /* PLAYER 1 */
+
+    const {
+        data:player1
+    } = await supabase
+        .from("profiles")
+        .select("username")
+        .eq("id",currentSquad.player1_id)
+        .single();
+
+
+    html += `
+        <div class="player">
+
+            <div class="player-info">
+
+                <div class="avatar">
+                    ${player1?.username?.charAt(0).toUpperCase() || "P"}
+                </div>
+
+                <div>
+                    <strong>${escapeHTML(player1?.username || "Player 1")}</strong>
+                    <div class="status">
+                        Player 1
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    `;
+
+
+    /* PLAYER 2 */
+
+    if(currentSquad.player2_id){
+
+        const {
+            data:player2
+        } = await supabase
+            .from("profiles")
+            .select("username")
+            .eq("id",currentSquad.player2_id)
+            .single();
+
+
+        html += `
+            <div class="player">
+
+                <div class="player-info">
+
+                    <div class="avatar">
+                        ${player2?.username?.charAt(0).toUpperCase() || "P"}
+                    </div>
+
+                    <div>
+                        <strong>${escapeHTML(player2?.username || "Player 2")}</strong>
+                        <div class="status">
+                            ${currentSquad.status === "ready"
+                                ? "READY"
+                                : "Player 2"}
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        `;
+
+    }else{
+
+        html += `
+            <div class="player">
+
+                <div class="player-info">
+
+                    <div class="avatar">?</div>
+
+                    <div>
+                        <strong>Waiting for player...</strong>
+                        <div class="status">
+                            منتظر بازیکن دوم
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        `;
+    }
+
+
+    players.innerHTML = html;
+
+
+    /*
+       فقط Player 1 می‌تواند
+       Squad را کنترل کند.
+    */
+
+    if(currentSquad.player1_id === currentUser.id){
+
+        readyBtn.style.display =
+            currentSquad.player2_id
+            ? "block"
+            : "none";
+
+        leaveBtn.style.display="block";
+
+    }else{
+
+        readyBtn.style.display="none";
+        leaveBtn.style.display="block";
+    }
+}
+
+
+/* =========================
+   LOAD FRIENDS
+========================= */
+
+async function loadFriends(){
+
+    const container =
+        document.getElementById("friends");
+
+
+    const {
+        data:friendships,
+        error
+    } = await supabase
+        .from("friendships")
+        .select("friend_id")
+        .eq("user_id",currentUser.id);
+
+
+    if(error){
+
+        console.error(error);
+
+        container.innerHTML =
+            `<div class="empty">
+                خطا در دریافت دوستان
+             </div>`;
+
+        return;
+    }
+
+
+    if(!friendships || friendships.length===0){
+
+        container.innerHTML =
+            `<div class="empty">
+                هنوز دوستی نداری.
+             </div>`;
+
+        return;
+    }
+
+
+    container.innerHTML="";
+
+
+    for(const friendship of friendships){
+
+        const {
+            data:friend
+        } = await supabase
+            .from("profiles")
+            .select("id,username")
+            .eq("id",friendship.friend_id)
+            .single();
+
+
+        if(!friend) continue;
+
+
+        const row =
+            document.createElement("div");
+
+        row.className="friend-row";
+
+
+        row.innerHTML = `
+            <strong>
+                ${escapeHTML(friend.username)}
+            </strong>
+
+            <button class="invite-btn">
+                دعوت
+            </button>
+        `;
+
+
+        row
+        .querySelector("button")
+        .addEventListener(
+            "click",
+            ()=>inviteFriend(friend.id)
+        );
+
+
+        container.appendChild(row);
+    }
+}
+
+
+/* =========================
+   CREATE SQUAD
+========================= */
+
+async function createSquad(){
+
+    const {
+        data,
+        error
+    } = await supabase
+        .from("squads")
+        .insert({
+            player1_id:currentUser.id,
+            status:"pending"
+        })
+        .select()
+        .single();
+
+
+    if(error){
+
+        console.error(error);
+        showMessage("خطا در ساخت Squad");
+        return;
+    }
+
+
+    currentSquad=data;
+
+    showMessage("Squad ساخته شد 🔥");
+
+    await loadSquad();
+}
+
+
+/* =========================
+   INVITE FRIEND
+========================= */
+
+async function inviteFriend(friendId){
+
+    if(!currentSquad){
+
+        await createSquad();
+
+        if(!currentSquad)
+            return;
+    }
+
+
+    if(currentSquad.player1_id !== currentUser.id){
+
+        showMessage("فقط سازنده Squad می‌تواند دعوت کند");
+        return;
+    }
+
+
+    if(currentSquad.player2_id){
+
+        showMessage("Squad پر است");
+        return;
+    }
+
+
+    /*
+       برای جلوگیری از دعوت به خود
+    */
+
+    if(friendId === currentUser.id){
+
+        showMessage("نمی‌توانی خودت را دعوت کنی");
+        return;
+    }
+
+
+    const {
+        error
+    } = await supabase
+        .from("squads")
+        .update({
+            player2_id:friendId,
+            status:"pending"
+        })
+        .eq("id",currentSquad.id)
+        .eq("player1_id",currentUser.id);
+
+
+    if(error){
+
+        console.error(error);
+        showMessage("خطا در ارسال دعوت");
+        return;
+    }
+
+
+    showMessage("دعوت ارسال شد 📩");
+
+    await loadSquad();
+}
+
+
+/* =========================
+   LOAD INVITATIONS
+========================= */
+
+async function loadInvitations(){
+
+    const container =
+        document.getElementById("invitations");
+
+
+    /*
+       Squadهایی که کاربر
+       Player 2 آنهاست.
+    */
+
+    const {
+        data,
+        error
+    } = await supabase
+        .from("squads")
+        .select("*")
+        .eq("player2_id",currentUser.id)
+        .eq("status","pending");
+
+
+    if(error){
+
+        console.error(error);
+
+        container.innerHTML =
+            `<div class="empty">
+                خطا در دریافت دعوت‌ها
+             </div>`;
+
+        return;
+    }
+
+
+    if(!data || data.length===0){
+
+        container.innerHTML =
+            `<div class="empty">
+                دعوت جدیدی نداری.
+             </div>`;
+
+        return;
+    }
+
+
+    container.innerHTML="";
+
+
+    for(const squad of data){
+
+        const {
+            data:sender
+        } = await supabase
+            .from("profiles")
+            .select("username")
+            .eq("id",squad.player1_id)
+            .single();
+
+
+        const row =
+            document.createElement("div");
+
+        row.className="player";
+
+
+        row.innerHTML = `
+
+            <div>
+
+                <strong>
+                    ${escapeHTML(sender?.username || "Player")}
+                </strong>
+
+                <div class="status">
+                    تو را به Squad دعوت کرده
+                </div>
+
+            </div>
+
+            <div>
+
+                <button class="accept-btn">
+                    قبول
+                </button>
+
+                <button class="reject-btn">
+                    رد
+                </button>
+
+            </div>
+        `;
+
+
+        row
+        .querySelector(".accept-btn")
+        .addEventListener(
+            "click",
+            ()=>acceptSquad(squad.id)
+        );
+
+
+        row
+        .querySelector(".reject-btn")
+        .addEventListener(
+            "click",
+            ()=>rejectSquad(squad.id)
+        );
+
+
+        container.appendChild(row);
+    }
+}
+
+
+/* =========================
+   ACCEPT SQUAD
+========================= */
+
+async function acceptSquad(squadId){
+
+    const {
+        error
+    } = await supabase
+        .from("squads")
+        .update({
+            status:"accepted"
+        })
+        .eq("id",squadId)
+        .eq("player2_id",currentUser.id);
+
+
+    if(error){
+
+        console.error(error);
+        showMessage("خطا در قبول دعوت");
+        return;
+    }
+
+
+    showMessage("به Squad پیوستی 🔥");
+
+    await loadSquad();
+    await loadInvitations();
+}
+
+
+/* =========================
+   REJECT SQUAD
+========================= */
+
+async function rejectSquad(squadId){
+
+    const {
+        error
+    } = await supabase
+        .from("squads")
+        .update({
+            player2_id:null,
+            status:"pending"
+        })
+        .eq("id",squadId)
+        .eq("player2_id",currentUser.id);
+
+
+    if(error){
+
+        console.error(error);
+        showMessage("خطا در رد دعوت");
+        return;
+    }
+
+
+    showMessage("دعوت رد شد");
+
+    await loadInvitations();
+}
+
+
+/* =========================
+   READY
+========================= */
+
+document
+.getElementById("readyBtn")
+.addEventListener(
+    "click",
+    async()=>{
+
+        if(!currentSquad)
+            return;
+
+        if(currentSquad.player1_id !== currentUser.id)
+            return;
+
+
+        if(!currentSquad.player2_id){
+
+            showMessage("بازیکن دوم هنوز وارد نشده");
+            return;
+        }
+
+
+        const {
+            error
+        } = await supabase
+            .from("squads")
+            .update({
+                status:"ready"
+            })
+            .eq("id",currentSquad.id)
+            .eq("player1_id",currentUser.id);
+
+
+        if(error){
+
+            console.error(error);
+            showMessage("خطا");
+            return;
+        }
+
+
+        showMessage("Squad آماده شد 🟢");
+
+        await loadSquad();
+    }
+);
+
+
+/* =========================
+   LEAVE SQUAD
+========================= */
+
+document
+.getElementById("leaveBtn")
+.addEventListener(
+    "click",
+    async()=>{
+
+        if(!currentSquad)
+            return;
+
+
+        /*
+           Player 1 = حذف Squad
+           Player 2 = خروج از Squad
+        */
+
+        if(currentSquad.player1_id === currentUser.id){
+
+            const {
+                error
+            } = await supabase
+                .from("squads")
+                .delete()
+                .eq("id",currentSquad.id)
+                .eq("player1_id",currentUser.id);
+
+
+            if(error){
+
+                console.error(error);
+                showMessage("خطا در خروج");
+                return;
+            }
+
+        }else{
+
+            const {
+                error
+            } = await supabase
+                .from("squads")
+                .update({
+                    player2_id:null,
+                    status:"pending"
+                })
+                .eq("id",currentSquad.id)
+                .eq("player2_id",currentUser.id);
+
+
+            if(error){
+
+                console.error(error);
+                showMessage("خطا در خروج");
+                return;
+            }
+        }
+
+
+        currentSquad=null;
+
+        showMessage("از Squad خارج شدی");
+
+        await loadSquad();
+        await loadInvitations();
+    }
+);
+
+
+/* =========================
+   SECURITY
+========================= */
+
+function escapeHTML(text){
+
+    return String(text)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+}
+
+
+/* =========================
+   START
+========================= */
+
+checkAuth();
+
+</script>
+
+</body>
+</html>
