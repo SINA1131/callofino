@@ -6,6 +6,7 @@
 <title>Call of Duty Mobile | CALLAFINO</title>
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -19,23 +20,30 @@ html{
 body{
     background:#050505;
     color:#fff;
-    font-family:Tahoma, Arial, sans-serif;
+    font-family:Tahoma,Arial,sans-serif;
     line-height:1.8;
 }
+
+/* HEADER */
 
 header{
     position:sticky;
     top:0;
     z-index:1000;
+
     background:rgba(5,5,5,.95);
+
     border-bottom:1px solid #00ff88;
+
     backdrop-filter:blur(10px);
 }
 
 .navbar{
     max-width:1200px;
     margin:auto;
+
     padding:16px 20px;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
@@ -64,15 +72,25 @@ nav a.active{
     color:#00ff88;
 }
 
+/* HERO */
+
 .hero{
     min-height:520px;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     text-align:center;
+
     padding:80px 20px;
+
     background:
-        radial-gradient(circle at center,rgba(0,255,136,.15),transparent 45%);
+    radial-gradient(
+        circle at center,
+        rgba(0,255,136,.15),
+        transparent 45%
+    );
 }
 
 .hero-content{
@@ -105,11 +123,17 @@ nav a.active{
 
 .btn{
     display:inline-block;
+
     padding:12px 25px;
+
     border-radius:8px;
+
     text-decoration:none;
+
     font-weight:bold;
+
     transition:.3s;
+
     cursor:pointer;
 }
 
@@ -133,6 +157,8 @@ nav a.active{
     color:#000;
 }
 
+/* SECTIONS */
+
 section{
     max-width:1200px;
     margin:auto;
@@ -154,113 +180,169 @@ section{
     color:#888;
 }
 
+/* DESCRIPTION */
+
 .description{
     background:#0a0a0a;
+
     border:1px solid #1d1d1d;
+
     border-radius:15px;
+
     padding:35px;
 }
 
 .description h3{
     color:#00ff88;
+
     margin-bottom:15px;
+
     font-size:24px;
 }
 
 .description p{
     color:#bbb;
+
     margin-bottom:20px;
 }
 
 .features-list{
     list-style:none;
+
     display:grid;
+
     grid-template-columns:repeat(2,1fr);
+
     gap:12px;
 }
 
 .features-list li{
     background:#111;
+
     border:1px solid #202020;
+
     padding:13px;
+
     border-radius:8px;
+
     color:#ccc;
 }
 
 .features-list li::before{
     content:"✓";
+
     color:#00ff88;
+
     font-weight:bold;
+
     margin-left:10px;
 }
 
+/* FEATURES */
+
 .cards{
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+
+    grid-template-columns:
+    repeat(3,1fr);
+
     gap:20px;
 }
 
 .card{
     background:#0b0b0b;
+
     border:1px solid #1d1d1d;
+
     border-radius:14px;
-    padding:25px;
+
+    padding:30px 25px;
+
     text-align:center;
+
     transition:.3s;
 }
 
 .card:hover{
     border-color:#00ff88;
+
     transform:translateY(-5px);
-    box-shadow:0 0 20px rgba(0,255,136,.08);
+
+    box-shadow:
+    0 0 20px rgba(0,255,136,.08);
 }
 
 .card-icon{
-    font-size:40px;
+    font-size:45px;
+
     margin-bottom:10px;
 }
 
 .card h3{
     color:#00ff88;
+
     margin-bottom:8px;
 }
 
 .card p{
     color:#888;
+
     font-size:14px;
 }
 
-/* Ranking */
+/* RANKING */
+
 .ranking-box{
-    background:linear-gradient(145deg,#0b0b0b,#101010);
+    background:
+    linear-gradient(
+        145deg,
+        #0b0b0b,
+        #101010
+    );
+
     border:1px solid #00ff88;
+
     border-radius:18px;
+
     padding:45px 25px;
+
     text-align:center;
-    box-shadow:0 0 35px rgba(0,255,136,.08);
+
+    box-shadow:
+    0 0 35px rgba(0,255,136,.08);
 }
 
 .ranking-icon{
     font-size:65px;
+
     margin-bottom:10px;
 }
 
 .ranking-box h3{
     font-size:30px;
+
     color:#00ff88;
+
     margin-bottom:8px;
 }
 
 .ranking-box p{
     color:#999;
+
     margin-bottom:25px;
 }
 
+/* FOOTER */
+
 footer{
     border-top:1px solid #1d1d1d;
+
     padding:30px 20px;
+
     text-align:center;
+
     color:#666;
+
     margin-top:40px;
 }
 
@@ -268,9 +350,13 @@ footer span{
     color:#00ff88;
 }
 
+/* MOBILE */
+
 @media(max-width:900px){
+
     .cards{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:
+        repeat(2,1fr);
     }
 
     .features-list{
@@ -280,18 +366,24 @@ footer span{
     .hero h1{
         font-size:42px;
     }
+
 }
 
 @media(max-width:600px){
+
     .navbar{
         flex-direction:column;
+
         gap:12px;
     }
 
     nav{
         gap:12px;
+
         flex-wrap:wrap;
+
         justify-content:center;
+
         font-size:13px;
     }
 
@@ -310,50 +402,78 @@ footer span{
     .description{
         padding:22px;
     }
+
 }
+
 </style>
 </head>
 
 <body>
 
 <header>
+
     <div class="navbar">
 
-        <div class="logo">CALLAFINO</div>
+        <div class="logo">
+            CALLAFINO
+        </div>
 
         <nav>
-            <a href="index.html">خانه</a>
-            <a href="news.html">اخبار</a>
-            <a href="trailers.html">تریلر</a>
-            <a href="codm.html" class="active">کالاف موبایل</a>
-            <a href="membership.html">عضویت</a>
+
+            <a href="index.html">
+                خانه
+            </a>
+
+            <a href="codm.html" class="active">
+                کالاف موبایل
+            </a>
+
+            <a href="membership.html">
+                عضویت
+            </a>
+
         </nav>
 
     </div>
+
 </header>
 
+
 <!-- HERO -->
+
 <section class="hero">
 
     <div class="hero-content">
 
-        <h1>CALL OF DUTY MOBILE</h1>
+        <h1>
+            CALL OF DUTY MOBILE
+        </h1>
 
-        <h2>دنیای رقابت حرفه‌ای</h2>
+        <h2>
+            دنیای رقابت حرفه‌ای
+        </h2>
 
         <p>
-            جدیدترین اخبار، رویدادها و رقابت‌های کالاف دیوتی موبایل
-            را در کالافینو دنبال کن.
+            وارد دنیای رقابتی CALLAFINO شو،
+            تیم بساز و در مسابقات کالاف دیوتی موبایل شرکت کن.
         </p>
 
         <div class="buttons">
-            <a href="#ranking" class="btn btn-green">
+
+            <a
+                href="#ranking"
+                class="btn btn-green"
+            >
                 🏆 مشاهده رنکینگ
             </a>
 
-            <a href="#about" class="btn btn-outline">
+            <a
+                href="#about"
+                class="btn btn-outline"
+            >
                 توضیحات بازی
             </a>
+
         </div>
 
     </div>
@@ -361,43 +481,72 @@ footer span{
 </section>
 
 
-<!-- DESCRIPTION -->
+<!-- ABOUT -->
+
 <section id="about">
 
     <div class="section-title">
 
-        <h2>توضیحات Call of Duty Mobile</h2>
+        <h2>
+            توضیحات Call of Duty Mobile
+        </h2>
 
-        <p>همه چیز درباره بازی</p>
+        <p>
+            همه چیز درباره بازی
+        </p>
 
     </div>
 
+
     <div class="description">
 
-        <h3>Call of Duty Mobile چیست؟</h3>
+        <h3>
+            Call of Duty Mobile چیست؟
+        </h3>
 
         <p>
-            Call of Duty Mobile یک بازی تیراندازی آنلاین برای موبایل است
-            که حالت‌های مختلفی مثل Multiplayer، Battle Royale و Ranked
+            Call of Duty Mobile یک بازی تیراندازی آنلاین
+            برای موبایل است که حالت‌های مختلفی مثل
+            Multiplayer، Battle Royale و Ranked
             را در اختیار بازیکنان قرار می‌دهد.
         </p>
 
         <p>
-            بازیکنان می‌توانند با دوستان خود بازی کنند، سلاح‌های مختلف
-            انتخاب کنند، در رویدادها شرکت کنند و برای رسیدن به رتبه‌های
-            بالاتر با بازیکنان دیگر رقابت کنند.
+            بازیکنان می‌توانند با دوستان خود بازی کنند،
+            سلاح‌های مختلف انتخاب کنند،
+            در رویدادها شرکت کنند و برای رسیدن
+            به رتبه‌های بالاتر رقابت کنند.
         </p>
 
-        <h3>ویژگی‌های مهم بازی:</h3>
+        <h3>
+            ویژگی‌های مهم بازی:
+        </h3>
 
         <ul class="features-list">
 
-            <li>بازی Multiplayer آنلاین</li>
-            <li>حالت Battle Royale</li>
-            <li>سیستم Ranked و رقابتی</li>
-            <li>سلاح‌ها و تجهیزات متنوع</li>
-            <li>رویدادها و آپدیت‌های مختلف</li>
-            <li>امکان بازی با دوستان</li>
+            <li>
+                بازی Multiplayer آنلاین
+            </li>
+
+            <li>
+                حالت Battle Royale
+            </li>
+
+            <li>
+                سیستم Ranked و رقابتی
+            </li>
+
+            <li>
+                سلاح‌ها و تجهیزات متنوع
+            </li>
+
+            <li>
+                رویدادها و آپدیت‌های مختلف
+            </li>
+
+            <li>
+                امکان بازی با دوستان
+            </li>
 
         </ul>
 
@@ -407,62 +556,73 @@ footer span{
 
 
 <!-- FEATURES -->
+
 <section>
 
     <div class="section-title">
 
-        <h2>بخش‌های Call of Duty Mobile</h2>
+        <h2>
+            بخش‌های رقابتی
+        </h2>
 
-        <p>هر چیزی که برای دنبال کردن بازی نیاز داری</p>
+        <p>
+            امکانات مخصوص بازیکنان CALLAFINO
+        </p>
 
     </div>
+
 
     <div class="cards">
 
         <div class="card">
 
-            <div class="card-icon">📰</div>
+            <div class="card-icon">
+                🔥
+            </div>
 
-            <h3>اخبار CODM</h3>
+            <h3>
+                EVENTS
+            </h3>
 
             <p>
-                جدیدترین اخبار و اتفاقات بازی را دنبال کن.
+                رویدادها و چالش‌های مختلف
+                برای بازیکنان.
             </p>
 
         </div>
 
+
         <div class="card">
 
-            <div class="card-icon">🔥</div>
+            <div class="card-icon">
+                ⚔️
+            </div>
 
-            <h3>EVENTS</h3>
+            <h3>
+                COMPETITIVE
+            </h3>
 
             <p>
-                رویدادها و چالش‌های جدید بازی.
+                رقابت‌های حرفه‌ای و
+                مسابقات جذاب.
             </p>
 
         </div>
 
-        <div class="card">
-
-            <div class="card-icon">⚔️</div>
-
-            <h3>COMPETITIVE</h3>
-
-            <p>
-                رقابت‌های حرفه‌ای و مسابقات جذاب.
-            </p>
-
-        </div>
 
         <div class="card">
 
-            <div class="card-icon">🏆</div>
+            <div class="card-icon">
+                👥
+            </div>
 
-            <h3>RANKED</h3>
+            <h3>
+                SQUAD
+            </h3>
 
             <p>
-                برای رسیدن به رتبه‌های بالاتر رقابت کن.
+                تیم خودت را بساز و
+                با دوستانت رقابت کن.
             </p>
 
         </div>
@@ -473,29 +633,41 @@ footer span{
 
 
 <!-- RANKING -->
+
 <section id="ranking">
 
     <div class="section-title">
 
-        <h2>🏆 RANKING</h2>
+        <h2>
+            🏆 RANKING
+        </h2>
 
         <p>
-            برای ثبت‌نام در رنکینگ وارد صفحه رنکینگ شو
+            در مسابقات شرکت کن و جایگاه خودت را پیدا کن.
         </p>
 
     </div>
 
+
     <div class="ranking-box">
 
-        <div class="ranking-icon">🏆</div>
+        <div class="ranking-icon">
+            🏆
+        </div>
 
-        <h3>رنکینگ اول</h3>
+        <h3>
+            رنکینگ CALLAFINO
+        </h3>
 
         <p>
-            ظرفیت این رنکینگ: ۲۵ جایگاه دو نفره
+            برای مشاهده رتبه‌بندی و
+            مسابقات وارد صفحه رنکینگ شو.
         </p>
 
-        <a href="ranking.html" class="btn btn-green">
+        <a
+            href="ranking.html"
+            class="btn btn-green"
+        >
             ورود به رنکینگ
         </a>
 
@@ -506,7 +678,13 @@ footer span{
 
 <footer>
 
-    © 2026 <span>CALLAFINO</span> — تمامی حقوق محفوظ است.
+    © 2026
+
+    <span>
+        CALLAFINO
+    </span>
+
+    — تمامی حقوق محفوظ است.
 
 </footer>
 
