@@ -15,113 +15,50 @@
     font-family:Arial,Tahoma,sans-serif;
 }
 
-html{
-    scroll-behavior:smooth;
-}
-
 body{
-    background:#020403;
-    color:#fff;
+    background:#050505;
+    color:white;
     overflow-x:hidden;
-}
-
-/* BACKGROUND */
-
-body:before,
-body:after{
-    content:"";
-    position:fixed;
-    width:450px;
-    height:450px;
-    border-radius:50%;
-    background:#00ff66;
-    filter:blur(130px);
-    opacity:.06;
-    z-index:-1;
-    pointer-events:none;
-}
-
-body:before{
-    top:-180px;
-    left:-150px;
-    animation:glow1 8s infinite alternate;
-}
-
-body:after{
-    bottom:-180px;
-    right:-150px;
-    animation:glow2 10s infinite alternate;
-}
-
-@keyframes glow1{
-    to{
-        transform:translate(180px,150px);
-    }
-}
-
-@keyframes glow2{
-    to{
-        transform:translate(-150px,-120px);
-    }
 }
 
 /* HEADER */
 
 header{
+    width:100%;
+    height:80px;
+    background:#080808;
+    border-bottom:1px solid #1c1c1c;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 7%;
     position:fixed;
     top:0;
-    left:0;
-    right:0;
     z-index:1000;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    padding:20px 7%;
-
-    background:rgba(2,4,3,.75);
-    backdrop-filter:blur(15px);
-
-    border-bottom:1px solid rgba(0,255,102,.12);
 }
 
 .logo{
     font-size:28px;
-    font-weight:900;
-    letter-spacing:3px;
-}
-
-.logo span{
-    color:#00ff66;
+    font-weight:bold;
+    letter-spacing:2px;
+    color:#00ff88;
 }
 
 nav{
     display:flex;
-    gap:30px;
+    gap:35px;
     align-items:center;
 }
 
 nav a{
     color:#aaa;
     text-decoration:none;
-    font-size:14px;
+    font-size:15px;
     transition:.3s;
 }
 
 nav a:hover{
-    color:#00ff66;
-}
-
-/* ADMIN LINK */
-
-#adminPanelLink{
-    color:#00ff66;
-    font-weight:bold;
-}
-
-#adminPanelLink:hover{
-    text-shadow:0 0 15px rgba(0,255,102,.6);
+    color:#00ff88;
 }
 
 /* HERO */
@@ -132,80 +69,34 @@ nav a:hover{
     align-items:center;
     justify-content:center;
     text-align:center;
-    padding:130px 20px 70px;
-    position:relative;
+    padding:120px 20px 60px;
+    background:
+    radial-gradient(circle at center,#10251b 0%,#050505 45%);
 }
 
 .hero-content{
     max-width:900px;
-    animation:heroIn 1.2s ease;
-}
-
-@keyframes heroIn{
-    from{
-        opacity:0;
-        transform:translateY(35px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-.badge{
-    display:inline-block;
-    padding:8px 18px;
-
-    border:1px solid rgba(0,255,102,.35);
-    border-radius:30px;
-
-    color:#00ff66;
-    font-size:12px;
-    letter-spacing:2px;
-    margin-bottom:25px;
-
-    animation:pulse 2s infinite alternate;
-}
-
-@keyframes pulse{
-    to{
-        box-shadow:0 0 25px rgba(0,255,102,.2);
-    }
 }
 
 .hero h1{
-    font-size:clamp(55px,11vw,125px);
+    font-size:70px;
     font-weight:900;
-    letter-spacing:7px;
-    line-height:1;
-
-    margin-bottom:25px;
-
-    animation:float 4s infinite ease-in-out;
+    letter-spacing:4px;
+    margin-bottom:20px;
 }
 
 .hero h1 span{
-    color:#00ff66;
-    text-shadow:0 0 35px rgba(0,255,102,.35);
-}
-
-@keyframes float{
-    50%{
-        transform:translateY(-8px);
-    }
+    color:#00ff88;
 }
 
 .hero p{
-    color:#888;
-    font-size:17px;
+    color:#aaa;
+    font-size:18px;
     line-height:2;
-    margin-bottom:40px;
+    margin-bottom:35px;
 }
 
-/* BUTTONS */
-
-.buttons{
+.hero-buttons{
     display:flex;
     justify-content:center;
     gap:15px;
@@ -213,249 +104,113 @@ nav a:hover{
 }
 
 .btn{
-    display:inline-block;
-    padding:15px 38px;
-
-    border-radius:10px;
-
+    padding:15px 30px;
+    border-radius:8px;
     text-decoration:none;
     font-weight:bold;
-
-    transition:.35s;
+    transition:.3s;
 }
 
-.primary{
-    background:#00ff66;
+.btn-primary{
+    background:#00ff88;
     color:#000;
-
-    box-shadow:0 0 25px rgba(0,255,102,.15);
 }
 
-.primary:hover{
-    transform:translateY(-5px) scale(1.03);
-
-    box-shadow:
-        0 0 35px rgba(0,255,102,.35);
+.btn-primary:hover{
+    box-shadow:0 0 25px #00ff88;
+    transform:translateY(-3px);
 }
 
-.secondary{
-    color:#00ff66;
-
-    border:1px solid rgba(0,255,102,.35);
-
-    background:rgba(0,255,102,.03);
+.btn-secondary{
+    border:1px solid #333;
+    color:white;
 }
 
-.secondary:hover{
-    transform:translateY(-5px);
-
-    background:rgba(0,255,102,.08);
+.btn-secondary:hover{
+    border-color:#00ff88;
+    color:#00ff88;
 }
 
-/* SECTIONS */
+/* ABOUT */
 
 section{
     padding:100px 7%;
 }
 
-.title{
+.section-title{
     text-align:center;
-    margin-bottom:55px;
+    margin-bottom:50px;
 }
 
-.title h2{
-    font-size:38px;
+.section-title h2{
+    font-size:40px;
     margin-bottom:12px;
 }
 
-.title span{
-    color:#00ff66;
+.section-title p{
+    color:#777;
 }
 
-.title p{
-    color:#666;
+.about{
+    max-width:900px;
+    margin:auto;
+    text-align:center;
 }
 
-/* CARDS */
+.about p{
+    color:#aaa;
+    line-height:2.2;
+    font-size:17px;
+}
+
+/* FEATURES */
+
+.features{
+    background:#080808;
+}
 
 .cards{
-    max-width:1200px;
-    margin:auto;
-
     display:grid;
-    grid-template-columns:
-        repeat(auto-fit,minmax(220px,1fr));
-
-    gap:20px;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
 }
 
 .card{
+    background:#0d0d0d;
+    border:1px solid #1d1d1d;
+    border-radius:15px;
     padding:35px 25px;
-
     text-align:center;
-
-    background:
-        linear-gradient(
-            145deg,
-            #101512,
-            #060807
-        );
-
-    border:1px solid #18201b;
-    border-radius:18px;
-
-    transition:.4s;
-
-    animation:cardIn .8s ease both;
-}
-
-.card:nth-child(2){
-    animation-delay:.15s;
-}
-
-.card:nth-child(3){
-    animation-delay:.3s;
-}
-
-.card:nth-child(4){
-    animation-delay:.45s;
-}
-
-.card:nth-child(5){
-    animation-delay:.6s;
-}
-
-@keyframes cardIn{
-    from{
-        opacity:0;
-        transform:translateY(30px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-.card:hover{
-    transform:translateY(-10px);
-
-    border-color:rgba(0,255,102,.45);
-
-    box-shadow:
-        0 15px 40px rgba(0,0,0,.5);
-}
-
-.icon{
-    font-size:45px;
-    margin-bottom:20px;
-
-    transition:.4s;
-}
-
-.card:hover .icon{
-    transform:
-        scale(1.15)
-        rotate(-5deg);
-}
-
-.card h3{
-    margin-bottom:12px;
-}
-
-.card p{
-    color:#777;
-    line-height:1.9;
-    font-size:14px;
-}
-
-/* ABOUT */
-
-.about{
-    background:rgba(0,255,102,.015);
-    text-align:center;
-}
-
-.about-box{
-    max-width:850px;
-    margin:auto;
-
-    padding:45px;
-
-    background:#080a09;
-
-    border:1px solid #141b16;
-    border-radius:20px;
-}
-
-.about-box p{
-    color:#888;
-    line-height:2.3;
-}
-
-/* STATS */
-
-.stats{
-    max-width:900px;
-    margin:auto;
-
-    display:grid;
-    grid-template-columns:
-        repeat(auto-fit,minmax(180px,1fr));
-
-    gap:20px;
-}
-
-.stat{
-    padding:30px;
-
-    text-align:center;
-
-    background:#080a09;
-
-    border:1px solid #151b17;
-    border-radius:16px;
-
     transition:.3s;
 }
 
-.stat:hover{
-    transform:translateY(-7px);
-
-    border-color:
-        rgba(0,255,102,.3);
+.card:hover{
+    transform:translateY(-8px);
+    border-color:#00ff88;
+    box-shadow:0 0 25px rgba(0,255,136,.12);
 }
 
-.stat h3{
-    color:#00ff66;
-    font-size:42px;
-
-    margin-bottom:8px;
+.card-icon{
+    font-size:45px;
+    margin-bottom:20px;
 }
 
-.stat p{
-    color:#666;
+.card h3{
+    margin-bottom:15px;
+    font-size:21px;
+}
+
+.card p{
+    color:#888;
+    line-height:1.8;
 }
 
 /* CTA */
 
 .cta{
-    min-height:430px;
-
-    display:flex;
-    flex-direction:column;
-
-    justify-content:center;
-    align-items:center;
-
     text-align:center;
-
     background:
-        radial-gradient(
-            circle,
-            rgba(0,255,102,.08),
-            transparent 55%
-        );
+    radial-gradient(circle at center,#0b2117 0%,#050505 60%);
 }
 
 .cta h2{
@@ -464,70 +219,78 @@ section{
 }
 
 .cta p{
-    color:#777;
+    color:#888;
     margin-bottom:30px;
 }
 
 /* FOOTER */
 
 footer{
-    padding:30px;
-
+    border-top:1px solid #1a1a1a;
+    padding:30px 7%;
     text-align:center;
-
-    color:#444;
-
-    border-top:1px solid #111;
-
-    font-size:13px;
+    color:#555;
+    background:#050505;
 }
 
 footer span{
-    color:#00ff66;
+    color:#00ff88;
 }
 
-/* MOBILE */
+/* RESPONSIVE */
 
-@media(max-width:700px){
+@media(max-width:800px){
 
     header{
-        padding:17px 5%;
-
-        flex-direction:column;
-
-        gap:16px;
+        padding:0 5%;
     }
 
     nav{
-        gap:20px;
-
-        flex-wrap:wrap;
-
-        justify-content:center;
+        gap:15px;
     }
 
     nav a{
-        font-size:12px;
-    }
-
-    .hero{
-        padding-top:160px;
+        font-size:13px;
     }
 
     .hero h1{
-        letter-spacing:4px;
+        font-size:45px;
     }
 
     .hero p{
-        font-size:14px;
+        font-size:15px;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
     }
 
     section{
-        padding:70px 5%;
+        padding:80px 5%;
     }
 
-    .title h2{
-        font-size:30px;
+}
+
+@media(max-width:500px){
+
+    header{
+        height:70px;
+    }
+
+    .logo{
+        font-size:21px;
+    }
+
+    nav{
+        gap:10px;
+    }
+
+    nav a{
+        font-size:11px;
+    }
+
+    .hero h1{
+        font-size:35px;
     }
 
     .cta h2{
@@ -539,40 +302,20 @@ footer span{
 </style>
 </head>
 
-
 <body>
 
+<!-- HEADER -->
 
 <header>
 
     <div class="logo">
-        CALLAFINO<span>.</span>
+        CALLAFINO.
     </div>
 
-
     <nav>
-
-        <a href="index.html">
-            خانه
-        </a>
-
-        <a href="codm.html">
-            کالاف موبایل
-        </a>
-
-        <a href="register.html">
-            عضویت
-        </a>
-
-        <!-- فقط برای ادمین -->
-        <a
-            id="adminPanelLink"
-            href="admin.html"
-            style="display:none;"
-        >
-            🛡️ ADMIN PANEL
-        </a>
-
+        <a href="index.html">خانه</a>
+        <a href="codm.html">کالاف موبایل</a>
+        <a href="register.html">عضویت</a>
     </nav>
 
 </header>
@@ -584,155 +327,26 @@ footer span{
 
     <div class="hero-content">
 
-        <div class="badge">
-            GAMING • COMPETITION • COMMUNITY
-        </div>
-
-
         <h1>
-            CALLA<span>FINO</span>
+            WELCOME TO <span>CALLAFINO</span>
         </h1>
 
-
         <p>
-
-            دنیای رقابت، گیم و کالاف دیوتی موبایل
-
-            <br>
-
-            جایی برای گیمرهایی که همیشه یک قدم جلوترند.
-
+            پلتفرم حرفه‌ای گیمرها برای رقابت،
+            تورنومنت، اسکوا‌د و دنیای Call of Duty Mobile
         </p>
 
+        <div class="hero-buttons">
 
-        <div class="buttons">
-
-            <a
-                href="register.html"
-                class="btn primary"
-            >
-                JOIN CALLAFINO
+            <a href="register.html" class="btn btn-primary">
+                شروع کنید
             </a>
 
-
-            <a
-                href="codm.html"
-                class="btn secondary"
-            >
-                EXPLORE CODM
+            <a href="codm.html" class="btn btn-secondary">
+                کالاف موبایل
             </a>
 
         </div>
-
-    </div>
-
-</section>
-
-
-<!-- FEATURES -->
-
-<section>
-
-    <div class="title">
-
-        <h2>
-            چرا <span>CALLAFINO؟</span>
-        </h2>
-
-        <p>
-            ساخته شده برای گیمرها
-        </p>
-
-    </div>
-
-
-    <div class="cards">
-
-
-        <div class="card">
-
-            <div class="icon">
-                🏆
-            </div>
-
-            <h3>
-                رقابت حرفه‌ای
-            </h3>
-
-            <p>
-                وارد رقابت شو و مهارت خودت را به نمایش بگذار.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="icon">
-                🛡️
-            </div>
-
-            <h3>
-                محیط قابل اعتماد
-            </h3>
-
-            <p>
-                یک محیط امن و حرفه‌ای برای گیمرها.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="icon">
-                🎮
-            </div>
-
-            <h3>
-                دنیای گیم
-            </h3>
-
-            <p>
-                همه‌چیز برای علاقه‌مندان به بازی و رقابت.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="icon">
-                ⚡
-            </div>
-
-            <h3>
-                سریع و مدرن
-            </h3>
-
-            <p>
-                تجربه‌ای سریع، ساده و مدرن.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="icon">
-                🚀
-            </div>
-
-            <h3>
-                همیشه جلوتر
-            </h3>
-
-            <p>
-                امکانات جدید و تجربه‌های تازه در راه هستند.
-            </p>
-
-        </div>
-
 
     </div>
 
@@ -741,27 +355,25 @@ footer span{
 
 <!-- ABOUT -->
 
-<section class="about">
+<section>
 
-    <div class="title">
+    <div class="section-title">
 
-        <h2>
-            درباره <span>CALLAFINO</span>
-        </h2>
+        <h2>CALLAFINO چیست؟</h2>
+
+        <p>
+            جایی برای گیمرهای واقعی
+        </p>
 
     </div>
 
-
-    <div class="about-box">
+    <div class="about">
 
         <p>
-
-            CALLAFINO یک پلتفرم گیمینگ برای گیمرهاست؛
-
-            جایی برای رقابت، ساخت تیم، پیدا کردن دوستان
-
-            و شرکت در رویدادهای مختلف.
-
+            CALLAFINO یک پلتفرم گیمینگ برای بازیکنانی است
+            که می‌خواهند با دوستان خود بازی کنند،
+            تیم بسازند، در تورنومنت‌ها شرکت کنند
+            و در رقابت‌های مختلف مهارت خود را نشان دهند.
         </p>
 
     </div>
@@ -769,60 +381,75 @@ footer span{
 </section>
 
 
-<!-- STATS -->
+<!-- FEATURES -->
 
-<section>
+<section class="features">
 
-    <div class="title">
+    <div class="section-title">
 
-        <h2>
-            CALLAFINO <span>STATS</span>
-        </h2>
+        <h2>امکانات CALLAFINO</h2>
+
+        <p>
+            همه چیز برای یک تجربه گیمینگ حرفه‌ای
+        </p>
 
     </div>
 
 
-    <div class="stats">
+    <div class="cards">
 
+        <div class="card">
 
-        <div class="stat">
+            <div class="card-icon">
+                🔥
+            </div>
 
             <h3>
-                24/7
+                EVENTS
             </h3>
 
             <p>
-                همیشه فعال
+                شرکت در رویدادها و مسابقات
+                مختلف گیمینگ.
             </p>
 
         </div>
 
 
-        <div class="stat">
+        <div class="card">
+
+            <div class="card-icon">
+                ⚔️
+            </div>
 
             <h3>
-                100%
+                COMPETITIVE
             </h3>
 
             <p>
-                تمرکز روی گیم
+                رقابت با بازیکنان دیگر
+                و ساخت تیم‌های قدرتمند.
             </p>
 
         </div>
 
 
-        <div class="stat">
+        <div class="card">
+
+            <div class="card-icon">
+                🏆
+            </div>
 
             <h3>
-                ∞
+                SQUAD
             </h3>
 
             <p>
-                رقابت
+                دوستان خود را پیدا کنید،
+                تیم بسازید و وارد مسابقات شوید.
             </p>
 
         </div>
-
 
     </div>
 
@@ -834,20 +461,15 @@ footer span{
 <section class="cta">
 
     <h2>
-        آماده‌ای وارد CALLAFINO بشی؟
+        آماده‌ای وارد بازی بشی؟
     </h2>
 
-
     <p>
-        حساب خودت را بساز و به جمع گیمرها بپیوند.
+        همین حالا عضو CALLAFINO شو.
     </p>
 
-
-    <a
-        href="register.html"
-        class="btn primary"
-    >
-        CREATE ACCOUNT
+    <a href="register.html" class="btn btn-primary">
+        عضویت در CALLAFINO
     </a>
 
 </section>
@@ -858,115 +480,10 @@ footer span{
 <footer>
 
     © 2026
-
-    <span>
-        CALLAFINO
-    </span>
-
+    <span>CALLAFINO</span>
     — All Rights Reserved.
 
 </footer>
-
-
-<!-- SUPABASE ADMIN CHECK -->
-
-<script type="module">
-
-import { createClient }
-from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
-
-
-const SUPABASE_URL =
-"https://oisqrkqwbskvqkparmiw.supabase.co";
-
-
-const SUPABASE_KEY =
-"sb_publishable_FGoXFElayJeRdyFxyc61hQ_c5CUn5HL";
-
-
-const supabase =
-createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
-
-
-// بررسی ادمین
-async function checkAdmin(){
-
-    try{
-
-        const {
-            data: { user },
-            error: userError
-        } = await supabase.auth.getUser();
-
-
-        // کاربر وارد نشده
-        if(userError || !user){
-
-            return;
-
-        }
-
-
-        // بررسی جدول admins
-        const {
-            data: admin,
-            error
-        } =
-        await supabase
-            .from("admins")
-            .select("user_id")
-            .eq("user_id", user.id)
-            .maybeSingle();
-
-
-        if(error){
-
-            console.log(
-                "Admin check error:",
-                error
-            );
-
-            return;
-
-        }
-
-
-        // اگر ادمین بود
-        if(admin){
-
-            const adminLink =
-                document.getElementById(
-                    "adminPanelLink"
-                );
-
-
-            if(adminLink){
-
-                adminLink.style.display =
-                    "inline-block";
-
-            }
-
-        }
-
-    }catch(error){
-
-        console.log(
-            "Admin check failed:",
-            error
-        );
-
-    }
-
-}
-
-
-checkAdmin();
-
-</script>
 
 
 </body>
