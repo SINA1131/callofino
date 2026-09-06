@@ -191,6 +191,183 @@ nav a:hover{
 
 
 /* =========================
+   SLOTS SECTION
+========================= */
+
+.slots-section{
+    margin-top:25px;
+
+    background:#090909;
+
+    border:1px solid #202020;
+
+    border-radius:16px;
+
+    padding:22px;
+}
+
+.slots-header{
+    display:flex;
+
+    justify-content:space-between;
+    align-items:center;
+
+    gap:15px;
+
+    margin-bottom:20px;
+}
+
+.slots-title{
+    font-size:20px;
+}
+
+.slots-count{
+    color:#39ff14;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.slots-grid{
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(280px,1fr));
+
+    gap:12px;
+}
+
+
+/* =========================
+   DUO SLOT
+========================= */
+
+.slot-card{
+    background:#0e0e0e;
+
+    border:1px solid #252525;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+    transition:.2s;
+}
+
+.slot-card:hover{
+    border-color:#39ff14;
+    transform:translateY(-1px);
+}
+
+.slot-number{
+    padding:10px 13px;
+
+    background:#151515;
+
+    color:#39ff14;
+
+    font-size:12px;
+
+    font-weight:bold;
+
+    border-bottom:1px solid #252525;
+}
+
+
+/* PLAYER BOX */
+
+.player{
+    min-height:54px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:12px 14px;
+
+    background:#0b0b0b;
+}
+
+.player + .player{
+    border-top:1px solid #202020;
+}
+
+.player-icon{
+    width:30px;
+    height:30px;
+
+    border-radius:8px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#151515;
+
+    font-size:15px;
+
+    flex-shrink:0;
+}
+
+.player-info{
+    min-width:0;
+}
+
+.player-label{
+    color:#666;
+
+    font-size:10px;
+
+    margin-bottom:3px;
+}
+
+.player-name{
+    color:#fff;
+
+    font-size:14px;
+
+    font-weight:bold;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+}
+
+.empty-player{
+    color:#555;
+
+    font-size:13px;
+
+    font-weight:normal;
+}
+
+
+/* FULL SLOT */
+
+.slot-card.full{
+    border-color:#254525;
+}
+
+.slot-card.full .slot-number{
+    background:#0d170d;
+}
+
+
+/* OPEN SLOT */
+
+.slot-card.open{
+    border-color:#202020;
+}
+
+.slot-card.open .slot-number{
+    color:#666;
+}
+
+
+/* =========================
    MY TOURNAMENTS
 ========================= */
 
@@ -269,7 +446,9 @@ nav a:hover{
 
 .squad-list{
     display:flex;
+
     flex-direction:column;
+
     gap:10px;
 
     max-height:350px;
@@ -334,6 +513,11 @@ nav a:hover{
     border:1px solid #333;
 }
 
+
+/* =========================
+   GENERAL
+========================= */
+
 .empty{
     text-align:center;
     color:#666;
@@ -390,6 +574,15 @@ nav a:hover{
 
     .page-title{
         font-size:24px;
+    }
+
+    .slots-grid{
+        grid-template-columns:1fr;
+    }
+
+    .slots-header{
+        align-items:flex-start;
+        flex-direction:column;
     }
 
 }
@@ -449,6 +642,41 @@ id="tournamentList"
 
 <div class="loading">
 در حال دریافت تورنمنت‌ها...
+</div>
+
+</div>
+
+
+<!-- =========================
+     SLOTS
+========================= -->
+
+<div
+class="slots-section"
+id="slotsSection"
+style="display:none;"
+>
+
+<div class="slots-header">
+
+<h2 class="slots-title">
+🎮 Tournament Slots
+</h2>
+
+<div
+class="slots-count"
+id="slotsCount"
+>
+0 / 0
+</div>
+
+</div>
+
+
+<div
+class="slots-grid"
+id="slotsGrid"
+>
 </div>
 
 </div>
@@ -569,6 +797,21 @@ document.getElementById(
     "squadList"
 );
 
+const slotsSection =
+document.getElementById(
+    "slotsSection"
+);
+
+const slotsGrid =
+document.getElementById(
+    "slotsGrid"
+);
+
+const slotsCount =
+document.getElementById(
+    "slotsCount"
+);
+
 
 /* =========================
    CURRENT USER
@@ -658,6 +901,42 @@ async function getCurrentUser(){
 
 
 /* =========================
+   GET TOURNAMENT SLOTS
+========================= */
+
+async function getTournamentSlots(
+    tournamentId
+){
+
+    const {
+        data,
+        error
+    } =
+    await supabase.rpc(
+        "get_tournament_slots",
+        {
+            p_tournament_id:
+            tournamentId
+        }
+    );
+
+
+    if(error){
+
+        console.error(
+            "Slot error:",
+            error
+        );
+
+        return [];
+    }
+
+
+    return data || [];
+}
+
+
+/* =========================
    LOAD TOURNAMENTS
 ========================= */
 
@@ -727,14 +1006,12 @@ async function loadTournaments(){
             </div>
         `;
 
+        slotsSection.style.display =
+        "none";
+
         return;
     }
 
-
-    /*
-        برای هر تورنمنت تعداد
-        ثبت‌نام‌ها را دریافت می‌کنیم.
-    */
 
     const tournamentData = [];
 
@@ -744,44 +1021,14 @@ async function loadTournaments(){
         of tournaments
     ){
 
-        const {
-            count,
-            error:countError
-        } =
-        await supabase
-        .from("tournament_registrations")
-        .select(
-            "id",
-            {
-                count:"exact",
-                head:true
-            }
-        )
-        .eq(
-            "tournament_id",
+        const registrations =
+        await getTournamentSlots(
             tournament.id
         );
 
 
-        /*
-            اگر دسترسی به count محدود باشد،
-            از status استفاده می‌کنیم.
-        */
-
         const registered =
-        countError
-        ?
-        (
-            tournament.status === "full"
-            ?
-            tournament.max_players
-            :
-            0
-        )
-        :
-        (
-            count || 0
-        );
+        registrations.length;
 
 
         tournamentData.push({
@@ -890,23 +1137,32 @@ function renderTournaments(
 
                     ظرفیت:
                     <span class="capacity-text">
+
                         <span class="capacity-number">
                             ${registered}
                         </span>
+
                         /
+
                         ${maxPlayers}
+
                     </span>
 
                     <br>
 
                     وضعیت:
+
                     ${
                         isFull
+
                         ?
+
                         `<span class="status-full">
                             🔒 FULL
                         </span>`
+
                         :
+
                         `<span class="status-open">
                             🟢 OPEN
                         </span>`
@@ -939,6 +1195,13 @@ function renderTournaments(
                     >
                         🔒 Registration Closed
                     </button>
+
+                    <button
+                        class="register-btn"
+                        data-slots="${tournament.id}"
+                    >
+                        👥 View Slots
+                    </button>
                     `
 
                     :
@@ -949,6 +1212,13 @@ function renderTournaments(
                         data-register="${tournament.id}"
                     >
                         🎟️ Register Now
+                    </button>
+
+                    <button
+                        class="register-btn"
+                        data-slots="${tournament.id}"
+                    >
+                        👥 View Slots
                     </button>
                     `
                 }
@@ -964,9 +1234,9 @@ function renderTournaments(
     );
 
 
-    /*
-        ثبت event دکمه‌ها
-    */
+    /* =========================
+       REGISTER BUTTONS
+    ========================= */
 
     tournamentList
     .querySelectorAll(
@@ -1005,6 +1275,352 @@ function renderTournaments(
         }
     );
 
+
+    /* =========================
+       VIEW SLOTS
+    ========================= */
+
+    tournamentList
+    .querySelectorAll(
+        "[data-slots]"
+    )
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                async () => {
+
+                    const tournamentId =
+                    button.dataset.slots;
+
+
+                    const tournament =
+                    tournaments.find(
+                        t =>
+                        t.id ===
+                        tournamentId
+                    );
+
+
+                    if(tournament){
+
+                        await showTournamentSlots(
+                            tournament
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================
+   SHOW TOURNAMENT SLOTS
+========================= */
+
+async function showTournamentSlots(
+    tournament
+){
+
+    selectedTournament =
+    tournament;
+
+
+    slotsSection.style.display =
+    "block";
+
+
+    slotsGrid.innerHTML = `
+        <div class="loading">
+            در حال دریافت اسلات‌ها...
+        </div>
+    `;
+
+
+    const registrations =
+    await getTournamentSlots(
+        tournament.id
+    );
+
+
+    const registrationMap =
+    new Map();
+
+
+    registrations.forEach(
+        registration => {
+
+            registrationMap.set(
+                Number(
+                    registration.slot
+                ),
+                registration
+            );
+
+        }
+    );
+
+
+    const maxPlayers =
+    Number(
+        tournament.max_players
+    ) || 0;
+
+
+    const registered =
+    registrations.length;
+
+
+    slotsCount.textContent =
+    `${registered} / ${maxPlayers}`;
+
+
+    slotsGrid.innerHTML = "";
+
+
+    /*
+        ساخت همه اسلات‌ها
+        حتی اسلات‌های خالی
+    */
+
+    for(
+        let i = 1;
+        i <= maxPlayers;
+        i++
+    ){
+
+        const registration =
+        registrationMap.get(i);
+
+
+        const isDuo =
+        String(
+            tournament.type
+        ).toLowerCase()
+        ===
+        "duo";
+
+
+        const isSquad =
+        String(
+            tournament.type
+        ).toLowerCase()
+        ===
+        "squad";
+
+
+        const isTeam =
+        isDuo ||
+        isSquad;
+
+
+        const player1 =
+        registration &&
+        registration.player1_name
+        ?
+        registration.player1_name
+        :
+        null;
+
+
+        const player2 =
+        registration &&
+        registration.player2_name
+        ?
+        registration.player2_name
+        :
+        null;
+
+
+        const card =
+        document.createElement(
+            "div"
+        );
+
+
+        card.className =
+        "slot-card " +
+        (
+            registration
+            ?
+            "full"
+            :
+            "open"
+        );
+
+
+        /*
+            Duo / Squad
+        */
+
+        if(isTeam){
+
+            card.innerHTML = `
+
+                <div class="slot-number">
+                    SLOT #${String(i).padStart(2,"0")}
+                </div>
+
+
+                <div class="player">
+
+                    <div class="player-icon">
+                        🎮
+                    </div>
+
+                    <div class="player-info">
+
+                        <div class="player-label">
+                            PLAYER 1
+                        </div>
+
+                        <div class="player-name">
+
+                            ${
+                                player1
+
+                                ?
+
+                                escapeHTML(
+                                    player1
+                                )
+
+                                :
+
+                                `<span class="empty-player">
+                                    OPEN
+                                </span>`
+                            }
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="player">
+
+                    <div class="player-icon">
+                        🎮
+                    </div>
+
+                    <div class="player-info">
+
+                        <div class="player-label">
+                            PLAYER 2
+                        </div>
+
+                        <div class="player-name">
+
+                            ${
+                                player2
+
+                                ?
+
+                                escapeHTML(
+                                    player2
+                                )
+
+                                :
+
+                                `<span class="empty-player">
+                                    ${
+                                        registration
+                                        ?
+                                        "WAITING"
+                                        :
+                                        "OPEN"
+                                    }
+                                </span>`
+                            }
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+
+        /*
+            Solo
+        */
+
+        else{
+
+            card.innerHTML = `
+
+                <div class="slot-number">
+                    SLOT #${String(i).padStart(2,"0")}
+                </div>
+
+
+                <div class="player">
+
+                    <div class="player-icon">
+                        🎮
+                    </div>
+
+                    <div class="player-info">
+
+                        <div class="player-label">
+                            PLAYER
+                        </div>
+
+                        <div class="player-name">
+
+                            ${
+                                player1
+
+                                ?
+
+                                escapeHTML(
+                                    player1
+                                )
+
+                                :
+
+                                `<span class="empty-player">
+                                    OPEN
+                                </span>`
+                            }
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+
+
+        slotsGrid.appendChild(
+            card
+        );
+
+    }
+
+
+    /*
+        Scroll to slots
+    */
+
+    slotsSection.scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+    });
+
 }
 
 
@@ -1021,32 +1637,18 @@ async function startRegistration(
 
 
     /*
-        اگر ظرفیت همین لحظه پر شده باشد،
-        دوباره چک می‌کنیم.
+        آخرین وضعیت اسلات‌ها
     */
 
-    const {
-        count,
-        error
-    } =
-    await supabase
-    .from("tournament_registrations")
-    .select(
-        "id",
-        {
-            count:"exact",
-            head:true
-        }
-    )
-    .eq(
-        "tournament_id",
+    const registrations =
+    await getTournamentSlots(
         tournament.id
     );
 
 
     if(
-        !error &&
-        count >= tournament.max_players
+        registrations.length >=
+        tournament.max_players
     ){
 
         showMessage(
@@ -1056,6 +1658,10 @@ async function startRegistration(
 
 
         await loadTournaments();
+
+        await showTournamentSlots(
+            tournament
+        );
 
         return;
     }
@@ -1310,10 +1916,6 @@ async function registerTournament(
     squadId
 ){
 
-    /*
-        Modal را می‌بندیم
-    */
-
     squadModal.classList.remove(
         "active"
     );
@@ -1324,10 +1926,6 @@ async function registerTournament(
         "success"
     );
 
-
-    /*
-        RPC فعلی پروژه
-    */
 
     const {
         data,
@@ -1347,12 +1945,13 @@ async function registerTournament(
 
     if(error){
 
-        /*
-            خطای ظرفیت پر
-        */
+        const errorText =
+        error.message ||
+        "";
+
 
         if(
-            error.message
+            errorText
             .toLowerCase()
             .includes("full")
         ){
@@ -1364,12 +1963,8 @@ async function registerTournament(
 
         }
 
-        /*
-            قبلاً ثبت‌نام شده
-        */
-
         else if(
-            error.message
+            errorText
             .toLowerCase()
             .includes(
                 "already registered"
@@ -1386,28 +1981,28 @@ async function registerTournament(
         else{
 
             showMessage(
-                error.message,
+                errorText,
                 "error"
             );
 
         }
 
 
-        /*
-            وضعیت جدید را بلافاصله می‌گیریم.
-        */
-
         await loadTournaments();
 
         await loadMyTournaments();
 
+        if(selectedTournament){
+
+            await showTournamentSlots(
+                selectedTournament
+            );
+
+        }
+
         return;
     }
 
-
-    /*
-        موفق
-    */
 
     showMessage(
         `✅ ثبت‌نام با موفقیت انجام شد. Slot شما: #${data.slot}`,
@@ -1415,15 +2010,22 @@ async function registerTournament(
     );
 
 
-    /*
-        مهم:
-        بعد از ثبت‌نام ظرفیت دوباره
-        از دیتابیس خوانده می‌شود.
-    */
-
     await loadTournaments();
 
     await loadMyTournaments();
+
+
+    /*
+        نمایش مستقیم اسلات‌ها
+    */
+
+    if(selectedTournament){
+
+        await showTournamentSlots(
+            selectedTournament
+        );
+
+    }
 
 }
 
@@ -1494,10 +2096,6 @@ async function loadMyTournaments(){
     }
 
 
-    /*
-        Tournament information
-    */
-
     const tournamentIds =
     registrations
     .map(
@@ -1537,10 +2135,6 @@ async function loadMyTournaments(){
         )
     );
 
-
-    /*
-        Render
-    */
 
     myTournaments.innerHTML = "";
 
@@ -1605,6 +2199,7 @@ async function loadMyTournaments(){
                     <br>
 
                     وضعیت تورنمنت:
+
                     ${
                         tournament.status ===
                         "full"
@@ -1657,9 +2252,9 @@ document
 );
 
 
-/*
-    کلیک بیرون Modal
-*/
+/* =========================
+   CLICK OUTSIDE MODAL
+========================= */
 
 squadModal.addEventListener(
     "click",
