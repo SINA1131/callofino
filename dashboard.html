@@ -138,7 +138,7 @@ body{
     color:#888;
 }
 
-/* EDIT PANEL */
+/* SETTINGS */
 
 .edit-panel{
     background:#0d0d0d;
@@ -199,6 +199,12 @@ body{
 .save-btn:hover{
     background:#2ee00f;
     transform:translateY(-1px);
+}
+
+.save-btn:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+    transform:none;
 }
 
 #profileMessage{
@@ -374,18 +380,38 @@ body{
     </section>
 
 
-    <!-- EDIT PROFILE -->
+    <!-- SETTINGS -->
 
     <section class="edit-panel">
 
         <h2>
-            ⚙️ ویرایش پروفایل
+            ⚙️ تنظیمات حساب
         </h2>
 
         <p class="edit-description">
-            اطلاعات پروفایل خودت را از این قسمت تغییر بده.
+            نام کاربری، نام بازی و ایمیل حساب خودت را از این قسمت تغییر بده.
         </p>
 
+
+        <!-- USERNAME -->
+
+        <div class="form-group">
+
+            <label for="usernameInput">
+                👤 نام کاربری
+            </label>
+
+            <input
+                type="text"
+                id="usernameInput"
+                maxlength="30"
+                placeholder="نام کاربری جدید"
+            >
+
+        </div>
+
+
+        <!-- GAME -->
 
         <div class="form-group">
 
@@ -398,6 +424,23 @@ body{
                 id="gameName"
                 maxlength="50"
                 placeholder="مثلاً Sina Gaming"
+            >
+
+        </div>
+
+
+        <!-- EMAIL -->
+
+        <div class="form-group">
+
+            <label for="emailInput">
+                📧 ایمیل
+            </label>
+
+            <input
+                type="email"
+                id="emailInput"
+                placeholder="ایمیل جدید"
             >
 
         </div>
@@ -579,11 +622,17 @@ document.getElementById("usernameText");
 const profileUsername =
 document.getElementById("profileUsername");
 
+const usernameInput =
+document.getElementById("usernameInput");
+
 const gameName =
 document.getElementById("gameName");
 
 const gameDisplay =
 document.getElementById("gameDisplay");
+
+const emailInput =
+document.getElementById("emailInput");
 
 const saveProfileBtn =
 document.getElementById("saveProfileBtn");
@@ -617,6 +666,12 @@ async function loadProfile(){
     }
 
 
+    /* EMAIL */
+
+    emailInput.value =
+    user.email || "";
+
+
     const {
         data:profile,
         error:profileError
@@ -641,6 +696,9 @@ async function loadProfile(){
         profileUsername.textContent =
         user.email || "Player";
 
+        usernameInput.value =
+        user.email || "";
+
         return;
     }
 
@@ -651,6 +709,9 @@ async function loadProfile(){
     profile.username;
 
     profileUsername.textContent =
+    profile.username;
+
+    usernameInput.value =
     profile.username;
 
 
@@ -679,12 +740,58 @@ async function loadProfile(){
 }
 
 
+/* SHOW MESSAGE */
+
+function showMessage(
+    text,
+    success = true
+){
+
+    profileMessage.textContent =
+    text;
+
+    profileMessage.style.color =
+    success
+    ? "#39ff14"
+    : "#ff4444";
+
+}
+
+
 /* SAVE PROFILE */
 
 async function saveProfile(){
 
+    const newUsername =
+    usernameInput.value.trim();
+
     const newGameName =
     gameName.value.trim();
+
+    const newEmail =
+    emailInput.value.trim();
+
+
+    if(!newUsername){
+
+        showMessage(
+            "❌ نام کاربری نمی‌تواند خالی باشد",
+            false
+        );
+
+        return;
+    }
+
+
+    if(!newEmail){
+
+        showMessage(
+            "❌ ایمیل نمی‌تواند خالی باشد",
+            false
+        );
+
+        return;
+    }
 
 
     const {
@@ -714,29 +821,45 @@ async function saveProfile(){
     "⏳ در حال ذخیره...";
 
 
+    /* UPDATE PROFILE */
+
     const {
-        error
+        error:profileError
     } =
     await supabase
         .from("profiles")
         .update({
+            username:newUsername,
             game:newGameName
         })
         .eq("id", user.id);
 
 
-    if(error){
+    if(profileError){
 
         console.error(
-            "Save error:",
-            error
+            "Profile save error:",
+            profileError
         );
 
-        profileMessage.textContent =
-        "❌ خطا در ذخیره تغییرات";
 
-        profileMessage.style.color =
-        "#ff4444";
+        if(
+            profileError.code === "23505"
+        ){
+
+            showMessage(
+                "❌ این نام کاربری قبلاً استفاده شده است",
+                false
+            );
+
+        }else{
+
+            showMessage(
+                "❌ خطا در ذخیره اطلاعات پروفایل",
+                false
+            );
+
+        }
 
 
         saveProfileBtn.disabled =
@@ -749,7 +872,63 @@ async function saveProfile(){
     }
 
 
+    /* UPDATE EMAIL */
+
+    let emailChanged = false;
+
+
+    if(
+        newEmail !==
+        (user.email || "")
+    ){
+
+        const {
+            data:emailData,
+            error:emailError
+        } =
+        await supabase.auth.updateUser({
+            email:newEmail
+        });
+
+
+        if(emailError){
+
+            console.error(
+                "Email error:",
+                emailError
+            );
+
+
+            showMessage(
+                "❌ خطا در تغییر ایمیل: " +
+                emailError.message,
+                false
+            );
+
+
+            saveProfileBtn.disabled =
+            false;
+
+            saveProfileBtn.textContent =
+            "💾 ذخیره تغییرات";
+
+            return;
+        }
+
+
+        emailChanged = true;
+
+    }
+
+
     /* UPDATE DISPLAY */
+
+    usernameText.textContent =
+    newUsername;
+
+    profileUsername.textContent =
+    newUsername;
+
 
     if(newGameName){
 
@@ -764,11 +943,23 @@ async function saveProfile(){
     }
 
 
-    profileMessage.textContent =
-    "✅ نام بازی با موفقیت تغییر کرد";
+    /* SUCCESS */
 
-    profileMessage.style.color =
-    "#39ff14";
+    if(emailChanged){
+
+        showMessage(
+            "✅ اطلاعات ذخیره شد. ایمیل نیز تغییر کرد.",
+            true
+        );
+
+    }else{
+
+        showMessage(
+            "✅ اطلاعات پروفایل با موفقیت ذخیره شد",
+            true
+        );
+
+    }
 
 
     saveProfileBtn.disabled =
@@ -783,7 +974,7 @@ async function saveProfile(){
         profileMessage.textContent =
         "";
 
-    }, 3000);
+    }, 4000);
 
 }
 
