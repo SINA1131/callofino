@@ -44,7 +44,19 @@ body{
 .subtitle{
     text-align:center;
     color:#888;
-    margin-bottom:30px;
+    margin-bottom:25px;
+}
+
+.game-warning{
+    background:rgba(255,82,82,.10);
+    border:1px solid rgba(255,82,82,.45);
+    color:#ff6666;
+    padding:12px;
+    border-radius:10px;
+    text-align:center;
+    font-size:13px;
+    line-height:1.7;
+    margin-bottom:22px;
 }
 
 label{
@@ -114,16 +126,23 @@ button:disabled{
         ساخت حساب کاربری
     </div>
 
+    <!-- هشدار استفاده از نام گیم -->
+    <div class="game-warning">
+        ⚠️ حتماً از اسم گیم خود استفاده کنید؛
+        در غیر این صورت از کاستوم کیک می‌شوید! 🎮
+    </div>
+
     <form id="registerForm">
 
-        <label for="username">نام کاربری</label>
+        <label for="username">🎮 نام گیم</label>
 
         <input
             type="text"
             id="username"
-            placeholder="نام کاربری"
+            placeholder="اسم داخل بازی خود را وارد کنید"
             required
             minlength="3"
+            maxlength="30"
         >
 
         <label for="email">ایمیل</label>
@@ -214,7 +233,7 @@ form.addEventListener("submit", async (event) => {
 
     if(username.length < 3){
         message.textContent =
-        "نام کاربری باید حداقل ۳ کاراکتر باشد.";
+        "نام گیم باید حداقل ۳ کاراکتر باشد.";
         return;
     }
 
@@ -275,9 +294,6 @@ form.addEventListener("submit", async (event) => {
 
 
         if(profileError){
-
-            /* اگر پروفایل ساخته نشد،
-               حساب ساخته‌شده باقی می‌ماند */
 
             throw profileError;
         }
