@@ -94,7 +94,20 @@ body::after{
     text-align:center;
     color:#888;
     font-size:14px;
-    margin-bottom:35px;
+    margin-bottom:22px;
+}
+
+/* Game Warning */
+.game-warning{
+    background:rgba(255,82,82,.10);
+    border:1px solid rgba(255,82,82,.45);
+    color:#ff6666;
+    padding:12px;
+    border-radius:10px;
+    text-align:center;
+    font-size:13px;
+    line-height:1.7;
+    margin-bottom:25px;
 }
 
 /* Inputs */
@@ -219,6 +232,12 @@ body::after{
         Welcome back, gamer 🎮
     </div>
 
+    <!-- Game Name Warning -->
+    <div class="game-warning">
+        ⚠️ حتماً از اسم گیم خود استفاده کنید؛
+        در غیر این صورت از کاستوم کیک می‌شوید! 🎮
+    </div>
+
     <form id="loginForm">
 
         <div class="input-group">
@@ -327,19 +346,26 @@ form.addEventListener("submit", async (event) => {
     message.textContent = "";
 
     if(!email || !password){
+
         message.textContent =
         "لطفاً همه فیلدها را کامل کنید.";
+
         return;
     }
 
     loginBtn.disabled = true;
     loginBtn.textContent = "LOGGING IN...";
 
+
     const { data, error } =
     await supabase.auth.signInWithPassword({
+
         email: email,
+
         password: password
+
     });
+
 
     if(error){
 
@@ -359,8 +385,11 @@ form.addEventListener("submit", async (event) => {
        SUCCESS
     ========================= */
 
+    message.style.color = "#4caf50";
+
     message.textContent =
     "ورود موفق بود!";
+
 
     setTimeout(() => {
 
