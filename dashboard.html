@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
 <title>CALLAFINO | Dashboard</title>
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -15,202 +17,327 @@
 }
 
 body{
-    background:#080808;
-    color:#fff;
+    background:#050505;
+    color:white;
     min-height:100vh;
 }
 
-header{
+/* NAVBAR */
+
+.navbar{
     height:70px;
-    background:#101010;
-    border-bottom:1px solid #242424;
+    background:#0b0b0b;
+    border-bottom:1px solid #222;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 30px;
+    padding:0 35px;
 }
 
 .logo{
-    color:#d4af37;
     font-size:25px;
     font-weight:bold;
+    color:#39ff14;
+    letter-spacing:2px;
 }
 
-nav{
+.nav-links{
     display:flex;
-    align-items:center;
     gap:10px;
 }
 
-nav a,
-.logout{
+.nav-links a,
+.logout-btn{
     text-decoration:none;
-    color:#ccc;
+    color:#bbb;
     padding:10px 15px;
     border-radius:8px;
     transition:.2s;
     cursor:pointer;
 }
 
-nav a:hover,
-.logout:hover{
-    background:#1c1c1c;
-    color:#d4af37;
+.nav-links a:hover{
+    color:#39ff14;
+    background:#111;
 }
 
-.admin-link{
-    display:none;
-    border:1px solid #d4af37;
-    color:#d4af37 !important;
+.logout-btn{
+    background:#151515;
+    border:1px solid #292929;
 }
+
+.logout-btn:hover{
+    background:#ff3333;
+    color:white;
+}
+
+/* MAIN */
 
 .container{
-    width:90%;
-    max-width:1200px;
-    margin:40px auto;
+    max-width:1100px;
+    margin:auto;
+    padding:40px 20px;
 }
 
+/* WELCOME */
+
 .welcome{
-    background:linear-gradient(135deg,#151515,#0d0d0d);
-    border:1px solid #292929;
+    background:linear-gradient(135deg,#101010,#080808);
+    border:1px solid #222;
     border-radius:18px;
-    padding:35px;
+    padding:30px;
     margin-bottom:25px;
 }
 
 .welcome h1{
-    font-size:32px;
+    font-size:30px;
     margin-bottom:10px;
 }
 
 .welcome h1 span{
-    color:#d4af37;
+    color:#39ff14;
 }
 
 .welcome p{
-    color:#999;
+    color:#888;
 }
 
-.cards{
+/* PROFILE */
+
+.profile-card{
+    background:#0d0d0d;
+    border:1px solid #222;
+    border-radius:18px;
+    padding:25px;
+    margin-bottom:25px;
+}
+
+.profile-header{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.avatar{
+    width:75px;
+    height:75px;
+    border-radius:50%;
+    background:#151515;
+    border:2px solid #39ff14;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+}
+
+.profile-info h2{
+    margin-bottom:7px;
+}
+
+.profile-info p{
+    color:#888;
+}
+
+/* EDIT PANEL */
+
+.edit-panel{
+    background:#0d0d0d;
+    border:1px solid #222;
+    border-radius:18px;
+    padding:25px;
+    margin-bottom:25px;
+}
+
+.edit-panel h2{
+    margin-bottom:8px;
+}
+
+.edit-description{
+    color:#777;
+    font-size:14px;
+    margin-bottom:25px;
+}
+
+.form-group{
+    margin-bottom:18px;
+}
+
+.form-group label{
+    display:block;
+    color:#aaa;
+    margin-bottom:8px;
+}
+
+.form-group input{
+    width:100%;
+    padding:14px;
+    border-radius:9px;
+    border:1px solid #333;
+    background:#070707;
+    color:white;
+    outline:none;
+    font-size:15px;
+}
+
+.form-group input:focus{
+    border-color:#39ff14;
+}
+
+.save-btn{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:9px;
+    background:#39ff14;
+    color:#000;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.save-btn:hover{
+    background:#2ee00f;
+    transform:translateY(-1px);
+}
+
+#profileMessage{
+    text-align:center;
+    margin-top:15px;
+    font-size:14px;
+}
+
+/* CARDS */
+
+.grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    grid-template-columns:repeat(3,1fr);
     gap:20px;
 }
 
 .card{
-    background:#111;
-    border:1px solid #242424;
+    background:#0d0d0d;
+    border:1px solid #222;
     border-radius:16px;
     padding:25px;
-    text-decoration:none;
-    color:white;
-    transition:.25s;
+    transition:.2s;
 }
 
 .card:hover{
-    transform:translateY(-4px);
-    border-color:#d4af37;
+    border-color:#39ff14;
+    transform:translateY(-3px);
 }
 
-.card h2{
-    color:#d4af37;
-    margin-bottom:10px;
+.card-icon{
+    font-size:32px;
+    margin-bottom:15px;
+}
+
+.card h3{
+    margin-bottom:8px;
 }
 
 .card p{
-    color:#999;
+    color:#777;
+    font-size:14px;
+    margin-bottom:18px;
 }
 
-#loading{
+.card a{
+    display:inline-block;
+    text-decoration:none;
+    background:#151515;
+    color:#39ff14;
+    border:1px solid #333;
+    padding:9px 15px;
+    border-radius:8px;
+}
+
+.card a:hover{
+    background:#39ff14;
+    color:#000;
+}
+
+/* LOADING */
+
+.loading{
     text-align:center;
-    color:#999;
-    margin-top:40px;
+    color:#777;
+    padding:50px;
 }
 
-#error{
-    display:none;
-    background:#351010;
-    border:1px solid #8b2929;
-    color:#ff8585;
-    padding:15px;
-    border-radius:10px;
-    margin-bottom:20px;
-}
+/* MOBILE */
 
 @media(max-width:800px){
-    header{
-        height:auto;
-        padding:20px;
-        flex-direction:column;
-        gap:15px;
+
+    .navbar{
+        padding:0 15px;
     }
 
-    nav{
-        flex-wrap:wrap;
-        justify-content:center;
+    .nav-links{
+        display:none;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
     }
 
     .welcome h1{
-        font-size:25px;
+        font-size:24px;
     }
+
 }
+
 </style>
+
 </head>
 
 <body>
 
-<header>
+<!-- NAVBAR -->
+
+<nav class="navbar">
 
     <div class="logo">
         CALLAFINO
     </div>
 
-    <nav>
+    <div class="nav-links">
 
-        <a href="dashboard.html">
-            داشبورد
+        <a href="index.html">
+            خانه
         </a>
 
         <a href="tournament.html">
-            تورنومنت
+            مسابقات
         </a>
 
-        <a href="ranking.html">
-            رنکینگ
+        <a href="friends.html">
+            دوستان
         </a>
 
-        <!-- فقط برای ادمین نمایش داده می‌شود -->
-        <a
-            href="admin.html"
-            id="adminPanelLink"
-            class="admin-link"
-        >
-            ⚙️ پنل ادمین
+        <a href="squad.html">
+            Squad
         </a>
 
-        <a
-            href="#"
-            class="logout"
-            id="logoutBtn"
-        >
-            خروج
-        </a>
+    </div>
 
-    </nav>
+    <button class="logout-btn" id="logoutBtn">
+        خروج
+    </button>
 
-</header>
+</nav>
 
 
 <main class="container">
 
-    <div id="error"></div>
+    <!-- WELCOME -->
 
     <section class="welcome">
 
         <h1>
-            سلام،
-            <span id="username">...</span>
-            👋
+            خوش آمدی
+            <span id="usernameText">...</span> 👋
         </h1>
 
         <p>
@@ -220,56 +347,205 @@ nav a:hover,
     </section>
 
 
-    <section class="cards">
+    <!-- PROFILE -->
 
-        <a href="tournament.html" class="card">
+    <section class="profile-card">
 
-            <h2>🏆 Tournament</h2>
+        <div class="profile-header">
 
-            <p>
-                شرکت در تورنومنت‌ها و مشاهده مسابقات
-            </p>
+            <div class="avatar">
+                🎮
+            </div>
 
-        </a>
+            <div class="profile-info">
 
+                <h2 id="profileUsername">
+                    ...
+                </h2>
 
-        <a href="ranking.html" class="card">
+                <p id="gameDisplay">
+                    نام بازی: تنظیم نشده
+                </p>
 
-            <h2>🥇 Ranking</h2>
+            </div>
 
-            <p>
-                مشاهده رتبه‌بندی بازیکنان
-            </p>
-
-        </a>
-
-
-        <a href="friends.html" class="card">
-
-            <h2>👥 Friends</h2>
-
-            <p>
-                مدیریت دوستان و درخواست‌ها
-            </p>
-
-        </a>
-
-
-        <a href="squad.html" class="card">
-
-            <h2>⚔️ Squad</h2>
-
-            <p>
-                ساخت و مدیریت Squad
-            </p>
-
-        </a>
+        </div>
 
     </section>
 
-    <div id="loading">
-        در حال بارگذاری...
-    </div>
+
+    <!-- EDIT PROFILE -->
+
+    <section class="edit-panel">
+
+        <h2>
+            ⚙️ ویرایش پروفایل
+        </h2>
+
+        <p class="edit-description">
+            اطلاعات پروفایل خودت را از این قسمت تغییر بده.
+        </p>
+
+
+        <div class="form-group">
+
+            <label for="gameName">
+                🎮 نام بازی
+            </label>
+
+            <input
+                type="text"
+                id="gameName"
+                maxlength="50"
+                placeholder="مثلاً Sina Gaming"
+            >
+
+        </div>
+
+
+        <button
+            class="save-btn"
+            id="saveProfileBtn"
+        >
+            💾 ذخیره تغییرات
+        </button>
+
+
+        <p id="profileMessage"></p>
+
+    </section>
+
+
+    <!-- DASHBOARD CARDS -->
+
+    <section class="grid">
+
+        <div class="card">
+
+            <div class="card-icon">
+                🏆
+            </div>
+
+            <h3>
+                مسابقات
+            </h3>
+
+            <p>
+                مسابقات فعال CALLAFINO را مشاهده و ثبت‌نام کن.
+            </p>
+
+            <a href="tournament.html">
+                مشاهده مسابقات
+            </a>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-icon">
+                👥
+            </div>
+
+            <h3>
+                دوستان
+            </h3>
+
+            <p>
+                دوستان خودت را مدیریت کن و درخواست‌های دوستی را ببین.
+            </p>
+
+            <a href="friends.html">
+                دوستان
+            </a>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-icon">
+                ⚔️
+            </div>
+
+            <h3>
+                Squad
+            </h3>
+
+            <p>
+                Squad خودت را بساز و اعضای تیم را مدیریت کن.
+            </p>
+
+            <a href="squad.html">
+                ورود به Squad
+            </a>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-icon">
+                🛒
+            </div>
+
+            <h3>
+                Shop
+            </h3>
+
+            <p>
+                فروشگاه CALLAFINO را مشاهده کن.
+            </p>
+
+            <a href="shop.html">
+                فروشگاه
+            </a>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-icon">
+                🥇
+            </div>
+
+            <h3>
+                Ranking
+            </h3>
+
+            <p>
+                رتبه‌بندی بازیکنان و تیم‌ها را مشاهده کن.
+            </p>
+
+            <a href="ranking.html">
+                رتبه‌بندی
+            </a>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-icon">
+                🎮
+            </div>
+
+            <h3>
+                Call of Duty Mobile
+            </h3>
+
+            <p>
+                بخش اختصاصی COD Mobile در CALLAFINO.
+            </p>
+
+            <a href="codm.html">
+                ورود
+            </a>
+
+        </div>
+
+    </section>
 
 </main>
 
@@ -280,12 +556,13 @@ import { createClient }
 from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
 
+/* SUPABASE */
+
 const SUPABASE_URL =
 "https://oisqrkqwbskvqkparmiw.supabase.co";
 
 const SUPABASE_KEY =
 "sb_publishable_FGoXFElayJeRdyFxyc61hQ_c5CUn5HL";
-
 
 const supabase =
 createClient(
@@ -294,166 +571,251 @@ createClient(
 );
 
 
-const usernameElement =
-document.getElementById("username");
+/* ELEMENTS */
 
-const adminPanelLink =
-document.getElementById("adminPanelLink");
+const usernameText =
+document.getElementById("usernameText");
 
-const loading =
-document.getElementById("loading");
+const profileUsername =
+document.getElementById("profileUsername");
 
-const errorBox =
-document.getElementById("error");
+const gameName =
+document.getElementById("gameName");
+
+const gameDisplay =
+document.getElementById("gameDisplay");
+
+const saveProfileBtn =
+document.getElementById("saveProfileBtn");
+
+const profileMessage =
+document.getElementById("profileMessage");
 
 const logoutBtn =
 document.getElementById("logoutBtn");
 
 
-async function loadDashboard(){
+/* LOAD PROFILE */
 
-    try{
+async function loadProfile(){
 
-        const {
-            data: { user },
-            error: userError
-        } = await supabase.auth.getUser();
-
-
-        if(userError){
-            throw userError;
-        }
+    const {
+        data:{
+            user
+        },
+        error:userError
+    } =
+    await supabase.auth.getUser();
 
 
-        if(!user){
-
-            window.location.href =
-            "login.html";
-
-            return;
-        }
-
-
-        /*
-        -------------------------
-        USERNAME
-        -------------------------
-        */
-
-        const {
-            data: profile,
-            error: profileError
-        } =
-        await supabase
-        .from("profiles")
-        .select("username")
-        .eq("id", user.id)
-        .maybeSingle();
-
-
-        if(profileError){
-            console.error(profileError);
-        }
-
-
-        if(profile){
-
-            usernameElement.textContent =
-            profile.username;
-
-        }else{
-
-            usernameElement.textContent =
-            user.email?.split("@")[0] || "Player";
-
-        }
-
-
-        /*
-        -------------------------
-        ADMIN CHECK
-        -------------------------
-        */
-
-        const {
-            data: admin,
-            error: adminError
-        } =
-        await supabase
-        .from("admins")
-        .select("user_id")
-        .eq("user_id", user.id)
-        .maybeSingle();
-
-
-        if(adminError){
-
-            console.error(
-                "Admin check error:",
-                adminError
-            );
-
-        }
-
-
-        /*
-        اگر کاربر در admins باشد،
-        لینک پنل ادمین نمایش داده می‌شود.
-        */
-
-        if(admin){
-
-            adminPanelLink.style.display =
-            "inline-block";
-
-        }else{
-
-            adminPanelLink.style.display =
-            "none";
-
-        }
-
-
-        loading.style.display =
-        "none";
-
-    }catch(error){
-
-        console.error(error);
-
-        errorBox.textContent =
-        "خطا در بارگذاری اطلاعات.";
-
-        errorBox.style.display =
-        "block";
-
-        loading.style.display =
-        "none";
-    }
-}
-
-
-/*
--------------------------
-LOGOUT
--------------------------
-*/
-
-logoutBtn.addEventListener(
-    "click",
-    async function(e){
-
-        e.preventDefault();
-
-        await supabase.auth.signOut();
+    if(userError || !user){
 
         window.location.href =
         "login.html";
+
+        return;
     }
+
+
+    const {
+        data:profile,
+        error:profileError
+    } =
+    await supabase
+        .from("profiles")
+        .select("username, game")
+        .eq("id", user.id)
+        .single();
+
+
+    if(profileError){
+
+        console.error(
+            "Profile error:",
+            profileError
+        );
+
+        usernameText.textContent =
+        user.email || "Player";
+
+        profileUsername.textContent =
+        user.email || "Player";
+
+        return;
+    }
+
+
+    /* USERNAME */
+
+    usernameText.textContent =
+    profile.username;
+
+    profileUsername.textContent =
+    profile.username;
+
+
+    /* GAME NAME */
+
+    const game =
+    profile.game || "";
+
+
+    gameName.value =
+    game;
+
+
+    if(game){
+
+        gameDisplay.textContent =
+        "نام بازی: " + game;
+
+    }else{
+
+        gameDisplay.textContent =
+        "نام بازی: تنظیم نشده";
+
+    }
+
+}
+
+
+/* SAVE PROFILE */
+
+async function saveProfile(){
+
+    const newGameName =
+    gameName.value.trim();
+
+
+    const {
+        data:{
+            user
+        },
+        error:userError
+    } =
+    await supabase.auth.getUser();
+
+
+    if(userError || !user){
+
+        window.location.href =
+        "login.html";
+
+        return;
+    }
+
+
+    /* BUTTON LOADING */
+
+    saveProfileBtn.disabled =
+    true;
+
+    saveProfileBtn.textContent =
+    "⏳ در حال ذخیره...";
+
+
+    const {
+        error
+    } =
+    await supabase
+        .from("profiles")
+        .update({
+            game:newGameName
+        })
+        .eq("id", user.id);
+
+
+    if(error){
+
+        console.error(
+            "Save error:",
+            error
+        );
+
+        profileMessage.textContent =
+        "❌ خطا در ذخیره تغییرات";
+
+        profileMessage.style.color =
+        "#ff4444";
+
+
+        saveProfileBtn.disabled =
+        false;
+
+        saveProfileBtn.textContent =
+        "💾 ذخیره تغییرات";
+
+        return;
+    }
+
+
+    /* UPDATE DISPLAY */
+
+    if(newGameName){
+
+        gameDisplay.textContent =
+        "نام بازی: " + newGameName;
+
+    }else{
+
+        gameDisplay.textContent =
+        "نام بازی: تنظیم نشده";
+
+    }
+
+
+    profileMessage.textContent =
+    "✅ نام بازی با موفقیت تغییر کرد";
+
+    profileMessage.style.color =
+    "#39ff14";
+
+
+    saveProfileBtn.disabled =
+    false;
+
+    saveProfileBtn.textContent =
+    "💾 ذخیره تغییرات";
+
+
+    setTimeout(() => {
+
+        profileMessage.textContent =
+        "";
+
+    }, 3000);
+
+}
+
+
+/* LOGOUT */
+
+async function logout(){
+
+    await supabase.auth.signOut();
+
+    window.location.href =
+    "login.html";
+
+}
+
+
+/* EVENTS */
+
+saveProfileBtn.addEventListener(
+    "click",
+    saveProfile
+);
+
+logoutBtn.addEventListener(
+    "click",
+    logout
 );
 
 
-loadDashboard();
+/* START */
+
+loadProfile();
 
 </script>
 
