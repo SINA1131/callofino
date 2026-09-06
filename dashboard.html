@@ -64,6 +64,7 @@ body{
 .logout-btn{
     background:#151515;
     border:1px solid #292929;
+    color:#bbb;
 }
 
 .logout-btn:hover{
@@ -264,12 +265,14 @@ body{
     color:#000;
 }
 
-/* LOADING */
+/* ADMIN CARD */
 
-.loading{
-    text-align:center;
-    color:#777;
-    padding:50px;
+.admin-card{
+    border-color:#39ff14;
+}
+
+.admin-card:hover{
+    box-shadow:0 0 15px rgba(57,255,20,.15);
 }
 
 /* MOBILE */
@@ -411,7 +414,7 @@ body{
         </div>
 
 
-        <!-- GAME -->
+        <!-- GAME NAME -->
 
         <div class="form-group">
 
@@ -463,6 +466,9 @@ body{
 
     <section class="grid">
 
+
+        <!-- TOURNAMENT -->
+
         <div class="card">
 
             <div class="card-icon">
@@ -483,6 +489,8 @@ body{
 
         </div>
 
+
+        <!-- FRIENDS -->
 
         <div class="card">
 
@@ -505,6 +513,8 @@ body{
         </div>
 
 
+        <!-- SQUAD -->
+
         <div class="card">
 
             <div class="card-icon">
@@ -525,6 +535,8 @@ body{
 
         </div>
 
+
+        <!-- SHOP -->
 
         <div class="card">
 
@@ -547,6 +559,8 @@ body{
         </div>
 
 
+        <!-- RANKING -->
+
         <div class="card">
 
             <div class="card-icon">
@@ -568,6 +582,8 @@ body{
         </div>
 
 
+        <!-- CODM -->
+
         <div class="card">
 
             <div class="card-icon">
@@ -587,6 +603,34 @@ body{
             </a>
 
         </div>
+
+
+        <!-- ADMIN -->
+
+        <div
+            class="card admin-card"
+            id="adminCard"
+            style="display:none;"
+        >
+
+            <div class="card-icon">
+                🛡️
+            </div>
+
+            <h3>
+                پنل مدیریت
+            </h3>
+
+            <p>
+                مدیریت کاربران، مسابقات، Squad ها و بخش‌های CALLAFINO.
+            </p>
+
+            <a href="admin.html">
+                ورود به پنل مدیریت
+            </a>
+
+        </div>
+
 
     </section>
 
@@ -643,6 +687,27 @@ document.getElementById("profileMessage");
 const logoutBtn =
 document.getElementById("logoutBtn");
 
+const adminCard =
+document.getElementById("adminCard");
+
+
+/* MESSAGE */
+
+function showMessage(
+    text,
+    success = true
+){
+
+    profileMessage.textContent =
+    text;
+
+    profileMessage.style.color =
+    success
+    ? "#39ff14"
+    : "#ff4444";
+
+}
+
 
 /* LOAD PROFILE */
 
@@ -657,12 +722,14 @@ async function loadProfile(){
     await supabase.auth.getUser();
 
 
+    /* NO USER */
+
     if(userError || !user){
 
         window.location.href =
         "login.html";
 
-        return;
+        return null;
     }
 
 
@@ -671,6 +738,8 @@ async function loadProfile(){
     emailInput.value =
     user.email || "";
 
+
+    /* GET PROFILE */
 
     const {
         data:profile,
@@ -683,7 +752,12 @@ async function loadProfile(){
         .single();
 
 
-    if(profileError){
+    /*
+        IMPORTANT:
+        EMAIL IS NEVER USED AS USERNAME
+    */
+
+    if(profileError || !profile){
 
         console.error(
             "Profile error:",
@@ -691,31 +765,41 @@ async function loadProfile(){
         );
 
         usernameText.textContent =
-        user.email || "Player";
+        "...";
 
         profileUsername.textContent =
-        user.email || "Player";
+        "...";
 
         usernameInput.value =
-        user.email || "";
+        "";
 
-        return;
+        gameName.value =
+        "";
+
+        gameDisplay.textContent =
+        "نام بازی: تنظیم نشده";
+
+        return user;
     }
 
 
     /* USERNAME */
 
+    const username =
+    profile.username || "";
+
+
     usernameText.textContent =
-    profile.username;
+    username || "...";
 
     profileUsername.textContent =
-    profile.username;
+    username || "...";
 
     usernameInput.value =
-    profile.username;
+    username;
 
 
-    /* GAME NAME */
+    /* GAME */
 
     const game =
     profile.game || "";
@@ -737,23 +821,53 @@ async function loadProfile(){
 
     }
 
+
+    return user;
+
 }
 
 
-/* SHOW MESSAGE */
+/* CHECK ADMIN */
 
-function showMessage(
-    text,
-    success = true
-){
+async function checkAdmin(){
 
-    profileMessage.textContent =
-    text;
+    const {
+        data:{
+            user
+        },
+        error:userError
+    } =
+    await supabase.auth.getUser();
 
-    profileMessage.style.color =
-    success
-    ? "#39ff14"
-    : "#ff4444";
+
+    if(userError || !user){
+
+        return;
+    }
+
+
+    const {
+        data:admin,
+        error:adminError
+    } =
+    await supabase
+        .from("admins")
+        .select("user_id")
+        .eq("user_id", user.id)
+        .maybeSingle();
+
+
+    if(!adminError && admin){
+
+        adminCard.style.display =
+        "block";
+
+    }else{
+
+        adminCard.style.display =
+        "none";
+
+    }
 
 }
 
@@ -771,6 +885,8 @@ async function saveProfile(){
     const newEmail =
     emailInput.value.trim();
 
+
+    /* VALIDATION */
 
     if(!newUsername){
 
@@ -812,7 +928,7 @@ async function saveProfile(){
     }
 
 
-    /* BUTTON LOADING */
+    /* LOADING */
 
     saveProfileBtn.disabled =
     true;
@@ -834,6 +950,8 @@ async function saveProfile(){
         })
         .eq("id", user.id);
 
+
+    /* PROFILE ERROR */
 
     if(profileError){
 
@@ -872,9 +990,10 @@ async function saveProfile(){
     }
 
 
-    /* UPDATE EMAIL */
+    /* EMAIL */
 
-    let emailChanged = false;
+    let emailChanged =
+    false;
 
 
     if(
@@ -883,7 +1002,6 @@ async function saveProfile(){
     ){
 
         const {
-            data:emailData,
             error:emailError
         } =
         await supabase.auth.updateUser({
@@ -916,12 +1034,13 @@ async function saveProfile(){
         }
 
 
-        emailChanged = true;
+        emailChanged =
+        true;
 
     }
 
 
-    /* UPDATE DISPLAY */
+    /* UPDATE PAGE */
 
     usernameText.textContent =
     newUsername;
@@ -948,14 +1067,14 @@ async function saveProfile(){
     if(emailChanged){
 
         showMessage(
-            "✅ اطلاعات ذخیره شد. ایمیل نیز تغییر کرد.",
+            "✅ اطلاعات ذخیره شد و ایمیل تغییر کرد.",
             true
         );
 
     }else{
 
         showMessage(
-            "✅ اطلاعات پروفایل با موفقیت ذخیره شد",
+            "✅ اطلاعات پروفایل با موفقیت ذخیره شد.",
             true
         );
 
@@ -974,7 +1093,7 @@ async function saveProfile(){
         profileMessage.textContent =
         "";
 
-    }, 4000);
+    },4000);
 
 }
 
@@ -1006,7 +1125,24 @@ logoutBtn.addEventListener(
 
 /* START */
 
-loadProfile();
+async function startDashboard(){
+
+    const user =
+    await loadProfile();
+
+
+    if(!user){
+
+        return;
+    }
+
+
+    await checkAdmin();
+
+}
+
+
+startDashboard();
 
 </script>
 
