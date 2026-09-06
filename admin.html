@@ -7,6 +7,7 @@
 <title>CALLAFINO | Admin Panel</title>
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -169,9 +170,30 @@ header{
     margin-bottom:18px;
 }
 
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
+
+.form-group.full{
+    grid-column:1/-1;
+}
+
+.form-group label{
+    color:#aaa;
+    font-size:13px;
+}
+
+input,
 select{
     width:100%;
-    max-width:500px;
     background:#111;
     color:#fff;
     border:1px solid #333;
@@ -180,6 +202,7 @@ select{
     outline:none;
 }
 
+input:focus,
 select:focus{
     border-color:#39ff14;
 }
@@ -187,7 +210,8 @@ select:focus{
 .actions{
     display:flex;
     gap:10px;
-    margin-top:15px;
+    margin-top:18px;
+    flex-wrap:wrap;
 }
 
 .btn{
@@ -200,14 +224,25 @@ select:focus{
     font-weight:bold;
 }
 
+.btn:hover{
+    opacity:.85;
+}
+
 .btn.secondary{
     background:#171717;
     color:#fff;
     border:1px solid #333;
 }
 
-.btn:hover{
-    opacity:.85;
+.btn.danger{
+    background:#3a1111;
+    color:#ff7777;
+    border:1px solid #652020;
+}
+
+.btn.small{
+    padding:7px 12px;
+    font-size:12px;
 }
 
 .table-wrap{
@@ -250,6 +285,13 @@ td{
     display:inline-block;
 }
 
+.status{
+    padding:5px 9px;
+    border-radius:6px;
+    background:#151515;
+    border:1px solid #292929;
+}
+
 .empty{
     text-align:center;
     color:#666;
@@ -280,6 +322,39 @@ td{
     margin-bottom:20px;
 }
 
+.tournament-card{
+    background:#0e0e0e;
+    border:1px solid #222;
+    border-radius:10px;
+    padding:18px;
+    margin-bottom:12px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.tournament-info h3{
+    margin-bottom:8px;
+}
+
+.tournament-info p{
+    color:#777;
+    font-size:13px;
+    line-height:1.8;
+}
+
+.rank-number{
+    color:#39ff14;
+    font-weight:bold;
+    font-size:18px;
+}
+
+.points{
+    color:#39ff14;
+    font-weight:bold;
+}
+
 @media(max-width:800px){
 
     header{
@@ -304,7 +379,7 @@ td{
     }
 
     .sidebar button{
-        min-width:130px;
+        min-width:145px;
         margin:0 4px;
         text-align:center;
     }
@@ -317,10 +392,21 @@ td{
         grid-template-columns:1fr;
     }
 
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
     .title{
         font-size:23px;
     }
+
+    .tournament-card{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
 }
+
 </style>
 </head>
 
@@ -328,306 +414,615 @@ td{
 
 <header>
 
-    <div class="logo">
-        CALLAFINO
-    </div>
+<div class="logo">
+CALLAFINO
+</div>
 
-    <div class="header-right">
-        <div class="admin-badge">
-            ADMIN
-        </div>
+<div class="header-right">
 
-        <button class="logout" id="logoutBtn">
-            خروج
-        </button>
-    </div>
+<div class="admin-badge">
+ADMIN
+</div>
+
+<button class="logout" id="logoutBtn">
+خروج
+</button>
+
+</div>
 
 </header>
 
 
 <div class="layout">
 
-    <aside class="sidebar">
+<aside class="sidebar">
 
-        <h3>ADMIN MENU</h3>
+<h3>ADMIN MENU</h3>
 
-        <button class="active" data-page="dashboard">
-            📊 Dashboard
-        </button>
+<button class="active" data-page="dashboard">
+📊 Dashboard
+</button>
 
-        <button data-page="registrations">
-            🎟️ Players / Registrations
-        </button>
+<button data-page="registrations">
+🎟️ Players / Registrations
+</button>
 
-        <button data-page="tournaments">
-            🏆 Tournaments
-        </button>
+<button data-page="tournaments">
+🏆 Tournaments
+</button>
 
-        <button data-page="users">
-            👥 Users
-        </button>
+<button data-page="users">
+👥 Users
+</button>
 
-        <button data-page="squads">
-            ⚔️ Squads
-        </button>
+<button data-page="squads">
+⚔️ Squads
+</button>
 
-        <button data-page="ranking">
-            🏅 Ranking
-        </button>
+<button data-page="ranking">
+🏅 Ranking
+</button>
 
-        <button data-page="settings">
-            ⚙️ Settings
-        </button>
+<button data-page="settings">
+⚙️ Settings
+</button>
 
-    </aside>
+</aside>
 
 
-    <main class="content">
+<main class="content">
 
 
-        <!-- DASHBOARD -->
+<!-- ================= DASHBOARD ================= -->
 
-        <section class="page active" id="dashboard">
+<section class="page active" id="dashboard">
 
-            <h1 class="title">
-                Dashboard
-            </h1>
+<h1 class="title">
+Dashboard
+</h1>
 
-            <p class="subtitle">
-                مدیریت CALLAFINO
-            </p>
+<p class="subtitle">
+مدیریت CALLAFINO
+</p>
 
-            <div class="stats">
+<div class="stats">
 
-                <div class="stat">
-                    <span>تعداد تورنمنت‌ها</span>
-                    <strong id="tournamentCount">0</strong>
-                </div>
+<div class="stat">
+<span>تعداد تورنمنت‌ها</span>
+<strong id="tournamentCount">0</strong>
+</div>
 
-                <div class="stat">
-                    <span>تعداد ثبت‌نام‌ها</span>
-                    <strong id="registrationCount">0</strong>
-                </div>
+<div class="stat">
+<span>تعداد ثبت‌نام‌ها</span>
+<strong id="registrationCount">0</strong>
+</div>
 
-                <div class="stat">
-                    <span>وضعیت ادمین</span>
-                    <strong>ONLINE</strong>
-                </div>
+<div class="stat">
+<span>وضعیت ادمین</span>
+<strong>ONLINE</strong>
+</div>
 
-            </div>
+</div>
 
-        </section>
+</section>
 
 
-        <!-- PLAYERS / REGISTRATIONS -->
+<!-- ================= REGISTRATIONS ================= -->
 
-        <section class="page" id="registrations">
+<section class="page" id="registrations">
 
-            <h1 class="title">
-                Players / Registrations
-            </h1>
+<h1 class="title">
+Players / Registrations
+</h1>
 
-            <p class="subtitle">
-                مشاهده بازیکنان ثبت‌نام‌شده در تورنمنت‌ها
-            </p>
+<p class="subtitle">
+مشاهده بازیکنان ثبت‌نام‌شده در تورنمنت‌ها
+</p>
 
+<div id="message"></div>
 
-            <div id="message"></div>
+<div class="panel">
 
+<div class="panel-title">
+انتخاب تورنمنت
+</div>
 
-            <div class="panel">
+<select id="tournamentSelect">
 
-                <div class="panel-title">
-                    انتخاب تورنمنت
-                </div>
+<option value="">
+-- انتخاب تورنمنت --
+</option>
 
-                <select id="tournamentSelect">
+</select>
 
-                    <option value="">
-                        -- انتخاب تورنمنت --
-                    </option>
+<div class="actions">
 
-                </select>
+<button class="btn" id="loadRegistrations">
+نمایش ثبت‌نام‌ها
+</button>
 
-                <div class="actions">
+<button class="btn secondary" id="refreshBtn">
+🔄 Refresh
+</button>
 
-                    <button class="btn" id="loadRegistrations">
-                        نمایش ثبت‌نام‌ها
-                    </button>
+</div>
 
-                    <button class="btn secondary" id="refreshBtn">
-                        🔄 Refresh
-                    </button>
+</div>
 
-                </div>
 
-            </div>
+<div class="panel">
 
+<div class="panel-title">
+لیست Players
+</div>
 
-            <div class="panel">
+<div class="table-wrap">
 
-                <div class="panel-title">
-                    لیست Players
-                </div>
+<table>
 
-                <div class="table-wrap">
+<thead>
 
-                    <table>
+<tr>
 
-                        <thead>
+<th>Slot</th>
+<th>Username</th>
+<th>Type</th>
+<th>Squad / Duo</th>
+<th>Registration Time</th>
 
-                            <tr>
-                                <th>Slot</th>
-                                <th>Username</th>
-                                <th>Type</th>
-                                <th>Squad / Duo</th>
-                                <th>Registration Time</th>
-                            </tr>
+</tr>
 
-                        </thead>
+</thead>
 
-                        <tbody id="registrationsTable">
+<tbody id="registrationsTable">
 
-                            <tr>
-                                <td colspan="5" class="empty">
-                                    ابتدا یک تورنمنت انتخاب کنید
-                                </td>
-                            </tr>
+<tr>
 
-                        </tbody>
+<td colspan="5" class="empty">
+ابتدا یک تورنمنت انتخاب کنید
+</td>
 
-                    </table>
+</tr>
 
-                </div>
+</tbody>
 
-            </div>
+</table>
 
-        </section>
+</div>
 
+</div>
 
-        <!-- TOURNAMENTS -->
+</section>
 
-        <section class="page" id="tournaments">
 
-            <h1 class="title">
-                Tournaments
-            </h1>
+<!-- ================= TOURNAMENTS ================= -->
 
-            <p class="subtitle">
-                مدیریت تورنمنت‌ها
-            </p>
+<section class="page" id="tournaments">
 
-            <div class="panel">
+<h1 class="title">
+Tournaments
+</h1>
 
-                <div class="empty">
-                    بخش مدیریت تورنمنت‌ها در مرحله بعد ساخته می‌شود.
-                </div>
+<p class="subtitle">
+ساخت و مدیریت تورنمنت‌ها
+</p>
 
-            </div>
+<div id="tournamentMessage"></div>
 
-        </section>
 
+<div class="panel">
 
-        <!-- USERS -->
+<div class="panel-title">
+➕ ساخت تورنمنت جدید
+</div>
 
-        <section class="page" id="users">
+<div class="form-grid">
 
-            <h1 class="title">
-                Users
-            </h1>
+<div class="form-group full">
 
-            <p class="subtitle">
-                مدیریت کاربران
-            </p>
+<label>
+عنوان تورنمنت
+</label>
 
-            <div class="panel">
+<input
+type="text"
+id="tourTitle"
+placeholder="مثلاً CALLAFINO CODM CUP #1"
+>
 
-                <div class="empty">
-                    بخش Users در مرحله بعد ساخته می‌شود.
-                </div>
+</div>
 
-            </div>
 
-        </section>
+<div class="form-group">
 
+<label>
+Game
+</label>
 
-        <!-- SQUADS -->
+<select id="tourGame">
 
-        <section class="page" id="squads">
+<option value="Call of Duty Mobile">
+Call of Duty Mobile
+</option>
 
-            <h1 class="title">
-                Squads
-            </h1>
+<option value="FC Mobile">
+FC Mobile
+</option>
 
-            <p class="subtitle">
-                مدیریت Squadها
-            </p>
+<option value="Minecraft">
+Minecraft
+</option>
 
-            <div class="panel">
+</select>
 
-                <div class="empty">
-                    بخش Squads در مرحله بعد ساخته می‌شود.
-                </div>
+</div>
 
-            </div>
 
-        </section>
+<div class="form-group">
 
+<label>
+Type
+</label>
 
-        <!-- RANKING -->
+<select id="tourType">
 
-        <section class="page" id="ranking">
+<option value="Solo">
+Solo
+</option>
 
-            <h1 class="title">
-                Ranking
-            </h1>
+<option value="Duo">
+Duo
+</option>
 
-            <p class="subtitle">
-                مدیریت Ranking
-            </p>
+<option value="Squad">
+Squad
+</option>
 
-            <div class="panel">
+</select>
 
-                <div class="empty">
-                    بخش Ranking در مرحله بعد ساخته می‌شود.
-                </div>
+</div>
 
-            </div>
 
-        </section>
+<div class="form-group">
 
+<label>
+Maximum Players / Slots
+</label>
 
-        <!-- SETTINGS -->
+<input
+type="number"
+id="tourMaxPlayers"
+value="32"
+min="1"
+>
 
-        <section class="page" id="settings">
+</div>
 
-            <h1 class="title">
-                Settings
-            </h1>
 
-            <p class="subtitle">
-                تنظیمات پنل
-            </p>
+<div class="form-group">
 
-            <div class="panel">
+<label>
+Start Time
+</label>
 
-                <div class="empty">
-                    تنظیمات در مرحله بعد اضافه می‌شود.
-                </div>
+<input
+type="datetime-local"
+id="tourStart"
+>
 
-            </div>
+</div>
 
-        </section>
+</div>
 
 
-    </main>
+<div class="actions">
+
+<button
+class="btn"
+id="createTournamentBtn"
+>
+🏆 ساخت تورنمنت
+</button>
+
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-title">
+تورنمنت‌های موجود
+</div>
+
+<div id="tournamentList">
+
+<div class="loading">
+در حال دریافت...
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= USERS ================= -->
+
+<section class="page" id="users">
+
+<h1 class="title">
+Users
+</h1>
+
+<p class="subtitle">
+کاربران ثبت‌شده در CALLAFINO
+</p>
+
+<div class="panel">
+
+<div class="panel-title">
+لیست کاربران
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+<th>Username</th>
+<th>Game</th>
+<th>Bio</th>
+<th>Created</th>
+</tr>
+
+</thead>
+
+<tbody id="usersTable">
+
+<tr>
+<td colspan="4" class="loading">
+در حال دریافت...
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= SQUADS ================= -->
+
+<section class="page" id="squads">
+
+<h1 class="title">
+Squads
+</h1>
+
+<p class="subtitle">
+مشاهده Duo / Squadها
+</p>
+
+<div class="panel">
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+<th>Player 1</th>
+<th>Player 2</th>
+<th>Status</th>
+<th>Created</th>
+</tr>
+
+</thead>
+
+<tbody id="squadsTable">
+
+<tr>
+<td colspan="4" class="loading">
+در حال دریافت...
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= RANKING ================= -->
+
+<section class="page" id="ranking">
+
+<h1 class="title">
+Ranking
+</h1>
+
+<p class="subtitle">
+مدیریت جدول رنکینگ
+</p>
+
+<div id="rankingMessage"></div>
+
+
+<div class="panel">
+
+<div class="panel-title">
+➕ افزودن بازیکن به Ranking
+</div>
+
+<div class="form-grid">
+
+<div class="form-group">
+
+<label>
+Player 1 Name
+</label>
+
+<input
+type="text"
+id="rankPlayer1"
+placeholder="نام بازیکن"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Player 2 Name
+</label>
+
+<input
+type="text"
+id="rankPlayer2"
+placeholder="برای Duo"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Points
+</label>
+
+<input
+type="number"
+id="rankPoints"
+value="0"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Position
+</label>
+
+<input
+type="number"
+id="rankPosition"
+placeholder="1"
+>
+
+</div>
+
+</div>
+
+
+<div class="actions">
+
+<button
+class="btn"
+id="addRankingBtn"
+>
+🏅 افزودن به Ranking
+</button>
+
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-title">
+🏅 جدول Ranking
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Position</th>
+<th>Player 1</th>
+<th>Player 2</th>
+<th>Points</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="rankingTable">
+
+<tr>
+<td colspan="5" class="loading">
+در حال دریافت...
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= SETTINGS ================= -->
+
+<section class="page" id="settings">
+
+<h1 class="title">
+Settings
+</h1>
+
+<p class="subtitle">
+تنظیمات پنل مدیریت
+</p>
+
+<div class="panel">
+
+<div class="empty">
+تنظیمات بیشتر در مراحل بعد اضافه می‌شود.
+</div>
+
+</div>
+
+</section>
+
+
+</main>
 
 </div>
 
 
 <script type="module">
 
-import { createClient }
+import {
+    createClient
+}
 from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
 
@@ -645,9 +1040,9 @@ createClient(
 );
 
 
-// ========================================
+// =================================================
 // ELEMENTS
-// ========================================
+// =================================================
 
 const tournamentSelect =
 document.getElementById("tournamentSelect");
@@ -659,32 +1054,38 @@ const message =
 document.getElementById("message");
 
 
-// ========================================
+// =================================================
 // ESCAPE HTML
-// ========================================
+// =================================================
 
 function escapeHTML(value){
 
-    if(value === null || value === undefined){
+    if(value === null ||
+       value === undefined){
+
         return "";
     }
 
     return String(value)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 }
 
 
-// ========================================
+// =================================================
 // MESSAGE
-// ========================================
+// =================================================
 
-function showMessage(text,type="success"){
+function showMessage(
+    element,
+    text,
+    type="success"
+){
 
-    message.innerHTML =
+    element.innerHTML =
     `<div class="${type}">
         ${escapeHTML(text)}
     </div>`;
@@ -692,9 +1093,9 @@ function showMessage(text,type="success"){
 }
 
 
-// ========================================
+// =================================================
 // CHECK ADMIN
-// ========================================
+// =================================================
 
 async function checkAdmin(){
 
@@ -744,9 +1145,9 @@ async function checkAdmin(){
 }
 
 
-// ========================================
+// =================================================
 // LOAD TOURNAMENTS
-// ========================================
+// =================================================
 
 async function loadTournaments(){
 
@@ -763,12 +1164,16 @@ async function loadTournaments(){
     await supabase
     .from("tournaments")
     .select("*")
-    .order("created_at",{ascending:false});
+    .order(
+        "created_at",
+        {ascending:false}
+    );
 
 
     if(error){
 
         showMessage(
+            message,
             "خطا در دریافت تورنمنت‌ها: " +
             error.message,
             "error"
@@ -795,16 +1200,332 @@ async function loadTournaments(){
         option.textContent =
         `${tournament.title} — ${tournament.type}`;
 
-        tournamentSelect.appendChild(option);
+        tournamentSelect
+        .appendChild(option);
+
+    });
+
+
+    renderTournamentList(data);
+
+}
+
+
+// =================================================
+// TOURNAMENT LIST
+// =================================================
+
+function renderTournamentList(
+    tournaments
+){
+
+    const container =
+    document.getElementById(
+        "tournamentList"
+    );
+
+
+    if(!tournaments.length){
+
+        container.innerHTML =
+        `<div class="empty">
+            هنوز تورنمنتی ساخته نشده است.
+        </div>`;
+
+        return;
+    }
+
+
+    container.innerHTML = "";
+
+
+    tournaments.forEach(tournament => {
+
+        const start =
+        tournament.start_time
+        ?
+        new Date(
+            tournament.start_time
+        ).toLocaleString("fa-IR")
+        :
+        "زمان تعیین نشده";
+
+
+        const card =
+        document.createElement("div");
+
+        card.className =
+        "tournament-card";
+
+
+        card.innerHTML = `
+
+            <div class="tournament-info">
+
+                <h3>
+                    ${escapeHTML(
+                        tournament.title
+                    )}
+                </h3>
+
+                <p>
+                    🎮 ${escapeHTML(
+                        tournament.game
+                    )}
+                    <br>
+
+                    نوع:
+                    ${escapeHTML(
+                        tournament.type
+                    )}
+
+                    <br>
+
+                    ظرفیت:
+                    ${escapeHTML(
+                        tournament.max_players
+                    )}
+
+                    <br>
+
+                    شروع:
+                    ${escapeHTML(start)}
+
+                    <br>
+
+                    وضعیت:
+                    ${escapeHTML(
+                        tournament.status
+                    )}
+                </p>
+
+            </div>
+
+
+            <button
+                class="btn danger small"
+                data-delete-tour="${tournament.id}"
+            >
+                حذف
+            </button>
+
+        `;
+
+
+        container.appendChild(card);
+
+    });
+
+
+    container
+    .querySelectorAll(
+        "[data-delete-tour]"
+    )
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () =>
+            deleteTournament(
+                button.dataset.deleteTour
+            )
+        );
 
     });
 
 }
 
 
-// ========================================
-// LOAD ALL REGISTRATION COUNT
-// ========================================
+// =================================================
+// CREATE TOURNAMENT
+// =================================================
+
+async function createTournament(){
+
+    const title =
+    document.getElementById(
+        "tourTitle"
+    ).value.trim();
+
+
+    const game =
+    document.getElementById(
+        "tourGame"
+    ).value;
+
+
+    const type =
+    document.getElementById(
+        "tourType"
+    ).value;
+
+
+    const maxPlayers =
+    Number(
+        document.getElementById(
+            "tourMaxPlayers"
+        ).value
+    );
+
+
+    const startInput =
+    document.getElementById(
+        "tourStart"
+    ).value;
+
+
+    if(!title){
+
+        showMessage(
+            document.getElementById(
+                "tournamentMessage"
+            ),
+            "عنوان تورنمنت را وارد کنید.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if(!maxPlayers ||
+       maxPlayers < 1){
+
+        showMessage(
+            document.getElementById(
+                "tournamentMessage"
+            ),
+            "ظرفیت تورنمنت معتبر نیست.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    let startTime =
+    null;
+
+
+    if(startInput){
+
+        startTime =
+        new Date(
+            startInput
+        ).toISOString();
+
+    }
+
+
+    const {
+        error
+    } =
+    await supabase
+    .from("tournaments")
+    .insert({
+
+        title:title,
+        game:game,
+        type:type,
+        max_players:maxPlayers,
+        status:"open",
+        start_time:startTime
+
+    });
+
+
+    if(error){
+
+        showMessage(
+            document.getElementById(
+                "tournamentMessage"
+            ),
+            "خطا در ساخت تورنمنت: " +
+            error.message,
+            "error"
+        );
+
+        return;
+    }
+
+
+    showMessage(
+        document.getElementById(
+            "tournamentMessage"
+        ),
+        "تورنمنت با موفقیت ساخته شد."
+    );
+
+
+    document.getElementById(
+        "tourTitle"
+    ).value = "";
+
+
+    await loadTournaments();
+
+}
+
+
+// =================================================
+// DELETE TOURNAMENT
+// =================================================
+
+async function deleteTournament(
+    id
+){
+
+    const confirmed =
+    confirm(
+        "آیا مطمئنی می‌خواهی این تورنمنت حذف شود؟"
+    );
+
+
+    if(!confirmed){
+        return;
+    }
+
+
+    const {
+        error
+    } =
+    await supabase
+    .from("tournaments")
+    .delete()
+    .eq("id",id);
+
+
+    if(error){
+
+        showMessage(
+            document.getElementById(
+                "tournamentMessage"
+            ),
+            "خطا در حذف تورنمنت: " +
+            error.message,
+            "error"
+        );
+
+        return;
+    }
+
+
+    showMessage(
+        document.getElementById(
+            "tournamentMessage"
+        ),
+        "تورنمنت حذف شد."
+    );
+
+
+    await loadTournaments();
+
+}
+
+
+// =================================================
+// LOAD REGISTRATION COUNT
+// =================================================
 
 async function loadRegistrationCount(){
 
@@ -814,7 +1535,13 @@ async function loadRegistrationCount(){
     } =
     await supabase
     .from("tournament_registrations")
-    .select("*",{count:"exact",head:true});
+    .select(
+        "*",
+        {
+            count:"exact",
+            head:true
+        }
+    );
 
 
     if(!error){
@@ -829,9 +1556,9 @@ async function loadRegistrationCount(){
 }
 
 
-// ========================================
+// =================================================
 // LOAD REGISTRATIONS
-// ========================================
+// =================================================
 
 async function loadRegistrations(){
 
@@ -842,6 +1569,7 @@ async function loadRegistrations(){
     if(!tournamentId){
 
         showMessage(
+            message,
             "ابتدا یک تورنمنت انتخاب کنید.",
             "error"
         );
@@ -872,8 +1600,14 @@ async function loadRegistrations(){
         slot,
         created_at
     `)
-    .eq("tournament_id",tournamentId)
-    .order("slot",{ascending:true});
+    .eq(
+        "tournament_id",
+        tournamentId
+    )
+    .order(
+        "slot",
+        {ascending:true}
+    );
 
 
     if(error){
@@ -881,7 +1615,10 @@ async function loadRegistrations(){
         registrationsTable.innerHTML =
         `<tr>
             <td colspan="5" class="empty">
-                خطا: ${escapeHTML(error.message)}
+                خطا:
+                ${escapeHTML(
+                    error.message
+                )}
             </td>
         </tr>`;
 
@@ -912,13 +1649,19 @@ async function loadRegistrations(){
     let profiles = [];
 
 
-    if(userIds.length > 0){
+    if(userIds.length){
 
         const result =
         await supabase
         .from("profiles")
-        .select("id,username")
-        .in("id",userIds);
+        .select(
+            "id,username"
+        )
+        .in(
+            "id",
+            userIds
+        );
+
 
         profiles =
         result.data || [];
@@ -929,7 +1672,10 @@ async function loadRegistrations(){
     const profileMap =
     new Map(
         profiles.map(
-            p => [p.id,p.username]
+            p => [
+                p.id,
+                p.username
+            ]
         )
     );
 
@@ -943,7 +1689,7 @@ async function loadRegistrations(){
     let squads = [];
 
 
-    if(squadIds.length > 0){
+    if(squadIds.length){
 
         const result =
         await supabase
@@ -951,7 +1697,10 @@ async function loadRegistrations(){
         .select(
             "id,player1_id,player2_id,status"
         )
-        .in("id",squadIds);
+        .in(
+            "id",
+            squadIds
+        );
 
 
         squads =
@@ -963,21 +1712,28 @@ async function loadRegistrations(){
     const squadMap =
     new Map(
         squads.map(
-            s => [s.id,s]
+            s => [
+                s.id,
+                s
+            ]
         )
     );
 
 
-    const allPlayerIds = [];
+    const playerIds = [];
 
 
     squads.forEach(s => {
 
         if(s.player1_id)
-            allPlayerIds.push(s.player1_id);
+            playerIds.push(
+                s.player1_id
+            );
 
         if(s.player2_id)
-            allPlayerIds.push(s.player2_id);
+            playerIds.push(
+                s.player2_id
+            );
 
     });
 
@@ -985,17 +1741,18 @@ async function loadRegistrations(){
     let squadProfiles = [];
 
 
-    if(allPlayerIds.length > 0){
-
-        const uniqueIds =
-        [...new Set(allPlayerIds)];
-
+    if(playerIds.length){
 
         const result =
         await supabase
         .from("profiles")
-        .select("id,username")
-        .in("id",uniqueIds);
+        .select(
+            "id,username"
+        )
+        .in(
+            "id",
+            [...new Set(playerIds)]
+        );
 
 
         squadProfiles =
@@ -1007,7 +1764,10 @@ async function loadRegistrations(){
     const squadProfileMap =
     new Map(
         squadProfiles.map(
-            p => [p.id,p.username]
+            p => [
+                p.id,
+                p.username
+            ]
         )
     );
 
@@ -1015,55 +1775,168 @@ async function loadRegistrations(){
     registrationsTable.innerHTML = "";
 
 
-    registrations.forEach(registration => {
+    registrations.forEach(
+        registration => {
 
-        const username =
-        profileMap.get(
-            registration.user_id
-        ) || "Unknown";
-
-
-        let squadText = "-";
-
-
-        if(registration.squad_id){
-
-            const squad =
-            squadMap.get(
-                registration.squad_id
-            );
+            const username =
+            profileMap.get(
+                registration.user_id
+            ) ||
+            "Unknown";
 
 
-            if(squad){
-
-                const player1 =
-                squadProfileMap.get(
-                    squad.player1_id
-                ) || "Unknown";
+            let squadText =
+            "-";
 
 
-                const player2 =
-                squadProfileMap.get(
-                    squad.player2_id
-                ) || "Unknown";
+            if(registration.squad_id){
+
+                const squad =
+                squadMap.get(
+                    registration.squad_id
+                );
 
 
-                squadText =
-                `${escapeHTML(player1)}
-                 + ${escapeHTML(player2)}`;
+                if(squad){
+
+                    const player1 =
+                    squadProfileMap.get(
+                        squad.player1_id
+                    ) ||
+                    "Unknown";
+
+
+                    const player2 =
+                    squadProfileMap.get(
+                        squad.player2_id
+                    ) ||
+                    "Unknown";
+
+
+                    squadText =
+                    `${escapeHTML(player1)}
+                    + ${escapeHTML(player2)}`;
+
+                }
 
             }
 
+
+            const date =
+            new Date(
+                registration.created_at
+            ).toLocaleString(
+                "fa-IR"
+            );
+
+
+            const row =
+            document.createElement(
+                "tr"
+            );
+
+
+            row.innerHTML = `
+
+                <td class="slot">
+                    #${escapeHTML(
+                        registration.slot
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHTML(
+                        username
+                    )}
+                </td>
+
+                <td>
+                    <span class="type">
+                        ${escapeHTML(
+                            registration.type
+                        )}
+                    </span>
+                </td>
+
+                <td>
+                    ${squadText}
+                </td>
+
+                <td>
+                    ${escapeHTML(date)}
+                </td>
+
+            `;
+
+
+            registrationsTable
+            .appendChild(row);
+
         }
+    );
+
+}
 
 
-        const date =
-        new Date(
-            registration.created_at
-        ).toLocaleString(
-            "fa-IR"
-        );
+// =================================================
+// USERS
+// =================================================
 
+async function loadUsers(){
+
+    const table =
+    document.getElementById(
+        "usersTable"
+    );
+
+
+    const {
+        data,
+        error
+    } =
+    await supabase
+    .from("profiles")
+    .select(
+        "username,bio,game,created_at"
+    )
+    .order(
+        "created_at",
+        {ascending:false}
+    );
+
+
+    if(error){
+
+        table.innerHTML =
+        `<tr>
+            <td colspan="4" class="empty">
+                ${escapeHTML(
+                    error.message
+                )}
+            </td>
+        </tr>`;
+
+        return;
+    }
+
+
+    if(!data.length){
+
+        table.innerHTML =
+        `<tr>
+            <td colspan="4" class="empty">
+                کاربری وجود ندارد.
+            </td>
+        </tr>`;
+
+        return;
+    }
+
+
+    table.innerHTML = "";
+
+
+    data.forEach(user => {
 
         const row =
         document.createElement("tr");
@@ -1071,69 +1944,545 @@ async function loadRegistrations(){
 
         row.innerHTML = `
 
-            <td class="slot">
-                #${escapeHTML(registration.slot)}
+            <td>
+                ${escapeHTML(
+                    user.username
+                )}
             </td>
 
             <td>
-                ${escapeHTML(username)}
+                ${escapeHTML(
+                    user.game || "-"
+                )}
             </td>
 
             <td>
-                <span class="type">
-                    ${escapeHTML(
-                        registration.type
-                    )}
-                </span>
+                ${escapeHTML(
+                    user.bio || "-"
+                )}
             </td>
 
             <td>
-                ${squadText}
-            </td>
-
-            <td>
-                ${escapeHTML(date)}
+                ${escapeHTML(
+                    new Date(
+                        user.created_at
+                    ).toLocaleString("fa-IR")
+                )}
             </td>
 
         `;
 
 
-        registrationsTable.appendChild(row);
+        table.appendChild(row);
 
     });
 
 }
 
 
-// ========================================
-// SIDEBAR NAVIGATION
-// ========================================
+// =================================================
+// SQUADS
+// =================================================
+
+async function loadSquads(){
+
+    const table =
+    document.getElementById(
+        "squadsTable"
+    );
+
+
+    const {
+        data,
+        error
+    } =
+    await supabase
+    .from("squads")
+    .select(
+        "id,player1_id,player2_id,status,created_at"
+    )
+    .order(
+        "created_at",
+        {ascending:false}
+    );
+
+
+    if(error){
+
+        table.innerHTML =
+        `<tr>
+            <td colspan="4" class="empty">
+                ${escapeHTML(
+                    error.message
+                )}
+            </td>
+        </tr>`;
+
+        return;
+    }
+
+
+    if(!data.length){
+
+        table.innerHTML =
+        `<tr>
+            <td colspan="4" class="empty">
+                هنوز Squadی وجود ندارد.
+            </td>
+        </tr>`;
+
+        return;
+    }
+
+
+    const ids = [];
+
+
+    data.forEach(s => {
+
+        if(s.player1_id)
+            ids.push(s.player1_id);
+
+        if(s.player2_id)
+            ids.push(s.player2_id);
+
+    });
+
+
+    const {
+        data:profiles
+    } =
+    await supabase
+    .from("profiles")
+    .select(
+        "id,username"
+    )
+    .in(
+        "id",
+        [...new Set(ids)]
+    );
+
+
+    const map =
+    new Map(
+        (profiles || [])
+        .map(
+            p => [
+                p.id,
+                p.username
+            ]
+        )
+    );
+
+
+    table.innerHTML = "";
+
+
+    data.forEach(squad => {
+
+        const row =
+        document.createElement("tr");
+
+
+        row.innerHTML = `
+
+            <td>
+                ${escapeHTML(
+                    map.get(
+                        squad.player1_id
+                    ) || "Unknown"
+                )}
+            </td>
+
+            <td>
+                ${escapeHTML(
+                    map.get(
+                        squad.player2_id
+                    ) || "Unknown"
+                )}
+            </td>
+
+            <td>
+                <span class="status">
+                    ${escapeHTML(
+                        squad.status
+                    )}
+                </span>
+            </td>
+
+            <td>
+                ${escapeHTML(
+                    new Date(
+                        squad.created_at
+                    ).toLocaleString(
+                        "fa-IR"
+                    )
+                )}
+            </td>
+
+        `;
+
+
+        table.appendChild(row);
+
+    });
+
+}
+
+
+// =================================================
+// RANKING
+// =================================================
+
+async function loadRanking(){
+
+    const table =
+    document.getElementById(
+        "rankingTable"
+    );
+
+
+    const {
+        data,
+        error
+    } =
+    await supabase
+    .from("ranking")
+    .select("*")
+    .order(
+        "position",
+        {ascending:true}
+    );
+
+
+    if(error){
+
+        table.innerHTML =
+        `<tr>
+            <td colspan="5" class="empty">
+                ${escapeHTML(
+                    error.message
+                )}
+            </td>
+        </tr>`;
+
+        return;
+    }
+
+
+    if(!data.length){
+
+        table.innerHTML =
+        `<tr>
+            <td colspan="5" class="empty">
+                هنوز بازیکنی در Ranking نیست.
+            </td>
+        </tr>`;
+
+        return;
+    }
+
+
+    table.innerHTML = "";
+
+
+    data.forEach(rank => {
+
+        const row =
+        document.createElement("tr");
+
+
+        row.innerHTML = `
+
+            <td class="rank-number">
+                #${escapeHTML(
+                    rank.position
+                )}
+            </td>
+
+            <td>
+                ${escapeHTML(
+                    rank.player1_name
+                )}
+            </td>
+
+            <td>
+                ${escapeHTML(
+                    rank.player2_name || "-"
+                )}
+            </td>
+
+            <td class="points">
+                ${escapeHTML(
+                    rank.points
+                )}
+            </td>
+
+            <td>
+
+                <button
+                    class="btn danger small"
+                    data-delete-rank="${rank.id}"
+                >
+                    حذف
+                </button>
+
+            </td>
+
+        `;
+
+
+        table.appendChild(row);
+
+    });
+
+
+    table
+    .querySelectorAll(
+        "[data-delete-rank]"
+    )
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () =>
+            deleteRanking(
+                button.dataset.deleteRank
+            )
+        );
+
+    });
+
+}
+
+
+// =================================================
+// ADD RANKING
+// =================================================
+
+async function addRanking(){
+
+    const player1 =
+    document.getElementById(
+        "rankPlayer1"
+    ).value.trim();
+
+
+    const player2 =
+    document.getElementById(
+        "rankPlayer2"
+    ).value.trim();
+
+
+    const points =
+    Number(
+        document.getElementById(
+            "rankPoints"
+        ).value
+    );
+
+
+    const position =
+    Number(
+        document.getElementById(
+            "rankPosition"
+        ).value
+    );
+
+
+    if(!player1){
+
+        showMessage(
+            document.getElementById(
+                "rankingMessage"
+            ),
+            "نام Player 1 را وارد کنید.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if(!position ||
+       position < 1){
+
+        showMessage(
+            document.getElementById(
+                "rankingMessage"
+            ),
+            "Position معتبر نیست.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    const {
+        error
+    } =
+    await supabase
+    .from("ranking")
+    .insert({
+
+        player1_name:player1,
+
+        player2_name:
+        player2 || null,
+
+        points:
+        points || 0,
+
+        position:position
+
+    });
+
+
+    if(error){
+
+        showMessage(
+            document.getElementById(
+                "rankingMessage"
+            ),
+            "خطا در افزودن Ranking: " +
+            error.message,
+            "error"
+        );
+
+        return;
+    }
+
+
+    showMessage(
+        document.getElementById(
+            "rankingMessage"
+        ),
+        "بازیکن به Ranking اضافه شد."
+    );
+
+
+    document.getElementById(
+        "rankPlayer1"
+    ).value = "";
+
+
+    document.getElementById(
+        "rankPlayer2"
+    ).value = "";
+
+
+    document.getElementById(
+        "rankPoints"
+    ).value = "0";
+
+
+    document.getElementById(
+        "rankPosition"
+    ).value = "";
+
+
+    await loadRanking();
+
+}
+
+
+// =================================================
+// DELETE RANKING
+// =================================================
+
+async function deleteRanking(id){
+
+    const confirmed =
+    confirm(
+        "آیا از حذف این بازیکن از Ranking مطمئنی؟"
+    );
+
+
+    if(!confirmed){
+        return;
+    }
+
+
+    const {
+        error
+    } =
+    await supabase
+    .from("ranking")
+    .delete()
+    .eq(
+        "id",
+        id
+    );
+
+
+    if(error){
+
+        showMessage(
+            document.getElementById(
+                "rankingMessage"
+            ),
+            "خطا در حذف: " +
+            error.message,
+            "error"
+        );
+
+        return;
+    }
+
+
+    showMessage(
+        document.getElementById(
+            "rankingMessage"
+        ),
+        "بازیکن از Ranking حذف شد."
+    );
+
+
+    await loadRanking();
+
+}
+
+
+// =================================================
+// SIDEBAR
+// =================================================
 
 document
-.querySelectorAll(".sidebar button")
+.querySelectorAll(
+    ".sidebar button"
+)
 .forEach(button => {
 
     button.addEventListener(
         "click",
-        () => {
+        async () => {
 
             document
             .querySelectorAll(
                 ".sidebar button"
             )
             .forEach(btn =>
-                btn.classList.remove("active")
+                btn.classList.remove(
+                    "active"
+                )
             );
 
 
             document
-            .querySelectorAll(".page")
+            .querySelectorAll(
+                ".page"
+            )
             .forEach(page =>
-                page.classList.remove("active")
+                page.classList.remove(
+                    "active"
+                )
             );
 
 
-            button.classList.add("active");
+            button.classList.add(
+                "active"
+            );
 
 
             const pageId =
@@ -1141,8 +2490,47 @@ document
 
 
             document
-            .getElementById(pageId)
-            .classList.add("active");
+            .getElementById(
+                pageId
+            )
+            .classList.add(
+                "active"
+            );
+
+
+            if(pageId === "tournaments"){
+
+                await loadTournaments();
+
+            }
+
+
+            if(pageId === "users"){
+
+                await loadUsers();
+
+            }
+
+
+            if(pageId === "squads"){
+
+                await loadSquads();
+
+            }
+
+
+            if(pageId === "ranking"){
+
+                await loadRanking();
+
+            }
+
+
+            if(pageId === "registrations"){
+
+                await loadTournaments();
+
+            }
 
         }
     );
@@ -1150,12 +2538,14 @@ document
 });
 
 
-// ========================================
+// =================================================
 // BUTTONS
-// ========================================
+// =================================================
 
 document
-.getElementById("loadRegistrations")
+.getElementById(
+    "loadRegistrations"
+)
 .addEventListener(
     "click",
     loadRegistrations
@@ -1163,7 +2553,9 @@ document
 
 
 document
-.getElementById("refreshBtn")
+.getElementById(
+    "refreshBtn"
+)
 .addEventListener(
     "click",
     async () => {
@@ -1182,12 +2574,34 @@ document
 );
 
 
-// ========================================
-// LOGOUT
-// ========================================
+document
+.getElementById(
+    "createTournamentBtn"
+)
+.addEventListener(
+    "click",
+    createTournament
+);
+
 
 document
-.getElementById("logoutBtn")
+.getElementById(
+    "addRankingBtn"
+)
+.addEventListener(
+    "click",
+    addRanking
+);
+
+
+// =================================================
+// LOGOUT
+// =================================================
+
+document
+.getElementById(
+    "logoutBtn"
+)
 .addEventListener(
     "click",
     async () => {
@@ -1201,9 +2615,9 @@ document
 );
 
 
-// ========================================
+// =================================================
 // START
-// ========================================
+// =================================================
 
 const isAdmin =
 await checkAdmin();
@@ -1214,6 +2628,8 @@ if(isAdmin){
     await loadTournaments();
 
     await loadRegistrationCount();
+
+    await loadRanking();
 
 }
 
