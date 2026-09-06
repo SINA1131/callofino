@@ -17,7 +17,10 @@
 }
 
 body{
-    background:#050505;
+    background:
+        radial-gradient(circle at top right,#102010 0%,transparent 30%),
+        radial-gradient(circle at bottom left,#071407 0%,transparent 25%),
+        #050505;
     color:white;
     min-height:100vh;
 }
@@ -26,12 +29,16 @@ body{
 
 .navbar{
     height:70px;
-    background:#0b0b0b;
+    background:rgba(10,10,10,.95);
     border-bottom:1px solid #222;
     display:flex;
     align-items:center;
     justify-content:space-between;
     padding:0 35px;
+    position:sticky;
+    top:0;
+    z-index:100;
+    backdrop-filter:blur(10px);
 }
 
 .logo{
@@ -39,19 +46,20 @@ body{
     font-weight:bold;
     color:#39ff14;
     letter-spacing:2px;
+    text-shadow:0 0 12px rgba(57,255,20,.35);
 }
 
 .nav-links{
     display:flex;
-    gap:10px;
+    gap:8px;
 }
 
 .nav-links a,
 .logout-btn{
     text-decoration:none;
-    color:#bbb;
+    color:#aaa;
     padding:10px 15px;
-    border-radius:8px;
+    border-radius:9px;
     transition:.2s;
     cursor:pointer;
 }
@@ -64,7 +72,6 @@ body{
 .logout-btn{
     background:#151515;
     border:1px solid #292929;
-    color:#bbb;
 }
 
 .logout-btn:hover{
@@ -77,17 +84,19 @@ body{
 .container{
     max-width:1100px;
     margin:auto;
-    padding:40px 20px;
+    padding:40px 20px 60px;
 }
 
 /* WELCOME */
 
 .welcome{
-    background:linear-gradient(135deg,#101010,#080808);
-    border:1px solid #222;
-    border-radius:18px;
-    padding:30px;
+    background:
+        linear-gradient(135deg,rgba(20,30,20,.95),rgba(8,8,8,.98));
+    border:1px solid #252525;
+    border-radius:20px;
+    padding:32px;
     margin-bottom:25px;
+    box-shadow:0 10px 35px rgba(0,0,0,.25);
 }
 
 .welcome h1{
@@ -97,6 +106,7 @@ body{
 
 .welcome h1 span{
     color:#39ff14;
+    text-shadow:0 0 12px rgba(57,255,20,.3);
 }
 
 .welcome p{
@@ -106,9 +116,9 @@ body{
 /* PROFILE */
 
 .profile-card{
-    background:#0d0d0d;
+    background:#0c0c0c;
     border:1px solid #222;
-    border-radius:18px;
+    border-radius:20px;
     padding:25px;
     margin-bottom:25px;
 }
@@ -120,15 +130,16 @@ body{
 }
 
 .avatar{
-    width:75px;
-    height:75px;
+    width:78px;
+    height:78px;
     border-radius:50%;
     background:#151515;
     border:2px solid #39ff14;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:30px;
+    font-size:31px;
+    box-shadow:0 0 20px rgba(57,255,20,.12);
 }
 
 .profile-info h2{
@@ -139,56 +150,114 @@ body{
     color:#888;
 }
 
-/* SETTINGS */
+/* SETTINGS PANEL */
 
-.edit-panel{
-    background:#0d0d0d;
-    border:1px solid #222;
-    border-radius:18px;
+.settings-panel{
+    background:
+        linear-gradient(145deg,#101010,#090909);
+    border:1px solid #292929;
+    border-radius:20px;
+    overflow:hidden;
+    margin-bottom:25px;
+    box-shadow:0 10px 40px rgba(0,0,0,.3);
+}
+
+.settings-header{
     padding:25px;
-    margin-bottom:25px;
+    border-bottom:1px solid #222;
+    background:#0d0d0d;
 }
 
-.edit-panel h2{
-    margin-bottom:8px;
+.settings-title{
+    display:flex;
+    align-items:center;
+    gap:12px;
 }
 
-.edit-description{
+.settings-icon{
+    width:45px;
+    height:45px;
+    border-radius:12px;
+    background:#151515;
+    border:1px solid #333;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:23px;
+}
+
+.settings-title h2{
+    font-size:21px;
+}
+
+.settings-title p{
     color:#777;
-    font-size:14px;
-    margin-bottom:25px;
+    font-size:13px;
+    margin-top:5px;
 }
 
-.form-group{
-    margin-bottom:18px;
+/* SETTINGS CONTENT */
+
+.settings-content{
+    padding:25px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
 }
 
-.form-group label{
-    display:block;
-    color:#aaa;
+.setting-box{
+    background:#080808;
+    border:1px solid #252525;
+    border-radius:15px;
+    padding:20px;
+    transition:.2s;
+}
+
+.setting-box:hover{
+    border-color:#39ff14;
+    transform:translateY(-2px);
+}
+
+.setting-box h3{
+    font-size:16px;
     margin-bottom:8px;
 }
 
-.form-group input{
+.setting-box p{
+    color:#666;
+    font-size:12px;
+    margin-bottom:15px;
+}
+
+.setting-box input{
     width:100%;
-    padding:14px;
+    padding:12px;
     border-radius:9px;
     border:1px solid #333;
-    background:#070707;
+    background:#050505;
     color:white;
     outline:none;
-    font-size:15px;
+    font-size:14px;
 }
 
-.form-group input:focus{
+.setting-box input:focus{
     border-color:#39ff14;
+    box-shadow:0 0 0 2px rgba(57,255,20,.06);
+}
+
+/* SAVE */
+
+.settings-footer{
+    padding:20px 25px;
+    border-top:1px solid #222;
+    background:#0b0b0b;
 }
 
 .save-btn{
     width:100%;
     padding:14px;
     border:none;
-    border-radius:9px;
+    border-radius:10px;
     background:#39ff14;
     color:#000;
     font-size:16px;
@@ -200,17 +269,19 @@ body{
 .save-btn:hover{
     background:#2ee00f;
     transform:translateY(-1px);
+    box-shadow:0 5px 20px rgba(57,255,20,.15);
 }
 
 .save-btn:disabled{
     opacity:.6;
     cursor:not-allowed;
     transform:none;
+    box-shadow:none;
 }
 
 #profileMessage{
     text-align:center;
-    margin-top:15px;
+    margin-top:13px;
     font-size:14px;
 }
 
@@ -225,14 +296,15 @@ body{
 .card{
     background:#0d0d0d;
     border:1px solid #222;
-    border-radius:16px;
+    border-radius:17px;
     padding:25px;
-    transition:.2s;
+    transition:.25s;
 }
 
 .card:hover{
     border-color:#39ff14;
-    transform:translateY(-3px);
+    transform:translateY(-4px);
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
 }
 
 .card-icon{
@@ -248,6 +320,7 @@ body{
     color:#777;
     font-size:14px;
     margin-bottom:18px;
+    line-height:1.7;
 }
 
 .card a{
@@ -258,6 +331,7 @@ body{
     border:1px solid #333;
     padding:9px 15px;
     border-radius:8px;
+    transition:.2s;
 }
 
 .card a:hover{
@@ -265,19 +339,40 @@ body{
     color:#000;
 }
 
-/* ADMIN CARD */
+/* ADMIN */
 
 .admin-card{
-    border-color:#39ff14;
+    border-color:#31552b;
+    background:
+        linear-gradient(145deg,#101810,#0b0b0b);
 }
 
 .admin-card:hover{
-    box-shadow:0 0 15px rgba(57,255,20,.15);
+    border-color:#39ff14;
+    box-shadow:0 0 25px rgba(57,255,20,.12);
+}
+
+/* ERROR */
+
+.profile-error{
+    color:#ff5555 !important;
 }
 
 /* MOBILE */
 
-@media(max-width:800px){
+@media(max-width:850px){
+
+    .settings-content{
+        grid-template-columns:1fr;
+    }
+
+    .grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+}
+
+@media(max-width:600px){
 
     .navbar{
         padding:0 15px;
@@ -287,12 +382,30 @@ body{
         display:none;
     }
 
-    .grid{
-        grid-template-columns:1fr;
+    .container{
+        padding:25px 15px 45px;
+    }
+
+    .welcome{
+        padding:25px 20px;
     }
 
     .welcome h1{
         font-size:24px;
+    }
+
+    .profile-header{
+        gap:15px;
+    }
+
+    .avatar{
+        width:65px;
+        height:65px;
+        font-size:25px;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
     }
 
 }
@@ -346,7 +459,8 @@ body{
 
         <h1>
             خوش آمدی
-            <span id="usernameText">...</span> 👋
+            <span id="usernameText">...</span>
+            👋
         </h1>
 
         <p>
@@ -383,81 +497,118 @@ body{
     </section>
 
 
-    <!-- SETTINGS -->
+    <!-- SETTINGS PANEL -->
 
-    <section class="edit-panel">
+    <section class="settings-panel">
 
-        <h2>
-            ⚙️ تنظیمات حساب
-        </h2>
+        <div class="settings-header">
 
-        <p class="edit-description">
-            نام کاربری، نام بازی و ایمیل حساب خودت را از این قسمت تغییر بده.
-        </p>
+            <div class="settings-title">
 
+                <div class="settings-icon">
+                    ⚙️
+                </div>
 
-        <!-- USERNAME -->
+                <div>
 
-        <div class="form-group">
+                    <h2>
+                        تنظیمات حساب
+                    </h2>
 
-            <label for="usernameInput">
-                👤 نام کاربری
-            </label>
+                    <p>
+                        اطلاعات حساب و پروفایل خودت را مدیریت کن
+                    </p>
 
-            <input
-                type="text"
-                id="usernameInput"
-                maxlength="30"
-                placeholder="نام کاربری جدید"
-            >
+                </div>
+
+            </div>
 
         </div>
 
 
-        <!-- GAME NAME -->
+        <div class="settings-content">
 
-        <div class="form-group">
 
-            <label for="gameName">
-                🎮 نام بازی
-            </label>
+            <!-- USERNAME -->
 
-            <input
-                type="text"
-                id="gameName"
-                maxlength="50"
-                placeholder="مثلاً Sina Gaming"
-            >
+            <div class="setting-box">
+
+                <h3>
+                    👤 نام کاربری
+                </h3>
+
+                <p>
+                    نامی که در CALLAFINO نمایش داده می‌شود
+                </p>
+
+                <input
+                    type="text"
+                    id="usernameInput"
+                    maxlength="30"
+                    placeholder="نام کاربری"
+                >
+
+            </div>
+
+
+            <!-- GAME -->
+
+            <div class="setting-box">
+
+                <h3>
+                    🎮 نام بازی
+                </h3>
+
+                <p>
+                    نام بازیت را وارد یا ویرایش کن
+                </p>
+
+                <input
+                    type="text"
+                    id="gameName"
+                    maxlength="50"
+                    placeholder="مثلاً Sina Gaming"
+                >
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div class="setting-box">
+
+                <h3>
+                    📧 ایمیل
+                </h3>
+
+                <p>
+                    ایمیل ورود به حساب کاربری
+                </p>
+
+                <input
+                    type="email"
+                    id="emailInput"
+                    placeholder="ایمیل"
+                >
+
+            </div>
+
 
         </div>
 
 
-        <!-- EMAIL -->
+        <div class="settings-footer">
 
-        <div class="form-group">
-
-            <label for="emailInput">
-                📧 ایمیل
-            </label>
-
-            <input
-                type="email"
-                id="emailInput"
-                placeholder="ایمیل جدید"
+            <button
+                class="save-btn"
+                id="saveProfileBtn"
             >
+                💾 ذخیره تغییرات
+            </button>
+
+            <p id="profileMessage"></p>
 
         </div>
-
-
-        <button
-            class="save-btn"
-            id="saveProfileBtn"
-        >
-            💾 ذخیره تغییرات
-        </button>
-
-
-        <p id="profileMessage"></p>
 
     </section>
 
@@ -722,7 +873,7 @@ async function loadProfile(){
     await supabase.auth.getUser();
 
 
-    /* NO USER */
+    /* NOT LOGGED IN */
 
     if(userError || !user){
 
@@ -733,13 +884,18 @@ async function loadProfile(){
     }
 
 
-    /* EMAIL */
+    /*
+        EMAIL IS ONLY USED
+        INSIDE EMAIL INPUT.
+        IT IS NEVER USED
+        AS USERNAME.
+    */
 
     emailInput.value =
     user.email || "";
 
 
-    /* GET PROFILE */
+    /* LOAD PROFILES */
 
     const {
         data:profile,
@@ -749,15 +905,14 @@ async function loadProfile(){
         .from("profiles")
         .select("username, game")
         .eq("id", user.id)
-        .single();
+        .maybeSingle();
 
 
     /*
-        IMPORTANT:
-        EMAIL IS NEVER USED AS USERNAME
+        PROFILE NOT FOUND
     */
 
-    if(profileError || !profile){
+    if(profileError){
 
         console.error(
             "Profile error:",
@@ -765,10 +920,14 @@ async function loadProfile(){
         );
 
         usernameText.textContent =
-        "...";
+        "خطای پروفایل";
 
         profileUsername.textContent =
-        "...";
+        "پروفایل پیدا نشد";
+
+        profileUsername.classList.add(
+            "profile-error"
+        );
 
         usernameInput.value =
         "";
@@ -777,7 +936,32 @@ async function loadProfile(){
         "";
 
         gameDisplay.textContent =
-        "نام بازی: تنظیم نشده";
+        "پروفایل شما در دیتابیس پیدا نشد";
+
+        return user;
+    }
+
+
+    if(!profile){
+
+        usernameText.textContent =
+        "پروفایل پیدا نشد";
+
+        profileUsername.textContent =
+        "پروفایل پیدا نشد";
+
+        profileUsername.classList.add(
+            "profile-error"
+        );
+
+        usernameInput.value =
+        "";
+
+        gameName.value =
+        "";
+
+        gameDisplay.textContent =
+        "لطفاً پروفایل حساب را در Supabase ایجاد کنید";
 
         return user;
     }
@@ -790,10 +974,10 @@ async function loadProfile(){
 
 
     usernameText.textContent =
-    username || "...";
+    username || "کاربر";
 
     profileUsername.textContent =
-    username || "...";
+    username || "کاربر";
 
     usernameInput.value =
     username;
@@ -853,11 +1037,14 @@ async function checkAdmin(){
     await supabase
         .from("admins")
         .select("user_id")
-        .eq("user_id", user.id)
+        .eq("user_id",user.id)
         .maybeSingle();
 
 
-    if(!adminError && admin){
+    if(
+        !adminError &&
+        admin
+    ){
 
         adminCard.style.display =
         "block";
@@ -948,7 +1135,7 @@ async function saveProfile(){
             username:newUsername,
             game:newGameName
         })
-        .eq("id", user.id);
+        .eq("id",user.id);
 
 
     /* PROFILE ERROR */
@@ -1040,13 +1227,17 @@ async function saveProfile(){
     }
 
 
-    /* UPDATE PAGE */
+    /* UPDATE SCREEN */
 
     usernameText.textContent =
     newUsername;
 
     profileUsername.textContent =
     newUsername;
+
+    profileUsername.classList.remove(
+        "profile-error"
+    );
 
 
     if(newGameName){
