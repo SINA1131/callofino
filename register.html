@@ -51,11 +51,12 @@ body{
     background:rgba(255,82,82,.10);
     border:1px solid rgba(255,82,82,.45);
     color:#ff6666;
-    padding:12px;
+    padding:13px;
     border-radius:10px;
     text-align:center;
     font-size:13px;
-    line-height:1.7;
+    font-weight:bold;
+    line-height:1.8;
     margin-bottom:22px;
 }
 
@@ -80,6 +81,10 @@ input:focus{
     border-color:#ffc107;
 }
 
+input::placeholder{
+    color:#666;
+}
+
 button{
     width:100%;
     padding:14px;
@@ -90,6 +95,11 @@ button{
     font-size:16px;
     font-weight:bold;
     cursor:pointer;
+    transition:.2s;
+}
+
+button:hover{
+    background:#ffd54f;
 }
 
 button:disabled{
@@ -101,6 +111,7 @@ button:disabled{
     margin-top:18px;
     text-align:center;
     min-height:20px;
+    line-height:1.7;
 }
 
 .login{
@@ -112,6 +123,10 @@ button:disabled{
 .login a{
     color:#ffc107;
     text-decoration:none;
+}
+
+.login a:hover{
+    text-decoration:underline;
 }
 </style>
 </head>
@@ -126,7 +141,7 @@ button:disabled{
         ساخت حساب کاربری
     </div>
 
-    <!-- هشدار استفاده از نام گیم -->
+    <!-- هشدار اسم گیم -->
     <div class="game-warning">
         ⚠️ حتماً از اسم گیم خود استفاده کنید؛
         در غیر این صورت از کاستوم کیک می‌شوید! 🎮
@@ -134,7 +149,9 @@ button:disabled{
 
     <form id="registerForm">
 
-        <label for="username">🎮 نام گیم</label>
+        <label for="username">
+            🎮 نام گیم
+        </label>
 
         <input
             type="text"
@@ -143,18 +160,24 @@ button:disabled{
             required
             minlength="3"
             maxlength="30"
+            autocomplete="username"
         >
 
-        <label for="email">ایمیل</label>
+        <label for="email">
+            📧 ایمیل
+        </label>
 
         <input
             type="email"
             id="email"
             placeholder="example@email.com"
             required
+            autocomplete="email"
         >
 
-        <label for="password">رمز عبور</label>
+        <label for="password">
+            🔒 رمز عبور
+        </label>
 
         <input
             type="password"
@@ -162,6 +185,7 @@ button:disabled{
             placeholder="حداقل 6 کاراکتر"
             required
             minlength="6"
+            autocomplete="new-password"
         >
 
         <button type="submit" id="registerBtn">
@@ -216,6 +240,7 @@ form.addEventListener("submit", async (event) => {
     message.textContent = "";
     message.style.color = "#ff5252";
 
+
     const username =
     document.getElementById("username")
     .value
@@ -231,22 +256,40 @@ form.addEventListener("submit", async (event) => {
     .value;
 
 
+    /* بررسی نام گیم */
+
     if(username.length < 3){
+
         message.textContent =
         "نام گیم باید حداقل ۳ کاراکتر باشد.";
+
         return;
     }
 
 
+    if(username.length > 30){
+
+        message.textContent =
+        "نام گیم نمی‌تواند بیشتر از ۳۰ کاراکتر باشد.";
+
+        return;
+    }
+
+
+    /* بررسی رمز */
+
     if(password.length < 6){
+
         message.textContent =
         "رمز عبور باید حداقل ۶ کاراکتر باشد.";
+
         return;
     }
 
 
     registerBtn.disabled = true;
-    registerBtn.textContent = "در حال ثبت نام...";
+    registerBtn.textContent =
+    "در حال ثبت نام...";
 
 
     try{
@@ -269,9 +312,11 @@ form.addEventListener("submit", async (event) => {
 
 
         if(!data || !data.user){
+
             throw new Error(
                 "حساب کاربری ساخته نشد."
             );
+
         }
 
 
@@ -294,15 +339,15 @@ form.addEventListener("submit", async (event) => {
 
 
         if(profileError){
-
             throw profileError;
         }
 
 
-        message.style.color = "#4caf50";
+        message.style.color =
+        "#4caf50";
 
         message.textContent =
-        "ثبت نام با موفقیت انجام شد!";
+        "✅ ثبت نام با موفقیت انجام شد!";
 
 
         setTimeout(() => {
@@ -315,7 +360,8 @@ form.addEventListener("submit", async (event) => {
 
     }catch(error){
 
-        message.style.color = "#ff5252";
+        message.style.color =
+        "#ff5252";
 
         message.textContent =
         error.message ||
