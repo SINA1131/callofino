@@ -4,25 +4,41 @@
 
 async function loadFriends(){
 
-    const box =
-        document.getElementById(
-            "friends"
-        );
+    const box = document.getElementById("friends");
+
+    if(!box){
+        console.error("Friends box not found");
+        return;
+    }
 
 
-    /* گرفتن لیست friendship ها */
+    /* =========================
+       CHECK LOGIN
+    ========================= */
+
+    if(!currentUser){
+        box.innerHTML = `
+            <div class="empty">
+                لطفاً ابتدا وارد حساب شوید.
+            </div>
+        `;
+        return;
+    }
+
+
+    /* =========================
+       LOAD FRIENDSHIPS
+    ========================= */
 
     const {
         data: friendships,
         error: friendshipError
-    } =
-    await supabase
-    .from("friendships")
-    .select("friend_id")
-    .eq(
-        "user_id",
-        currentUser.id
-    );
+    } = await supabase
+        .from("friendships")
+        .select("user_id, friend_id")
+        .or(
+            `user_id.eq.${currentUser.id},friend_id.eq.${currentUser.id}`
+        );
 
 
     if(friendshipError){
@@ -39,9 +55,12 @@ async function loadFriends(){
         `;
 
         return;
-
     }
 
+
+    /* =========================
+       NO FRIENDS
+    ========================= */
 
     if(
         !friendships ||
@@ -55,31 +74,78 @@ async function loadFriends(){
         `;
 
         return;
-
     }
 
 
-    /* استخراج ID دوستان */
+    /* =========================
+       FIND FRIEND IDS
+    ========================= */
 
-    const friendIds =
-        friendships.map(
-            friend => friend.friend_id
-        );
+    const friendIds = [];
+
+    friendships.forEach(friendship => {
+
+        let friendId;
+
+        if(
+            friendship.user_id ===
+            currentUser.id
+        ){
+
+            friendId =
+                friendship.friend_id;
+
+        }else{
+
+            friendId =
+                friendship.user_id;
+
+        }
+
+        if(
+            friendId &&
+            friendId !== currentUser.id
+        ){
+
+            friendIds.push(friendId);
+
+        }
+
+    });
 
 
-    /* گرفتن اسم همه دوستان یکجا */
+    /* حذف ID های تکراری */
+
+    const uniqueFriendIds =
+        [...new Set(friendIds)];
+
+
+    if(uniqueFriendIds.length === 0){
+
+        box.innerHTML = `
+            <div class="empty">
+                هنوز دوستی نداری.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    /* =========================
+       LOAD PROFILES
+    ========================= */
 
     const {
-        data:profiles,
-        error:profileError
-    } =
-    await supabase
-    .from("profiles")
-    .select("id, username")
-    .in(
-        "id",
-        friendIds
-    );
+        data: profiles,
+        error: profileError
+    } = await supabase
+        .from("profiles")
+        .select("id, username")
+        .in(
+            "id",
+            uniqueFriendIds
+        );
 
 
     if(profileError){
@@ -96,41 +162,45 @@ async function loadFriends(){
         `;
 
         return;
-
     }
 
 
-    /* ساخت Map برای اتصال ID به username */
+    /* =========================
+       CREATE PROFILE MAP
+    ========================= */
 
     const profileMap =
         new Map(
-            (profiles || []).map(
-                profile => [
-                    profile.id,
-                    profile.username
-                ]
-            )
+            (profiles || []).map(profile => [
+
+                profile.id,
+
+                profile.username
+
+            ])
         );
 
+
+    /* =========================
+       CLEAR FRIENDS
+    ========================= */
 
     box.innerHTML = "";
 
 
-    /* نمایش دوستان */
+    /* =========================
+       DISPLAY FRIENDS
+    ========================= */
 
-    friendships.forEach(
-        friendship => {
+    uniqueFriendIds.forEach(
+        friendId => {
 
             const username =
-                profileMap.get(
-                    friendship.friend_id
-                );
+                profileMap.get(friendId);
 
 
             const div =
-                document.createElement(
-                    "div"
-                );
+                document.createElement("div");
 
             div.className =
                 "friend";
@@ -141,7 +211,8 @@ async function loadFriends(){
                 <div class="username">
                     👤 ${
                         escapeHTML(
-                            username || "نام کاربر پیدا نشد"
+                            username ||
+                            "نام کاربر پیدا نشد"
                         )
                     }
                 </div>
