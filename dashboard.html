@@ -1,84 +1,1412 @@
-saveBtn.addEventListener("click", async function () {
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
 
-    if (!currentUser) {
-        alert("ابتدا وارد حساب خود شوید.");
-        return;
-    }
+<head>
 
-    const newUsername = usernameInput.value.trim();
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    if (!newUsername) {
-        alert("لطفاً اسم گیم خود را وارد کنید.");
-        return;
-    }
+<title>CALLAFINO | Dashboard</title>
 
-    if (newUsername.length < 2) {
-        alert("اسم گیم باید حداقل ۲ کاراکتر باشد.");
-        return;
-    }
+<style>
 
-    saveBtn.disabled = true;
-    saveBtn.textContent = "در حال ذخیره...";
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Tahoma,sans-serif;
+}
 
-    try {
+body{
+    min-height:100vh;
+    color:#fff;
 
-        const { data, error } = await supabase
-            .from("profiles")
-            .update({
-                username: newUsername
-            })
-            .eq("id", currentUser.id)
-            .select("id, username");
+    background:
+        radial-gradient(
+            circle at 10% 0%,
+            rgba(57,255,114,.12),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 90% 100%,
+            rgba(0,255,120,.08),
+            transparent 30%
+        ),
+        #030604;
+}
 
-        console.log("USER ID:", currentUser.id);
-        console.log("DATA:", data);
-        console.log("ERROR:", error);
+/* ================= NAVBAR ================= */
 
-        if (error) {
-            throw error;
-        }
+.navbar{
+    height:72px;
+    padding:0 6%;
 
-        if (!data || data.length === 0) {
-            throw new Error(
-                "هیچ پروفایلی برای این حساب پیدا نشد."
-            );
-        }
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 
-        usernameText.textContent =
-            data[0].username;
+    background:rgba(3,7,4,.88);
 
-        profileUsername.textContent =
-            data[0].username;
+    border-bottom:
+        1px solid rgba(57,255,114,.14);
 
-        usernameInput.value =
-            data[0].username;
+    backdrop-filter:blur(18px);
 
-        showStatus(
-            "اسم گیم با موفقیت ذخیره شد ✅",
-            "success"
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo{
+    text-decoration:none;
+
+    color:#39ff72;
+
+    font-size:26px;
+    font-weight:900;
+
+    letter-spacing:3px;
+
+    text-shadow:
+        0 0 12px rgba(57,255,114,.45),
+        0 0 30px rgba(57,255,114,.12);
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:5px;
+}
+
+.nav-links a{
+    text-decoration:none;
+
+    color:#858b86;
+
+    padding:10px 13px;
+
+    border-radius:9px;
+
+    font-size:13px;
+
+    transition:.25s;
+}
+
+.nav-links a:hover{
+    color:#39ff72;
+
+    background:
+        rgba(57,255,114,.07);
+}
+
+.logout{
+    color:#ff6262 !important;
+
+    border:
+        1px solid rgba(255,70,70,.25);
+}
+
+.logout:hover{
+    background:
+        rgba(255,60,60,.08) !important;
+
+    border-color:#ff5555;
+}
+
+/* ================= MAIN ================= */
+
+.container{
+    width:88%;
+    max-width:1250px;
+
+    margin:auto;
+}
+
+/* ================= WELCOME ================= */
+
+.welcome{
+    padding:55px 0 28px;
+}
+
+.welcome h1{
+    font-size:36px;
+    font-weight:900;
+
+    margin-bottom:12px;
+}
+
+.welcome h1 span{
+    color:#39ff72;
+
+    text-shadow:
+        0 0 14px rgba(57,255,114,.4);
+}
+
+.welcome p{
+    color:#707670;
+    font-size:14px;
+}
+
+/* ================= PROFILE ================= */
+
+.profile{
+    position:relative;
+    overflow:hidden;
+
+    display:flex;
+    align-items:center;
+
+    gap:24px;
+
+    padding:30px;
+
+    margin-bottom:24px;
+
+    border-radius:22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(14,31,18,.96),
+            rgba(5,10,6,.98)
         );
 
-    } catch (error) {
+    border:
+        1px solid rgba(57,255,114,.2);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.4);
+}
+
+.profile::after{
+    content:"";
+
+    position:absolute;
+
+    width:220px;
+    height:220px;
+
+    left:-100px;
+    top:-110px;
+
+    border-radius:50%;
+
+    background:#39ff72;
+
+    opacity:.035;
+}
+
+.avatar{
+    width:82px;
+    height:82px;
+
+    flex-shrink:0;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:38px;
+
+    border-radius:20px;
+
+    background:#071009;
+
+    border:
+        1px solid rgba(57,255,114,.55);
+
+    box-shadow:
+        0 0 25px rgba(57,255,114,.08);
+}
+
+.profile-info{
+    position:relative;
+    z-index:2;
+}
+
+.profile-info h2{
+    font-size:23px;
+
+    margin-bottom:7px;
+}
+
+.profile-info p{
+    color:#6e756f;
+    font-size:13px;
+}
+
+/* ================= PANEL ================= */
+
+.panel{
+    padding:30px;
+
+    margin-bottom:30px;
+
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(9,18,11,.98),
+            rgba(4,8,5,.98)
+        );
+
+    border:
+        1px solid rgba(57,255,114,.16);
+
+    box-shadow:
+        0 15px 45px rgba(0,0,0,.3);
+}
+
+.panel-title{
+    font-size:21px;
+
+    margin-bottom:8px;
+}
+
+.panel-subtitle{
+    color:#696f6b;
+
+    font-size:13px;
+
+    margin-bottom:25px;
+}
+
+/* ================= FORM ================= */
+
+.form-group{
+    margin-bottom:20px;
+}
+
+.form-group label{
+    display:block;
+
+    color:#e0e0e0;
+
+    font-size:14px;
+    font-weight:bold;
+
+    margin-bottom:10px;
+}
+
+.form-group input{
+    width:100%;
+
+    padding:15px 17px;
+
+    background:#020502;
+
+    color:#fff;
+
+    border:
+        1px solid #26352a;
+
+    border-radius:11px;
+
+    outline:none;
+
+    font-size:14px;
+
+    transition:.25s;
+}
+
+.form-group input::placeholder{
+    color:#505650;
+}
+
+.form-group input:focus{
+    border-color:#39ff72;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(57,255,114,.04),
+
+        0 0 20px
+        rgba(57,255,114,.07);
+}
+
+.help{
+    color:#747a75;
+
+    font-size:12px;
+
+    margin-top:9px;
+}
+
+/* ================= SAVE BUTTON ================= */
+
+.save-btn{
+    width:100%;
+
+    padding:15px;
+
+    border:0;
+
+    border-radius:11px;
+
+    background:#39ff72;
+
+    color:#031007;
+
+    font-size:14px;
+
+    font-weight:900;
+
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+.save-btn:hover{
+    background:#65ff91;
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 10px 30px
+        rgba(57,255,114,.12);
+}
+
+.save-btn:disabled{
+    opacity:.55;
+
+    cursor:not-allowed;
+
+    transform:none;
+}
+
+/* ================= STATUS ================= */
+
+.status{
+    display:none;
+
+    margin-top:15px;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    background:#08140b;
+
+    font-size:13px;
+
+    text-align:center;
+}
+
+.success{
+    color:#39ff72;
+}
+
+.error{
+    color:#ff5d5d;
+}
+
+/* ================= CARDS ================= */
+
+.cards{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:18px;
+
+    margin-bottom:45px;
+}
+
+.card{
+    position:relative;
+
+    overflow:hidden;
+
+    min-height:165px;
+
+    padding:25px;
+
+    color:#fff;
+
+    text-decoration:none;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(9,18,11,.98),
+            rgba(4,8,5,.98)
+        );
+
+    border:
+        1px solid rgba(57,255,114,.12);
+
+    border-radius:18px;
+
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+
+    border-color:
+        rgba(57,255,114,.45);
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.35),
+
+        0 0 25px
+        rgba(57,255,114,.04);
+}
+
+.card-icon{
+    font-size:31px;
+
+    margin-bottom:16px;
+}
+
+.card h3{
+    font-size:17px;
+
+    margin-bottom:8px;
+}
+
+.card p{
+    color:#707770;
+
+    font-size:12px;
+
+    line-height:1.8;
+}
+
+/* ================= ADMIN ================= */
+
+.admin-card{
+    display:none;
+
+    border-color:
+        rgba(57,255,114,.35);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(15,42,22,.98),
+            rgba(5,10,6,.98)
+        );
+}
+
+.admin-card:hover{
+    border-color:#39ff72;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    padding:35px 20px;
+
+    text-align:center;
+
+    color:#414741;
+
+    font-size:11px;
+
+    border-top:
+        1px solid rgba(255,255,255,.03);
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:900px){
+
+    .navbar{
+        height:auto;
+
+        padding:15px 4%;
+
+        flex-direction:column;
+
+        gap:14px;
+    }
+
+    .nav-links{
+        flex-wrap:wrap;
+
+        justify-content:center;
+    }
+
+    .cards{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:600px){
+
+    .container{
+        width:92%;
+    }
+
+    .welcome{
+        padding-top:35px;
+    }
+
+    .welcome h1{
+        font-size:27px;
+    }
+
+    .profile{
+        padding:22px;
+    }
+
+    .avatar{
+        width:65px;
+        height:65px;
+
+        font-size:29px;
+    }
+
+    .profile-info h2{
+        font-size:18px;
+    }
+
+    .panel{
+        padding:22px;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <a
+        href="index.html"
+        class="logo"
+    >
+        CALLAFINO
+    </a>
+
+
+    <div class="nav-links">
+
+        <a href="index.html">
+            خانه
+        </a>
+
+        <a href="tournament.html">
+            🏆 مسابقات
+        </a>
+
+        <a href="friends.html">
+            👥 دوستان
+        </a>
+
+        <a href="squad.html">
+            ⚔️ Squad
+        </a>
+
+        <a href="shop.html">
+            🛒 Shop
+        </a>
+
+        <a
+            href="#"
+            id="logoutBtn"
+            class="logout"
+        >
+            خروج
+        </a>
+
+    </div>
+
+</nav>
+
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="container">
+
+
+    <!-- WELCOME -->
+
+    <section class="welcome">
+
+        <h1>
+
+            خوش آمدی
+
+            <span id="usernameText">
+                ...
+            </span>
+
+            👋
+
+        </h1>
+
+        <p>
+            مرکز کنترل حساب و فعالیت‌های شما در CALLAFINO
+        </p>
+
+    </section>
+
+
+
+    <!-- PROFILE -->
+
+    <section class="profile">
+
+        <div class="avatar">
+            🎮
+        </div>
+
+        <div class="profile-info">
+
+            <h2 id="profileUsername">
+                ...
+            </h2>
+
+            <p>
+                بازیکن CALLAFINO
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= SETTINGS ================= -->
+
+    <section class="panel">
+
+        <h2 class="panel-title">
+            ⚙️ تنظیمات پروفایل
+        </h2>
+
+        <p class="panel-subtitle">
+            اسم گیم خود را تنظیم کنید.
+        </p>
+
+
+        <div class="form-group">
+
+            <label for="usernameInput">
+                🎮 نام کاربری
+            </label>
+
+            <input
+                type="text"
+                id="usernameInput"
+                placeholder="اسم گیم خود را وارد کنید"
+                maxlength="30"
+                autocomplete="off"
+            >
+
+            <div class="help">
+                اسم گیم خود را وارد کنید، در غیر این صورت از روم کیک میشید.
+            </div>
+
+        </div>
+
+
+        <button
+            id="saveBtn"
+            class="save-btn"
+        >
+            ثبت تغییر
+        </button>
+
+
+        <div
+            id="status"
+            class="status"
+        ></div>
+
+    </section>
+
+
+
+    <!-- ================= CARDS ================= -->
+
+    <section class="cards">
+
+
+        <a
+            href="tournament.html"
+            class="card"
+        >
+
+            <div class="card-icon">
+                🏆
+            </div>
+
+            <h3>
+                مسابقات
+            </h3>
+
+            <p>
+                مشاهده مسابقات و ثبت‌نام در تورنمنت‌های CALLAFINO
+            </p>
+
+        </a>
+
+
+        <a
+            href="friends.html"
+            class="card"
+        >
+
+            <div class="card-icon">
+                👥
+            </div>
+
+            <h3>
+                دوستان
+            </h3>
+
+            <p>
+                دوستان خود را پیدا کنید و درخواست دوستی ارسال کنید.
+            </p>
+
+        </a>
+
+
+        <a
+            href="squad.html"
+            class="card"
+        >
+
+            <div class="card-icon">
+                ⚔️
+            </div>
+
+            <h3>
+                Squad
+            </h3>
+
+            <p>
+                تیم خود را بسازید و برای مسابقات آماده شوید.
+            </p>
+
+        </a>
+
+
+        <a
+            href="shop.html"
+            class="card"
+        >
+
+            <div class="card-icon">
+                🛒
+            </div>
+
+            <h3>
+                Shop
+            </h3>
+
+            <p>
+                فروشگاه CALLAFINO و آیتم‌های ویژه.
+            </p>
+
+        </a>
+
+
+        <a
+            href="ranking.html"
+            class="card"
+        >
+
+            <div class="card-icon">
+                🥇
+            </div>
+
+            <h3>
+                Ranking
+            </h3>
+
+            <p>
+                رتبه‌بندی بازیکنان و تیم‌های CALLAFINO.
+            </p>
+
+        </a>
+
+
+        <a
+            href="codm.html"
+            class="card"
+        >
+
+            <div class="card-icon">
+                🎯
+            </div>
+
+            <h3>
+                Call of Duty Mobile
+            </h3>
+
+            <p>
+                بخش اختصاصی بازیکنان COD Mobile.
+            </p>
+
+        </a>
+
+
+        <!-- ADMIN -->
+
+        <a
+            href="admin.html"
+            class="card admin-card"
+            id="adminCard"
+        >
+
+            <div class="card-icon">
+                🛡️
+            </div>
+
+            <h3>
+                پنل مدیریت
+            </h3>
+
+            <p>
+                مدیریت کاربران، مسابقات، Squad و Ranking.
+            </p>
+
+        </a>
+
+
+    </section>
+
+</main>
+
+
+
+<footer>
+    © 2026 CALLAFINO — Gaming Platform
+</footer>
+
+
+
+<script type="module">
+
+import {
+    createClient
+}
+from
+"https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+
+/* ================= SUPABASE ================= */
+
+const SUPABASE_URL =
+"https://oisqrkqwbskvqkparmiw.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_FGoXFElayJeRdyFxyc61hQ_c5CUn5HL";
+
+const supabase =
+createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+
+/* ================= ELEMENTS ================= */
+
+const usernameText =
+document.getElementById(
+    "usernameText"
+);
+
+const profileUsername =
+document.getElementById(
+    "profileUsername"
+);
+
+const usernameInput =
+document.getElementById(
+    "usernameInput"
+);
+
+const saveBtn =
+document.getElementById(
+    "saveBtn"
+);
+
+const statusBox =
+document.getElementById(
+    "status"
+);
+
+const logoutBtn =
+document.getElementById(
+    "logoutBtn"
+);
+
+const adminCard =
+document.getElementById(
+    "adminCard"
+);
+
+
+let currentUser = null;
+
+
+/* ================= STATUS ================= */
+
+function showStatus(
+    message,
+    type
+){
+
+    statusBox.textContent =
+        message;
+
+    statusBox.className =
+        "status " + type;
+
+    statusBox.style.display =
+        "block";
+}
+
+
+/* ================= LOAD USER ================= */
+
+async function loadUser(){
+
+    const {
+        data:{
+            user
+        },
+        error
+    } =
+    await supabase.auth.getUser();
+
+
+    if(
+        error ||
+        !user
+    ){
+
+        window.location.href =
+            "login.html";
+
+        return;
+
+    }
+
+
+    currentUser =
+        user;
+
+
+    await loadProfile();
+
+    await checkAdmin();
+
+}
+
+
+/* ================= LOAD PROFILE ================= */
+
+async function loadProfile(){
+
+    const {
+        data:profile,
+        error
+    } =
+    await supabase
+        .from("profiles")
+        .select("username")
+        .eq(
+            "id",
+            currentUser.id
+        )
+        .maybeSingle();
+
+
+    if(error){
 
         console.error(
-            "SAVE ERROR:",
+            "PROFILE ERROR:",
             error
         );
 
-        alert(
-            "❌ ذخیره نشد\n\n" +
-            "خطا:\n" +
-            error.message
-        );
+        usernameText.textContent =
+            "بازیکن";
 
-        showStatus(
-            "ذخیره انجام نشد",
-            "error"
-        );
+        profileUsername.textContent =
+            "بازیکن";
+
+        usernameInput.value =
+            "";
+
+        return;
 
     }
 
-    saveBtn.disabled = false;
-    saveBtn.textContent = "ثبت تغییر";
 
-});
+    if(!profile){
+
+        usernameText.textContent =
+            "بازیکن";
+
+        profileUsername.textContent =
+            "بدون نام";
+
+        usernameInput.value =
+            "";
+
+        return;
+
+    }
+
+
+    const username =
+        profile.username || "";
+
+
+    usernameText.textContent =
+        username || "بازیکن";
+
+
+    profileUsername.textContent =
+        username || "بدون نام";
+
+
+    usernameInput.value =
+        username;
+
+}
+
+
+/* ================= SAVE USERNAME ================= */
+
+saveBtn.addEventListener(
+    "click",
+    async function(){
+
+        if(!currentUser){
+
+            showStatus(
+                "ابتدا وارد حساب شوید.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        const newUsername =
+            usernameInput.value.trim();
+
+
+        if(!newUsername){
+
+            showStatus(
+                "لطفاً اسم گیم خود را وارد کنید.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(
+            newUsername.length < 2
+        ){
+
+            showStatus(
+                "اسم گیم باید حداقل ۲ کاراکتر باشد.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        saveBtn.disabled =
+            true;
+
+        saveBtn.textContent =
+            "در حال ذخیره...";
+
+
+        try{
+
+            /*
+             اول بررسی می‌کنیم
+             پروفایل وجود دارد یا نه
+            */
+
+            const {
+                data:profile,
+                error:findError
+            } =
+            await supabase
+                .from("profiles")
+                .select("id")
+                .eq(
+                    "id",
+                    currentUser.id
+                )
+                .maybeSingle();
+
+
+            if(findError){
+
+                throw findError;
+
+            }
+
+
+            /*
+             اگر پروفایل وجود نداشت
+            */
+
+            if(!profile){
+
+                const {
+                    error:insertError
+                } =
+                await supabase
+                    .from("profiles")
+                    .insert({
+                        id:
+                            currentUser.id,
+
+                        username:
+                            newUsername
+                    });
+
+
+                if(insertError){
+
+                    throw insertError;
+
+                }
+
+            }
+
+
+            /*
+             اگر پروفایل وجود داشت
+            */
+
+            else{
+
+                const {
+                    error:updateError
+                } =
+                await supabase
+                    .from("profiles")
+                    .update({
+
+                        username:
+                            newUsername
+
+                    })
+                    .eq(
+                        "id",
+                        currentUser.id
+                    );
+
+
+                if(updateError){
+
+                    throw updateError;
+
+                }
+
+            }
+
+
+            /*
+             دوباره از دیتابیس می‌خوانیم
+             */
+
+            const {
+                data:verify,
+                error:verifyError
+            } =
+            await supabase
+                .from("profiles")
+                .select("username")
+                .eq(
+                    "id",
+                    currentUser.id
+                )
+                .single();
+
+
+            if(verifyError){
+
+                throw verifyError;
+
+            }
+
+
+            if(
+                verify.username !==
+                newUsername
+            ){
+
+                throw new Error(
+                    "نام در دیتابیس ذخیره نشد."
+                );
+
+            }
+
+
+            /*
+             نمایش اسم جدید
+            */
+
+            usernameText.textContent =
+                verify.username;
+
+            profileUsername.textContent =
+                verify.username;
+
+            usernameInput.value =
+                verify.username;
+
+
+            showStatus(
+                "اسم گیم با موفقیت ذخیره شد ✅",
+                "success"
+            );
+
+
+        }
+        catch(error){
+
+            console.error(
+                "SAVE ERROR:",
+                error
+            );
+
+
+            let message =
+                error.message ||
+                "خطای نامشخص";
+
+
+            /*
+             خطاهای رایج Supabase
+            */
+
+            if(
+                message.includes(
+                    "duplicate key"
+                )
+            ){
+
+                message =
+                    "این اسم گیم قبلاً استفاده شده است.";
+
+            }
+
+
+            if(
+                message.includes(
+                    "row-level security"
+                )
+            ){
+
+                message =
+                    "دسترسی ذخیره‌سازی در Supabase تنظیم نشده است.";
+
+            }
+
+
+            showStatus(
+                "ذخیره نشد: " +
+                message,
+                "error"
+            );
+
+        }
+
+
+        saveBtn.disabled =
+            false;
+
+        saveBtn.textContent =
+            "ثبت تغییر";
+
+    }
+);
+
+
+/* ================= ADMIN ================= */
+
+async function checkAdmin(){
+
+    const {
+        data:admin,
+        error
+    } =
+    await supabase
+        .from("admins")
+        .select("user_id")
+        .eq(
+            "user_id",
+            currentUser.id
+        )
+        .maybeSingle();
+
+
+    if(
+        !error &&
+        admin
+    ){
+
+        adminCard.style.display =
+            "block";
+
+    }
+
+}
+
+
+/* ================= LOGOUT ================= */
+
+logoutBtn.addEventListener(
+    "click",
+    async function(e){
+
+        e.preventDefault();
+
+
+        await supabase.auth.signOut();
+
+
+        window.location.href =
+            "login.html";
+
+    }
+);
+
+
+/* ================= START ================= */
+
+loadUser();
+
+</script>
+
+</body>
+
+</html>
