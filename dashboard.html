@@ -1,208 +1,54 @@
-saveBtn.addEventListener(
-    "click",
-    async function(){
-
-        if(!currentUser){
-
-            showStatus(
-                "ابتدا وارد حساب خود شوید.",
-                "error"
-            );
-
-            return;
-        }
-
-
-        const newUsername =
-            usernameInput.value.trim();
-
-
-        if(!newUsername){
-
-            showStatus(
-                "لطفاً اسم گیم خود را وارد کنید.",
-                "error"
-            );
-
-            return;
-        }
-
-
-        if(newUsername.length < 2){
-
-            showStatus(
-                "اسم گیم باید حداقل ۲ کاراکتر باشد.",
-                "error"
-            );
-
-            return;
-        }
-
-
-        saveBtn.disabled = true;
-        saveBtn.textContent = "در حال ذخیره...";
-
-
-        try{
-
-            /*
-             بررسی می‌کنیم پروفایل وجود دارد
-            */
-
-            const {
-                data:existingProfile,
-                error:checkError
-            } =
-            await supabase
-                .from("profiles")
-                .select("id, username")
-                .eq("id", currentUser.id)
-                .maybeSingle();
-
-
-            if(checkError){
-
-                throw checkError;
-
-            }
-
-
-            /*
-             اگر پروفایل وجود ندارد
-             */
-
-            if(!existingProfile){
-
-                const {
-                    error:insertError
-                } =
-                await supabase
-                    .from("profiles")
-                    .insert({
-                        id: currentUser.id,
-                        username: newUsername
-                    });
-
-
-                if(insertError){
-
-                    throw insertError;
-
-                }
-
-            }
-
-
-            /*
-             اگر پروفایل وجود دارد
-             اسم را تغییر می‌دهیم
-             */
-
-            else{
-
-                const {
-                    error:updateError
-                } =
-                await supabase
-                    .from("profiles")
-                    .update({
-                        username: newUsername
-                    })
-                    .eq(
-                        "id",
-                        currentUser.id
-                    );
-
-
-                if(updateError){
-
-                    throw updateError;
-
-                }
-
-            }
-
-
-            /*
-             بعد از ذخیره،
-             دوباره از دیتابیس می‌خوانیم
-             تا مطمئن شویم واقعاً ذخیره شده
-            */
-
-            const {
-                data:verifyProfile,
-                error:verifyError
-            } =
-            await supabase
-                .from("profiles")
-                .select("username")
-                .eq("id", currentUser.id)
-                .single();
-
-
-            if(verifyError){
-
-                throw verifyError;
-
-            }
-
-
-            if(
-                verifyProfile.username !== newUsername
-            ){
-
-                throw new Error(
-                    "نام کاربری در دیتابیس ذخیره نشد."
-                );
-
-            }
-
-
-            /*
-             نمایش اسم جدید
-             */
-
-            usernameText.textContent =
-                newUsername;
-
-            profileUsername.textContent =
-                newUsername;
-
-            usernameInput.value =
-                newUsername;
-
-
-            showStatus(
-                "اسم گیم با موفقیت ذخیره شد ✅",
-                "success"
-            );
-
-
-        }
-        catch(error){
-
-            console.error(
-                "SAVE PROFILE ERROR:",
-                error
-            );
-
-
-            showStatus(
-                "خطا: " +
-                (
-                    error.message ||
-                    "ذخیره انجام نشد"
-                ),
-                "error"
-            );
-
-        }
-
-
-        saveBtn.disabled = false;
-
-        saveBtn.textContent =
-            "ثبت تغییر";
-
+saveBtn.addEventListener("click", async function () {
+
+    if (!currentUser) {
+        alert("کاربر وارد نشده");
+        return;
     }
-);
+
+    const newUsername = usernameInput.value.trim();
+
+    if (!newUsername) {
+        alert("اسم گیم را وارد کنید");
+        return;
+    }
+
+    saveBtn.disabled = true;
+    saveBtn.textContent = "در حال ذخیره...";
+
+    const { data, error } = await supabase
+        .from("profiles")
+        .update({
+            username: newUsername
+        })
+        .eq("id", currentUser.id)
+        .select("id, username");
+
+    console.log("UPDATE DATA:", data);
+    console.log("UPDATE ERROR:", error);
+
+    if (error) {
+
+        alert(
+            "ذخیره نشد:\n\n" +
+            error.message
+        );
+
+    } else if (!data || data.length === 0) {
+
+        alert(
+            "هیچ پروفایلی برای این حساب پیدا نشد."
+        );
+
+    } else {
+
+        usernameText.textContent = data[0].username;
+        profileUsername.textContent = data[0].username;
+        usernameInput.value = data[0].username;
+
+        alert("اسم گیم ذخیره شد ✅");
+    }
+
+    saveBtn.disabled = false;
+    saveBtn.textContent = "ثبت تغییر";
+
+});
