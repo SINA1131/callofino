@@ -1,14 +1,932 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>CALLAFINO | دوستان</title>
+
+<style>
+
+/* =========================
+   RESET
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:
+        Arial,
+        Tahoma,
+        sans-serif;
+}
+
+
+/* =========================
+   BODY
+========================= */
+
+body{
+
+    min-height:100vh;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(0,255,140,.12),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(0,150,255,.10),
+            transparent 35%
+        ),
+        #050709;
+
+    color:white;
+
+    overflow-x:hidden;
+}
+
+
+/* =========================
+   BACKGROUND EFFECT
+========================= */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        );
+
+    background-size:50px 50px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black,
+            transparent
+        );
+
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar{
+
+    width:100%;
+
+    padding:18px 6%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:100;
+
+    background:
+        rgba(5,7,9,.82);
+
+    backdrop-filter:blur(18px);
+
+    border-bottom:
+        1px solid
+        rgba(0,255,140,.15);
+
+    box-shadow:
+        0 8px 35px
+        rgba(0,0,0,.35);
+}
+
+
+/* LOGO */
+
+.logo{
+
+    font-size:24px;
+
+    font-weight:900;
+
+    letter-spacing:2px;
+
+    color:#00ff88;
+
+    text-shadow:
+        0 0 10px rgba(0,255,136,.7),
+        0 0 25px rgba(0,255,136,.3);
+}
+
+
+/* NAV LINKS */
+
+.nav-links{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+
+.nav-links a{
+
+    color:#aaa;
+
+    text-decoration:none;
+
+    padding:10px 16px;
+
+    border-radius:10px;
+
+    transition:.25s;
+
+}
+
+
+.nav-links a:hover{
+
+    color:#00ff88;
+
+    background:
+        rgba(0,255,136,.08);
+
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.container{
+
+    width:min(1100px,92%);
+
+    margin:0 auto;
+
+    padding:45px 0 70px;
+
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.page-header{
+
+    text-align:center;
+
+    margin-bottom:40px;
+
+}
+
+
+.page-header .icon{
+
+    width:80px;
+
+    height:80px;
+
+    margin:0 auto 20px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:24px;
+
+    font-size:38px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(0,255,136,.18),
+            rgba(0,140,255,.12)
+        );
+
+    border:
+        1px solid
+        rgba(0,255,136,.35);
+
+    box-shadow:
+        0 0 30px
+        rgba(0,255,136,.15);
+
+}
+
+
+.page-header h1{
+
+    font-size:36px;
+
+    margin-bottom:10px;
+
+}
+
+
+.page-header h1 span{
+
+    color:#00ff88;
+
+    text-shadow:
+        0 0 15px
+        rgba(0,255,136,.45);
+
+}
+
+
+.page-header p{
+
+    color:#777;
+
+    font-size:15px;
+
+}
+
+
+/* =========================
+   FRIEND COUNT
+========================= */
+
+.friend-count{
+
+    display:flex;
+
+    justify-content:center;
+
+    margin-bottom:30px;
+
+}
+
+
+.count-box{
+
+    padding:12px 24px;
+
+    border-radius:50px;
+
+    background:
+        rgba(0,255,136,.06);
+
+    border:
+        1px solid
+        rgba(0,255,136,.2);
+
+    color:#aaa;
+
+}
+
+
+.count-box strong{
+
+    color:#00ff88;
+
+    font-size:18px;
+
+    margin-left:5px;
+
+}
+
+
+/* =========================
+   FRIENDS GRID
+========================= */
+
+#friends{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:22px;
+
+}
+
+
+/* =========================
+   FRIEND CARD
+========================= */
+
+.friend{
+
+    position:relative;
+
+    padding:25px;
+
+    min-height:155px;
+
+    border-radius:22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(20,25,30,.95),
+            rgba(9,12,16,.95)
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
+
+    overflow:hidden;
+
+    transition:
+        transform .3s,
+        border-color .3s,
+        box-shadow .3s;
+
+}
+
+
+/* top line */
+
+.friend::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    right:0;
+
+    left:0;
+
+    height:2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #00ff88,
+            #00aaff,
+            transparent
+        );
+
+    opacity:.5;
+
+}
+
+
+/* glow */
+
+.friend::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:120px;
+
+    height:120px;
+
+    left:-50px;
+
+    bottom:-60px;
+
+    background:#00ff88;
+
+    filter:blur(70px);
+
+    opacity:.06;
+
+}
+
+
+.friend:hover{
+
+    transform:
+        translateY(-6px);
+
+    border-color:
+        rgba(0,255,136,.4);
+
+    box-shadow:
+        0 15px 45px
+        rgba(0,0,0,.45),
+        0 0 25px
+        rgba(0,255,136,.08);
+
+}
+
+
+/* =========================
+   AVATAR
+========================= */
+
+.friend-avatar{
+
+    width:58px;
+
+    height:58px;
+
+    border-radius:17px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:27px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(0,255,136,.18),
+            rgba(0,160,255,.12)
+        );
+
+    border:
+        1px solid
+        rgba(0,255,136,.25);
+
+    box-shadow:
+        0 0 18px
+        rgba(0,255,136,.08);
+
+    margin-bottom:18px;
+
+}
+
+
+/* =========================
+   USERNAME
+========================= */
+
+.username{
+
+    font-size:20px;
+
+    font-weight:bold;
+
+    color:#fff;
+
+    margin-bottom:10px;
+
+    word-break:break-word;
+
+}
+
+
+.friend-status{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    color:#666;
+
+    font-size:13px;
+
+}
+
+
+.status-dot{
+
+    width:7px;
+
+    height:7px;
+
+    border-radius:50%;
+
+    background:#00ff88;
+
+    box-shadow:
+        0 0 8px
+        rgba(0,255,136,.8);
+
+}
+
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty{
+
+    grid-column:
+        1 / -1;
+
+    padding:60px 25px;
+
+    text-align:center;
+
+    border-radius:22px;
+
+    background:
+        rgba(15,18,23,.8);
+
+    border:
+        1px dashed
+        rgba(255,255,255,.12);
+
+    color:#777;
+
+    font-size:16px;
+
+}
+
+
+.empty-icon{
+
+    font-size:45px;
+
+    margin-bottom:15px;
+
+    opacity:.7;
+
+}
+
+
+/* =========================
+   BACK BUTTON
+========================= */
+
+.back{
+
+    display:flex;
+
+    justify-content:center;
+
+    margin-top:45px;
+
+}
+
+
+.back a{
+
+    text-decoration:none;
+
+    color:#00ff88;
+
+    border:
+        1px solid
+        rgba(0,255,136,.25);
+
+    background:
+        rgba(0,255,136,.06);
+
+    padding:13px 28px;
+
+    border-radius:13px;
+
+    transition:.25s;
+
+}
+
+
+.back a:hover{
+
+    background:
+        rgba(0,255,136,.13);
+
+    box-shadow:
+        0 0 20px
+        rgba(0,255,136,.1);
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:850px){
+
+    #friends{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+}
+
+
+@media(max-width:600px){
+
+    .navbar{
+
+        padding:15px 5%;
+
+    }
+
+    .nav-links a{
+
+        padding:8px;
+
+        font-size:13px;
+
+    }
+
+    .page-header{
+
+        margin-top:10px;
+
+    }
+
+    .page-header h1{
+
+        font-size:29px;
+
+    }
+
+    #friends{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .friend{
+
+        min-height:145px;
+
+    }
+
+}
+
+
+/* =========================
+   ANIMATION
+========================= */
+
+@keyframes appear{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateY(15px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+.friend{
+
+    animation:
+        appear .45s ease both;
+
+}
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        CALLAFINO
+    </div>
+
+    <div class="nav-links">
+
+        <a href="dashboard.html">
+            داشبورد
+        </a>
+
+        <a href="tournament.html">
+            مسابقات
+        </a>
+
+        <a href="friends.html"
+           style="color:#00ff88;">
+            دوستان
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="container">
+
+
+    <div class="page-header">
+
+        <div class="icon">
+            👥
+        </div>
+
+        <h1>
+            <span>دوستان</span> من
+        </h1>
+
+        <p>
+            دوستان خود را در CALLAFINO مدیریت کنید
+        </p>
+
+    </div>
+
+
+    <div class="friend-count">
+
+        <div class="count-box">
+
+            <strong id="friendCount">
+                0
+            </strong>
+
+            دوست
+
+        </div>
+
+    </div>
+
+
+    <!-- FRIENDS -->
+
+    <div id="friends">
+
+        <div class="empty">
+
+            <div class="empty-icon">
+                ⏳
+            </div>
+
+            در حال دریافت دوستان...
+
+        </div>
+
+    </div>
+
+
+    <div class="back">
+
+        <a href="dashboard.html">
+            ← بازگشت به داشبورد
+        </a>
+
+    </div>
+
+
+</main>
+
+
+<script type="module">
+
+import {
+    createClient
+}
+from
+"https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+
+/* =========================
+   SUPABASE
+========================= */
+
+const SUPABASE_URL =
+"https://oisqrkqwbskvqkparmiw.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_FGoXFElayJeRdyFxyc61hQ_c5CUn5HL";
+
+const supabase =
+createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+
+/* =========================
+   GLOBAL USER
+========================= */
+
+let currentUser = null;
+
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHTML(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================
+   LOAD USER
+========================= */
+
+async function loadUser(){
+
+    const {
+        data,
+        error
+    } =
+    await supabase.auth.getUser();
+
+
+    if(error || !data.user){
+
+        window.location.href =
+            "login.html";
+
+        return;
+
+    }
+
+
+    currentUser =
+        data.user;
+
+
+    await loadFriends();
+
+}
+
+
 /* =========================
    LOAD FRIENDS
 ========================= */
 
 async function loadFriends(){
 
-    const box = document.getElementById("friends");
+    const box =
+        document.getElementById(
+            "friends"
+        );
+
 
     if(!box){
-        console.error("Friends box not found");
+
+        console.error(
+            "Friends box not found"
+        );
+
         return;
+
     }
 
 
@@ -17,12 +935,23 @@ async function loadFriends(){
     ========================= */
 
     if(!currentUser){
+
         box.innerHTML = `
+
             <div class="empty">
+
+                <div class="empty-icon">
+                    🔐
+                </div>
+
                 لطفاً ابتدا وارد حساب شوید.
+
             </div>
+
         `;
+
         return;
+
     }
 
 
@@ -33,9 +962,12 @@ async function loadFriends(){
     const {
         data: friendships,
         error: friendshipError
-    } = await supabase
+    } =
+    await supabase
         .from("friendships")
-        .select("user_id, friend_id")
+        .select(
+            "user_id, friend_id"
+        )
         .or(
             `user_id.eq.${currentUser.id},friend_id.eq.${currentUser.id}`
         );
@@ -48,13 +980,23 @@ async function loadFriends(){
             friendshipError
         );
 
+
         box.innerHTML = `
+
             <div class="empty">
+
+                <div class="empty-icon">
+                    ⚠️
+                </div>
+
                 خطا در دریافت دوستان.
+
             </div>
+
         `;
 
         return;
+
     }
 
 
@@ -67,13 +1009,27 @@ async function loadFriends(){
         friendships.length === 0
     ){
 
+        document.getElementById(
+            "friendCount"
+        ).textContent = "0";
+
+
         box.innerHTML = `
+
             <div class="empty">
+
+                <div class="empty-icon">
+                    👥
+                </div>
+
                 هنوز دوستی نداری.
+
             </div>
+
         `;
 
         return;
+
     }
 
 
@@ -83,52 +1039,78 @@ async function loadFriends(){
 
     const friendIds = [];
 
-    friendships.forEach(friendship => {
 
-        let friendId;
+    friendships.forEach(
+        friendship => {
 
-        if(
-            friendship.user_id ===
-            currentUser.id
-        ){
+            let friendId;
 
-            friendId =
-                friendship.friend_id;
 
-        }else{
+            if(
+                friendship.user_id ===
+                currentUser.id
+            ){
 
-            friendId =
-                friendship.user_id;
+                friendId =
+                    friendship.friend_id;
+
+            }else{
+
+                friendId =
+                    friendship.user_id;
+
+            }
+
+
+            if(
+                friendId &&
+                friendId !==
+                currentUser.id
+            ){
+
+                friendIds.push(
+                    friendId
+                );
+
+            }
 
         }
-
-        if(
-            friendId &&
-            friendId !== currentUser.id
-        ){
-
-            friendIds.push(friendId);
-
-        }
-
-    });
+    );
 
 
     /* حذف ID های تکراری */
 
     const uniqueFriendIds =
-        [...new Set(friendIds)];
+        [
+            ...new Set(friendIds)
+        ];
 
 
-    if(uniqueFriendIds.length === 0){
+    if(
+        uniqueFriendIds.length === 0
+    ){
+
+        document.getElementById(
+            "friendCount"
+        ).textContent = "0";
+
 
         box.innerHTML = `
+
             <div class="empty">
+
+                <div class="empty-icon">
+                    👥
+                </div>
+
                 هنوز دوستی نداری.
+
             </div>
+
         `;
 
         return;
+
     }
 
 
@@ -139,9 +1121,12 @@ async function loadFriends(){
     const {
         data: profiles,
         error: profileError
-    } = await supabase
+    } =
+    await supabase
         .from("profiles")
-        .select("id, username")
+        .select(
+            "id, username"
+        )
         .in(
             "id",
             uniqueFriendIds
@@ -155,13 +1140,23 @@ async function loadFriends(){
             profileError
         );
 
+
         box.innerHTML = `
+
             <div class="empty">
+
+                <div class="empty-icon">
+                    ⚠️
+                </div>
+
                 خطا در دریافت نام دوستان.
+
             </div>
+
         `;
 
         return;
+
     }
 
 
@@ -171,21 +1166,29 @@ async function loadFriends(){
 
     const profileMap =
         new Map(
-            (profiles || []).map(profile => [
+            (profiles || []).map(
+                profile => [
 
-                profile.id,
+                    profile.id,
 
-                profile.username
+                    profile.username
 
-            ])
+                ]
+            )
         );
 
 
     /* =========================
-       CLEAR FRIENDS
+       CLEAR
     ========================= */
 
     box.innerHTML = "";
+
+
+    document.getElementById(
+        "friendCount"
+    ).textContent =
+        uniqueFriendIds.length;
 
 
     /* =========================
@@ -193,32 +1196,49 @@ async function loadFriends(){
     ========================= */
 
     uniqueFriendIds.forEach(
-        friendId => {
+        (friendId,index) => {
 
             const username =
-                profileMap.get(friendId);
+                profileMap.get(
+                    friendId
+                );
 
 
             const div =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
+
 
             div.className =
                 "friend";
 
 
+            div.style.animationDelay =
+                `${index * 0.06}s`;
+
+
             div.innerHTML = `
 
-                <div class="username">
-                    👤 ${
-                        escapeHTML(
-                            username ||
-                            "نام کاربر پیدا نشد"
-                        )
-                    }
+                <div class="friend-avatar">
+                    🎮
                 </div>
 
-                <div style="color:#777">
+                <div class="username">
+
+                    ${escapeHTML(
+                        username ||
+                        "نام کاربر پیدا نشد"
+                    )}
+
+                </div>
+
+                <div class="friend-status">
+
+                    <span class="status-dot"></span>
+
                     FRIEND
+
                 </div>
 
             `;
@@ -230,3 +1250,16 @@ async function loadFriends(){
     );
 
 }
+
+
+/* =========================
+   START
+========================= */
+
+loadUser();
+
+</script>
+
+</body>
+
+</html>
