@@ -799,11 +799,19 @@ Maximum Players / Slots
 <div class="form-group">
 
 <label>
+📅 تاریخ شمسی
+</label>
+
+<input
+    type="text"
+    id="tourDate"
+    placeholder="1405/06/25"
+>
+
+</div>
 
 
-
-
-
+<div class="form-group">
 
 <label>
 ⏰ ساعت مسابقه
@@ -856,6 +864,8 @@ Maximum Players / Slots
 ></textarea>
 
 </div>
+
+
 <div class="form-group full">
 
 <label>
@@ -868,7 +878,42 @@ Maximum Players / Slots
 ></textarea>
 
 </div>
+
+
 <div class="form-group">
+
+<label>
+🔐 کد روم اصلی
+</label>
+
+<input
+    type="text"
+    id="tourRoomCode"
+    placeholder="123456"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+⏱️ زمان نمایش خودکار کد
+</label>
+
+<input
+    type="datetime-local"
+    id="tourRevealAt"
+>
+
+</div>
+
+
+</div>
+
+
+<div class="actions">
+
 <button
     class="btn"
     id="createTournamentBtn"
