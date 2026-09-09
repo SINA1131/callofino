@@ -23,7 +23,7 @@
 
 body{
     background:#050505;
-    color:white;
+    color:#fff;
     min-height:100vh;
 }
 
@@ -47,7 +47,6 @@ nav a{
     color:white;
     text-decoration:none;
     margin-left:25px;
-    transition:.2s;
 }
 
 nav a:hover{
@@ -77,7 +76,11 @@ nav a:hover{
 
 .tournaments{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    grid-template-columns:
+    repeat(
+        auto-fit,
+        minmax(280px,1fr)
+    );
     gap:20px;
 }
 
@@ -86,39 +89,34 @@ nav a:hover{
     border:1px solid #222;
     border-radius:12px;
     overflow:hidden;
-    transition:.25s;
 }
 
 .tournament-card:hover{
     border-color:#1aff00;
-    transform:translateY(-3px);
 }
 
 .tournament-image{
     width:100%;
     height:180px;
     object-fit:cover;
-    display:block;
-    background:#111;
 }
 
-.tournament-image-placeholder{
+.tournament-placeholder{
     width:100%;
     height:180px;
-    background:
-        linear-gradient(135deg,#101010,#050505);
     display:flex;
     align-items:center;
     justify-content:center;
+    font-size:50px;
     color:#1aff00;
-    font-size:45px;
+    background:#101010;
 }
 
 .tournament-content{
     padding:22px;
 }
 
-.tournament-card h2{
+.tournament-content h2{
     color:#1aff00;
     margin-bottom:15px;
 }
@@ -129,22 +127,8 @@ nav a:hover{
     margin-bottom:15px;
 }
 
-.status{
-    display:inline-block;
-    padding:5px 10px;
-    border-radius:6px;
-    background:#123b0e;
-    color:#1aff00;
-    margin-bottom:15px;
-}
-
-.status.full{
-    background:#3b0e0e;
-    color:#ff4444;
-}
-
 button{
-    border:none;
+    border:0;
     cursor:pointer;
     border-radius:7px;
     padding:11px 15px;
@@ -157,10 +141,6 @@ button{
     color:#000;
 }
 
-.register-btn:hover{
-    background:#14cc00;
-}
-
 .view-btn{
     width:100%;
     margin-top:10px;
@@ -169,41 +149,101 @@ button{
     color:#1aff00;
 }
 
-.view-btn:hover{
-    background:#1aff00;
-    color:#000;
+
+/* ==========================================
+   ROOM ANNOUNCEMENT
+========================================== */
+
+.room-announcement{
+    display:none;
+    position:relative;
+    margin-bottom:30px;
+    background:#090909;
+    border:2px solid #1aff00;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:
+        0 0 25px
+        rgba(26,255,0,.15);
+    animation:roomPulse 2s infinite;
 }
 
-/* =========================
-   DETAILS
-========================= */
+@keyframes roomPulse{
 
-.details-section{
+    0%{
+        box-shadow:
+        0 0 15px
+        rgba(26,255,0,.08);
+    }
+
+    50%{
+        box-shadow:
+        0 0 35px
+        rgba(26,255,0,.22);
+    }
+
+    100%{
+        box-shadow:
+        0 0 15px
+        rgba(26,255,0,.08);
+    }
+
+}
+
+.room-image{
+    width:100%;
+    max-height:400px;
+    object-fit:cover;
+    display:block;
+}
+
+.room-content{
+    padding:25px;
+    text-align:center;
+}
+
+.room-title{
+    color:#1aff00;
+    font-size:25px;
+    margin-bottom:12px;
+}
+
+.room-code{
+    direction:ltr;
+    color:#1aff00;
+    font-size:38px;
+    font-weight:bold;
+    letter-spacing:5px;
+    margin:15px 0;
+}
+
+.room-timer{
+    color:#aaa;
+    font-size:14px;
+}
+
+.room-timer strong{
+    color:#fff;
+}
+
+
+/* ==========================================
+   DETAILS
+========================================== */
+
+.details{
     display:none;
-    margin-top:40px;
     background:#090909;
     border:1px solid #1aff00;
     border-radius:14px;
     overflow:hidden;
+    margin-top:40px;
 }
 
 .details-image{
     width:100%;
     max-height:430px;
     object-fit:cover;
-    display:block;
-}
-
-.details-image-placeholder{
-    width:100%;
-    height:300px;
-    background:
-        linear-gradient(135deg,#101010,#050505);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#1aff00;
-    font-size:70px;
 }
 
 .details-content{
@@ -218,9 +258,12 @@ button{
 
 .details-info{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    grid-template-columns:
+    repeat(
+        auto-fit,
+        minmax(180px,1fr)
+    );
     gap:12px;
-    margin-bottom:30px;
 }
 
 .detail-box{
@@ -244,7 +287,6 @@ button{
 .detail-block h3{
     color:#1aff00;
     margin-bottom:10px;
-    font-size:20px;
 }
 
 .detail-text{
@@ -257,63 +299,17 @@ button{
     white-space:pre-wrap;
 }
 
-.room-box{
-    margin-top:25px;
-    background:#101010;
-    border:1px solid #1aff00;
-    border-radius:10px;
-    padding:20px;
-    text-align:center;
-}
-
-.room-box h3{
-    color:#1aff00;
-    margin-bottom:10px;
-}
-
-.room-code{
-    font-size:28px;
-    font-weight:bold;
-    letter-spacing:3px;
-    color:#1aff00;
-    margin-top:10px;
-    direction:ltr;
-}
-
-.room-locked{
-    color:#aaa;
-    line-height:1.8;
-}
-
-.close-details{
-    width:100%;
-    margin-top:25px;
-    background:#222;
-    color:white;
-}
-
-.close-details:hover{
-    background:#333;
-}
-
-/* =========================
-   SLOTS
-========================= */
-
-.slots-title{
-    color:#1aff00;
-    text-align:center;
-    margin-top:35px;
-    margin-bottom:20px;
-}
-
 .slots{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    grid-template-columns:
+    repeat(
+        auto-fit,
+        minmax(230px,1fr)
+    );
     gap:15px;
 }
 
-.slot-card{
+.slot{
     background:#0c0c0c;
     border:1px solid #222;
     border-radius:10px;
@@ -322,8 +318,8 @@ button{
 
 .slot-title{
     color:#1aff00;
+    margin-bottom:10px;
     font-weight:bold;
-    margin-bottom:12px;
 }
 
 .player{
@@ -331,22 +327,29 @@ button{
     border-radius:6px;
     padding:9px;
     margin-top:7px;
-    color:#ddd;
 }
 
 .empty{
     color:#666;
 }
 
-/* =========================
-   MODAL
-========================= */
+.close{
+    width:100%;
+    margin-top:25px;
+    background:#222;
+    color:#fff;
+}
+
+
+/* ==========================================
+   SQUAD MODAL
+========================================== */
 
 .modal{
     display:none;
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,.8);
+    background:rgba(0,0,0,.85);
     align-items:center;
     justify-content:center;
     z-index:1000;
@@ -366,11 +369,6 @@ button{
     margin-bottom:20px;
 }
 
-.squad-list{
-    max-height:300px;
-    overflow-y:auto;
-}
-
 .squad-item{
     background:#151515;
     border:1px solid #222;
@@ -384,24 +382,24 @@ button{
     border-color:#1aff00;
 }
 
-.squad-item strong{
-    color:#1aff00;
-}
-
-.close-btn{
+.close-modal{
     width:100%;
-    margin-top:15px;
     background:#222;
-    color:white;
+    color:#fff;
+    margin-top:10px;
 }
 
-.close-btn:hover{
-    background:#333;
+.loading{
+    text-align:center;
+    color:#777;
+    padding:30px;
 }
 
-/* =========================
-   MY TOURNAMENTS
-========================= */
+.error{
+    text-align:center;
+    color:#ff5555;
+    padding:20px;
+}
 
 .my-tournaments{
     margin-top:50px;
@@ -420,17 +418,6 @@ button{
     margin-bottom:10px;
 }
 
-.loading{
-    text-align:center;
-    color:#777;
-}
-
-.error{
-    color:#ff4444;
-    text-align:center;
-    margin:20px;
-}
-
 @media(max-width:600px){
 
     header{
@@ -438,8 +425,8 @@ button{
     }
 
     nav a{
-        margin-left:10px;
-        font-size:13px;
+        margin-left:8px;
+        font-size:12px;
     }
 
     .container{
@@ -450,12 +437,8 @@ button{
         padding:20px;
     }
 
-    .details-title{
-        font-size:24px;
-    }
-
-    .details-image{
-        max-height:250px;
+    .room-code{
+        font-size:28px;
     }
 
 }
@@ -470,15 +453,25 @@ button{
 
 <header>
 
-    <div class="logo">
-        CALLAFINO
-    </div>
+<div class="logo">
+CALLAFINO
+</div>
 
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="codm.html">CODM</a>
-        <a href="dashboard.html">Dashboard</a>
-    </nav>
+<nav>
+
+<a href="index.html">
+Home
+</a>
+
+<a href="codm.html">
+CODM
+</a>
+
+<a href="dashboard.html">
+Dashboard
+</a>
+
+</nav>
 
 </header>
 
@@ -486,175 +479,214 @@ button{
 <div class="container">
 
 
-    <div class="title">
+<div class="title">
 
-        <h1>TOURNAMENTS</h1>
+<h1>
+TOURNAMENTS
+</h1>
 
-        <p>
-            Join tournaments and compete with other players.
-        </p>
+<p>
+Join tournaments and compete with other players.
+</p>
 
-    </div>
-
-
-    <div
-        id="tournaments"
-        class="tournaments"
-    >
-
-        <div class="loading">
-            Loading tournaments...
-        </div>
-
-    </div>
+</div>
 
 
-    <!-- =========================
-         TOURNAMENT DETAILS
-    ========================== -->
+<!-- ==========================================
+     ROOM ANNOUNCEMENT
+========================================== -->
 
-    <div
-        id="detailsSection"
-        class="details-section"
-    >
+<div
+    id="roomAnnouncement"
+    class="room-announcement"
+>
 
-        <div id="detailsImageContainer"></div>
-
-
-        <div class="details-content">
-
-            <h2
-                id="detailsTitle"
-                class="details-title"
-            ></h2>
+<div id="roomImageContainer"></div>
 
 
-            <div
-                id="detailsInfo"
-                class="details-info"
-            ></div>
+<div class="room-content">
+
+<div
+    id="roomTitle"
+    class="room-title"
+>
+🚨 ROOM IS OPEN
+</div>
 
 
-            <!-- DESCRIPTION -->
-
-            <div class="detail-block">
-
-                <h3>
-                    📝 توضیحات مسابقه
-                </h3>
-
-                <div
-                    id="detailsDescription"
-                    class="detail-text"
-                ></div>
-
-            </div>
+<div>
+کد روم مسابقه شما:
+</div>
 
 
-            <!-- RULES -->
-
-            <div class="detail-block">
-
-                <h3>
-                    📜 قوانین مسابقه
-                </h3>
-
-                <div
-                    id="detailsRules"
-                    class="detail-text"
-                ></div>
-
-            </div>
+<div
+    id="roomCode"
+    class="room-code"
+>
+------
+</div>
 
 
-            <!-- ROOM -->
+<div class="room-timer">
 
-            <div
-                id="roomBox"
-                class="room-box"
-            ></div>
+⏳ این کد تا
+<strong id="roomTimer">
+--
+</strong>
+دیگر نمایش داده می‌شود.
 
+</div>
 
-            <!-- SLOTS -->
+</div>
 
-            <div class="detail-block">
-
-                <h3 class="slots-title">
-                    🪑 اسلات‌های مسابقه
-                </h3>
-
-                <div
-                    id="detailsSlots"
-                    class="slots"
-                ></div>
-
-            </div>
+</div>
 
 
-            <button
-                class="close-details"
-                onclick="closeTournamentDetails()"
-            >
-                بستن
-            </button>
+<!-- ==========================================
+     TOURNAMENTS
+========================================== -->
 
-        </div>
+<div
+    id="tournaments"
+    class="tournaments"
+>
 
-    </div>
+<div class="loading">
+Loading tournaments...
+</div>
+
+</div>
 
 
-    <!-- =========================
-         MY TOURNAMENTS
-    ========================== -->
+<!-- ==========================================
+     DETAILS
+========================================== -->
 
-    <div class="my-tournaments">
+<div
+    id="details"
+    class="details"
+>
 
-        <h2>
-            My Tournaments
-        </h2>
+<div id="detailsImage"></div>
 
-        <div id="myTournaments">
 
-            <div class="loading">
-                Loading...
-            </div>
+<div class="details-content">
 
-        </div>
+<h2
+    id="detailsTitle"
+    class="details-title"
+></h2>
 
-    </div>
+
+<div
+    id="detailsInfo"
+    class="details-info"
+></div>
+
+
+<div class="detail-block">
+
+<h3>
+📝 توضیحات مسابقه
+</h3>
+
+<div
+    id="detailsDescription"
+    class="detail-text"
+></div>
+
+</div>
+
+
+<div class="detail-block">
+
+<h3>
+📜 قوانین مسابقه
+</h3>
+
+<div
+    id="detailsRules"
+    class="detail-text"
+></div>
+
+</div>
+
+
+<div class="detail-block">
+
+<h3>
+🪑 اسلات‌ها
+</h3>
+
+<div
+    id="detailsSlots"
+    class="slots"
+></div>
+
+</div>
+
+
+<button
+    class="close"
+    onclick="closeDetails()"
+>
+بستن
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ==========================================
+     MY TOURNAMENTS
+========================================== -->
+
+<div class="my-tournaments">
+
+<h2>
+My Tournaments
+</h2>
+
+<div id="myTournaments">
+
+<div class="loading">
+Loading...
+</div>
+
+</div>
+
+</div>
 
 
 </div>
 
 
-<!-- =========================
+<!-- ==========================================
      SQUAD MODAL
-========================= -->
+========================================== -->
 
 <div
     id="squadModal"
     class="modal"
 >
 
-    <div class="modal-box">
+<div class="modal-box">
 
-        <h2 id="modalTitle">
-            Select Squad
-        </h2>
+<h2 id="modalTitle">
+Select Squad
+</h2>
 
-        <div
-            id="squadList"
-            class="squad-list"
-        ></div>
+<div id="squadList"></div>
 
-        <button
-            class="close-btn"
-            onclick="closeSquadModal()"
-        >
-            Close
-        </button>
+<button
+    class="close-modal"
+    onclick="closeSquadModal()"
+>
+Close
+</button>
 
-    </div>
+</div>
 
 </div>
 
@@ -662,18 +694,18 @@ button{
 <script type="module">
 
 
-import { createClient }
-
-from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+import {
+    createClient
+}
+from
+"https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
 
 const SUPABASE_URL =
 "https://oisqrkqwbskvqkparmiw.supabase.co";
 
-
 const SUPABASE_KEY =
 "sb_publishable_FGoXFElayJeRdyFxyc61hQ_c5CUn5HL";
-
 
 const supabase =
 createClient(
@@ -686,10 +718,34 @@ let currentUser = null;
 
 let selectedTournament = null;
 
+let roomTimerInterval = null;
 
-/* =========================
+
+/* ==========================================
+   ESCAPE
+========================================== */
+
+function escapeHTML(value){
+
+    if(
+        value === null ||
+        value === undefined
+    )
+        return "";
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* ==========================================
    INIT
-========================= */
+========================================== */
 
 async function init(){
 
@@ -703,7 +759,7 @@ async function init(){
 
     if(!user){
 
-        window.location.href =
+        location.href =
         "login.html";
 
         return;
@@ -711,19 +767,34 @@ async function init(){
     }
 
 
-    currentUser = user;
+    currentUser =
+    user;
 
 
     await loadTournaments();
 
     await loadMyTournaments();
 
+    await checkRoomAnnouncement();
+
+    /*
+       هر 3 ثانیه بررسی می‌کنیم.
+       بنابراین اگر ادمین همین الان
+       کد روم را فعال کند، صفحه پلیر
+       بدون Refresh متوجه می‌شود.
+    */
+
+    setInterval(
+        checkRoomAnnouncement,
+        3000
+    );
+
 }
 
 
-/* =========================
+/* ==========================================
    LOAD TOURNAMENTS
-========================= */
+========================================== */
 
 async function loadTournaments(){
 
@@ -731,12 +802,6 @@ async function loadTournaments(){
     document.getElementById(
         "tournaments"
     );
-
-
-    container.innerHTML =
-    `<div class="loading">
-        Loading tournaments...
-    </div>`;
 
 
     const {
@@ -756,11 +821,11 @@ async function loadTournaments(){
 
     if(error){
 
-        console.error(error);
-
         container.innerHTML =
         `<div class="error">
-            Failed to load tournaments.
+            ${escapeHTML(
+                error.message
+            )}
         </div>`;
 
         return;
@@ -768,7 +833,7 @@ async function loadTournaments(){
     }
 
 
-    if(!data || data.length === 0){
+    if(!data?.length){
 
         container.innerHTML =
         `<div class="loading">
@@ -783,82 +848,42 @@ async function loadTournaments(){
     container.innerHTML = "";
 
 
-    for(const tournament of data){
-
-        let registeredCount = 0;
-
-
-        try{
-
-            const {
-                data:slots
-            } =
-            await supabase.rpc(
-                "get_tournament_slots",
-                {
-                    p_tournament_id:
-                    tournament.id
-                }
-            );
-
-
-            if(slots){
-
-                registeredCount =
-                countRegisteredSlots(slots);
-
-            }
-
-        }
-        catch(e){
-
-            console.error(e);
-
-        }
-
+    for(
+        const tournament
+        of data
+    ){
 
         const card =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
         card.className =
         "tournament-card";
 
 
-        const full =
-            tournament.status === "full"
-            ||
-            registeredCount >=
-            Number(tournament.max_players);
+        const image =
+        tournament.image_url
+        ?
 
+        `<img
+            class="tournament-image"
+            src="${escapeHTML(
+                tournament.image_url
+            )}"
+        >`
 
-        let imageHTML = "";
+        :
 
-
-        if(tournament.image_url){
-
-            imageHTML = `
-                <img
-                    class="tournament-image"
-                    src="${escapeHTML(tournament.image_url)}"
-                    alt="Tournament"
-                >
-            `;
-
-        }
-        else{
-
-            imageHTML = `
-                <div class="tournament-image-placeholder">
-                    🏆
-                </div>
-            `;
-
-        }
+        `<div class="tournament-placeholder">
+            🏆
+        </div>`;
 
 
         card.innerHTML = `
 
-            ${imageHTML}
+            ${image}
 
             <div class="tournament-content">
 
@@ -868,66 +893,55 @@ async function loadTournaments(){
                     )}
                 </h2>
 
-
                 <div class="info">
 
-                    <div>
-                        🎮 Game:
-                        ${escapeHTML(
-                            tournament.game || ""
-                        )}
-                    </div>
+                    🎮
+                    ${escapeHTML(
+                        tournament.game
+                    )}
 
+                    <br>
 
-                    <div>
-                        👥 Type:
-                        ${escapeHTML(
-                            tournament.type || ""
-                        )}
-                    </div>
+                    👥
+                    ${escapeHTML(
+                        tournament.type
+                    )}
 
+                    <br>
 
-                    <div>
-                        🪑 Slots:
-                        ${registeredCount}
-                        /
-                        ${tournament.max_players}
-                    </div>
+                    🪑 ظرفیت:
+                    ${escapeHTML(
+                        tournament.max_players
+                    )}
 
-                </div>
+                    <br>
 
+                    📅
+                    ${escapeHTML(
+                        tournament.tournament_date || "-"
+                    )}
 
-                <div
-                    class="status
-                    ${full ? "full" : ""}"
-                >
-                    ${full ? "FULL" : "OPEN"}
+                    <br>
+
+                    ⏰
+                    ${escapeHTML(
+                        tournament.tournament_time || "-"
+                    )}
+
                 </div>
 
 
                 <button
                     class="register-btn"
-                    ${full ? "disabled" : ""}
-                    style="${
-                        full
-                        ?
-                        "opacity:.5;cursor:not-allowed;"
-                        :
-                        ""
-                    }"
+                    data-register="${tournament.id}"
                 >
-                    ${
-                        full
-                        ?
-                        "Tournament Full"
-                        :
-                        "Register"
-                    }
+                    Register
                 </button>
 
 
                 <button
                     class="view-btn"
+                    data-view="${tournament.id}"
                 >
                     مشاهده
                 </button>
@@ -937,54 +951,42 @@ async function loadTournaments(){
         `;
 
 
-        const registerBtn =
-        card.querySelector(
-            ".register-btn"
+        card
+        .querySelector(
+            "[data-register]"
+        )
+        .onclick =
+        () =>
+        registerTournament(
+            tournament
         );
 
 
-        if(!full){
-
-            registerBtn.addEventListener(
-                "click",
-                () => {
-
-                    registerTournament(
-                        tournament
-                    );
-
-                }
-            );
-
-        }
-
-
-        card.querySelector(
-            ".view-btn"
-        ).addEventListener(
-            "click",
-            () => {
-
-                showTournamentDetails(
-                    tournament
-                );
-
-            }
+        card
+        .querySelector(
+            "[data-view]"
+        )
+        .onclick =
+        () =>
+        showDetails(
+            tournament
         );
 
 
-        container.appendChild(card);
+        container.appendChild(
+            card
+        );
 
     }
 
 }
 
 
-/* =========================
-   SHOW DETAILS
-========================= */
+/* ==========================================
+   DETAILS
+========================================== */
 
-async function showTournamentDetails(
+async function showDetails(
     tournament
 ){
 
@@ -992,91 +994,49 @@ async function showTournamentDetails(
     tournament;
 
 
-    const section =
+    const details =
     document.getElementById(
-        "detailsSection"
+        "details"
     );
 
 
-    const imageContainer =
-    document.getElementById(
-        "detailsImageContainer"
-    );
-
-
-    const title =
-    document.getElementById(
-        "detailsTitle"
-    );
-
-
-    const info =
-    document.getElementById(
-        "detailsInfo"
-    );
-
-
-    const description =
-    document.getElementById(
-        "detailsDescription"
-    );
-
-
-    const rules =
-    document.getElementById(
-        "detailsRules"
-    );
-
-
-    const slotsContainer =
-    document.getElementById(
-        "detailsSlots"
-    );
-
-
-    section.style.display =
+    details.style.display =
     "block";
 
 
-    title.textContent =
-    tournament.title || "Tournament";
+    document.getElementById(
+        "detailsTitle"
+    ).textContent =
+    tournament.title || "";
 
 
-    /* IMAGE */
+    const image =
+    document.getElementById(
+        "detailsImage"
+    );
+
 
     if(tournament.image_url){
 
-        imageContainer.innerHTML = `
-
-            <img
-                class="details-image"
-                src="${escapeHTML(
-                    tournament.image_url
-                )}"
-                alt="Tournament"
-            >
-
-        `;
+        image.innerHTML =
+        `<img
+            class="details-image"
+            src="${escapeHTML(
+                tournament.image_url
+            )}"
+        >`;
 
     }
     else{
 
-        imageContainer.innerHTML = `
-
-            <div
-                class="details-image-placeholder"
-            >
-                🏆
-            </div>
-
-        `;
+        image.innerHTML = "";
 
     }
 
 
-    /* INFO */
-
-    info.innerHTML = `
+    document.getElementById(
+        "detailsInfo"
+    ).innerHTML = `
 
         <div class="detail-box">
 
@@ -1091,7 +1051,7 @@ async function showTournamentDetails(
 
         <div class="detail-box">
 
-            <strong>👥 نوع مسابقه</strong>
+            <strong>👥 نوع</strong>
 
             ${escapeHTML(
                 tournament.type || "-"
@@ -1105,9 +1065,7 @@ async function showTournamentDetails(
             <strong>📅 تاریخ</strong>
 
             ${escapeHTML(
-                formatTournamentDate(
-                    tournament.tournament_date
-                )
+                tournament.tournament_date || "-"
             )}
 
         </div>
@@ -1118,9 +1076,7 @@ async function showTournamentDetails(
             <strong>⏰ ساعت</strong>
 
             ${escapeHTML(
-                formatTournamentTime(
-                    tournament.tournament_time
-                )
+                tournament.tournament_time || "-"
             )}
 
         </div>
@@ -1131,9 +1087,7 @@ async function showTournamentDetails(
             <strong>🪑 ظرفیت</strong>
 
             ${escapeHTML(
-                String(
-                    tournament.max_players || "-"
-                )
+                tournament.max_players || "-"
             )}
 
         </div>
@@ -1141,25 +1095,60 @@ async function showTournamentDetails(
     `;
 
 
-    /* DESCRIPTION */
-
-    description.textContent =
-        tournament.description ||
-        "توضیحی برای این مسابقه ثبت نشده است.";
-
-
-    /* RULES */
-
-    rules.textContent =
-        tournament.rules ||
-        "قوانینی برای این مسابقه ثبت نشده است.";
+    document.getElementById(
+        "detailsDescription"
+    ).textContent =
+    tournament.description ||
+    "توضیحی ثبت نشده است.";
 
 
-    /* LOAD SLOTS */
+    document.getElementById(
+        "detailsRules"
+    ).textContent =
+    tournament.rules ||
+    "قوانینی ثبت نشده است.";
 
-    slotsContainer.innerHTML =
+
+    await loadSlots(
+        tournament
+    );
+
+
+    details.scrollIntoView({
+        behavior:"smooth"
+    });
+
+}
+
+
+window.closeDetails =
+function(){
+
+    document.getElementById(
+        "details"
+    ).style.display =
+    "none";
+
+};
+
+
+/* ==========================================
+   SLOTS
+========================================== */
+
+async function loadSlots(
+    tournament
+){
+
+    const container =
+    document.getElementById(
+        "detailsSlots"
+    );
+
+
+    container.innerHTML =
     `<div class="loading">
-        Loading slots...
+        Loading...
     </div>`;
 
 
@@ -1178,368 +1167,26 @@ async function showTournamentDetails(
 
     if(error){
 
-        console.error(error);
-
-        slotsContainer.innerHTML =
+        container.innerHTML =
         `<div class="error">
-            Failed to load slots.
+            ${escapeHTML(
+                error.message
+            )}
         </div>`;
 
-    }
-    else{
-
-        renderSlots(
-            data || [],
-            tournament
-        );
-
-    }
-
-
-    /* ROOM CODE */
-
-    await loadRoomCode(
-        tournament
-    );
-
-
-    section.scrollIntoView({
-        behavior:"smooth",
-        block:"start"
-    });
-
-}
-
-
-/* =========================
-   FORMAT DATE
-========================= */
-
-function formatTournamentDate(
-    value
-){
-
-    if(!value)
-        return "-";
-
-
-    /*
-       Admin now stores the date
-       in Persian format such as:
-
-       1405/06/25
-    */
-
-    return String(value);
-
-}
-
-
-/* =========================
-   FORMAT TIME
-========================= */
-
-function formatTournamentTime(
-    value
-){
-
-    if(!value)
-        return "-";
-
-
-    return String(value)
-        .substring(0,5);
-
-}
-
-
-/* =========================
-   ROOM CODE
-========================= */
-
-async function loadRoomCode(
-    tournament
-){
-
-    const roomBox =
-    document.getElementById(
-        "roomBox"
-    );
-
-
-    roomBox.innerHTML =
-    `<h3>🔐 کد روم</h3>
-     <div class="room-locked">
-        در حال بررسی زمان انتشار...
-     </div>`;
-
-
-    /*
-       First check whether the user
-       is registered for this tournament.
-    */
-
-    const {
-        data:registration,
-        error:registrationError
-    } =
-    await supabase
-    .from("tournament_registrations")
-    .select("id")
-    .eq(
-        "tournament_id",
-        tournament.id
-    )
-    .eq(
-        "user_id",
-        currentUser.id
-    )
-    .maybeSingle();
-
-
-    if(registrationError){
-
-        console.error(
-            registrationError
-        );
-
-        roomBox.innerHTML = `
-
-            <h3>🔐 کد روم</h3>
-
-            <div class="room-locked">
-                خطا در بررسی ثبت‌نام.
-            </div>
-
-        `;
-
         return;
 
     }
-
-
-    if(!registration){
-
-        roomBox.innerHTML = `
-
-            <h3>🔐 کد روم</h3>
-
-            <div class="room-locked">
-
-                🔒 کد روم فقط برای
-                بازیکنان ثبت‌نام‌شده نمایش داده می‌شود.
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    if(!tournament.room_code){
-
-        roomBox.innerHTML = `
-
-            <h3>🔐 کد روم</h3>
-
-            <div class="room-locked">
-                کد روم هنوز توسط ادمین ثبت نشده است.
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    if(!tournament.room_code_reveal_at){
-
-        roomBox.innerHTML = `
-
-            <h3>🔐 کد روم</h3>
-
-            <div class="room-locked">
-
-                زمان نمایش کد روم تعیین نشده است.
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    /*
-       Get server time from Supabase
-    */
-
-    const {
-        data:serverTime,
-        error:timeError
-    } =
-    await supabase.rpc(
-        "get_server_time"
-    );
-
-
-    if(timeError){
-
-        console.error(timeError);
-
-        roomBox.innerHTML = `
-
-            <h3>🔐 کد روم</h3>
-
-            <div class="room-locked">
-
-                خطا در دریافت زمان سرور.
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    const now =
-    new Date(serverTime);
-
-
-    const revealTime =
-    new Date(
-        tournament.room_code_reveal_at
-    );
-
-
-    if(
-        now.getTime()
-        >=
-        revealTime.getTime()
-    ){
-
-        roomBox.innerHTML = `
-
-            <h3>
-                🔐 کد روم
-            </h3>
-
-            <div class="room-code">
-
-                ${escapeHTML(
-                    tournament.room_code
-                )}
-
-            </div>
-
-            <div
-                style="
-                    color:#777;
-                    margin-top:10px;
-                "
-            >
-                کد روم منتشر شده است.
-            </div>
-
-        `;
-
-    }
-    else{
-
-        roomBox.innerHTML = `
-
-            <h3>
-                🔐 کد روم
-            </h3>
-
-            <div class="room-locked">
-
-                🔒 کد روم هنوز منتشر نشده است.
-
-                <br>
-
-                زمان انتشار:
-
-                <strong
-                    style="color:#1aff00;"
-                >
-                    ${formatRevealTime(
-                        tournament.room_code_reveal_at
-                    )}
-                </strong>
-
-            </div>
-
-        `;
-
-    }
-
-}
-
-
-/* =========================
-   REVEAL TIME
-========================= */
-
-function formatRevealTime(
-    value
-){
-
-    if(!value)
-        return "-";
-
-
-    const date =
-    new Date(value);
-
-
-    if(isNaN(date.getTime()))
-        return value;
-
-
-    return date.toLocaleString(
-        "fa-IR",
-        {
-            year:"numeric",
-            month:"2-digit",
-            day:"2-digit",
-            hour:"2-digit",
-            minute:"2-digit"
-        }
-    );
-
-}
-
-
-/* =========================
-   SLOTS
-========================= */
-
-function renderSlots(
-    data,
-    tournament
-){
-
-    const container =
-    document.getElementById(
-        "detailsSlots"
-    );
 
 
     container.innerHTML = "";
 
 
-    if(!data || data.length === 0){
+    if(!data?.length){
 
         container.innerHTML =
-        `<div class="loading">
-            هنوز اسلاتی ایجاد نشده است.
+        `<div class="empty">
+            هنوز اسلاتی وجود ندارد.
         </div>`;
 
         return;
@@ -1547,101 +1194,94 @@ function renderSlots(
     }
 
 
-    const type =
-    String(
-        tournament.type || ""
-    ).toLowerCase();
-
-
     data.forEach(
         slot => {
 
-            const card =
+            const div =
             document.createElement(
                 "div"
             );
 
 
-            card.className =
-            "slot-card";
+            div.className =
+            "slot";
 
 
-            let playersHTML = "";
-
-
-            if(type === "solo"){
-
-                playersHTML =
-                createPlayerHTML(
-                    slot.player1_name
-                );
-
-            }
-
-
-            else if(type === "duo"){
-
-                playersHTML =
-
-                    createPlayerHTML(
-                        slot.player1_name
-                    )
-
-                    +
-
-                    createPlayerHTML(
-                        slot.player2_name
-                    );
-
-            }
-
-
-            else if(type === "squad"){
-
-                playersHTML =
-
-                    createPlayerHTML(
-                        slot.player1_name
-                    )
-
-                    +
-
-                    createPlayerHTML(
-                        slot.player2_name
-                    )
-
-                    +
-
-                    createPlayerHTML(
-                        slot.player3_name
-                    )
-
-                    +
-
-                    createPlayerHTML(
-                        slot.player4_name
-                    );
-
-            }
-
-
-            card.innerHTML = `
+            div.innerHTML = `
 
                 <div class="slot-title">
 
-                    Slot #${escapeHTML(
+                    Slot #
+                    ${escapeHTML(
                         slot.slot
                     )}
 
                 </div>
 
-                ${playersHTML}
+
+                <div class="player">
+
+                    👤
+                    ${escapeHTML(
+                        slot.player1_name ||
+                        "Empty"
+                    )}
+
+                </div>
+
+
+                ${
+                    slot.player2_name
+                    ?
+                    `
+                    <div class="player">
+                        👤
+                        ${escapeHTML(
+                            slot.player2_name
+                        )}
+                    </div>
+                    `
+                    :
+                    ""
+                }
+
+
+                ${
+                    slot.player3_name
+                    ?
+                    `
+                    <div class="player">
+                        👤
+                        ${escapeHTML(
+                            slot.player3_name
+                        )}
+                    </div>
+                    `
+                    :
+                    ""
+                }
+
+
+                ${
+                    slot.player4_name
+                    ?
+                    `
+                    <div class="player">
+                        👤
+                        ${escapeHTML(
+                            slot.player4_name
+                        )}
+                    </div>
+                    `
+                    :
+                    ""
+                }
 
             `;
 
 
             container.appendChild(
-                card
+                div
             );
 
         }
@@ -1650,82 +1290,325 @@ function renderSlots(
 }
 
 
-/* =========================
-   SLOT CHECK
-========================= */
+/* ==========================================
+   ROOM ANNOUNCEMENT
+========================================== */
 
-function isSlotOccupied(
-    slot
-){
+async function checkRoomAnnouncement(){
 
-    return !!(
-        slot.player1_name
-        ||
-        slot.player2_name
-        ||
-        slot.player3_name
-        ||
-        slot.player4_name
+    if(!currentUser)
+        return;
+
+
+    /*
+       فقط تورنمنت‌هایی که کاربر
+       در آنها ثبت‌نام کرده است.
+    */
+
+    const {
+        data:registrations,
+        error
+    } =
+    await supabase
+    .from(
+        "tournament_registrations"
+    )
+    .select(
+        "tournament_id"
+    )
+    .eq(
+        "user_id",
+        currentUser.id
+    );
+
+
+    if(error){
+
+        console.error(error);
+
+        return;
+
+    }
+
+
+    if(
+        !registrations ||
+        !registrations.length
+    ){
+
+        hideRoomAnnouncement();
+
+        return;
+
+    }
+
+
+    const ids =
+    registrations.map(
+        r => r.tournament_id
+    );
+
+
+    /*
+       فقط اعلان فعال از Supabase
+       برمی‌گردد.
+    */
+
+    const {
+        data:announcements,
+        error:announcementError
+    } =
+    await supabase
+    .from(
+        "tournament_room_announcements"
+    )
+    .select(`
+        id,
+        tournament_id,
+        room_code,
+        image_url,
+        starts_at,
+        ends_at,
+        tournaments (
+            title
+        )
+    `)
+    .in(
+        "tournament_id",
+        ids
+    )
+    .lte(
+        "starts_at",
+        new Date().toISOString()
+    )
+    .gt(
+        "ends_at",
+        new Date().toISOString()
+    )
+    .order(
+        "starts_at",
+        {
+            ascending:false
+        }
+    )
+    .limit(1);
+
+
+    if(announcementError){
+
+        console.error(
+            announcementError
+        );
+
+        return;
+
+    }
+
+
+    if(
+        !announcements ||
+        !announcements.length
+    ){
+
+        hideRoomAnnouncement();
+
+        return;
+
+    }
+
+
+    showRoomAnnouncement(
+        announcements[0]
     );
 
 }
 
 
-function countRegisteredSlots(
-    slots
+/* ==========================================
+   SHOW ROOM
+========================================== */
+
+function showRoomAnnouncement(
+    announcement
 ){
 
-    if(!slots)
-        return 0;
+    const box =
+    document.getElementById(
+        "roomAnnouncement"
+    );
 
 
-    return slots.filter(
-        slot =>
-        isSlotOccupied(slot)
-    ).length;
-
-}
+    const imageContainer =
+    document.getElementById(
+        "roomImageContainer"
+    );
 
 
-/* =========================
-   PLAYER HTML
-========================= */
+    if(announcement.image_url){
 
-function createPlayerHTML(
-    name
-){
+        imageContainer.innerHTML =
+        `<img
+            class="room-image"
+            src="${escapeHTML(
+                announcement.image_url
+            )}"
+        >`;
 
-    if(name){
+    }
+    else{
 
-        return `
-
-            <div class="player">
-
-                👤 ${escapeHTML(name)}
-
-            </div>
-
-        `;
+        imageContainer.innerHTML = "";
 
     }
 
 
-    return `
+    document.getElementById(
+        "roomTitle"
+    ).textContent =
+    "🚨 " +
+    (
+        announcement.tournaments?.title
+        ||
+        "ROOM IS OPEN"
+    );
 
-        <div class="player empty">
 
-            Empty
+    document.getElementById(
+        "roomCode"
+    ).textContent =
+    announcement.room_code;
 
-        </div>
 
-    `;
+    box.style.display =
+    "block";
+
+
+    updateRoomTimer(
+        announcement.ends_at
+    );
 
 }
 
 
-/* =========================
+/* ==========================================
+   TIMER
+========================================== */
+
+function updateRoomTimer(
+    endsAt
+){
+
+    if(roomTimerInterval){
+
+        clearInterval(
+            roomTimerInterval
+        );
+
+    }
+
+
+    function update(){
+
+        const now =
+        Date.now();
+
+
+        const end =
+        new Date(
+            endsAt
+        ).getTime();
+
+
+        const remaining =
+        end - now;
+
+
+        if(
+            remaining <= 0
+        ){
+
+            hideRoomAnnouncement();
+
+            return;
+
+        }
+
+
+        const totalSeconds =
+        Math.floor(
+            remaining / 1000
+        );
+
+
+        const minutes =
+        Math.floor(
+            totalSeconds / 60
+        );
+
+
+        const seconds =
+        totalSeconds % 60;
+
+
+        document.getElementById(
+            "roomTimer"
+        ).textContent =
+
+        `${minutes} دقیقه و ${String(
+            seconds
+        ).padStart(
+            2,
+            "0"
+        )} ثانیه`;
+
+    }
+
+
+    update();
+
+
+    roomTimerInterval =
+    setInterval(
+        update,
+        1000
+    );
+
+}
+
+
+/* ==========================================
+   HIDE ROOM
+========================================== */
+
+function hideRoomAnnouncement(){
+
+    const box =
+    document.getElementById(
+        "roomAnnouncement"
+    );
+
+
+    box.style.display =
+    "none";
+
+
+    if(roomTimerInterval){
+
+        clearInterval(
+            roomTimerInterval
+        );
+
+        roomTimerInterval =
+        null;
+
+    }
+
+}
+
+
+/* ==========================================
    REGISTER
-========================= */
+========================================== */
 
 async function registerTournament(
     tournament
@@ -1733,7 +1616,7 @@ async function registerTournament(
 
     const type =
     String(
-        tournament.type
+        tournament.type || ""
     ).toLowerCase();
 
 
@@ -1748,21 +1631,6 @@ async function registerTournament(
 
     }
 
-
-    await openSquadModal(
-        tournament
-    );
-
-}
-
-
-/* =========================
-   SQUAD MODAL
-========================= */
-
-async function openSquadModal(
-    tournament
-){
 
     selectedTournament =
     tournament;
@@ -1780,24 +1648,14 @@ async function openSquadModal(
     );
 
 
-    const title =
     document.getElementById(
         "modalTitle"
-    );
-
-
-    const type =
-    String(
-        tournament.type
-    ).toLowerCase();
-
-
-    title.textContent =
-        type === "squad"
-        ?
-        "Select Your Squad (4 Players)"
-        :
-        "Select Your Duo (2 Players)";
+    ).textContent =
+    type === "squad"
+    ?
+    "Select Squad"
+    :
+    "Select Duo";
 
 
     modal.style.display =
@@ -1826,17 +1684,20 @@ async function openSquadModal(
     `)
     .in(
         "status",
-        ["accepted","ready"]
+        [
+            "accepted",
+            "ready"
+        ]
     );
 
 
     if(error){
 
-        console.error(error);
-
         list.innerHTML =
         `<div class="error">
-            Failed to load squads.
+            ${escapeHTML(
+                error.message
+            )}
         </div>`;
 
         return;
@@ -1845,85 +1706,41 @@ async function openSquadModal(
 
 
     const mySquads =
-    squads.filter(
+    (squads || [])
+    .filter(
         squad => {
 
-            if(type === "duo"){
+            return (
 
-                return (
-                    squad.player1_id ===
-                    currentUser.id
+                squad.player1_id ===
+                currentUser.id
 
-                    ||
+                ||
 
-                    squad.player2_id ===
-                    currentUser.id
-                );
+                squad.player2_id ===
+                currentUser.id
 
-            }
+                ||
 
+                squad.player3_id ===
+                currentUser.id
 
-            if(type === "squad"){
+                ||
 
-                return (
+                squad.player4_id ===
+                currentUser.id
 
-                    (
-                        squad.player1_id ===
-                        currentUser.id
-
-                        ||
-
-                        squad.player2_id ===
-                        currentUser.id
-
-                        ||
-
-                        squad.player3_id ===
-                        currentUser.id
-
-                        ||
-
-                        squad.player4_id ===
-                        currentUser.id
-                    )
-
-                    &&
-
-                    squad.player1_id
-
-                    &&
-
-                    squad.player2_id
-
-                    &&
-
-                    squad.player3_id
-
-                    &&
-
-                    squad.player4_id
-
-                );
-
-            }
-
-
-            return false;
+            );
 
         }
     );
 
 
-    if(mySquads.length === 0){
+    if(!mySquads.length){
 
         list.innerHTML =
         `<div class="loading">
-
-            You don't have an eligible
-            ${type === "squad"
-                ? "4-player squad"
-                : "duo"}.
-
+            شما Duo / Squad واجد شرایط ندارید.
         </div>`;
 
         return;
@@ -1942,18 +1759,15 @@ async function openSquadModal(
                 squad.player2_id,
                 squad.player3_id,
                 squad.player4_id
-
-            ].forEach(
+            ]
+            .forEach(
                 id => {
 
                     if(
                         id &&
                         !ids.includes(id)
-                    ){
-
+                    )
                         ids.push(id);
-
-                    }
 
                 }
             );
@@ -1963,8 +1777,7 @@ async function openSquadModal(
 
 
     const {
-        data:profiles,
-        error:profileError
+        data:profiles
     } =
     await supabase
     .from("profiles")
@@ -1977,34 +1790,15 @@ async function openSquadModal(
     );
 
 
-    if(profileError){
-
-        console.error(
-            profileError
-        );
-
-        list.innerHTML =
-        `<div class="error">
-            Failed to load players.
-        </div>`;
-
-        return;
-
-    }
-
-
-    const profileMap = {};
-
-
-    profiles.forEach(
-        profile => {
-
-            profileMap[
-                profile.id
-            ] =
-            profile.username;
-
-        }
+    const map =
+    new Map(
+        (profiles || [])
+        .map(
+            p => [
+                p.id,
+                p.username
+            ]
+        )
     );
 
 
@@ -2013,69 +1807,6 @@ async function openSquadModal(
 
     mySquads.forEach(
         squad => {
-
-            let names = [];
-
-
-            if(squad.player1_id){
-
-                names.push(
-                    profileMap[
-                        squad.player1_id
-                    ]
-                    ||
-                    "Unknown"
-                );
-
-            }
-
-
-            if(squad.player2_id){
-
-                names.push(
-                    profileMap[
-                        squad.player2_id
-                    ]
-                    ||
-                    "Unknown"
-                );
-
-            }
-
-
-            if(
-                type === "squad"
-                &&
-                squad.player3_id
-            ){
-
-                names.push(
-                    profileMap[
-                        squad.player3_id
-                    ]
-                    ||
-                    "Unknown"
-                );
-
-            }
-
-
-            if(
-                type === "squad"
-                &&
-                squad.player4_id
-            ){
-
-                names.push(
-                    profileMap[
-                        squad.player4_id
-                    ]
-                    ||
-                    "Unknown"
-                );
-
-            }
-
 
             const item =
             document.createElement(
@@ -2087,54 +1818,59 @@ async function openSquadModal(
             "squad-item";
 
 
+            const names =
+            [
+                squad.player1_id,
+                squad.player2_id,
+                squad.player3_id,
+                squad.player4_id
+            ]
+            .filter(Boolean)
+            .map(
+                id =>
+                map.get(id) ||
+                "Unknown"
+            );
+
+
             item.innerHTML = `
 
-                <strong>
+                <strong
+                    style="color:#1aff00;"
+                >
 
-                    ${
+                    ${escapeHTML(
                         type === "squad"
                         ?
                         "Squad"
                         :
                         "Duo"
-                    }
+                    )}
 
                 </strong>
 
+                <br><br>
 
-                <div
-                    style="
-                        margin-top:8px;
-                    "
-                >
-
-                    ${
-                        names
-                        .map(
-                            name =>
-                            `👤 ${
-                                escapeHTML(name)
-                            }`
-                        )
-                        .join("<br>")
-                    }
-
-                </div>
+                ${names
+                    .map(
+                        n =>
+                        `👤 ${escapeHTML(n)}`
+                    )
+                    .join("<br>")
+                }
 
             `;
 
 
-            item.addEventListener(
-                "click",
-                async () => {
+            item.onclick =
+            async () => {
 
-                    await doRegister(
-                        tournament.id,
-                        squad.id
-                    );
+                await doRegister(
+                    tournament.id,
+                    squad.id
+                );
 
-                }
-            );
+            };
 
 
             list.appendChild(
@@ -2146,10 +1882,6 @@ async function openSquadModal(
 
 }
 
-
-/* =========================
-   DO REGISTER
-========================= */
 
 async function doRegister(
     tournamentId,
@@ -2184,7 +1916,7 @@ async function doRegister(
 
 
     alert(
-        `Registration successful!\nSlot #${data.slot}`
+        `ثبت‌نام موفق بود.\nSlot #${data.slot}`
     );
 
 
@@ -2195,12 +1927,25 @@ async function doRegister(
 
     await loadMyTournaments();
 
+    await checkRoomAnnouncement();
+
 }
 
 
-/* =========================
+window.closeSquadModal =
+function(){
+
+    document.getElementById(
+        "squadModal"
+    ).style.display =
+    "none";
+
+};
+
+
+/* ==========================================
    MY TOURNAMENTS
-========================= */
+========================================== */
 
 async function loadMyTournaments(){
 
@@ -2221,11 +1966,9 @@ async function loadMyTournaments(){
     .select(`
         slot,
         type,
-        tournament_id,
         tournaments (
             title,
             game,
-            type,
             tournament_date,
             tournament_time
         )
@@ -2244,11 +1987,11 @@ async function loadMyTournaments(){
 
     if(error){
 
-        console.error(error);
-
         container.innerHTML =
         `<div class="error">
-            Failed to load your tournaments.
+            ${escapeHTML(
+                error.message
+            )}
         </div>`;
 
         return;
@@ -2256,11 +1999,11 @@ async function loadMyTournaments(){
     }
 
 
-    if(!data || data.length === 0){
+    if(!data?.length){
 
         container.innerHTML =
         `<div class="loading">
-            You haven't registered for any tournament yet.
+            هنوز در مسابقه‌ای ثبت‌نام نکرده‌اید.
         </div>`;
 
         return;
@@ -2284,7 +2027,7 @@ async function loadMyTournaments(){
             "my-item";
 
 
-            const tournament =
+            const t =
             item.tournaments;
 
 
@@ -2293,83 +2036,39 @@ async function loadMyTournaments(){
                 <strong
                     style="color:#1aff00;"
                 >
-
                     ${escapeHTML(
-                        tournament?.title ||
+                        t?.title ||
                         "Tournament"
                     )}
-
                 </strong>
 
+                <br><br>
 
-                <div
-                    style="
-                        color:#aaa;
-                        margin-top:8px;
-                    "
-                >
+                🎮
+                ${escapeHTML(
+                    t?.game || "-"
+                )}
 
-                    🎮 ${
-                        escapeHTML(
-                            tournament?.game ||
-                            ""
-                        )
-                    }
+                <br>
 
-                </div>
+                📅
+                ${escapeHTML(
+                    t?.tournament_date || "-"
+                )}
 
+                |
 
-                <div
-                    style="color:#aaa;"
-                >
+                ⏰
+                ${escapeHTML(
+                    t?.tournament_time || "-"
+                )}
 
-                    👥 ${
-                        escapeHTML(
-                            item.type ||
-                            ""
-                        )
-                    }
+                <br>
 
-                </div>
-
-
-                <div
-                    style="
-                        color:#aaa;
-                    "
-                >
-
-                    📅 ${
-                        escapeHTML(
-                            formatTournamentDate(
-                                tournament?.tournament_date
-                            )
-                        )
-                    }
-
-                    |
-
-                    ⏰ ${
-                        escapeHTML(
-                            formatTournamentTime(
-                                tournament?.tournament_time
-                            )
-                        )
-                    }
-
-                </div>
-
-
-                <div
-                    style="
-                        color:#1aff00;
-                        margin-top:5px;
-                    "
-                >
-
-                    🪑 Slot #${item.slot}
-
-                </div>
+                🪑
+                Slot #${escapeHTML(
+                    item.slot
+                )}
 
             `;
 
@@ -2383,94 +2082,6 @@ async function loadMyTournaments(){
 
 }
 
-
-/* =========================
-   CLOSE DETAILS
-========================= */
-
-function closeTournamentDetails(){
-
-    document.getElementById(
-        "detailsSection"
-    ).style.display =
-    "none";
-
-}
-
-
-window.closeTournamentDetails =
-closeTournamentDetails;
-
-
-/* =========================
-   CLOSE SQUAD
-========================= */
-
-function closeSquadModal(){
-
-    document.getElementById(
-        "squadModal"
-    ).style.display =
-    "none";
-
-}
-
-
-window.closeSquadModal =
-closeSquadModal;
-
-
-/* =========================
-   ESCAPE HTML
-========================= */
-
-function escapeHTML(
-    value
-){
-
-    if(
-        value === null ||
-        value === undefined
-    ){
-
-        return "";
-
-    }
-
-
-    return String(value)
-
-        .replaceAll(
-            "&",
-            "&amp;"
-        )
-
-        .replaceAll(
-            "<",
-            "&lt;"
-        )
-
-        .replaceAll(
-            ">",
-            "&gt;"
-        )
-
-        .replaceAll(
-            '"',
-            "&quot;"
-        )
-
-        .replaceAll(
-            "'",
-            "&#039;"
-        );
-
-}
-
-
-/* =========================
-   START
-========================= */
 
 init();
 
