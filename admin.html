@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>CALLAFINO | Admin Panel</title>
 
@@ -192,7 +198,8 @@ header{
 }
 
 input,
-select{
+select,
+textarea{
     width:100%;
     background:#111;
     color:#fff;
@@ -202,9 +209,55 @@ select{
     outline:none;
 }
 
+textarea{
+    min-height:130px;
+    resize:vertical;
+    line-height:1.8;
+}
+
 input:focus,
-select:focus{
+select:focus,
+textarea:focus{
     border-color:#39ff14;
+}
+
+input[type="file"]{
+    padding:10px;
+    cursor:pointer;
+}
+
+input[type="file"]::file-selector-button{
+    background:#39ff14;
+    color:#000;
+    border:0;
+    border-radius:6px;
+    padding:8px 12px;
+    margin-left:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.image-preview{
+    margin-top:10px;
+    display:none;
+    width:100%;
+    max-width:500px;
+    border:1px solid #333;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.image-preview img{
+    width:100%;
+    max-height:260px;
+    object-fit:cover;
+    display:block;
+}
+
+.help{
+    color:#666;
+    font-size:11px;
+    line-height:1.7;
 }
 
 .actions{
@@ -334,6 +387,10 @@ td{
     gap:15px;
 }
 
+.tournament-info{
+    flex:1;
+}
+
 .tournament-info h3{
     margin-bottom:8px;
 }
@@ -342,6 +399,14 @@ td{
     color:#777;
     font-size:13px;
     line-height:1.9;
+}
+
+.tournament-image{
+    width:120px;
+    height:75px;
+    border-radius:8px;
+    object-fit:cover;
+    border:1px solid #292929;
 }
 
 .rank-number{
@@ -368,6 +433,19 @@ td{
 .open-status{
     color:#39ff14;
     font-weight:bold;
+}
+
+.divider{
+    height:1px;
+    background:#1c1c1c;
+    margin:20px 0;
+}
+
+.section-label{
+    color:#39ff14;
+    font-weight:bold;
+    font-size:13px;
+    margin-bottom:10px;
 }
 
 @media(max-width:800px){
@@ -420,13 +498,18 @@ td{
         align-items:flex-start;
     }
 
+    .tournament-image{
+        width:100%;
+        height:180px;
+    }
+
 }
 
 </style>
+
 </head>
 
 <body>
-
 
 <header>
 
@@ -448,9 +531,7 @@ ADMIN
 
 </header>
 
-
 <div class="layout">
-
 
 <aside class="sidebar">
 
@@ -486,13 +567,9 @@ ADMIN
 
 </aside>
 
-
 <main class="content">
 
-
-<!-- ================================================= -->
 <!-- DASHBOARD -->
-<!-- ================================================= -->
 
 <section class="page active" id="dashboard">
 
@@ -503,7 +580,6 @@ Dashboard
 <p class="subtitle">
 مدیریت CALLAFINO
 </p>
-
 
 <div class="stats">
 
@@ -519,7 +595,6 @@ Dashboard
 
 </div>
 
-
 <div class="stat">
 
 <span>
@@ -531,7 +606,6 @@ Dashboard
 </strong>
 
 </div>
-
 
 <div class="stat">
 
@@ -550,9 +624,7 @@ ONLINE
 </section>
 
 
-<!-- ================================================= -->
-<!-- PLAYERS / REGISTRATIONS -->
-<!-- ================================================= -->
+<!-- REGISTRATIONS -->
 
 <section class="page" id="registrations">
 
@@ -564,16 +636,13 @@ Players / Registrations
 مشاهده بازیکنان ثبت‌نام‌شده در تورنمنت‌ها
 </p>
 
-
 <div id="message"></div>
-
 
 <div class="panel">
 
 <div class="panel-title">
 انتخاب تورنمنت
 </div>
-
 
 <select id="tournamentSelect">
 
@@ -582,7 +651,6 @@ Players / Registrations
 </option>
 
 </select>
-
 
 <div class="actions">
 
@@ -598,13 +666,11 @@ Players / Registrations
 
 </div>
 
-
 <div class="panel">
 
 <div class="panel-title">
 لیست Players
 </div>
-
 
 <div class="table-wrap">
 
@@ -614,30 +680,19 @@ Players / Registrations
 
 <tr>
 
-<th>
-Slot
-</th>
+<th>Slot</th>
 
-<th>
-Username
-</th>
+<th>Username</th>
 
-<th>
-Type
-</th>
+<th>Type</th>
 
-<th>
-Squad / Duo
-</th>
+<th>Squad / Duo</th>
 
-<th>
-Registration Time
-</th>
+<th>Registration Time</th>
 
 </tr>
 
 </thead>
-
 
 <tbody id="registrationsTable">
 
@@ -660,9 +715,7 @@ Registration Time
 </section>
 
 
-<!-- ================================================= -->
 <!-- TOURNAMENTS -->
-<!-- ================================================= -->
 
 <section class="page" id="tournaments">
 
@@ -674,9 +727,7 @@ Tournaments
 ساخت و مدیریت تورنمنت‌ها
 </p>
 
-
 <div id="tournamentMessage"></div>
-
 
 <div class="panel">
 
@@ -684,9 +735,7 @@ Tournaments
 ➕ ساخت تورنمنت جدید
 </div>
 
-
 <div class="form-grid">
-
 
 <div class="form-group full">
 
@@ -753,7 +802,7 @@ Squad
 </div>
 
 
-<div class="form-group full">
+<div class="form-group">
 
 <label>
 Maximum Players / Slots
@@ -768,6 +817,129 @@ min="1"
 
 </div>
 
+
+<div class="form-group">
+
+<label>
+📅 تاریخ مسابقه
+</label>
+
+<input
+type="date"
+id="tourDate"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+⏰ ساعت مسابقه
+</label>
+
+<input
+type="time"
+id="tourTime"
+>
+
+</div>
+
+
+<div class="form-group full">
+
+<label>
+🖼️ تصویر تورنمنت
+</label>
+
+<input
+type="file"
+id="tourImage"
+accept="image/*"
+>
+
+<div class="help">
+تصویر اصلی تورنمنت که در صفحه Tournament نمایش داده می‌شود.
+</div>
+
+<div
+class="image-preview"
+id="imagePreview"
+>
+
+<img
+id="previewImage"
+src=""
+alt="Preview"
+>
+
+</div>
+
+</div>
+
+
+<div class="form-group full">
+
+<label>
+📝 توضیحات تورنمنت
+</label>
+
+<textarea
+id="tourDescription"
+placeholder="توضیحات کامل درباره تورنمنت را بنویسید..."
+></textarea>
+
+</div>
+
+
+<div class="form-group full">
+
+<label>
+📜 قوانین تورنمنت
+</label>
+
+<textarea
+id="tourRules"
+placeholder="قوانین تورنمنت را اینجا بنویسید..."
+></textarea>
+
+</div>
+
+
+<div class="divider form-group full"></div>
+
+
+<div class="form-group">
+
+<label>
+🔐 کد Room
+</label>
+
+<input
+type="text"
+id="tourRoomCode"
+placeholder="مثلاً 123456"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+⏱️ زمان نمایش کد Room
+</label>
+
+<input
+type="datetime-local"
+id="tourRevealAt"
+>
+
+<div class="help">
+کد روم فقط بعد از این زمان برای بازیکنان ثبت‌نام‌شده نمایش داده می‌شود.
+</div>
+
+</div>
 
 </div>
 
@@ -792,7 +964,6 @@ id="createTournamentBtn"
 تورنمنت‌های موجود
 </div>
 
-
 <div id="tournamentList">
 
 <div class="loading">
@@ -806,9 +977,7 @@ id="createTournamentBtn"
 </section>
 
 
-<!-- ================================================= -->
 <!-- USERS -->
-<!-- ================================================= -->
 
 <section class="page" id="users">
 
@@ -820,13 +989,11 @@ Users
 کاربران ثبت‌شده در CALLAFINO
 </p>
 
-
 <div class="panel">
 
 <div class="panel-title">
 لیست کاربران
 </div>
-
 
 <div class="table-wrap">
 
@@ -856,7 +1023,6 @@ Created
 
 </thead>
 
-
 <tbody id="usersTable">
 
 <tr>
@@ -878,9 +1044,7 @@ Created
 </section>
 
 
-<!-- ================================================= -->
 <!-- SQUADS -->
-<!-- ================================================= -->
 
 <section class="page" id="squads">
 
@@ -892,7 +1056,6 @@ Squads
 مشاهده Duo / Squadها
 </p>
 
-
 <div class="panel">
 
 <div class="table-wrap">
@@ -903,26 +1066,17 @@ Squads
 
 <tr>
 
-<th>
-Player 1
-</th>
+<th>Player 1</th>
 
-<th>
-Player 2
-</th>
+<th>Player 2</th>
 
-<th>
-Status
-</th>
+<th>Status</th>
 
-<th>
-Created
-</th>
+<th>Created</th>
 
 </tr>
 
 </thead>
-
 
 <tbody id="squadsTable">
 
@@ -945,9 +1099,7 @@ Created
 </section>
 
 
-<!-- ================================================= -->
 <!-- RANKING -->
-<!-- ================================================= -->
 
 <section class="page" id="ranking">
 
@@ -959,9 +1111,7 @@ Ranking
 مدیریت جدول رنکینگ
 </p>
 
-
 <div id="rankingMessage"></div>
-
 
 <div class="panel">
 
@@ -969,9 +1119,7 @@ Ranking
 ➕ افزودن بازیکن به Ranking
 </div>
 
-
 <div class="form-grid">
-
 
 <div class="form-group">
 
@@ -987,7 +1135,6 @@ placeholder="نام بازیکن"
 
 </div>
 
-
 <div class="form-group">
 
 <label>
@@ -1002,7 +1149,6 @@ placeholder="برای Duo"
 
 </div>
 
-
 <div class="form-group">
 
 <label>
@@ -1016,7 +1162,6 @@ value="0"
 >
 
 </div>
-
 
 <div class="form-group">
 
@@ -1034,7 +1179,6 @@ placeholder="1"
 
 </div>
 
-
 <div class="actions">
 
 <button
@@ -1048,13 +1192,11 @@ id="addRankingBtn"
 
 </div>
 
-
 <div class="panel">
 
 <div class="panel-title">
 🏅 جدول Ranking
 </div>
-
 
 <div class="table-wrap">
 
@@ -1064,30 +1206,19 @@ id="addRankingBtn"
 
 <tr>
 
-<th>
-Position
-</th>
+<th>Position</th>
 
-<th>
-Player 1
-</th>
+<th>Player 1</th>
 
-<th>
-Player 2
-</th>
+<th>Player 2</th>
 
-<th>
-Points
-</th>
+<th>Points</th>
 
-<th>
-Action
-</th>
+<th>Action</th>
 
 </tr>
 
 </thead>
-
 
 <tbody id="rankingTable">
 
@@ -1110,9 +1241,7 @@ Action
 </section>
 
 
-<!-- ================================================= -->
 <!-- SETTINGS -->
-<!-- ================================================= -->
 
 <section class="page" id="settings">
 
@@ -1124,7 +1253,6 @@ Settings
 تنظیمات پنل مدیریت
 </p>
 
-
 <div class="panel">
 
 <div class="empty">
@@ -1134,7 +1262,6 @@ Settings
 </div>
 
 </section>
-
 
 </main>
 
@@ -1173,12 +1300,10 @@ document.getElementById(
     "tournamentSelect"
 );
 
-
 const registrationsTable =
 document.getElementById(
     "registrationsTable"
 );
-
 
 const message =
 document.getElementById(
@@ -1196,9 +1321,7 @@ function escapeHTML(value){
         value === null ||
         value === undefined
     ){
-
         return "";
-
     }
 
     return String(value)
@@ -1207,7 +1330,6 @@ function escapeHTML(value){
         .replace(/>/g,"&gt;")
         .replace(/"/g,"&quot;")
         .replace(/'/g,"&#039;");
-
 }
 
 
@@ -1287,7 +1409,6 @@ async function checkAdmin(){
 
     }
 
-
     return true;
 
 }
@@ -1348,14 +1469,11 @@ async function loadTournaments(){
                 "option"
             );
 
-
             option.value =
             tournament.id;
 
-
             option.textContent =
             `${tournament.title} — ${tournament.type}`;
-
 
             tournamentSelect
             .appendChild(option);
@@ -1426,12 +1544,36 @@ function renderTournamentList(
                 "div"
             );
 
-
             card.className =
             "tournament-card";
 
 
+            const imageHTML =
+            tournament.image_url
+            ?
+            `<img
+                class="tournament-image"
+                src="${escapeHTML(tournament.image_url)}"
+                alt="Tournament"
+            >`
+            :
+            "";
+
+
+            const dateText =
+            tournament.tournament_date
+            ?
+            new Date(
+                tournament.tournament_date +
+                "T00:00:00"
+            ).toLocaleDateString("fa-IR")
+            :
+            "-";
+
+
             card.innerHTML = `
+
+                ${imageHTML}
 
                 <div class="tournament-info">
 
@@ -1463,6 +1605,19 @@ function renderTournamentList(
                                 tournament.max_players
                             )}
                         </span>
+
+                        <br>
+
+                        📅 تاریخ:
+                        ${escapeHTML(dateText)}
+
+                        <br>
+
+                        ⏰ ساعت:
+                        ${escapeHTML(
+                            tournament.tournament_time ||
+                            "-"
+                        )}
 
                         <br>
 
@@ -1514,6 +1669,71 @@ function renderTournamentList(
 
 
 // =================================================
+// UPLOAD IMAGE
+// =================================================
+
+async function uploadTournamentImage(
+    file
+){
+
+    if(!file){
+        return null;
+    }
+
+
+    const extension =
+    file.name
+    .split(".")
+    .pop()
+    .toLowerCase();
+
+
+    const fileName =
+    `${crypto.randomUUID()}.${extension}`;
+
+
+    const filePath =
+    `tournaments/${fileName}`;
+
+
+    const {
+        error
+    } =
+    await supabase
+    .storage
+    .from("tournament-images")
+    .upload(
+        filePath,
+        file,
+        {
+            cacheControl:"3600",
+            upsert:false
+        }
+    );
+
+
+    if(error){
+        throw error;
+    }
+
+
+    const {
+        data
+    } =
+    supabase
+    .storage
+    .from("tournament-images")
+    .getPublicUrl(
+        filePath
+    );
+
+
+    return data.publicUrl;
+
+}
+
+
+// =================================================
 // CREATE TOURNAMENT
 // =================================================
 
@@ -1543,6 +1763,48 @@ async function createTournament(){
             "tourMaxPlayers"
         ).value
     );
+
+
+    const tournamentDate =
+    document.getElementById(
+        "tourDate"
+    ).value;
+
+
+    const tournamentTime =
+    document.getElementById(
+        "tourTime"
+    ).value;
+
+
+    const description =
+    document.getElementById(
+        "tourDescription"
+    ).value.trim();
+
+
+    const rules =
+    document.getElementById(
+        "tourRules"
+    ).value.trim();
+
+
+    const roomCode =
+    document.getElementById(
+        "tourRoomCode"
+    ).value.trim();
+
+
+    const revealAtInput =
+    document.getElementById(
+        "tourRevealAt"
+    ).value;
+
+
+    const imageFile =
+    document.getElementById(
+        "tourImage"
+    ).files[0];
 
 
     const tournamentMessage =
@@ -1580,32 +1842,11 @@ async function createTournament(){
     }
 
 
-    const {
-        error
-    } =
-    await supabase
-    .from("tournaments")
-    .insert({
-
-        title:title,
-
-        game:game,
-
-        type:type,
-
-        max_players:maxPlayers,
-
-        status:"open"
-
-    });
-
-
-    if(error){
+    if(!tournamentDate){
 
         showMessage(
             tournamentMessage,
-            "خطا در ساخت تورنمنت: " +
-            error.message,
+            "تاریخ مسابقه را انتخاب کنید.",
             "error"
         );
 
@@ -1614,23 +1855,233 @@ async function createTournament(){
     }
 
 
-    showMessage(
-        tournamentMessage,
-        "تورنمنت با موفقیت ساخته شد."
+    if(!tournamentTime){
+
+        showMessage(
+            tournamentMessage,
+            "ساعت مسابقه را انتخاب کنید.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if(!description){
+
+        showMessage(
+            tournamentMessage,
+            "توضیحات تورنمنت را وارد کنید.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if(!rules){
+
+        showMessage(
+            tournamentMessage,
+            "قوانین تورنمنت را وارد کنید.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if(!roomCode){
+
+        showMessage(
+            tournamentMessage,
+            "کد Room را وارد کنید.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if(!revealAtInput){
+
+        showMessage(
+            tournamentMessage,
+            "زمان نمایش کد Room را انتخاب کنید.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const revealAt =
+    new Date(
+        revealAtInput
+    ).toISOString();
+
+
+    if(
+        !confirm(
+            "تورنمنت با این اطلاعات ساخته شود؟"
+        )
+    ){
+        return;
+    }
+
+
+    const createButton =
+    document.getElementById(
+        "createTournamentBtn"
     );
 
 
-    document.getElementById(
-        "tourTitle"
-    ).value = "";
+    createButton.disabled = true;
+    createButton.textContent =
+    "در حال ساخت...";
 
 
-    document.getElementById(
-        "tourMaxPlayers"
-    ).value = "32";
+    try{
+
+        let imageUrl = null;
 
 
-    await loadTournaments();
+        if(imageFile){
+
+            imageUrl =
+            await uploadTournamentImage(
+                imageFile
+            );
+
+        }
+
+
+        const {
+            error
+        } =
+        await supabase
+        .from("tournaments")
+        .insert({
+
+            title:title,
+
+            game:game,
+
+            type:type,
+
+            max_players:maxPlayers,
+
+            status:"open",
+
+            image_url:imageUrl,
+
+            description:description,
+
+            rules:rules,
+
+            tournament_date:
+            tournamentDate,
+
+            tournament_time:
+            tournamentTime,
+
+            room_code:
+            roomCode,
+
+            room_code_reveal_at:
+            revealAt
+
+        });
+
+
+        if(error){
+            throw error;
+        }
+
+
+        showMessage(
+            tournamentMessage,
+            "تورنمنت با موفقیت ساخته شد."
+        );
+
+
+        document.getElementById(
+            "tourTitle"
+        ).value = "";
+
+
+        document.getElementById(
+            "tourMaxPlayers"
+        ).value = "32";
+
+
+        document.getElementById(
+            "tourDate"
+        ).value = "";
+
+
+        document.getElementById(
+            "tourTime"
+        ).value = "";
+
+
+        document.getElementById(
+            "tourDescription"
+        ).value = "";
+
+
+        document.getElementById(
+            "tourRules"
+        ).value = "";
+
+
+        document.getElementById(
+            "tourRoomCode"
+        ).value = "";
+
+
+        document.getElementById(
+            "tourRevealAt"
+        ).value = "";
+
+
+        document.getElementById(
+            "tourImage"
+        ).value = "";
+
+
+        document.getElementById(
+            "imagePreview"
+        ).style.display =
+        "none";
+
+
+        await loadTournaments();
+
+    }
+    catch(error){
+
+        showMessage(
+            tournamentMessage,
+            "خطا در ساخت تورنمنت: " +
+            error.message,
+            "error"
+        );
+
+    }
+    finally{
+
+        createButton.disabled = false;
+
+        createButton.textContent =
+        "🏆 ساخت تورنمنت";
+
+    }
 
 }
 
@@ -1841,7 +2292,6 @@ async function loadRegistrations(){
             userIds
         );
 
-
         profiles =
         result.data || [];
 
@@ -1883,7 +2333,6 @@ async function loadRegistrations(){
             squadIds
         );
 
-
         squads =
         result.data || [];
 
@@ -1912,7 +2361,6 @@ async function loadRegistrations(){
                     squad.player1_id
                 );
 
-
             if(squad.player2_id)
                 playerIds.push(
                     squad.player2_id
@@ -1937,7 +2385,6 @@ async function loadRegistrations(){
             "id",
             [...new Set(playerIds)]
         );
-
 
         squadProfiles =
         result.data || [];
@@ -2000,8 +2447,7 @@ async function loadRegistrations(){
                     squadText =
                     `${escapeHTML(
                         player1
-                    )}
-                    + ${escapeHTML(
+                    )} + ${escapeHTML(
                         player2
                     )}`;
 
@@ -2039,11 +2485,13 @@ async function loadRegistrations(){
                 </td>
 
                 <td>
+
                     <span class="type">
                         ${escapeHTML(
                             registration.type
                         )}
                     </span>
+
                 </td>
 
                 <td>
@@ -2249,7 +2697,6 @@ async function loadSquads(){
                 ids.push(
                     squad.player1_id
                 );
-
 
             if(squad.player2_id)
                 ids.push(
@@ -2683,6 +3130,68 @@ async function deleteRanking(id){
 
 
 // =================================================
+// IMAGE PREVIEW
+// =================================================
+
+document
+.getElementById(
+    "tourImage"
+)
+.addEventListener(
+    "change",
+    event => {
+
+        const file =
+        event.target.files[0];
+
+        const preview =
+        document.getElementById(
+            "imagePreview"
+        );
+
+        const image =
+        document.getElementById(
+            "previewImage"
+        );
+
+
+        if(!file){
+
+            preview.style.display =
+            "none";
+
+            image.src = "";
+
+            return;
+
+        }
+
+
+        const reader =
+        new FileReader();
+
+
+        reader.onload =
+        e => {
+
+            image.src =
+            e.target.result;
+
+            preview.style.display =
+            "block";
+
+        };
+
+
+        reader.readAsDataURL(
+            file
+        );
+
+    }
+);
+
+
+// =================================================
 // SIDEBAR NAVIGATION
 // =================================================
 
@@ -2895,4 +3404,5 @@ if(isAdmin){
 </script>
 
 </body>
+
 </html>
