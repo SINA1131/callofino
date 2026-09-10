@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>CALLAFINO | Squad</title>
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -15,32 +18,57 @@
 }
 
 body{
-    background:#050505;
+    background:
+        radial-gradient(
+            circle at 50% -10%,
+            rgba(255,208,0,.08),
+            transparent 35%
+        ),
+        #050505;
+
     color:#fff;
     min-height:100vh;
 }
 
 header{
     height:75px;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     padding:0 7%;
+
     border-bottom:1px solid #222;
+
     background:#080808;
+
+    position:sticky;
+    top:0;
+
+    z-index:100;
 }
 
 .logo{
     font-size:26px;
     font-weight:bold;
+
     color:#ffd000;
+
     letter-spacing:2px;
+
+    text-shadow:
+        0 0 12px rgba(255,208,0,.3);
 }
 
 .back{
     color:#aaa;
+
     text-decoration:none;
+
     font-size:14px;
+
+    transition:.25s;
 }
 
 .back:hover{
@@ -49,19 +77,27 @@ header{
 
 .container{
     width:90%;
+
     max-width:900px;
-    margin:45px auto;
+
+    margin:45px auto 80px;
 }
 
 .title{
     text-align:center;
+
     margin-bottom:35px;
 }
 
 .title h1{
     color:#ffd000;
+
     font-size:38px;
+
     margin-bottom:10px;
+
+    text-shadow:
+        0 0 15px rgba(255,208,0,.2);
 }
 
 .title p{
@@ -69,114 +105,249 @@ header{
 }
 
 .card{
-    background:#0c0c0c;
+    background:
+        linear-gradient(
+            145deg,
+            #0e0e0e,
+            #090909
+        );
+
     border:1px solid #242424;
+
     border-radius:16px;
+
     padding:25px;
+
     margin-bottom:20px;
+
+    box-shadow:
+        0 10px 35px rgba(0,0,0,.2);
 }
 
 .card h2{
     color:#ffd000;
+
     margin-bottom:20px;
 }
 
 .player{
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
+
     background:#111;
+
     border:1px solid #222;
+
     padding:18px;
+
     border-radius:12px;
+
     margin-bottom:12px;
+
+    transition:.25s;
+}
+
+.player:hover{
+    border-color:#ffd000;
+
+    transform:translateY(-2px);
 }
 
 .player-info{
     display:flex;
+
     align-items:center;
+
     gap:14px;
 }
 
 .avatar{
     width:45px;
     height:45px;
+
     border-radius:50%;
+
     background:#ffd000;
+
     color:#000;
+
     display:flex;
+
     align-items:center;
     justify-content:center;
+
     font-weight:bold;
+
+    flex-shrink:0;
 }
 
 .status{
     color:#00ff88;
+
     font-size:13px;
+
+    margin-top:4px;
 }
 
 .empty{
     color:#777;
+
     text-align:center;
+
     padding:20px;
 }
 
 button{
     border:none;
+
     border-radius:9px;
+
     padding:11px 18px;
+
     cursor:pointer;
+
     font-weight:bold;
+
+    transition:.25s;
 }
 
 .invite-btn{
     background:#ffd000;
+
     color:#000;
+}
+
+.invite-btn:hover{
+    box-shadow:
+        0 0 20px rgba(255,208,0,.25);
+
+    transform:translateY(-2px);
 }
 
 .accept-btn{
     background:#00d084;
+
     color:#000;
+
     margin-left:7px;
 }
 
 .reject-btn{
     background:#d93636;
+
     color:#fff;
 }
 
 .ready-btn{
     background:#ffd000;
+
     color:#000;
+
     width:100%;
+
     margin-top:15px;
+}
+
+.ready-btn:hover{
+    box-shadow:
+        0 0 20px rgba(255,208,0,.25);
 }
 
 .leave-btn{
     background:#222;
+
     color:#ff4444;
+
     width:100%;
+
     margin-top:10px;
+
+    border:1px solid #333;
+}
+
+.leave-btn:hover{
+    border-color:#ff4444;
 }
 
 .friend-row{
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
+
     padding:15px;
+
     background:#111;
+
+    border:1px solid #202020;
+
     border-radius:10px;
+
     margin-bottom:10px;
+
+    transition:.25s;
+}
+
+.friend-row:hover{
+    border-color:#ffd000;
 }
 
 .message{
     text-align:center;
+
     color:#ffd000;
+
     margin:15px 0;
+
     min-height:20px;
 }
 
+.squad-badge{
+    display:inline-block;
+
+    background:#191500;
+
+    border:1px solid #ffd000;
+
+    color:#ffd000;
+
+    padding:6px 10px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    margin-bottom:15px;
+}
+
+.info-box{
+    background:#0b0b0b;
+
+    border:1px solid #222;
+
+    border-radius:10px;
+
+    padding:14px;
+
+    color:#777;
+
+    line-height:1.9;
+
+    margin-bottom:18px;
+
+    text-align:center;
+}
+
+.info-box strong{
+    color:#ffd000;
+}
+
 @media(max-width:600px){
+
     header{
         padding:0 5%;
     }
@@ -188,81 +359,169 @@ button{
     .player,
     .friend-row{
         flex-direction:column;
+
         gap:12px;
+
         align-items:stretch;
     }
 
     button{
         width:100%;
     }
+
+    .accept-btn{
+        margin-left:0;
+
+        margin-bottom:7px;
+    }
+
 }
+
 </style>
+
 </head>
 
 <body>
 
 <header>
-    <div class="logo">CALLAFINO</div>
-    <a href="dashboard.html" class="back">← داشبورد</a>
+
+<div class="logo">
+CALLAFINO
+</div>
+
+<a
+    href="dashboard.html"
+    class="back"
+>
+← داشبورد
+</a>
+
 </header>
 
 <div class="container">
 
-    <div class="title">
-        <h1>MY SQUAD</h1>
-        <p>تیم خودت رو بساز و برای تورنومنت آماده شو</p>
-    </div>
+<div class="title">
 
-    <div id="message" class="message"></div>
+<h1>
+MY SQUAD
+</h1>
 
-    <!-- SQUAD -->
-    <div class="card">
-        <h2>🎮 Squad</h2>
+<p>
+تیم خودت رو بساز و برای تورنومنت آماده شو
+</p>
 
-        <div id="players">
-            <div class="empty">در حال بارگذاری...</div>
-        </div>
+</div>
 
-        <button id="readyBtn" class="ready-btn" style="display:none;">
-            READY
-        </button>
+<div
+    id="message"
+    class="message"
+></div>
 
-        <button id="leaveBtn" class="leave-btn" style="display:none;">
-            LEAVE SQUAD
-        </button>
-    </div>
+<!-- SQUAD -->
 
-    <!-- FRIENDS -->
-    <div class="card" id="friendsCard">
-        <h2>👥 دعوت از دوستان</h2>
+<div class="card">
 
-        <div id="friends">
-            <div class="empty">در حال بارگذاری...</div>
-        </div>
-    </div>
+<h2>
+🎮 Squad
+</h2>
 
-    <!-- INVITATIONS -->
-    <div class="card">
-        <h2>📩 دعوت‌های Squad</h2>
+<div
+    id="players"
+>
 
-        <div id="invitations">
-            <div class="empty">در حال بررسی...</div>
-        </div>
-    </div>
+<div class="empty">
+در حال بارگذاری...
+</div>
+
+</div>
+
+<button
+    id="readyBtn"
+    class="ready-btn"
+    style="display:none;"
+>
+READY
+</button>
+
+<button
+    id="leaveBtn"
+    class="leave-btn"
+    style="display:none;"
+>
+LEAVE SQUAD
+</button>
+
+</div>
+
+<!-- FRIENDS -->
+
+<div
+    class="card"
+    id="friendsCard"
+>
+
+<h2>
+👥 دعوت از دوستان
+</h2>
+
+<div class="info-box">
+
+<strong>
+نکته:
+</strong>
+
+برای ثبت‌نام Duo یا Squad در تورنمنت،
+دیگر لازم نیست از اینجا Squad بسازی.
+دوستانت را مستقیماً در صفحه Tournament انتخاب کن.
+
+</div>
+
+<div id="friends">
+
+<div class="empty">
+در حال بارگذاری...
+</div>
+
+</div>
+
+</div>
+
+<!-- INVITATIONS -->
+
+<div class="card">
+
+<h2>
+📩 دعوت‌های Squad
+</h2>
+
+<div id="invitations">
+
+<div class="empty">
+در حال بررسی...
+</div>
+
+</div>
+
+</div>
 
 </div>
 
 <script type="module">
 
-import { createClient }
-from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+import {
+    createClient
+}
+from
+"https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
 
 const SUPABASE_URL =
 "https://oisqrkqwbskvqkparmiw.supabase.co";
 
+
 const SUPABASE_KEY =
 "sb_publishable_FGoXFElayJeRdyFxyc61hQ_c5CUn5HL";
+
 
 const supabase =
 createClient(
@@ -271,9 +530,11 @@ createClient(
 );
 
 
-let currentUser = null;
-let currentProfile = null;
-let currentSquad = null;
+let currentUser=null;
+
+let currentProfile=null;
+
+let currentSquad=null;
 
 
 /* =========================
@@ -281,11 +542,23 @@ let currentSquad = null;
 ========================= */
 
 function showMessage(text){
-    document.getElementById("message").textContent = text;
 
-    setTimeout(()=>{
-        document.getElementById("message").textContent = "";
-    },3000);
+    const message =
+    document.getElementById(
+        "message"
+    );
+
+
+    message.textContent=text;
+
+
+    setTimeout(
+        ()=>{
+            message.textContent="";
+        },
+        3000
+    );
+
 }
 
 
@@ -299,28 +572,42 @@ async function checkAuth(){
         data:{
             user
         }
-    } = await supabase.auth.getUser();
+    } =
+    await supabase.auth.getUser();
+
 
     if(!user){
-        window.location.href="login.html";
+
+        window.location.href=
+        "login.html";
+
         return;
+
     }
 
-    currentUser = user;
+
+    currentUser=user;
+
 
     const {
         data:profile
-    } = await supabase
-        .from("profiles")
-        .select("id,username")
-        .eq("id",user.id)
-        .single();
+    } =
+    await supabase
+    .from("profiles")
+    .select("id,username")
+    .eq("id",user.id)
+    .single();
 
-    currentProfile = profile;
+
+    currentProfile=profile;
+
 
     await loadSquad();
+
     await loadFriends();
+
     await loadInvitations();
+
 }
 
 
@@ -330,26 +617,74 @@ async function checkAuth(){
 
 async function loadSquad(){
 
-    const { data, error } =
-        await supabase
-        .from("squads")
-        .select("*")
-        .or(
-            `player1_id.eq.${currentUser.id},player2_id.eq.${currentUser.id}`
-        )
-        .order("created_at",{ascending:false})
-        .limit(1);
+    /*
+       قبلاً فقط player1 و player2
+       بررسی می‌شدند.
+
+       حالا هر چهار Player بررسی می‌شوند.
+    */
+
+    const {
+        data,
+        error
+    } =
+    await supabase
+    .from("squads")
+    .select("*")
+    .or(
+        `player1_id.eq.${currentUser.id},player2_id.eq.${currentUser.id},player3_id.eq.${currentUser.id},player4_id.eq.${currentUser.id}`
+    )
+    .order(
+        "created_at",
+        {
+            ascending:false
+        }
+    )
+    .limit(1);
+
 
     if(error){
+
         console.error(error);
+
         return;
+
     }
 
-    currentSquad = data && data.length
-        ? data[0]
-        : null;
+
+    currentSquad =
+    data && data.length
+    ? data[0]
+    : null;
+
 
     renderSquad();
+
+}
+
+
+/* =========================
+   GET PROFILE
+========================= */
+
+async function getProfile(id){
+
+    if(!id)
+        return null;
+
+
+    const {
+        data
+    } =
+    await supabase
+    .from("profiles")
+    .select("id,username")
+    .eq("id",id)
+    .single();
+
+
+    return data || null;
+
 }
 
 
@@ -360,146 +695,267 @@ async function loadSquad(){
 async function renderSquad(){
 
     const players =
-        document.getElementById("players");
+    document.getElementById(
+        "players"
+    );
+
 
     const readyBtn =
-        document.getElementById("readyBtn");
+    document.getElementById(
+        "readyBtn"
+    );
+
 
     const leaveBtn =
-        document.getElementById("leaveBtn");
+    document.getElementById(
+        "leaveBtn"
+    );
 
 
     if(!currentSquad){
 
         players.innerHTML =
-            `<div class="empty">
+        `
+            <div class="empty">
+
                 هنوز Squad نساختی.
-             </div>`;
+
+                <br><br>
+
+                برای تورنمنت، می‌توانی
+                مستقیماً از صفحه Tournament
+                دوستانت را انتخاب کنی.
+
+            </div>
+        `;
+
 
         readyBtn.style.display="none";
+
         leaveBtn.style.display="none";
 
         return;
+
     }
 
 
-    let html="";
+    const ids=[
+
+        currentSquad.player1_id,
+
+        currentSquad.player2_id,
+
+        currentSquad.player3_id,
+
+        currentSquad.player4_id
+
+    ];
 
 
-    /* PLAYER 1 */
+    const uniqueIds =
+    [...new Set(
+        ids.filter(Boolean)
+    )];
 
-    const {
-        data:player1
-    } = await supabase
+
+    let profiles=[];
+
+
+    if(uniqueIds.length){
+
+        const {
+            data
+        } =
+        await supabase
         .from("profiles")
-        .select("username")
-        .eq("id",currentSquad.player1_id)
-        .single();
+        .select("id,username")
+        .in(
+            "id",
+            uniqueIds
+        );
 
 
-    html += `
-        <div class="player">
+        profiles=data || [];
 
-            <div class="player-info">
+    }
 
-                <div class="avatar">
-                    ${player1?.username?.charAt(0).toUpperCase() || "P"}
-                </div>
 
-                <div>
-                    <strong>${escapeHTML(player1?.username || "Player 1")}</strong>
-                    <div class="status">
-                        Player 1
-                    </div>
-                </div>
+    const profileMap =
+    new Map(
+        profiles.map(
+            p=>[
+                p.id,
+                p.username
+            ]
+        )
+    );
 
-            </div>
+
+    const teamSize =
+    ids.filter(Boolean).length;
+
+
+    let html = `
+
+        <div class="squad-badge">
+
+            ${teamSize === 4
+                ? "SQUAD 4/4"
+                : teamSize === 2
+                ? "DUO 2/2"
+                : `TEAM ${teamSize}/4`
+            }
 
         </div>
+
     `;
 
 
-    /* PLAYER 2 */
+    for(
+        let i=0;
+        i<4;
+        i++
+    ){
 
-    if(currentSquad.player2_id){
-
-        const {
-            data:player2
-        } = await supabase
-            .from("profiles")
-            .select("username")
-            .eq("id",currentSquad.player2_id)
-            .single();
+        const id=ids[i];
 
 
-        html += `
-            <div class="player">
+        if(id){
 
-                <div class="player-info">
+            const username =
+            profileMap.get(id) ||
+            "Player";
 
-                    <div class="avatar">
-                        ${player2?.username?.charAt(0).toUpperCase() || "P"}
-                    </div>
 
-                    <div>
-                        <strong>${escapeHTML(player2?.username || "Player 2")}</strong>
-                        <div class="status">
-                            ${currentSquad.status === "ready"
-                                ? "READY"
-                                : "Player 2"}
+            html += `
+
+                <div class="player">
+
+                    <div class="player-info">
+
+                        <div class="avatar">
+
+                            ${escapeHTML(
+                                String(
+                                    username
+                                )
+                                .charAt(0)
+                                .toUpperCase()
+                            )}
+
                         </div>
+
+                        <div>
+
+                            <strong>
+                                ${escapeHTML(
+                                    username
+                                )}
+                            </strong>
+
+                            <div class="status">
+
+                                ${
+                                    i===0
+                                    ? "Player 1 • Leader"
+                                    : currentSquad.status==="ready"
+                                    ? "READY"
+                                    : `Player ${i+1}`
+                                }
+
+                            </div>
+
+                        </div>
+
                     </div>
 
                 </div>
 
-            </div>
-        `;
+            `;
 
-    }else{
+        }
+        else{
 
-        html += `
-            <div class="player">
+            /*
+               جای خالی
+            */
 
-                <div class="player-info">
+            html += `
 
-                    <div class="avatar">?</div>
+                <div class="player">
 
-                    <div>
-                        <strong>Waiting for player...</strong>
-                        <div class="status">
-                            منتظر بازیکن دوم
+                    <div class="player-info">
+
+                        <div class="avatar">
+                            ?
                         </div>
+
+                        <div>
+
+                            <strong>
+                                Waiting for player...
+                            </strong>
+
+                            <div class="status">
+                                منتظر بازیکن ${i+1}
+                            </div>
+
+                        </div>
+
                     </div>
 
                 </div>
 
-            </div>
-        `;
+            `;
+
+        }
+
     }
 
 
-    players.innerHTML = html;
+    players.innerHTML=html;
 
 
     /*
-       فقط Player 1 می‌تواند
-       Squad را کنترل کند.
+       تیمی که از Tournament
+       به صورت ready ساخته شده،
+       نیازی به READY دوباره ندارد.
     */
 
-    if(currentSquad.player1_id === currentUser.id){
+    if(
+        currentSquad.player1_id ===
+        currentUser.id
+    ){
 
-        readyBtn.style.display =
-            currentSquad.player2_id
+        if(
+            currentSquad.status ===
+            "ready"
+        ){
+
+            readyBtn.style.display="none";
+
+        }
+        else{
+
+            readyBtn.style.display =
+            teamSize >= 2
             ? "block"
             : "none";
 
+        }
+
+
         leaveBtn.style.display="block";
 
-    }else{
+    }
+    else{
 
         readyBtn.style.display="none";
+
         leaveBtn.style.display="block";
+
     }
+
 }
 
 
@@ -510,16 +966,25 @@ async function renderSquad(){
 async function loadFriends(){
 
     const container =
-        document.getElementById("friends");
+    document.getElementById(
+        "friends"
+    );
 
+
+    /*
+       هر دو جهت friendship
+    */
 
     const {
         data:friendships,
         error
-    } = await supabase
-        .from("friendships")
-        .select("friend_id")
-        .eq("user_id",currentUser.id);
+    } =
+    await supabase
+    .from("friendships")
+    .select("user_id,friend_id")
+    .or(
+        `user_id.eq.${currentUser.id},friend_id.eq.${currentUser.id}`
+    );
 
 
     if(error){
@@ -527,69 +992,147 @@ async function loadFriends(){
         console.error(error);
 
         container.innerHTML =
-            `<div class="empty">
+        `
+            <div class="empty">
                 خطا در دریافت دوستان
-             </div>`;
+            </div>
+        `;
 
         return;
+
     }
 
 
-    if(!friendships || friendships.length===0){
+    const friendIds=[];
+
+
+    (friendships || []).forEach(
+        friendship=>{
+
+            const friendId =
+            friendship.user_id ===
+            currentUser.id
+            ?
+            friendship.friend_id
+            :
+            friendship.user_id;
+
+
+            if(
+                friendId &&
+                friendId !==
+                currentUser.id &&
+                !friendIds.includes(
+                    friendId
+                )
+            ){
+
+                friendIds.push(
+                    friendId
+                );
+
+            }
+
+        }
+    );
+
+
+    if(!friendIds.length){
 
         container.innerHTML =
-            `<div class="empty">
+        `
+            <div class="empty">
                 هنوز دوستی نداری.
-             </div>`;
+            </div>
+        `;
 
         return;
+
+    }
+
+
+    const {
+        data:friends,
+        error:profileError
+    } =
+    await supabase
+    .from("profiles")
+    .select("id,username")
+    .in(
+        "id",
+        friendIds
+    );
+
+
+    if(profileError){
+
+        console.error(
+            profileError
+        );
+
+        return;
+
     }
 
 
     container.innerHTML="";
 
 
-    for(const friendship of friendships){
+    (friends || []).forEach(
+        friend=>{
 
-        const {
-            data:friend
-        } = await supabase
-            .from("profiles")
-            .select("id,username")
-            .eq("id",friendship.friend_id)
-            .single();
+            const row =
+            document.createElement(
+                "div"
+            );
 
 
-        if(!friend) continue;
+            row.className=
+            "friend-row";
 
 
-        const row =
-            document.createElement("div");
+            row.innerHTML=`
 
-        row.className="friend-row";
+                <div>
 
+                    <strong>
+                        ${escapeHTML(
+                            friend.username
+                        )}
+                    </strong>
 
-        row.innerHTML = `
-            <strong>
-                ${escapeHTML(friend.username)}
-            </strong>
+                </div>
 
-            <button class="invite-btn">
-                دعوت
-            </button>
-        `;
+                <button
+                    class="invite-btn"
+                >
+                    دعوت
+                </button>
 
-
-        row
-        .querySelector("button")
-        .addEventListener(
-            "click",
-            ()=>inviteFriend(friend.id)
-        );
+            `;
 
 
-        container.appendChild(row);
-    }
+            row
+            .querySelector(
+                "button"
+            )
+            .addEventListener(
+                "click",
+                ()=>{
+                    inviteFriend(
+                        friend.id
+                    );
+                }
+            );
+
+
+            container.appendChild(
+                row
+            );
+
+        }
+    );
+
 }
 
 
@@ -602,29 +1145,44 @@ async function createSquad(){
     const {
         data,
         error
-    } = await supabase
-        .from("squads")
-        .insert({
-            player1_id:currentUser.id,
-            status:"pending"
-        })
-        .select()
-        .single();
+    } =
+    await supabase
+    .from("squads")
+    .insert({
+
+        player1_id:
+        currentUser.id,
+
+        status:"pending"
+
+    })
+    .select()
+    .single();
 
 
     if(error){
 
         console.error(error);
-        showMessage("خطا در ساخت Squad");
+
+        showMessage(
+            "خطا در ساخت Squad"
+        );
+
         return;
+
     }
 
 
     currentSquad=data;
 
-    showMessage("Squad ساخته شد 🔥");
+
+    showMessage(
+        "Squad ساخته شد 🔥"
+    );
+
 
     await loadSquad();
+
 }
 
 
@@ -632,91 +1190,180 @@ async function createSquad(){
    INVITE FRIEND
 ========================= */
 
-async function inviteFriend(friendId){
+async function inviteFriend(
+    friendId
+){
+
+    /*
+       این قسمت برای سیستم قدیمی
+       Squad دستی همچنان کار می‌کند.
+    */
 
     if(!currentSquad){
 
         await createSquad();
 
+
         if(!currentSquad)
             return;
+
     }
 
 
-    if(currentSquad.player1_id !== currentUser.id){
+    if(
+        currentSquad.player1_id !==
+        currentUser.id
+    ){
 
-        showMessage("فقط سازنده Squad می‌تواند دعوت کند");
+        showMessage(
+            "فقط سازنده Squad می‌تواند دعوت کند"
+        );
+
         return;
-    }
 
-
-    if(currentSquad.player2_id){
-
-        showMessage("Squad پر است");
-        return;
     }
 
 
     /*
-       برای جلوگیری از دعوت به خود
+       اگر تیم جدید از Tournament
+       قبلاً 4 نفره باشد
     */
 
-    if(friendId === currentUser.id){
+    const members=[
 
-        showMessage("نمی‌توانی خودت را دعوت کنی");
+        currentSquad.player1_id,
+        currentSquad.player2_id,
+        currentSquad.player3_id,
+        currentSquad.player4_id
+
+    ].filter(Boolean);
+
+
+    if(members.length>=4){
+
+        showMessage(
+            "Squad پر است"
+        );
+
         return;
+
     }
+
+
+    if(
+        members.includes(friendId)
+    ){
+
+        showMessage(
+            "این بازیکن قبلاً عضو تیم است"
+        );
+
+        return;
+
+    }
+
+
+    /*
+       اولین جای خالی را پر می‌کنیم
+    */
+
+    const updateData={};
+
+
+    if(!currentSquad.player2_id){
+
+        updateData.player2_id=
+        friendId;
+
+    }
+    else if(!currentSquad.player3_id){
+
+        updateData.player3_id=
+        friendId;
+
+    }
+    else if(!currentSquad.player4_id){
+
+        updateData.player4_id=
+        friendId;
+
+    }
+
+
+    updateData.status="pending";
 
 
     const {
         error
-    } = await supabase
-        .from("squads")
-        .update({
-            player2_id:friendId,
-            status:"pending"
-        })
-        .eq("id",currentSquad.id)
-        .eq("player1_id",currentUser.id);
+    } =
+    await supabase
+    .from("squads")
+    .update(
+        updateData
+    )
+    .eq(
+        "id",
+        currentSquad.id
+    )
+    .eq(
+        "player1_id",
+        currentUser.id
+    );
 
 
     if(error){
 
         console.error(error);
-        showMessage("خطا در ارسال دعوت");
+
+        showMessage(
+            "خطا در ارسال دعوت"
+        );
+
         return;
+
     }
 
 
-    showMessage("دعوت ارسال شد 📩");
+    showMessage(
+        "دعوت ارسال شد 📩"
+    );
+
 
     await loadSquad();
+
 }
 
 
 /* =========================
-   LOAD INVITATIONS
+   INVITATIONS
 ========================= */
 
 async function loadInvitations(){
 
     const container =
-        document.getElementById("invitations");
+    document.getElementById(
+        "invitations"
+    );
 
 
     /*
-       Squadهایی که کاربر
-       Player 2 آنهاست.
+       دعوت‌های قدیمی Player 2
     */
 
     const {
         data,
         error
-    } = await supabase
-        .from("squads")
-        .select("*")
-        .eq("player2_id",currentUser.id)
-        .eq("status","pending");
+    } =
+    await supabase
+    .from("squads")
+    .select("*")
+    .eq(
+        "status",
+        "pending"
+    )
+    .or(
+        `player2_id.eq.${currentUser.id},player3_id.eq.${currentUser.id},player4_id.eq.${currentUser.id}`
+    );
 
 
     if(error){
@@ -724,51 +1371,65 @@ async function loadInvitations(){
         console.error(error);
 
         container.innerHTML =
-            `<div class="empty">
+        `
+            <div class="empty">
                 خطا در دریافت دعوت‌ها
-             </div>`;
+            </div>
+        `;
 
         return;
+
     }
 
 
-    if(!data || data.length===0){
+    if(!data?.length){
 
         container.innerHTML =
-            `<div class="empty">
+        `
+            <div class="empty">
                 دعوت جدیدی نداری.
-             </div>`;
+            </div>
+        `;
 
         return;
+
     }
 
 
     container.innerHTML="";
 
 
-    for(const squad of data){
+    for(
+        const squad
+        of data
+    ){
 
-        const {
-            data:sender
-        } = await supabase
-            .from("profiles")
-            .select("username")
-            .eq("id",squad.player1_id)
-            .single();
+        const sender =
+        await getProfile(
+            squad.player1_id
+        );
 
 
         const row =
-            document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
         row.className="player";
 
 
-        row.innerHTML = `
+        row.innerHTML=`
 
             <div>
 
                 <strong>
-                    ${escapeHTML(sender?.username || "Player")}
+
+                    ${escapeHTML(
+                        sender?.username ||
+                        "Player"
+                    )}
+
                 </strong>
 
                 <div class="status">
@@ -779,100 +1440,282 @@ async function loadInvitations(){
 
             <div>
 
-                <button class="accept-btn">
+                <button
+                    class="accept-btn"
+                >
                     قبول
                 </button>
 
-                <button class="reject-btn">
+                <button
+                    class="reject-btn"
+                >
                     رد
                 </button>
 
             </div>
+
         `;
 
 
         row
-        .querySelector(".accept-btn")
+        .querySelector(
+            ".accept-btn"
+        )
         .addEventListener(
             "click",
-            ()=>acceptSquad(squad.id)
+            ()=>{
+                acceptSquad(
+                    squad.id
+                );
+            }
         );
 
 
         row
-        .querySelector(".reject-btn")
+        .querySelector(
+            ".reject-btn"
+        )
         .addEventListener(
             "click",
-            ()=>rejectSquad(squad.id)
+            ()=>{
+                rejectSquad(
+                    squad.id
+                );
+            }
         );
 
 
-        container.appendChild(row);
+        container.appendChild(
+            row
+        );
+
     }
+
 }
 
 
 /* =========================
-   ACCEPT SQUAD
+   ACCEPT
 ========================= */
 
-async function acceptSquad(squadId){
+async function acceptSquad(
+    squadId
+){
+
+    const {
+        data:squad,
+        error:findError
+    } =
+    await supabase
+    .from("squads")
+    .select("*")
+    .eq(
+        "id",
+        squadId
+    )
+    .single();
+
+
+    if(findError || !squad){
+
+        showMessage(
+            "Squad پیدا نشد"
+        );
+
+        return;
+
+    }
+
+
+    const updateData={
+        status:"accepted"
+    };
+
+
+    if(
+        squad.player2_id ===
+        currentUser.id
+    ){
+
+        updateData.player2_id=
+        currentUser.id;
+
+    }
+    else if(
+        squad.player3_id ===
+        currentUser.id
+    ){
+
+        updateData.player3_id=
+        currentUser.id;
+
+    }
+    else if(
+        squad.player4_id ===
+        currentUser.id
+    ){
+
+        updateData.player4_id=
+        currentUser.id;
+
+    }
+    else{
+
+        showMessage(
+            "این دعوت برای شما نیست"
+        );
+
+        return;
+
+    }
+
 
     const {
         error
-    } = await supabase
-        .from("squads")
-        .update({
-            status:"accepted"
-        })
-        .eq("id",squadId)
-        .eq("player2_id",currentUser.id);
+    } =
+    await supabase
+    .from("squads")
+    .update(
+        updateData
+    )
+    .eq(
+        "id",
+        squadId
+    );
 
 
     if(error){
 
         console.error(error);
-        showMessage("خطا در قبول دعوت");
+
+        showMessage(
+            "خطا در قبول دعوت"
+        );
+
         return;
+
     }
 
 
-    showMessage("به Squad پیوستی 🔥");
+    showMessage(
+        "به Squad پیوستی 🔥"
+    );
+
 
     await loadSquad();
+
     await loadInvitations();
+
 }
 
 
 /* =========================
-   REJECT SQUAD
+   REJECT
 ========================= */
 
-async function rejectSquad(squadId){
+async function rejectSquad(
+    squadId
+){
+
+    const {
+        data:squad,
+        error:findError
+    } =
+    await supabase
+    .from("squads")
+    .select("*")
+    .eq(
+        "id",
+        squadId
+    )
+    .single();
+
+
+    if(findError || !squad){
+
+        showMessage(
+            "Squad پیدا نشد"
+        );
+
+        return;
+
+    }
+
+
+    const updateData={
+        status:"pending"
+    };
+
+
+    if(
+        squad.player2_id ===
+        currentUser.id
+    ){
+
+        updateData.player2_id=null;
+
+    }
+    else if(
+        squad.player3_id ===
+        currentUser.id
+    ){
+
+        updateData.player3_id=null;
+
+    }
+    else if(
+        squad.player4_id ===
+        currentUser.id
+    ){
+
+        updateData.player4_id=null;
+
+    }
+    else{
+
+        showMessage(
+            "این دعوت برای شما نیست"
+        );
+
+        return;
+
+    }
+
 
     const {
         error
-    } = await supabase
-        .from("squads")
-        .update({
-            player2_id:null,
-            status:"pending"
-        })
-        .eq("id",squadId)
-        .eq("player2_id",currentUser.id);
+    } =
+    await supabase
+    .from("squads")
+    .update(
+        updateData
+    )
+    .eq(
+        "id",
+        squadId
+    );
 
 
     if(error){
 
         console.error(error);
-        showMessage("خطا در رد دعوت");
+
+        showMessage(
+            "خطا در رد دعوت"
+        );
+
         return;
+
     }
 
 
-    showMessage("دعوت رد شد");
+    showMessage(
+        "دعوت رد شد"
+    );
+
 
     await loadInvitations();
+
 }
 
 
@@ -889,45 +1732,79 @@ document
         if(!currentSquad)
             return;
 
-        if(currentSquad.player1_id !== currentUser.id)
+
+        if(
+            currentSquad.player1_id !==
+            currentUser.id
+        )
             return;
 
 
-        if(!currentSquad.player2_id){
+        const members=[
 
-            showMessage("بازیکن دوم هنوز وارد نشده");
+            currentSquad.player1_id,
+            currentSquad.player2_id,
+            currentSquad.player3_id,
+            currentSquad.player4_id
+
+        ].filter(Boolean);
+
+
+        if(members.length<2){
+
+            showMessage(
+                "حداقل یک بازیکن دیگر لازم است"
+            );
+
             return;
+
         }
 
 
         const {
             error
-        } = await supabase
-            .from("squads")
-            .update({
-                status:"ready"
-            })
-            .eq("id",currentSquad.id)
-            .eq("player1_id",currentUser.id);
+        } =
+        await supabase
+        .from("squads")
+        .update({
+            status:"ready"
+        })
+        .eq(
+            "id",
+            currentSquad.id
+        )
+        .eq(
+            "player1_id",
+            currentUser.id
+        );
 
 
         if(error){
 
             console.error(error);
-            showMessage("خطا");
+
+            showMessage(
+                "خطا در آماده‌سازی"
+            );
+
             return;
+
         }
 
 
-        showMessage("Squad آماده شد 🟢");
+        showMessage(
+            "Squad آماده شد 🟢"
+        );
+
 
         await loadSquad();
+
     }
 );
 
 
 /* =========================
-   LEAVE SQUAD
+   LEAVE
 ========================= */
 
 document
@@ -941,73 +1818,156 @@ document
 
 
         /*
-           Player 1 = حذف Squad
-           Player 2 = خروج از Squad
+           Player 1 = حذف کل Squad
         */
 
-        if(currentSquad.player1_id === currentUser.id){
+        if(
+            currentSquad.player1_id ===
+            currentUser.id
+        ){
 
             const {
                 error
-            } = await supabase
-                .from("squads")
-                .delete()
-                .eq("id",currentSquad.id)
-                .eq("player1_id",currentUser.id);
+            } =
+            await supabase
+            .from("squads")
+            .delete()
+            .eq(
+                "id",
+                currentSquad.id
+            )
+            .eq(
+                "player1_id",
+                currentUser.id
+            );
 
 
             if(error){
 
                 console.error(error);
-                showMessage("خطا در خروج");
+
+                showMessage(
+                    "خطا در حذف Squad"
+                );
+
                 return;
+
             }
 
-        }else{
+        }
+        else{
+
+            /*
+               بازیکن عضو تیم،
+               خودش را از جایگاهش حذف می‌کند.
+            */
+
+            const updateData={
+                status:"pending"
+            };
+
+
+            if(
+                currentSquad.player2_id ===
+                currentUser.id
+            ){
+
+                updateData.player2_id=null;
+
+            }
+            else if(
+                currentSquad.player3_id ===
+                currentUser.id
+            ){
+
+                updateData.player3_id=null;
+
+            }
+            else if(
+                currentSquad.player4_id ===
+                currentUser.id
+            ){
+
+                updateData.player4_id=null;
+
+            }
+
 
             const {
                 error
-            } = await supabase
-                .from("squads")
-                .update({
-                    player2_id:null,
-                    status:"pending"
-                })
-                .eq("id",currentSquad.id)
-                .eq("player2_id",currentUser.id);
+            } =
+            await supabase
+            .from("squads")
+            .update(
+                updateData
+            )
+            .eq(
+                "id",
+                currentSquad.id
+            );
 
 
             if(error){
 
                 console.error(error);
-                showMessage("خطا در خروج");
+
+                showMessage(
+                    "خطا در خروج"
+                );
+
                 return;
+
             }
+
         }
 
 
         currentSquad=null;
 
-        showMessage("از Squad خارج شدی");
+
+        showMessage(
+            "از Squad خارج شدی"
+        );
+
 
         await loadSquad();
+
         await loadInvitations();
+
     }
 );
 
 
 /* =========================
-   SECURITY
+   ESCAPE
 ========================= */
 
 function escapeHTML(text){
 
-    return String(text)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
+    return String(
+        text ?? ""
+    )
+    .replaceAll(
+        "&",
+        "&amp;"
+    )
+    .replaceAll(
+        "<",
+        "&lt;"
+    )
+    .replaceAll(
+        ">",
+        "&gt;"
+    )
+    .replaceAll(
+        '"',
+        "&quot;"
+    )
+    .replaceAll(
+        "'",
+        "&#039;"
+    );
+
 }
 
 
@@ -1020,4 +1980,5 @@ checkAuth();
 </script>
 
 </body>
+
 </html>
