@@ -5,14 +5,15 @@
 
 <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>CALLAFINO | Tournaments</title>
 
 <style>
+
+/* =========================
+   RESET
+========================= */
 
 *{
     margin:0;
@@ -21,171 +22,309 @@
     font-family:Arial,Tahoma,sans-serif;
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
-    background:#050505;
+    background:
+        radial-gradient(circle at 50% -10%,rgba(26,255,0,.10),transparent 35%),
+        #050505;
     color:#fff;
     min-height:100vh;
 }
 
+/* =========================
+   HEADER
+========================= */
+
 header{
-    height:70px;
-    background:#080808;
-    border-bottom:1px solid #1aff00;
+    height:72px;
+    background:rgba(5,5,5,.90);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid rgba(26,255,0,.35);
+
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 40px;
+
+    padding:0 5%;
+
+    position:sticky;
+    top:0;
+    z-index:100;
 }
 
 .logo{
     color:#1aff00;
     font-size:25px;
     font-weight:bold;
+    letter-spacing:2px;
+
+    text-shadow:
+        0 0 10px rgba(26,255,0,.5);
+}
+
+nav{
+    display:flex;
+    gap:25px;
 }
 
 nav a{
-    color:white;
+    color:#aaa;
     text-decoration:none;
-    margin-left:25px;
+    font-size:14px;
+    transition:.25s;
 }
 
 nav a:hover{
     color:#1aff00;
+    text-shadow:0 0 10px rgba(26,255,0,.5);
 }
 
+/* =========================
+   CONTAINER
+========================= */
+
 .container{
-    width:90%;
-    max-width:1200px;
-    margin:40px auto;
+    width:92%;
+    max-width:1250px;
+    margin:45px auto 80px;
 }
+
+/* =========================
+   TITLE
+========================= */
 
 .title{
     text-align:center;
-    margin-bottom:35px;
+    margin-bottom:40px;
 }
 
 .title h1{
+    font-size:42px;
     color:#1aff00;
-    font-size:35px;
-    margin-bottom:10px;
+    letter-spacing:2px;
+
+    text-shadow:
+        0 0 15px rgba(26,255,0,.35);
 }
 
 .title p{
-    color:#aaa;
+    color:#777;
+    margin-top:10px;
 }
+
+/* =========================
+   TOURNAMENT GRID
+========================= */
 
 .tournaments{
     display:grid;
+
     grid-template-columns:
     repeat(
         auto-fit,
         minmax(280px,1fr)
     );
-    gap:20px;
+
+    gap:22px;
 }
 
+/* =========================
+   TOURNAMENT CARD
+========================= */
+
 .tournament-card{
-    background:#0c0c0c;
+    background:
+        linear-gradient(
+            145deg,
+            #111,
+            #080808
+        );
+
     border:1px solid #222;
-    border-radius:12px;
+
+    border-radius:16px;
+
     overflow:hidden;
+
+    position:relative;
+
+    transition:
+        transform .3s,
+        border-color .3s,
+        box-shadow .3s;
 }
 
 .tournament-card:hover{
+    transform:translateY(-6px);
+
     border-color:#1aff00;
+
+    box-shadow:
+        0 15px 45px rgba(0,0,0,.5),
+        0 0 25px rgba(26,255,0,.08);
 }
+
+/* =========================
+   IMAGE
+========================= */
 
 .tournament-image{
     width:100%;
-    height:180px;
+    height:190px;
+
     object-fit:cover;
+
+    display:block;
+
+    transition:.4s;
+}
+
+.tournament-card:hover
+.tournament-image{
+    transform:scale(1.04);
 }
 
 .tournament-placeholder{
     width:100%;
-    height:180px;
+    height:190px;
+
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:50px;
+
+    font-size:55px;
+
     color:#1aff00;
-    background:#101010;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(26,255,0,.12),
+            transparent 60%
+        );
 }
 
+/* =========================
+   CARD CONTENT
+========================= */
+
 .tournament-content{
-    padding:22px;
+    padding:23px;
 }
 
 .tournament-content h2{
-    color:#1aff00;
-    margin-bottom:15px;
+    color:#fff;
+    font-size:21px;
+
+    margin-bottom:17px;
 }
 
 .info{
-    color:#aaa;
+    color:#888;
+
     line-height:2;
-    margin-bottom:15px;
+
+    font-size:14px;
+
+    margin-bottom:18px;
 }
+
+.info b{
+    color:#1aff00;
+}
+
+/* =========================
+   BUTTONS
+========================= */
 
 button{
     border:0;
     cursor:pointer;
-    border-radius:7px;
-    padding:11px 15px;
+
+    border-radius:9px;
+
+    padding:12px 15px;
+
     font-weight:bold;
+
+    transition:.25s;
 }
 
 .register-btn{
     width:100%;
+
     background:#1aff00;
     color:#000;
+
+    box-shadow:
+        0 0 15px rgba(26,255,0,.12);
+}
+
+.register-btn:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 0 25px rgba(26,255,0,.35);
 }
 
 .view-btn{
     width:100%;
+
     margin-top:10px;
-    background:#151515;
-    border:1px solid #1aff00;
+
+    background:#111;
+
+    border:1px solid #333;
+
     color:#1aff00;
 }
 
+.view-btn:hover{
+    border-color:#1aff00;
+    background:#151515;
+}
 
-/* ==========================================
+/* =========================
    ROOM ANNOUNCEMENT
-========================================== */
+========================= */
 
 .room-announcement{
     display:none;
-    position:relative;
-    margin-bottom:30px;
-    background:#090909;
-    border:2px solid #1aff00;
-    border-radius:15px;
+
+    margin-bottom:35px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #101010,
+            #070707
+        );
+
+    border:1px solid #1aff00;
+
+    border-radius:18px;
+
     overflow:hidden;
+
     box-shadow:
-        0 0 25px
-        rgba(26,255,0,.15);
-    animation:roomPulse 2s infinite;
+        0 0 30px rgba(26,255,0,.12);
+
+    animation:roomPulse 2.5s infinite;
 }
 
 @keyframes roomPulse{
 
-    0%{
+    0%,100%{
         box-shadow:
-        0 0 15px
-        rgba(26,255,0,.08);
+        0 0 20px rgba(26,255,0,.08);
     }
 
     50%{
         box-shadow:
-        0 0 35px
-        rgba(26,255,0,.22);
-    }
-
-    100%{
-        box-shadow:
-        0 0 15px
-        rgba(26,255,0,.08);
+        0 0 40px rgba(26,255,0,.22);
     }
 
 }
@@ -193,32 +332,46 @@ button{
 .room-image{
     width:100%;
     max-height:400px;
+
     object-fit:cover;
+
     display:block;
 }
 
 .room-content{
-    padding:25px;
+    padding:28px;
     text-align:center;
 }
 
 .room-title{
     color:#1aff00;
+
     font-size:25px;
+
     margin-bottom:12px;
+
+    font-weight:bold;
 }
 
 .room-code{
     direction:ltr;
+
     color:#1aff00;
-    font-size:38px;
+
+    font-size:40px;
+
     font-weight:bold;
-    letter-spacing:5px;
-    margin:15px 0;
+
+    letter-spacing:6px;
+
+    margin:17px 0;
+
+    text-shadow:
+        0 0 15px rgba(26,255,0,.35);
 }
 
 .room-timer{
-    color:#aaa;
+    color:#777;
     font-size:14px;
 }
 
@@ -226,225 +379,525 @@ button{
     color:#fff;
 }
 
-
-/* ==========================================
+/* =========================
    DETAILS
-========================================== */
+========================= */
 
 .details{
     display:none;
-    background:#090909;
+
+    background:
+        linear-gradient(
+            145deg,
+            #101010,
+            #070707
+        );
+
     border:1px solid #1aff00;
-    border-radius:14px;
+
+    border-radius:18px;
+
     overflow:hidden;
-    margin-top:40px;
+
+    margin-top:45px;
+
+    box-shadow:
+        0 0 35px rgba(26,255,0,.08);
 }
 
 .details-image{
     width:100%;
     max-height:430px;
+
     object-fit:cover;
+
+    display:block;
 }
 
 .details-content{
-    padding:30px;
+    padding:32px;
 }
 
 .details-title{
     color:#1aff00;
-    font-size:30px;
-    margin-bottom:20px;
+
+    font-size:32px;
+
+    margin-bottom:22px;
+
+    text-shadow:
+        0 0 12px rgba(26,255,0,.2);
 }
+
+/* =========================
+   INFO BOXES
+========================= */
 
 .details-info{
     display:grid;
+
     grid-template-columns:
     repeat(
         auto-fit,
-        minmax(180px,1fr)
+        minmax(170px,1fr)
     );
-    gap:12px;
+
+    gap:13px;
 }
 
 .detail-box{
-    background:#111;
+    background:#0d0d0d;
+
     border:1px solid #222;
-    border-radius:9px;
-    padding:14px;
-    color:#ddd;
+
+    border-radius:11px;
+
+    padding:16px;
+
+    color:#ccc;
+
+    transition:.25s;
+}
+
+.detail-box:hover{
+    border-color:#1aff00;
 }
 
 .detail-box strong{
     display:block;
+
     color:#1aff00;
-    margin-bottom:6px;
+
+    margin-bottom:7px;
 }
 
+/* =========================
+   TEXT SECTIONS
+========================= */
+
 .detail-block{
-    margin-top:25px;
+    margin-top:30px;
 }
 
 .detail-block h3{
     color:#1aff00;
-    margin-bottom:10px;
+
+    margin-bottom:12px;
+
+    font-size:19px;
 }
 
-.detail-text{
-    background:#111;
+/* =========================
+   READ MORE BOX
+========================= */
+
+.read-box{
+    background:
+        linear-gradient(
+            145deg,
+            #111,
+            #0b0b0b
+        );
+
     border:1px solid #222;
-    border-radius:9px;
+
+    border-radius:12px;
+
     padding:18px;
-    color:#ccc;
-    line-height:2;
-    white-space:pre-wrap;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
 }
+
+.read-box span{
+    color:#777;
+
+    overflow:hidden;
+
+    white-space:nowrap;
+
+    text-overflow:ellipsis;
+}
+
+.read-button{
+    background:#151515;
+
+    border:1px solid #1aff00;
+
+    color:#1aff00;
+
+    min-width:105px;
+}
+
+.read-button:hover{
+    background:#1aff00;
+    color:#000;
+}
+
+/* =========================
+   SLOTS
+========================= */
 
 .slots{
     display:grid;
+
     grid-template-columns:
     repeat(
         auto-fit,
         minmax(230px,1fr)
     );
+
     gap:15px;
 }
 
 .slot{
     background:#0c0c0c;
+
     border:1px solid #222;
-    border-radius:10px;
-    padding:15px;
+
+    border-radius:12px;
+
+    padding:16px;
+
+    transition:.25s;
+}
+
+.slot:hover{
+    border-color:#1aff00;
+
+    transform:translateY(-2px);
 }
 
 .slot-title{
     color:#1aff00;
-    margin-bottom:10px;
+
+    margin-bottom:12px;
+
     font-weight:bold;
 }
 
 .slot-size{
-    color:#777;
+    color:#666;
+
     font-size:12px;
+
     margin-right:8px;
 }
 
 .player{
     background:#151515;
-    border-radius:6px;
-    padding:9px;
+
+    border:1px solid #202020;
+
+    border-radius:7px;
+
+    padding:10px;
+
     margin-top:7px;
+
+    color:#ddd;
 }
 
 .empty{
-    color:#666;
+    color:#555;
 }
 
-.close{
-    width:100%;
-    margin-top:25px;
-    background:#222;
-    color:#fff;
-}
-
-
-/* ==========================================
-   SQUAD MODAL
-========================================== */
+/* =========================
+   MODAL
+========================= */
 
 .modal{
     display:none;
+
     position:fixed;
+
     inset:0;
-    background:rgba(0,0,0,.85);
+
+    background:rgba(0,0,0,.86);
+
+    backdrop-filter:blur(8px);
+
     align-items:center;
     justify-content:center;
+
     z-index:1000;
+
+    padding:20px;
 }
 
 .modal-box{
-    width:90%;
-    max-width:500px;
-    background:#0b0b0b;
+    width:100%;
+    max-width:600px;
+
+    max-height:85vh;
+
+    overflow-y:auto;
+
+    background:
+        linear-gradient(
+            145deg,
+            #111,
+            #070707
+        );
+
     border:1px solid #1aff00;
-    border-radius:12px;
+
+    border-radius:16px;
+
     padding:25px;
+
+    box-shadow:
+        0 0 50px rgba(26,255,0,.12);
+
+    animation:modalOpen .25s ease;
+}
+
+@keyframes modalOpen{
+
+    from{
+        opacity:0;
+        transform:scale(.94) translateY(10px);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1) translateY(0);
+    }
+
 }
 
 .modal-box h2{
     color:#1aff00;
+
     margin-bottom:20px;
+
+    font-size:23px;
 }
 
-.squad-item{
-    background:#151515;
+.modal-text{
+    background:#0b0b0b;
+
     border:1px solid #222;
-    padding:14px;
-    border-radius:8px;
-    margin-bottom:10px;
-    cursor:pointer;
-}
 
-.squad-item:hover{
-    border-color:#1aff00;
+    border-radius:11px;
+
+    padding:20px;
+
+    color:#ccc;
+
+    line-height:2;
+
+    white-space:pre-wrap;
+
+    word-break:break-word;
 }
 
 .close-modal{
     width:100%;
-    background:#222;
-    color:#fff;
-    margin-top:10px;
+
+    background:#1aff00;
+
+    color:#000;
+
+    margin-top:15px;
 }
 
-.loading{
-    text-align:center;
-    color:#777;
-    padding:30px;
+.close-modal:hover{
+    box-shadow:
+        0 0 20px rgba(26,255,0,.3);
 }
 
-.error{
-    text-align:center;
-    color:#ff5555;
-    padding:20px;
+/* =========================
+   SQUAD MODAL
+========================= */
+
+.squad-item{
+    background:#101010;
+
+    border:1px solid #252525;
+
+    padding:16px;
+
+    border-radius:10px;
+
+    margin-bottom:10px;
+
+    cursor:pointer;
+
+    transition:.25s;
 }
+
+.squad-item:hover{
+    border-color:#1aff00;
+
+    transform:translateX(-3px);
+}
+
+/* =========================
+   MY TOURNAMENTS
+========================= */
 
 .my-tournaments{
-    margin-top:50px;
+    margin-top:55px;
 }
 
 .my-tournaments h2{
     color:#1aff00;
+
     margin-bottom:20px;
+
+    font-size:24px;
 }
 
 .my-item{
-    background:#0c0c0c;
+    background:
+        linear-gradient(
+            145deg,
+            #101010,
+            #090909
+        );
+
     border:1px solid #222;
-    padding:15px;
-    border-radius:8px;
+
+    padding:17px;
+
+    border-radius:10px;
+
     margin-bottom:10px;
+
+    color:#aaa;
+
+    transition:.25s;
 }
+
+.my-item:hover{
+    border-color:#1aff00;
+}
+
+.my-item strong{
+    color:#1aff00;
+}
+
+/* =========================
+   LOADING / ERROR
+========================= */
+
+.loading{
+    text-align:center;
+
+    color:#666;
+
+    padding:35px;
+}
+
+.error{
+    text-align:center;
+
+    color:#ff5555;
+
+    padding:25px;
+}
+
+/* =========================
+   CLOSE DETAILS
+========================= */
+
+.close{
+    width:100%;
+
+    margin-top:30px;
+
+    background:#151515;
+
+    border:1px solid #333;
+
+    color:#aaa;
+}
+
+.close:hover{
+    color:#fff;
+
+    border-color:#1aff00;
+}
+
+/* =========================
+   SCROLLBAR
+========================= */
+
+::-webkit-scrollbar{
+    width:7px;
+}
+
+::-webkit-scrollbar-track{
+    background:#050505;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#1aff00;
+    border-radius:10px;
+}
+
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:600px){
 
     header{
+        height:65px;
         padding:0 15px;
     }
 
+    .logo{
+        font-size:19px;
+    }
+
+    nav{
+        gap:10px;
+    }
+
     nav a{
-        margin-left:8px;
-        font-size:12px;
+        font-size:11px;
     }
 
     .container{
         width:94%;
+        margin-top:30px;
+    }
+
+    .title h1{
+        font-size:31px;
+    }
+
+    .title p{
+        font-size:13px;
     }
 
     .details-content{
         padding:20px;
     }
 
+    .details-title{
+        font-size:25px;
+    }
+
     .room-code{
         font-size:28px;
+        letter-spacing:4px;
+    }
+
+    .read-box{
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .read-button{
+        width:100%;
     }
 
 }
@@ -453,9 +906,7 @@ button{
 
 </head>
 
-
 <body>
-
 
 <header>
 
@@ -498,9 +949,9 @@ Join tournaments and compete with other players.
 </div>
 
 
-<!-- ==========================================
+<!-- =========================
      ROOM ANNOUNCEMENT
-========================================== -->
+========================= -->
 
 <div
     id="roomAnnouncement"
@@ -508,7 +959,6 @@ Join tournaments and compete with other players.
 >
 
 <div id="roomImageContainer"></div>
-
 
 <div class="room-content">
 
@@ -519,11 +969,9 @@ Join tournaments and compete with other players.
 🚨 ROOM IS OPEN
 </div>
 
-
 <div>
 کد روم مسابقه شما:
 </div>
-
 
 <div
     id="roomCode"
@@ -531,7 +979,6 @@ Join tournaments and compete with other players.
 >
 ------
 </div>
-
 
 <div class="room-timer">
 
@@ -548,9 +995,9 @@ Join tournaments and compete with other players.
 </div>
 
 
-<!-- ==========================================
+<!-- =========================
      TOURNAMENTS
-========================================== -->
+========================= -->
 
 <div
     id="tournaments"
@@ -564,9 +1011,9 @@ Loading tournaments...
 </div>
 
 
-<!-- ==========================================
+<!-- =========================
      DETAILS
-========================================== -->
+========================= -->
 
 <div
     id="details"
@@ -574,7 +1021,6 @@ Loading tournaments...
 >
 
 <div id="detailsImage"></div>
-
 
 <div class="details-content">
 
@@ -590,19 +1036,33 @@ Loading tournaments...
 ></div>
 
 
+<!-- DESCRIPTION -->
+
 <div class="detail-block">
 
 <h3>
 📝 توضیحات مسابقه
 </h3>
 
-<div
-    id="detailsDescription"
-    class="detail-text"
-></div>
+<div class="read-box">
+
+<span id="descriptionPreview">
+توضیحات مسابقه
+</span>
+
+<button
+    class="read-button"
+    onclick="openTextModal('description')"
+>
+مشاهده
+</button>
 
 </div>
 
+</div>
+
+
+<!-- RULES -->
 
 <div class="detail-block">
 
@@ -610,13 +1070,25 @@ Loading tournaments...
 📜 قوانین مسابقه
 </h3>
 
-<div
-    id="detailsRules"
-    class="detail-text"
-></div>
+<div class="read-box">
+
+<span id="rulesPreview">
+قوانین مسابقه
+</span>
+
+<button
+    class="read-button"
+    onclick="openTextModal('rules')"
+>
+مشاهده
+</button>
 
 </div>
 
+</div>
+
+
+<!-- SLOTS -->
 
 <div class="detail-block">
 
@@ -636,7 +1108,7 @@ Loading tournaments...
     class="close"
     onclick="closeDetails()"
 >
-بستن
+بستن جزئیات
 </button>
 
 </div>
@@ -644,14 +1116,14 @@ Loading tournaments...
 </div>
 
 
-<!-- ==========================================
+<!-- =========================
      MY TOURNAMENTS
-========================================== -->
+========================= -->
 
 <div class="my-tournaments">
 
 <h2>
-My Tournaments
+🏆 My Tournaments
 </h2>
 
 <div id="myTournaments">
@@ -668,9 +1140,41 @@ Loading...
 </div>
 
 
-<!-- ==========================================
+<!-- =========================
+     TEXT MODAL
+========================= -->
+
+<div
+    id="textModal"
+    class="modal"
+>
+
+<div class="modal-box">
+
+<h2 id="textModalTitle">
+متن
+</h2>
+
+<div
+    id="textModalContent"
+    class="modal-text"
+></div>
+
+<button
+    class="close-modal"
+    onclick="closeTextModal()"
+>
+بستن
+</button>
+
+</div>
+
+</div>
+
+
+<!-- =========================
      SQUAD MODAL
-========================================== -->
+========================= -->
 
 <div
     id="squadModal"
@@ -689,7 +1193,7 @@ Select Squad
     class="close-modal"
     onclick="closeSquadModal()"
 >
-Close
+بستن
 </button>
 
 </div>
@@ -698,7 +1202,6 @@ Close
 
 
 <script type="module">
-
 
 import {
     createClient
@@ -710,8 +1213,10 @@ from
 const SUPABASE_URL =
 "https://oisqrkqwbskvqkparmiw.supabase.co";
 
+
 const SUPABASE_KEY =
 "sb_publishable_FGoXFElayJeRdyFxyc61hQ_c5CUn5HL";
+
 
 const supabase =
 createClient(
@@ -727,9 +1232,9 @@ let selectedTournament = null;
 let roomTimerInterval = null;
 
 
-/* ==========================================
-   ESCAPE
-========================================== */
+/* =========================
+   ESCAPE HTML
+========================= */
 
 function escapeHTML(value){
 
@@ -749,9 +1254,9 @@ function escapeHTML(value){
 }
 
 
-/* ==========================================
+/* =========================
    INIT
-========================================== */
+========================= */
 
 async function init(){
 
@@ -792,9 +1297,9 @@ async function init(){
 }
 
 
-/* ==========================================
+/* =========================
    LOAD TOURNAMENTS
-========================================== */
+========================= */
 
 async function loadTournaments(){
 
@@ -865,6 +1370,7 @@ async function loadTournaments(){
 
         const image =
         tournament.image_url
+
         ?
 
         `<img
@@ -879,6 +1385,36 @@ async function loadTournaments(){
         `<div class="tournament-placeholder">
             🏆
         </div>`;
+
+
+        const type =
+        String(
+            tournament.type || "-"
+        );
+
+
+        const typeLower =
+        type.toLowerCase();
+
+
+        const slotSize =
+            typeLower === "solo"
+            ? 1
+            : typeLower === "duo"
+            ? 2
+            : typeLower === "squad"
+            ? 4
+            : 1;
+
+
+        const slotCount =
+        Math.ceil(
+            Number(
+                tournament.max_players || 0
+            )
+            /
+            slotSize
+        );
 
 
         card.innerHTML = `
@@ -903,16 +1439,18 @@ async function loadTournaments(){
                     <br>
 
                     👥
-                    ${escapeHTML(
-                        tournament.type
-                    )}
+                    ${escapeHTML(type)}
 
                     <br>
 
-                    🪑 ظرفیت:
+                    🪑
                     ${escapeHTML(
                         tournament.max_players
                     )}
+                    بازیکن
+                    /
+                    ${slotCount}
+                    Slot
 
                     <br>
 
@@ -935,7 +1473,7 @@ async function loadTournaments(){
                     class="register-btn"
                     data-register="${tournament.id}"
                 >
-                    Register
+                    ثبت‌نام در مسابقه
                 </button>
 
 
@@ -943,7 +1481,7 @@ async function loadTournaments(){
                     class="view-btn"
                     data-view="${tournament.id}"
                 >
-                    مشاهده
+                    مشاهده جزئیات
                 </button>
 
             </div>
@@ -982,9 +1520,9 @@ async function loadTournaments(){
 }
 
 
-/* ==========================================
-   DETAILS
-========================================== */
+/* =========================
+   SHOW DETAILS
+========================= */
 
 async function showDetails(
     tournament
@@ -1051,7 +1589,7 @@ async function showDetails(
 
         <div class="detail-box">
 
-            <strong>👥 نوع</strong>
+            <strong>👥 نوع مسابقه</strong>
 
             ${escapeHTML(
                 tournament.type || "-"
@@ -1095,18 +1633,26 @@ async function showDetails(
     `;
 
 
-    document.getElementById(
-        "detailsDescription"
-    ).textContent =
+    const description =
     tournament.description ||
-    "توضیحی ثبت نشده است.";
+    "توضیحی برای این مسابقه ثبت نشده است.";
+
+
+    const rules =
+    tournament.rules ||
+    "قوانینی برای این مسابقه ثبت نشده است.";
 
 
     document.getElementById(
-        "detailsRules"
+        "descriptionPreview"
     ).textContent =
-    tournament.rules ||
-    "قوانینی ثبت نشده است.";
+    description;
+
+
+    document.getElementById(
+        "rulesPreview"
+    ).textContent =
+    rules;
 
 
     await loadSlots(
@@ -1121,6 +1667,10 @@ async function showDetails(
 }
 
 
+/* =========================
+   CLOSE DETAILS
+========================= */
+
 window.closeDetails =
 function(){
 
@@ -1132,9 +1682,103 @@ function(){
 };
 
 
-/* ==========================================
-   SLOTS
-========================================== */
+/* =========================
+   TEXT MODAL
+========================= */
+
+window.openTextModal =
+function(type){
+
+    if(!selectedTournament)
+        return;
+
+
+    const modal =
+    document.getElementById(
+        "textModal"
+    );
+
+
+    const title =
+    document.getElementById(
+        "textModalTitle"
+    );
+
+
+    const content =
+    document.getElementById(
+        "textModalContent"
+    );
+
+
+    if(type === "description"){
+
+        title.textContent =
+        "📝 توضیحات مسابقه";
+
+
+        content.textContent =
+        selectedTournament.description
+        ||
+        "توضیحی برای این مسابقه ثبت نشده است.";
+
+    }
+    else{
+
+        title.textContent =
+        "📜 قوانین مسابقه";
+
+
+        content.textContent =
+        selectedTournament.rules
+        ||
+        "قوانینی برای این مسابقه ثبت نشده است.";
+
+    }
+
+
+    modal.style.display =
+    "flex";
+
+};
+
+
+window.closeTextModal =
+function(){
+
+    document.getElementById(
+        "textModal"
+    ).style.display =
+    "none";
+
+};
+
+
+/* =========================
+   CLOSE MODAL WITH BACKGROUND
+========================= */
+
+document
+.getElementById(
+    "textModal"
+)
+.addEventListener(
+    "click",
+    function(e){
+
+        if(e.target === this){
+
+            closeTextModal();
+
+        }
+
+    }
+);
+
+
+/* =========================
+   LOAD SLOTS
+========================= */
 
 async function loadSlots(
     tournament
@@ -1182,14 +1826,6 @@ async function loadSlots(
     container.innerHTML = "";
 
 
-    /*
-        تعیین تعداد نفرات هر Slot
-
-        Solo  = 1
-        Duo   = 2
-        Squad = 4
-    */
-
     const type =
     String(
         tournament.type || ""
@@ -1199,14 +1835,11 @@ async function loadSlots(
     const slotSize =
         type === "solo"
         ? 1
-        :
-        type === "duo"
+        : type === "duo"
         ? 2
-        :
-        type === "squad"
+        : type === "squad"
         ? 4
-        :
-        1;
+        : 1;
 
 
     if(!data?.length){
@@ -1234,10 +1867,6 @@ async function loadSlots(
             "slot";
 
 
-            /*
-                بازیکنان این Slot
-            */
-
             let players = [];
 
 
@@ -1255,16 +1884,13 @@ async function loadSlots(
 
                 players.push(`
 
-                    <div
-                        class="player ${
-                            name
-                            ? ""
-                            : "empty"
-                        }"
-                    >
+                    <div class="player ${
+                        name
+                        ? ""
+                        : "empty"
+                    }">
 
                         👤
-
                         ${escapeHTML(
                             name || "خالی"
                         )}
@@ -1288,11 +1914,11 @@ async function loadSlots(
                     <span
                         class="slot-size"
                     >
-                        ${slotSize} نفره
+                        ${slotSize}
+                        نفره
                     </span>
 
                 </div>
-
 
                 ${players.join("")}
 
@@ -1309,9 +1935,9 @@ async function loadSlots(
 }
 
 
-/* ==========================================
+/* =========================
    ROOM ANNOUNCEMENT
-========================================== */
+========================= */
 
 async function checkRoomAnnouncement(){
 
@@ -1359,7 +1985,8 @@ async function checkRoomAnnouncement(){
 
     const ids =
     registrations.map(
-        r => r.tournament_id
+        r =>
+        r.tournament_id
     );
 
 
@@ -1433,9 +2060,9 @@ async function checkRoomAnnouncement(){
 }
 
 
-/* ==========================================
+/* =========================
    SHOW ROOM
-========================================== */
+========================= */
 
 function showRoomAnnouncement(
     announcement
@@ -1499,9 +2126,9 @@ function showRoomAnnouncement(
 }
 
 
-/* ==========================================
-   TIMER
-========================================== */
+/* =========================
+   ROOM TIMER
+========================= */
 
 function updateRoomTimer(
     endsAt
@@ -1585,9 +2212,9 @@ function updateRoomTimer(
 }
 
 
-/* ==========================================
+/* =========================
    HIDE ROOM
-========================================== */
+========================= */
 
 function hideRoomAnnouncement(){
 
@@ -1615,9 +2242,9 @@ function hideRoomAnnouncement(){
 }
 
 
-/* ==========================================
+/* =========================
    REGISTER
-========================================== */
+========================= */
 
 async function registerTournament(
     tournament
@@ -1662,9 +2289,9 @@ async function registerTournament(
     ).textContent =
     type === "squad"
     ?
-    "Select Squad"
+    "انتخاب Squad"
     :
-    "Select Duo";
+    "انتخاب Duo";
 
 
     modal.style.display =
@@ -1764,10 +2391,12 @@ async function registerTournament(
         squad => {
 
             [
+
                 squad.player1_id,
                 squad.player2_id,
                 squad.player3_id,
                 squad.player4_id
+
             ]
             .forEach(
                 id => {
@@ -1829,10 +2458,12 @@ async function registerTournament(
 
             const names =
             [
+
                 squad.player1_id,
                 squad.player2_id,
                 squad.player3_id,
                 squad.player4_id
+
             ]
             .filter(Boolean)
             .map(
@@ -1848,13 +2479,13 @@ async function registerTournament(
                     style="color:#1aff00;"
                 >
 
-                    ${escapeHTML(
+                    ${
                         type === "squad"
                         ?
                         "Squad"
                         :
                         "Duo"
-                    )}
+                    }
 
                 </strong>
 
@@ -1891,6 +2522,10 @@ async function registerTournament(
 
 }
 
+
+/* =========================
+   DO REGISTER
+========================= */
 
 async function doRegister(
     tournamentId,
@@ -1941,6 +2576,10 @@ async function doRegister(
 }
 
 
+/* =========================
+   CLOSE SQUAD MODAL
+========================= */
+
 window.closeSquadModal =
 function(){
 
@@ -1952,9 +2591,9 @@ function(){
 };
 
 
-/* ==========================================
+/* =========================
    MY TOURNAMENTS
-========================================== */
+========================= */
 
 async function loadMyTournaments(){
 
@@ -2042,13 +2681,13 @@ async function loadMyTournaments(){
 
             div.innerHTML = `
 
-                <strong
-                    style="color:#1aff00;"
-                >
+                <strong>
+
                     ${escapeHTML(
                         t?.title ||
                         "Tournament"
                     )}
+
                 </strong>
 
                 <br><br>
@@ -2091,6 +2730,10 @@ async function loadMyTournaments(){
 
 }
 
+
+/* =========================
+   START
+========================= */
 
 init();
 
