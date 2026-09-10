@@ -322,6 +322,12 @@ button{
     font-weight:bold;
 }
 
+.slot-size{
+    color:#777;
+    font-size:12px;
+    margin-right:8px;
+}
+
 .player{
     background:#151515;
     border-radius:6px;
@@ -777,12 +783,6 @@ async function init(){
 
     await checkRoomAnnouncement();
 
-    /*
-       هر 3 ثانیه بررسی می‌کنیم.
-       بنابراین اگر ادمین همین الان
-       کد روم را فعال کند، صفحه پلیر
-       بدون Refresh متوجه می‌شود.
-    */
 
     setInterval(
         checkRoomAnnouncement,
@@ -1182,6 +1182,33 @@ async function loadSlots(
     container.innerHTML = "";
 
 
+    /*
+        تعیین تعداد نفرات هر Slot
+
+        Solo  = 1
+        Duo   = 2
+        Squad = 4
+    */
+
+    const type =
+    String(
+        tournament.type || ""
+    ).toLowerCase();
+
+
+    const slotSize =
+        type === "solo"
+        ? 1
+        :
+        type === "duo"
+        ? 2
+        :
+        type === "squad"
+        ? 4
+        :
+        1;
+
+
     if(!data?.length){
 
         container.innerHTML =
@@ -1207,6 +1234,48 @@ async function loadSlots(
             "slot";
 
 
+            /*
+                بازیکنان این Slot
+            */
+
+            let players = [];
+
+
+            for(
+                let i = 1;
+                i <= slotSize;
+                i++
+            ){
+
+                const name =
+                slot[
+                    `player${i}_name`
+                ];
+
+
+                players.push(`
+
+                    <div
+                        class="player ${
+                            name
+                            ? ""
+                            : "empty"
+                        }"
+                    >
+
+                        👤
+
+                        ${escapeHTML(
+                            name || "خالی"
+                        )}
+
+                    </div>
+
+                `);
+
+            }
+
+
             div.innerHTML = `
 
                 <div class="slot-title">
@@ -1216,66 +1285,16 @@ async function loadSlots(
                         slot.slot
                     )}
 
-                </div>
-
-
-                <div class="player">
-
-                    👤
-                    ${escapeHTML(
-                        slot.player1_name ||
-                        "Empty"
-                    )}
+                    <span
+                        class="slot-size"
+                    >
+                        ${slotSize} نفره
+                    </span>
 
                 </div>
 
 
-                ${
-                    slot.player2_name
-                    ?
-                    `
-                    <div class="player">
-                        👤
-                        ${escapeHTML(
-                            slot.player2_name
-                        )}
-                    </div>
-                    `
-                    :
-                    ""
-                }
-
-
-                ${
-                    slot.player3_name
-                    ?
-                    `
-                    <div class="player">
-                        👤
-                        ${escapeHTML(
-                            slot.player3_name
-                        )}
-                    </div>
-                    `
-                    :
-                    ""
-                }
-
-
-                ${
-                    slot.player4_name
-                    ?
-                    `
-                    <div class="player">
-                        👤
-                        ${escapeHTML(
-                            slot.player4_name
-                        )}
-                    </div>
-                    `
-                    :
-                    ""
-                }
+                ${players.join("")}
 
             `;
 
@@ -1299,11 +1318,6 @@ async function checkRoomAnnouncement(){
     if(!currentUser)
         return;
 
-
-    /*
-       فقط تورنمنت‌هایی که کاربر
-       در آنها ثبت‌نام کرده است.
-    */
 
     const {
         data:registrations,
@@ -1348,11 +1362,6 @@ async function checkRoomAnnouncement(){
         r => r.tournament_id
     );
 
-
-    /*
-       فقط اعلان فعال از Supabase
-       برمی‌گردد.
-    */
 
     const {
         data:announcements,
