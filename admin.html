@@ -1,15 +1,13 @@
+```html
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>CALLAFINO | Admin Panel</title>
 
 <style>
-
 *{
     margin:0;
     padding:0;
@@ -17,16 +15,42 @@
     font-family:Arial,Tahoma,sans-serif;
 }
 
+:root{
+    --green:#39ff14;
+    --green2:#16c784;
+    --bg:#030504;
+    --panel:#090c0a;
+    --panel2:#0d110e;
+    --border:#1a251d;
+    --muted:#727a74;
+}
+
 body{
-    background:#050505;
+    background:
+        radial-gradient(circle at 80% 0%,rgba(57,255,20,.08),transparent 28%),
+        radial-gradient(circle at 10% 100%,rgba(57,255,20,.04),transparent 25%),
+        var(--bg);
     color:#fff;
     min-height:100vh;
 }
 
+body:before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background-image:
+        linear-gradient(rgba(57,255,20,.018) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(57,255,20,.018) 1px,transparent 1px);
+    background-size:45px 45px;
+    mask-image:linear-gradient(to bottom,black,transparent 90%);
+}
+
 header{
     height:70px;
-    background:#0b0b0b;
-    border-bottom:1px solid #1c1c1c;
+    background:rgba(7,9,7,.88);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid var(--border);
     display:flex;
     align-items:center;
     justify-content:space-between;
@@ -34,41 +58,48 @@ header{
     position:sticky;
     top:0;
     z-index:100;
+    box-shadow:0 10px 40px rgba(0,0,0,.25);
 }
 
 .logo{
     font-size:25px;
     font-weight:bold;
-    color:#39ff14;
-    letter-spacing:2px;
+    color:var(--green);
+    letter-spacing:3px;
+    text-shadow:0 0 18px rgba(57,255,20,.3);
 }
 
 .header-right{
     display:flex;
     align-items:center;
-    gap:15px;
+    gap:12px;
 }
 
 .admin-badge{
-    background:#111;
-    border:1px solid #39ff14;
-    color:#39ff14;
+    background:rgba(57,255,20,.06);
+    border:1px solid rgba(57,255,20,.45);
+    color:var(--green);
     padding:8px 14px;
-    border-radius:8px;
+    border-radius:9px;
+    box-shadow:0 0 15px rgba(57,255,20,.06);
+    font-size:12px;
+    font-weight:bold;
 }
 
 .logout{
-    background:#171717;
+    background:#111;
     color:#fff;
-    border:1px solid #333;
-    padding:9px 14px;
-    border-radius:8px;
+    border:1px solid #292929;
+    padding:9px 15px;
+    border-radius:9px;
     cursor:pointer;
+    transition:.2s;
 }
 
 .logout:hover{
-    border-color:#39ff14;
-    color:#39ff14;
+    border-color:var(--green);
+    color:var(--green);
+    transform:translateY(-1px);
 }
 
 .layout{
@@ -77,58 +108,88 @@ header{
 }
 
 .sidebar{
-    width:230px;
-    background:#090909;
-    border-left:1px solid #1b1b1b;
+    width:245px;
+    background:rgba(6,9,7,.9);
+    border-left:1px solid var(--border);
     padding:25px 15px;
+    position:sticky;
+    top:70px;
+    height:calc(100vh - 70px);
+    overflow-y:auto;
 }
 
 .sidebar h3{
-    color:#777;
-    font-size:12px;
-    margin:10px 12px 15px;
+    color:#555;
+    font-size:11px;
+    letter-spacing:1px;
+    margin:8px 12px 16px;
 }
 
 .sidebar button{
     width:100%;
     background:transparent;
-    border:0;
-    color:#aaa;
+    border:1px solid transparent;
+    color:#8d948e;
     text-align:right;
     padding:13px 14px;
-    border-radius:8px;
+    border-radius:10px;
     margin-bottom:5px;
     cursor:pointer;
+    transition:.2s;
+    font-size:13px;
 }
 
-.sidebar button:hover,
+.sidebar button:hover{
+    background:#0d120e;
+    color:#ddd;
+    border-color:#182019;
+    transform:translateX(-2px);
+}
+
 .sidebar button.active{
-    background:#111;
-    color:#39ff14;
+    background:linear-gradient(90deg,rgba(57,255,20,.13),rgba(57,255,20,.025));
+    color:var(--green);
+    border-color:rgba(57,255,20,.18);
+    box-shadow:inset -3px 0 0 var(--green),0 5px 20px rgba(57,255,20,.04);
 }
 
 .content{
     flex:1;
     padding:35px;
     overflow-x:auto;
+    max-width:1700px;
 }
 
 .page{
     display:none;
+    animation:pageIn .25s ease;
 }
 
 .page.active{
     display:block;
 }
 
+@keyframes pageIn{
+    from{
+        opacity:0;
+        transform:translateY(6px);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
 .title{
-    font-size:28px;
-    margin-bottom:8px;
+    font-size:29px;
+    margin-bottom:7px;
+    letter-spacing:-.5px;
 }
 
 .subtitle{
-    color:#777;
+    color:#68706a;
     margin-bottom:30px;
+    font-size:13px;
 }
 
 .stats{
@@ -139,35 +200,59 @@ header{
 }
 
 .stat{
-    background:#0c0c0c;
-    border:1px solid #1d1d1d;
-    border-radius:12px;
-    padding:22px;
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(145deg,#0c110d,#080a09);
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:23px;
+    transition:.25s;
+}
+
+.stat:after{
+    content:"";
+    position:absolute;
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    background:rgba(57,255,20,.07);
+    left:-35px;
+    bottom:-55px;
+    filter:blur(20px);
+}
+
+.stat:hover{
+    transform:translateY(-3px);
+    border-color:rgba(57,255,20,.28);
+    box-shadow:0 12px 35px rgba(0,0,0,.25);
 }
 
 .stat span{
-    color:#777;
-    font-size:13px;
+    color:#727a74;
+    font-size:12px;
 }
 
 .stat strong{
     display:block;
-    color:#39ff14;
+    color:var(--green);
     font-size:30px;
     margin-top:10px;
+    text-shadow:0 0 18px rgba(57,255,20,.15);
 }
 
 .panel{
-    background:#0b0b0b;
-    border:1px solid #1d1d1d;
-    border-radius:12px;
-    padding:22px;
+    background:linear-gradient(145deg,rgba(12,16,13,.96),rgba(7,9,8,.96));
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:23px;
     margin-bottom:25px;
+    box-shadow:0 10px 35px rgba(0,0,0,.15);
 }
 
 .panel-title{
     font-size:18px;
     margin-bottom:18px;
+    font-weight:bold;
 }
 
 .form-grid{
@@ -187,26 +272,34 @@ header{
 }
 
 label{
-    color:#aaa;
-    font-size:13px;
+    color:#a1a7a2;
+    font-size:12px;
 }
 
 input,
 select,
 textarea{
     width:100%;
-    background:#111;
+    background:#090c0a;
     color:#fff;
-    border:1px solid #333;
+    border:1px solid #283029;
     padding:13px;
-    border-radius:8px;
+    border-radius:9px;
     outline:none;
+    transition:.2s;
+}
+
+input:hover,
+select:hover,
+textarea:hover{
+    border-color:#39453c;
 }
 
 input:focus,
 select:focus,
 textarea:focus{
-    border-color:#39ff14;
+    border-color:var(--green);
+    box-shadow:0 0 0 3px rgba(57,255,20,.05);
 }
 
 textarea{
@@ -220,7 +313,7 @@ input[type=file]{
 }
 
 .help{
-    color:#666;
+    color:#626a64;
     font-size:11px;
     line-height:1.7;
 }
@@ -233,35 +326,53 @@ input[type=file]{
 }
 
 .btn{
-    background:#39ff14;
+    background:var(--green);
     color:#000;
     border:0;
     padding:11px 18px;
-    border-radius:8px;
+    border-radius:9px;
     cursor:pointer;
     font-weight:bold;
+    transition:.2s;
 }
 
 .btn:hover{
-    opacity:.85;
+    opacity:.9;
+    transform:translateY(-1px);
+    box-shadow:0 7px 20px rgba(57,255,20,.12);
+}
+
+.btn:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+    transform:none;
 }
 
 .btn.secondary{
-    background:#171717;
-    color:#fff;
-    border:1px solid #333;
+    background:#141814;
+    color:#ddd;
+    border:1px solid #303930;
+}
+
+.btn.secondary:hover{
+    color:var(--green);
+    border-color:#3b493e;
 }
 
 .btn.danger{
-    background:#3a1111;
+    background:#281010;
     color:#ff7777;
-    border:1px solid #652020;
+    border:1px solid #542020;
+}
+
+.btn.danger:hover{
+    background:#351313;
 }
 
 .btn.warning{
-    background:#3b3000;
+    background:#302800;
     color:#ffe66d;
-    border:1px solid #746000;
+    border:1px solid #665600;
 }
 
 .btn.small{
@@ -276,11 +387,12 @@ input[type=file]{
 .success,
 .error{
     padding:14px;
-    border-radius:8px;
+    border-radius:9px;
+    line-height:1.8;
 }
 
 .success{
-    background:#091709;
+    background:#071208;
     border:1px solid #205b20;
     color:#7dff7d;
 }
@@ -292,11 +404,17 @@ input[type=file]{
 }
 
 .tournament-card{
-    background:#0e0e0e;
-    border:1px solid #222;
-    border-radius:10px;
+    background:linear-gradient(145deg,#0d110e,#090b09);
+    border:1px solid #202820;
+    border-radius:12px;
     padding:18px;
     margin-bottom:12px;
+    transition:.2s;
+}
+
+.tournament-card:hover{
+    border-color:#2c3b2e;
+    transform:translateY(-2px);
 }
 
 .tournament-top{
@@ -308,7 +426,7 @@ input[type=file]{
 .tournament-image{
     width:140px;
     height:90px;
-    border-radius:8px;
+    border-radius:9px;
     object-fit:cover;
     border:1px solid #292929;
 }
@@ -318,7 +436,7 @@ input[type=file]{
 }
 
 .tournament-info h3{
-    color:#39ff14;
+    color:var(--green);
     margin-bottom:8px;
 }
 
@@ -357,40 +475,53 @@ input[type=file]{
 }
 
 .room-announcement{
-    border-color:#39ff14;
-    box-shadow:0 0 25px rgba(57,255,20,.06);
+    border-color:rgba(57,255,20,.22);
+    box-shadow:0 0 35px rgba(57,255,20,.04);
 }
 
 .room-live{
-    color:#39ff14;
+    color:var(--green);
     font-weight:bold;
 }
 
 table{
     width:100%;
-    border-collapse:collapse;
+    border-collapse:separate;
+    border-spacing:0;
     min-width:700px;
 }
 
 .table-wrap{
     overflow-x:auto;
+    border:1px solid #171e19;
+    border-radius:10px;
 }
 
 th,
 td{
-    padding:13px 12px;
-    border-bottom:1px solid #1c1c1c;
+    padding:14px 12px;
+    border-bottom:1px solid #171e19;
     text-align:right;
     font-size:13px;
 }
 
+tr:last-child td{
+    border-bottom:0;
+}
+
 th{
-    color:#39ff14;
-    background:#0f0f0f;
+    color:var(--green);
+    background:#0d120e;
+    font-size:12px;
 }
 
 td{
     color:#ddd;
+    background:rgba(8,11,9,.55);
+}
+
+tbody tr:hover td{
+    background:#0c110d;
 }
 
 .empty{
@@ -407,7 +538,7 @@ td{
 
 .rank-number,
 .points{
-    color:#39ff14;
+    color:var(--green);
     font-weight:bold;
 }
 
@@ -419,11 +550,76 @@ td{
 }
 
 /* ==========================================
+   WALLET
+========================================== */
+
+.wallet-admin-box{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+.wallet-balance-preview{
+    background:
+        radial-gradient(circle at 85% 15%,rgba(57,255,20,.14),transparent 30%),
+        linear-gradient(145deg,#0d170f,#080c09);
+    border:1px solid rgba(57,255,20,.18);
+    border-radius:14px;
+    padding:25px;
+    min-height:170px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.wallet-label{
+    color:#7b857d;
+    font-size:12px;
+}
+
+.wallet-balance{
+    color:var(--green);
+    font-size:34px;
+    font-weight:bold;
+    margin-top:12px;
+    text-shadow:0 0 22px rgba(57,255,20,.18);
+}
+
+.wallet-user-name{
+    color:#fff;
+    margin-top:8px;
+    font-size:14px;
+}
+
+.charge-box{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.money-input{
+    font-size:18px;
+    font-weight:bold;
+    direction:ltr;
+    text-align:right;
+}
+
+.wallet-user-select{
+    margin-bottom:14px;
+}
+
+.wallet-empty{
+    text-align:center;
+    color:#666;
+    padding:30px;
+}
+
+/* ==========================================
    SLOT MANAGEMENT
 ========================================== */
 
 .slot-card{
-    background:#0e0e0e;
+    background:linear-gradient(145deg,#0d110e,#090b09);
     border:1px solid #222;
     border-radius:12px;
     padding:18px;
@@ -446,7 +642,7 @@ td{
 }
 
 .slot-title{
-    color:#39ff14;
+    color:var(--green);
     font-weight:bold;
     font-size:16px;
 }
@@ -454,6 +650,7 @@ td{
 .slot-type{
     color:#777;
     font-size:12px;
+    margin-top:4px;
 }
 
 .player-list{
@@ -487,7 +684,7 @@ td{
     background:#162016;
     border:1px solid #294b29;
     border-radius:50%;
-    color:#39ff14;
+    color:var(--green);
     font-size:12px;
     font-weight:bold;
     flex-shrink:0;
@@ -543,8 +740,14 @@ td{
 }
 
 .slot-filled{
-    color:#39ff14;
+    color:var(--green);
     border-color:#294b29;
+}
+
+@media(max-width:950px){
+    .wallet-admin-box{
+        grid-template-columns:1fr;
+    }
 }
 
 @media(max-width:800px){
@@ -555,11 +758,15 @@ td{
 
     .sidebar{
         width:100%;
+        height:auto;
+        position:sticky;
+        top:70px;
         display:flex;
         overflow-x:auto;
         padding:10px;
         border-left:0;
         border-bottom:1px solid #1b1b1b;
+        z-index:90;
     }
 
     .sidebar h3{
@@ -569,6 +776,7 @@ td{
     .sidebar button{
         min-width:145px;
         text-align:center;
+        margin:0 3px;
     }
 
     .content{
@@ -601,32 +809,30 @@ td{
         width:100%;
     }
 
+    header{
+        padding:0 15px;
+    }
+
+    .logo{
+        font-size:20px;
+    }
+
+    .admin-badge{
+        display:none;
+    }
 }
-
 </style>
-
 </head>
 
 <body>
 
 <header>
-
-<div class="logo">
-CALLAFINO
-</div>
+<div class="logo">CALLAFINO</div>
 
 <div class="header-right">
-
-<div class="admin-badge">
-ADMIN
+<div class="admin-badge">ADMIN</div>
+<button class="logout" id="logoutBtn">خروج</button>
 </div>
-
-<button class="logout" id="logoutBtn">
-خروج
-</button>
-
-</div>
-
 </header>
 
 <div class="layout">
@@ -635,37 +841,15 @@ ADMIN
 
 <h3>ADMIN MENU</h3>
 
-<button class="active" data-page="dashboard">
-📊 Dashboard
-</button>
-
-<button data-page="registrations">
-🎟️ Players / Registrations
-</button>
-
-<button data-page="tournaments">
-🏆 Tournaments
-</button>
-
-<button data-page="room">
-📢 اعلام کد روم
-</button>
-
-<button data-page="users">
-👥 Users
-</button>
-
-<button data-page="squads">
-⚔️ Squads
-</button>
-
-<button data-page="ranking">
-🏅 Ranking
-</button>
-
-<button data-page="settings">
-⚙️ Settings
-</button>
+<button class="active" data-page="dashboard">📊 Dashboard</button>
+<button data-page="registrations">🎟️ Players / Registrations</button>
+<button data-page="tournaments">🏆 Tournaments</button>
+<button data-page="room">📢 اعلام کد روم</button>
+<button data-page="users">👥 Users</button>
+<button data-page="wallet">💰 شارژ حساب</button>
+<button data-page="squads">⚔️ Squads</button>
+<button data-page="ranking">🏅 Ranking</button>
+<button data-page="settings">⚙️ Settings</button>
 
 </aside>
 
@@ -675,13 +859,8 @@ ADMIN
 
 <section class="page active" id="dashboard">
 
-<h1 class="title">
-Dashboard
-</h1>
-
-<p class="subtitle">
-مدیریت CALLAFINO
-</p>
+<h1 class="title">Dashboard</h1>
+<p class="subtitle">مدیریت CALLAFINO</p>
 
 <div class="stats">
 
@@ -709,28 +888,17 @@ Dashboard
 
 <section class="page" id="registrations">
 
-<h1 class="title">
-Players / Registrations
-</h1>
-
-<p class="subtitle">
-مشاهده بازیکنان ثبت‌نام‌شده
-</p>
+<h1 class="title">Players / Registrations</h1>
+<p class="subtitle">مشاهده بازیکنان ثبت‌نام‌شده</p>
 
 <div id="message" class="message"></div>
 
 <div class="panel">
 
-<div class="panel-title">
-انتخاب تورنمنت
-</div>
+<div class="panel-title">انتخاب تورنمنت</div>
 
 <select id="tournamentSelect">
-
-<option value="">
--- انتخاب تورنمنت --
-</option>
-
+<option value="">-- انتخاب تورنمنت --</option>
 </select>
 
 <div class="actions">
@@ -747,7 +915,6 @@ Players / Registrations
 
 </div>
 
-
 <div class="panel">
 
 <div class="table-wrap">
@@ -755,7 +922,6 @@ Players / Registrations
 <table>
 
 <thead>
-
 <tr>
 <th>Slot</th>
 <th>Username</th>
@@ -763,17 +929,14 @@ Players / Registrations
 <th>Squad / Duo</th>
 <th>Registration Time</th>
 </tr>
-
 </thead>
 
 <tbody id="registrationsTable">
 
 <tr>
-
 <td colspan="5" class="empty">
 ابتدا یک تورنمنت انتخاب کنید
 </td>
-
 </tr>
 
 </tbody>
@@ -784,8 +947,6 @@ Players / Registrations
 
 </div>
 
-
-<!-- SLOT MANAGEMENT -->
 
 <div class="panel">
 
@@ -800,11 +961,9 @@ Players / Registrations
 <div id="slotManagementMessage" class="message"></div>
 
 <div id="slotManagement">
-
 <div class="empty">
 ابتدا یک تورنمنت انتخاب کنید.
 </div>
-
 </div>
 
 </div>
@@ -816,13 +975,8 @@ Players / Registrations
 
 <section class="page" id="tournaments">
 
-<h1 class="title">
-Tournaments
-</h1>
-
-<p class="subtitle">
-ساخت و مدیریت کامل تورنمنت‌ها
-</p>
+<h1 class="title">Tournaments</h1>
+<p class="subtitle">ساخت و مدیریت کامل تورنمنت‌ها</p>
 
 <div id="tournamentMessage" class="message"></div>
 
@@ -835,180 +989,73 @@ Tournaments
 <div class="form-grid">
 
 <div class="form-group full">
-
-<label>
-عنوان تورنمنت
-</label>
-
-<input
-type="text"
-id="tourTitle"
-placeholder="CALLAFINO CODM CUP #1"
->
-
+<label>عنوان تورنمنت</label>
+<input type="text" id="tourTitle" placeholder="CALLAFINO CODM CUP #1">
 </div>
 
 <div class="form-group">
-
-<label>
-Game
-</label>
+<label>Game</label>
 
 <select id="tourGame">
-
-<option value="Call of Duty Mobile">
-Call of Duty Mobile
-</option>
-
-<option value="FC Mobile">
-FC Mobile
-</option>
-
-<option value="Minecraft">
-Minecraft
-</option>
-
+<option value="Call of Duty Mobile">Call of Duty Mobile</option>
+<option value="FC Mobile">FC Mobile</option>
+<option value="Minecraft">Minecraft</option>
 </select>
-
 </div>
 
 <div class="form-group">
-
-<label>
-Type
-</label>
+<label>Type</label>
 
 <select id="tourType">
-
-<option value="Solo">
-Solo
-</option>
-
-<option value="Duo">
-Duo
-</option>
-
-<option value="Squad">
-Squad
-</option>
-
+<option value="Solo">Solo</option>
+<option value="Duo">Duo</option>
+<option value="Squad">Squad</option>
 </select>
-
 </div>
 
 <div class="form-group">
-
-<label>
-Maximum Players / Slots
-</label>
-
-<input
-type="number"
-id="tourMaxPlayers"
-value="32"
-min="1"
->
-
+<label>Maximum Players / Slots</label>
+<input type="number" id="tourMaxPlayers" value="32" min="1">
 </div>
 
 <div class="form-group">
-
-<label>
-📅 تاریخ شمسی
-</label>
-
-<input
-type="text"
-id="tourDate"
-placeholder="1405/06/25"
->
-
+<label>📅 تاریخ شمسی</label>
+<input type="text" id="tourDate" placeholder="1405/06/25">
 </div>
 
 <div class="form-group">
-
-<label>
-⏰ ساعت مسابقه
-</label>
-
-<input
-type="time"
-id="tourTime"
->
-
+<label>⏰ ساعت مسابقه</label>
+<input type="time" id="tourTime">
 </div>
 
 <div class="form-group full">
-
-<label>
-🖼️ تصویر تورنمنت
-</label>
-
-<input
-type="file"
-id="tourImage"
-accept="image/*"
->
+<label>🖼️ تصویر تورنمنت</label>
+<input type="file" id="tourImage" accept="image/*">
 
 <div class="preview" id="imagePreview">
-
 <img id="previewImage" src="">
-
 </div>
 
 </div>
 
 <div class="form-group full">
-
-<label>
-📝 توضیحات
-</label>
-
-<textarea
-id="tourDescription"
-placeholder="توضیحات کامل مسابقه..."
-></textarea>
-
+<label>📝 توضیحات</label>
+<textarea id="tourDescription" placeholder="توضیحات کامل مسابقه..."></textarea>
 </div>
 
 <div class="form-group full">
-
-<label>
-📜 قوانین
-</label>
-
-<textarea
-id="tourRules"
-placeholder="قوانین مسابقه..."
-></textarea>
-
+<label>📜 قوانین</label>
+<textarea id="tourRules" placeholder="قوانین مسابقه..."></textarea>
 </div>
 
 <div class="form-group">
-
-<label>
-🔐 کد روم اصلی
-</label>
-
-<input
-type="text"
-id="tourRoomCode"
-placeholder="123456"
->
-
+<label>🔐 کد روم اصلی</label>
+<input type="text" id="tourRoomCode" placeholder="123456">
 </div>
 
 <div class="form-group">
-
-<label>
-⏱️ زمان نمایش خودکار کد
-</label>
-
-<input
-type="datetime-local"
-id="tourRevealAt"
->
-
+<label>⏱️ زمان نمایش خودکار کد</label>
+<input type="datetime-local" id="tourRevealAt">
 </div>
 
 </div>
@@ -1031,11 +1078,7 @@ id="tourRevealAt"
 </div>
 
 <div id="tournamentList">
-
-<div class="loading">
-در حال دریافت...
-</div>
-
+<div class="loading">در حال دریافت...</div>
 </div>
 
 </div>
@@ -1047,9 +1090,7 @@ id="tourRevealAt"
 
 <section class="page" id="room">
 
-<h1 class="title">
-📢 اعلام کد روم
-</h1>
+<h1 class="title">📢 اعلام کد روم</h1>
 
 <p class="subtitle">
 کد روم را برای بازیکنان ثبت‌نام‌شده یک تورنمنت نمایش بده
@@ -1067,72 +1108,43 @@ id="tourRevealAt"
 
 <div class="form-group full">
 
-<label>
-🏆 انتخاب تورنمنت
-</label>
+<label>🏆 انتخاب تورنمنت</label>
 
 <select id="announcementTournament">
-
-<option value="">
--- انتخاب تورنمنت --
-</option>
-
+<option value="">-- انتخاب تورنمنت --</option>
 </select>
 
 </div>
 
 <div class="form-group">
 
-<label>
-🔐 کد روم
-</label>
-
-<input
-type="text"
-id="announcementRoomCode"
-placeholder="مثلاً 123456"
->
+<label>🔐 کد روم</label>
+<input type="text" id="announcementRoomCode" placeholder="مثلاً 123456">
 
 </div>
 
 <div class="form-group">
 
-<label>
-⏱️ مدت نمایش
-</label>
+<label>⏱️ مدت نمایش</label>
 
 <select id="announcementDuration">
-
 <option value="5">5 دقیقه</option>
 <option value="10">10 دقیقه</option>
 <option value="15" selected>15 دقیقه</option>
 <option value="20">20 دقیقه</option>
 <option value="30">30 دقیقه</option>
 <option value="60">60 دقیقه</option>
-
 </select>
 
 </div>
 
 <div class="form-group full">
 
-<label>
-🖼️ تصویر اعلام روم
-</label>
-
-<input
-type="file"
-id="announcementImage"
-accept="image/*"
->
+<label>🖼️ تصویر اعلام روم</label>
+<input type="file" id="announcementImage" accept="image/*">
 
 <div class="preview" id="announcementPreview">
-
-<img
-id="announcementPreviewImage"
-src=""
->
-
+<img id="announcementPreviewImage" src="">
 </div>
 
 </div>
@@ -1157,11 +1169,7 @@ src=""
 </div>
 
 <div id="announcementList">
-
-<div class="loading">
-در حال دریافت...
-</div>
-
+<div class="loading">در حال دریافت...</div>
 </div>
 
 </div>
@@ -1173,15 +1181,130 @@ src=""
 
 <section class="page" id="users">
 
-<h1 class="title">
-Users
-</h1>
-
-<p class="subtitle">
-کاربران ثبت‌شده
-</p>
+<h1 class="title">Users</h1>
+<p class="subtitle">کاربران ثبت‌شده</p>
 
 <div class="panel">
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>Username</th>
+<th>Game</th>
+<th>Bio</th>
+<th>Created</th>
+</tr>
+</thead>
+
+<tbody id="usersTable">
+
+<tr>
+<td colspan="4" class="loading">
+در حال دریافت...
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- WALLET -->
+
+<section class="page" id="wallet">
+
+<h1 class="title">💰 شارژ حساب</h1>
+
+<p class="subtitle">
+مدیریت موجودی کاربران و اضافه کردن اعتبار
+</p>
+
+<div id="walletMessage" class="message"></div>
+
+<div class="panel">
+
+<div class="wallet-admin-box">
+
+<div class="wallet-balance-preview">
+
+<div class="wallet-label">
+موجودی حساب انتخاب‌شده
+</div>
+
+<div class="wallet-balance" id="walletSelectedBalance">
+0 تومان
+</div>
+
+<div class="wallet-user-name" id="walletSelectedUser">
+کاربری انتخاب نشده
+</div>
+
+</div>
+
+
+<div class="charge-box">
+
+<div class="panel-title">
+➕ افزایش موجودی
+</div>
+
+<label>انتخاب کاربر</label>
+
+<select id="walletUserSelect" class="wallet-user-select">
+
+<option value="">
+-- انتخاب کاربر --
+</option>
+
+</select>
+
+<label>مبلغ شارژ</label>
+
+<input
+type="number"
+id="walletAmount"
+class="money-input"
+min="1"
+placeholder="مثلاً 50000"
+>
+
+<div class="help" style="margin-top:8px;">
+مبلغ را به تومان وارد کنید.
+</div>
+
+<div class="actions">
+
+<button class="btn" id="chargeWalletBtn">
+💰 شارژ حساب
+</button>
+
+<button class="btn secondary" id="refreshWalletBtn">
+🔄 بروزرسانی
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-title">
+👥 موجودی کاربران
+</div>
 
 <div class="table-wrap">
 
@@ -1191,21 +1314,18 @@ Users
 
 <tr>
 <th>Username</th>
-<th>Game</th>
-<th>Bio</th>
-<th>Created</th>
+<th>موجودی</th>
+<th>شناسه کاربر</th>
 </tr>
 
 </thead>
 
-<tbody id="usersTable">
+<tbody id="walletUsersTable">
 
 <tr>
-
-<td colspan="4" class="loading">
+<td colspan="3" class="loading">
 در حال دریافت...
 </td>
-
 </tr>
 
 </tbody>
@@ -1223,13 +1343,8 @@ Users
 
 <section class="page" id="squads">
 
-<h1 class="title">
-Squads
-</h1>
-
-<p class="subtitle">
-مشاهده Duo / Squadها
-</p>
+<h1 class="title">Squads</h1>
+<p class="subtitle">مشاهده Duo / Squadها</p>
 
 <div class="panel">
 
@@ -1251,11 +1366,9 @@ Squads
 <tbody id="squadsTable">
 
 <tr>
-
 <td colspan="4" class="loading">
 در حال دریافت...
 </td>
-
 </tr>
 
 </tbody>
@@ -1273,13 +1386,8 @@ Squads
 
 <section class="page" id="ranking">
 
-<h1 class="title">
-Ranking
-</h1>
-
-<p class="subtitle">
-مدیریت جدول رنکینگ
-</p>
+<h1 class="title">Ranking</h1>
+<p class="subtitle">مدیریت جدول رنکینگ</p>
 
 <div id="rankingMessage" class="message"></div>
 
@@ -1292,43 +1400,23 @@ Ranking
 <div class="form-grid">
 
 <div class="form-group">
-
-<label>
-Player 1 Name
-</label>
-
+<label>Player 1 Name</label>
 <input type="text" id="rankPlayer1">
-
 </div>
 
 <div class="form-group">
-
-<label>
-Player 2 Name
-</label>
-
+<label>Player 2 Name</label>
 <input type="text" id="rankPlayer2">
-
 </div>
 
 <div class="form-group">
-
-<label>
-Points
-</label>
-
+<label>Points</label>
 <input type="number" id="rankPoints" value="0">
-
 </div>
 
 <div class="form-group">
-
-<label>
-Position
-</label>
-
+<label>Position</label>
 <input type="number" id="rankPosition">
-
 </div>
 
 </div>
@@ -1342,6 +1430,7 @@ Position
 </div>
 
 </div>
+
 
 <div class="panel">
 
@@ -1364,11 +1453,9 @@ Position
 <tbody id="rankingTable">
 
 <tr>
-
 <td colspan="5" class="loading">
 در حال دریافت...
 </td>
-
 </tr>
 
 </tbody>
@@ -1386,13 +1473,8 @@ Position
 
 <section class="page" id="settings">
 
-<h1 class="title">
-Settings
-</h1>
-
-<p class="subtitle">
-تنظیمات پنل مدیریت
-</p>
+<h1 class="title">Settings</h1>
+<p class="subtitle">تنظیمات پنل مدیریت</p>
 
 <div class="panel">
 
@@ -1405,17 +1487,13 @@ Settings
 </section>
 
 </main>
-
 </div>
 
 
 <script type="module">
 
-import {
-    createClient
-}
-from
-"https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+import { createClient }
+from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
 
 const SUPABASE_URL =
@@ -1467,6 +1545,18 @@ function showMessage(
     `<div class="${type}">
         ${escapeHTML(text)}
     </div>`;
+}
+
+
+/* ==========================================
+   FORMAT MONEY
+========================================== */
+
+function formatMoney(value){
+
+    return Number(value || 0)
+        .toLocaleString("fa-IR") + " تومان";
+
 }
 
 
@@ -1624,7 +1714,6 @@ async function loadTournaments(){
 
 
     fillTournamentSelects();
-
     renderTournamentList();
 }
 
@@ -1673,11 +1762,14 @@ function fillTournamentSelects(){
                         "option"
                     );
 
+
                     option.value =
                     tournament.id;
 
+
                     option.textContent =
                     `${tournament.title} — ${tournament.type}`;
+
 
                     select.appendChild(
                         option
@@ -1730,6 +1822,7 @@ function renderTournamentList(){
             document.createElement(
                 "div"
             );
+
 
             card.className =
             "tournament-card";
@@ -2064,6 +2157,7 @@ function renderTournamentList(){
                 `edit-${button.dataset.edit}`
             );
 
+
             box.style.display =
             box.style.display === "block"
             ?
@@ -2201,11 +2295,13 @@ async function createTournament(){
     }
 
     if(!revealInput){
+
         showMessage(
             message,
             "زمان نمایش خودکار را انتخاب کنید.",
             "error"
         );
+
         return;
     }
 
@@ -2401,10 +2497,12 @@ async function saveTournamentEdit(id){
 
 
         if(revealInput){
+
             revealAt =
             new Date(
                 revealInput
             ).toISOString();
+
         }
 
 
@@ -2998,6 +3096,7 @@ async function loadRegistrations(){
             [...new Set(ids)]
         );
 
+
         profiles =
         result.data || [];
 
@@ -3045,7 +3144,8 @@ async function loadRegistrations(){
 
             <td>
                 ${escapeHTML(
-                    r.squad_id || "-"
+                    r.squad_id ||
+                    "-"
                 )}
             </td>
 
@@ -3111,8 +3211,6 @@ async function loadSlotManagement(){
     message.innerHTML = "";
 
 
-    /* گرفتن Slotها از RPC */
-
     const {
         data:slots,
         error:slotError
@@ -3138,8 +3236,6 @@ async function loadSlotManagement(){
         return;
     }
 
-
-    /* گرفتن ثبت‌نام‌ها */
 
     const {
         data:registrations,
@@ -3177,8 +3273,6 @@ async function loadSlotManagement(){
     }
 
 
-    /* پروفایل تمام کاربران */
-
     const ids = [];
 
 
@@ -3205,6 +3299,7 @@ async function loadSlotManagement(){
             "id",
             [...new Set(ids)]
         );
+
 
         profiles =
         data || [];
@@ -3266,6 +3361,7 @@ async function loadSlotManagement(){
 
         if(type.toLowerCase() === "duo")
             playerCount = 2;
+
 
         if(type.toLowerCase() === "squad")
             playerCount = 4;
@@ -3380,6 +3476,7 @@ async function loadSlotManagement(){
                         </div>
 
                     </div>
+
                 `;
 
             }
@@ -3482,8 +3579,6 @@ async function loadSlotManagement(){
         container.appendChild(card);
 
 
-        /* پر کردن Select ویرایش */
-
         if(registration){
 
             card
@@ -3499,12 +3594,15 @@ async function loadSlotManagement(){
                         "option"
                     );
 
+
                     option.value =
                     profile.id;
+
 
                     option.textContent =
                     profile.username ||
                     "بدون نام";
+
 
                     select.appendChild(
                         option
@@ -3518,8 +3616,6 @@ async function loadSlotManagement(){
 
     });
 
-
-    /* EDIT */
 
     container
     .querySelectorAll(
@@ -3555,8 +3651,6 @@ async function loadSlotManagement(){
     });
 
 
-    /* CLOSE EDIT */
-
     container
     .querySelectorAll(
         "[data-close-player]"
@@ -3580,8 +3674,6 @@ async function loadSlotManagement(){
     });
 
 
-    /* SAVE PLAYER */
-
     container
     .querySelectorAll(
         "[data-save-player]"
@@ -3600,8 +3692,6 @@ async function loadSlotManagement(){
 
     });
 
-
-    /* DELETE SLOT */
 
     container
     .querySelectorAll(
@@ -3717,7 +3807,7 @@ async function saveTournamentPlayer(
 
 
 /* ==========================================
-   DELETE REGISTRATION / SLOT
+   DELETE REGISTRATION
 ========================================== */
 
 async function deleteTournamentRegistration(
@@ -3863,40 +3953,57 @@ async function loadUsers(){
 
 
 /* ==========================================
-   SQUADS
+   WALLET
 ========================================== */
 
-async function loadSquads(){
+async function loadWalletUsers(){
+
+    const select =
+    document.getElementById(
+        "walletUserSelect"
+    );
 
     const table =
     document.getElementById(
-        "squadsTable"
+        "walletUsersTable"
     );
 
 
+    select.innerHTML =
+    `<option value="">
+        -- انتخاب کاربر --
+    </option>`;
+
+
+    table.innerHTML =
+    `<tr>
+        <td colspan="3" class="loading">
+            در حال دریافت...
+        </td>
+    </tr>`;
+
+
     const {
-        data,
-        error
+        data:profiles,
+        error:profileError
     } =
     await supabase
-    .from("squads")
-    .select(
-        "id,player1_id,player2_id,status,created_at"
-    )
+    .from("profiles")
+    .select("id,username")
     .order(
-        "created_at",
+        "username",
         {
-            ascending:false
+            ascending:true
         }
     );
 
 
-    if(error){
+    if(profileError){
 
         table.innerHTML =
         `<tr>
-            <td colspan="4" class="empty">
-                ${escapeHTML(error.message)}
+            <td colspan="3" class="empty">
+                ${escapeHTML(profileError.message)}
             </td>
         </tr>`;
 
@@ -3904,55 +4011,82 @@ async function loadSquads(){
     }
 
 
-    const ids = [];
+    const {
+        data:wallets,
+        error:walletError
+    } =
+    await supabase
+    .from("wallets")
+    .select("user_id,balance");
 
 
-    data.forEach(s => {
+    if(walletError){
 
-        if(s.player1_id)
-            ids.push(s.player1_id);
+        table.innerHTML =
+        `<tr>
+            <td colspan="3" class="empty">
+                ${escapeHTML(walletError.message)}
+            </td>
+        </tr>`;
 
-        if(s.player2_id)
-            ids.push(s.player2_id);
-
-    });
-
-
-    let profiles = [];
-
-
-    if(ids.length){
-
-        const result =
-        await supabase
-        .from("profiles")
-        .select("id,username")
-        .in(
-            "id",
-            [...new Set(ids)]
-        );
-
-        profiles =
-        result.data || [];
-
+        return;
     }
 
 
-    const map =
+    const walletMap =
     new Map(
-        profiles.map(
-            p => [
-                p.id,
-                p.username
+        (wallets || []).map(
+            wallet => [
+                wallet.user_id,
+                wallet.balance || 0
             ]
         )
     );
 
 
+    (profiles || []).forEach(profile => {
+
+        const option =
+        document.createElement("option");
+
+
+        option.value =
+        profile.id;
+
+
+        option.textContent =
+        profile.username ||
+        "بدون نام";
+
+
+        select.appendChild(option);
+
+    });
+
+
     table.innerHTML = "";
 
 
-    data.forEach(squad => {
+    if(!profiles?.length){
+
+        table.innerHTML =
+        `<tr>
+            <td colspan="3" class="wallet-empty">
+                کاربری پیدا نشد.
+            </td>
+        </tr>`;
+
+        return;
+    }
+
+
+    profiles.forEach(profile => {
+
+        const balance =
+        walletMap.get(
+            profile.id
+        ) || 0;
+
 
         const row =
         document.createElement("tr");
@@ -3962,42 +4096,252 @@ async function loadSquads(){
 
             <td>
                 ${escapeHTML(
-                    map.get(
-                        squad.player1_id
-                    ) ||
-                    "Unknown"
+                    profile.username ||
+                    "بدون نام"
                 )}
             </td>
 
             <td>
-                ${escapeHTML(
-                    map.get(
-                        squad.player2_id
-                    ) ||
-                    "Unknown"
-                )}
+                <span class="points">
+                    ${formatMoney(balance)}
+                </span>
             </td>
 
-            <td>
-                ${escapeHTML(
-                    squad.status
-                )}
-            </td>
-
-            <td>
-                ${escapeHTML(
-                    new Date(
-                        squad.created_at
-                    ).toLocaleString("fa-IR")
-                )}
+            <td style="direction:ltr;text-align:right;font-size:11px;color:#666;">
+                ${escapeHTML(profile.id)}
             </td>
 
         `;
 
 
+        row.style.cursor = "pointer";
+
+
+        row.onclick = () => {
+
+            select.value =
+            profile.id;
+
+            updateSelectedWallet();
+
+        };
+
+
         table.appendChild(row);
 
     });
+
+
+    updateSelectedWallet();
+
+}
+
+
+/* ==========================================
+   SELECTED WALLET
+========================================== */
+
+async function updateSelectedWallet(){
+
+    const userId =
+    document.getElementById(
+        "walletUserSelect"
+    ).value;
+
+
+    const balanceElement =
+    document.getElementById(
+        "walletSelectedBalance"
+    );
+
+    const nameElement =
+    document.getElementById(
+        "walletSelectedUser"
+    );
+
+
+    if(!userId){
+
+        balanceElement.textContent =
+        "0 تومان";
+
+        nameElement.textContent =
+        "کاربری انتخاب نشده";
+
+        return;
+    }
+
+
+    const {
+        data:profile
+    } =
+    await supabase
+    .from("profiles")
+    .select("username")
+    .eq(
+        "id",
+        userId
+    )
+    .maybeSingle();
+
+
+    const {
+        data:wallet
+    } =
+    await supabase
+    .from("wallets")
+    .select("balance")
+    .eq(
+        "user_id",
+        userId
+    )
+    .maybeSingle();
+
+
+    balanceElement.textContent =
+    formatMoney(
+        wallet?.balance || 0
+    );
+
+
+    nameElement.textContent =
+    profile?.username ||
+    "بدون نام";
+
+}
+
+
+/* ==========================================
+   CHARGE WALLET
+========================================== */
+
+async function chargeWallet(){
+
+    const userId =
+    document.getElementById(
+        "walletUserSelect"
+    ).value;
+
+
+    const amount =
+    Number(
+        document.getElementById(
+            "walletAmount"
+        ).value
+    );
+
+
+    const message =
+    document.getElementById(
+        "walletMessage"
+    );
+
+
+    if(!userId){
+
+        showMessage(
+            message,
+            "ابتدا یک کاربر انتخاب کنید.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if(
+        !amount ||
+        amount <= 0
+    ){
+
+        showMessage(
+            message,
+            "مبلغ شارژ معتبر نیست.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if(
+        !confirm(
+            `موجودی این کاربر ${formatMoney(amount)} افزایش پیدا کند؟`
+        )
+    )
+        return;
+
+
+    const button =
+    document.getElementById(
+        "chargeWalletBtn"
+    );
+
+
+    button.disabled = true;
+    button.textContent =
+    "در حال شارژ...";
+
+
+    try{
+
+        const {
+            data:newBalance,
+            error
+        } =
+        await supabase.rpc(
+            "admin_charge_wallet",
+            {
+                p_user_id:userId,
+                p_amount:amount
+            }
+        );
+
+
+        if(error)
+            throw error;
+
+
+        showMessage(
+            message,
+            `حساب با موفقیت شارژ شد. موجودی جدید: ${formatMoney(newBalance)}`
+        );
+
+
+        document.getElementById(
+            "walletAmount"
+        ).value = "";
+
+
+        await loadWalletUsers();
+
+
+        document.getElementById(
+            "walletUserSelect"
+        ).value = userId;
+
+
+        await updateSelectedWallet();
+
+    }
+    catch(error){
+
+        showMessage(
+            message,
+            "خطا در شارژ حساب: " +
+            error.message,
+            "error"
+        );
+
+    }
+    finally{
+
+        button.disabled = false;
+
+        button.textContent =
+        "💰 شارژ حساب";
+
+    }
 
 }
 
@@ -4120,10 +4464,12 @@ async function addRanking(){
         "rankPlayer1"
     ).value.trim();
 
+
     const player2 =
     document.getElementById(
         "rankPlayer2"
     ).value.trim();
+
 
     const points =
     Number(
@@ -4131,6 +4477,7 @@ async function addRanking(){
             "rankPoints"
         ).value
     );
+
 
     const position =
     Number(
@@ -4195,13 +4542,16 @@ async function addRanking(){
         "rankPlayer1"
     ).value = "";
 
+
     document.getElementById(
         "rankPlayer2"
     ).value = "";
 
+
     document.getElementById(
         "rankPoints"
     ).value = "0";
+
 
     document.getElementById(
         "rankPosition"
@@ -4257,10 +4607,12 @@ function setupPreview(
             const file =
             event.target.files[0];
 
+
             const preview =
             document.getElementById(
                 previewId
             );
+
 
             const image =
             document.getElementById(
@@ -4389,6 +4741,10 @@ document
                 await loadUsers();
 
 
+            if(page === "wallet")
+                await loadWalletUsers();
+
+
             if(page === "squads")
                 await loadSquads();
 
@@ -4400,6 +4756,40 @@ document
     );
 
 });
+
+
+/* ==========================================
+   WALLET EVENTS
+========================================== */
+
+document
+.getElementById(
+    "walletUserSelect"
+)
+.addEventListener(
+    "change",
+    updateSelectedWallet
+);
+
+
+document
+.getElementById(
+    "chargeWalletBtn"
+)
+.addEventListener(
+    "click",
+    chargeWallet
+);
+
+
+document
+.getElementById(
+    "refreshWalletBtn"
+)
+.addEventListener(
+    "click",
+    loadWalletUsers
+);
 
 
 /* ==========================================
@@ -4466,7 +4856,7 @@ document.getElementById(
 
 
 /* ==========================================
-   WHEN TOURNAMENT SELECT CHANGES
+   TOURNAMENT SELECT
 ========================================== */
 
 document.getElementById(
@@ -4512,6 +4902,10 @@ document.getElementById(
 );
 
 
+/* ==========================================
+   RANKING BUTTON
+========================================== */
+
 document.getElementById(
     "addRankingBtn"
 )
@@ -4519,6 +4913,147 @@ document.getElementById(
     "click",
     addRanking
 );
+
+
+/* ==========================================
+   SQUADS
+========================================== */
+
+async function loadSquads(){
+
+    const table =
+    document.getElementById(
+        "squadsTable"
+    );
+
+
+    const {
+        data,
+        error
+    } =
+    await supabase
+    .from("squads")
+    .select(
+        "id,player1_id,player2_id,status,created_at"
+    )
+    .order(
+        "created_at",
+        {
+            ascending:false
+        }
+    );
+
+
+    if(error){
+
+        table.innerHTML =
+        `<tr>
+            <td colspan="4" class="empty">
+                ${escapeHTML(error.message)}
+            </td>
+        </tr>`;
+
+        return;
+    }
+
+
+    const ids = [];
+
+
+    data.forEach(s => {
+
+        if(s.player1_id)
+            ids.push(s.player1_id);
+
+        if(s.player2_id)
+            ids.push(s.player2_id);
+
+    });
+
+
+    let profiles = [];
+
+
+    if(ids.length){
+
+        const result =
+        await supabase
+        .from("profiles")
+        .select("id,username")
+        .in(
+            "id",
+            [...new Set(ids)]
+        );
+
+
+        profiles =
+        result.data || [];
+
+    }
+
+
+    const map =
+    new Map(
+        profiles.map(
+            p => [
+                p.id,
+                p.username
+            ]
+        )
+    );
+
+
+    table.innerHTML = "";
+
+
+    data.forEach(squad => {
+
+        const row =
+        document.createElement("tr");
+
+
+        row.innerHTML = `
+
+            <td>
+                ${escapeHTML(
+                    map.get(
+                        squad.player1_id
+                    ) ||
+                    "Unknown"
+                )}
+            </td>
+
+            <td>
+                ${escapeHTML(
+                    map.get(
+                        squad.player2_id
+                    ) ||
+                    "Unknown"
+                )}
+            </td>
+
+            <td>
+                ${escapeHTML(
+                    squad.status
+                )}
+            </td>
+
+            <td>
+                ${escapeHTML(
+                    new Date(
+                        squad.created_at
+                    ).toLocaleString("fa-IR")
+                )}
+            </td>
+
+        `;
+
+
+        table.appendChild(row);
+
+    });
+
+}
 
 
 /* ==========================================
@@ -4562,5 +5097,5 @@ if(ok){
 </script>
 
 </body>
-
 </html>
+```
