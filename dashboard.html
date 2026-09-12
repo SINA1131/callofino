@@ -1,4 +1,4 @@
-=<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
 <head>
@@ -15,6 +15,21 @@
 <style>
 
 /* =========================================================
+   ROOT
+========================================================= */
+
+:root{
+    --green:#39ff72;
+    --green2:#00ff88;
+    --dark:#020604;
+    --panel:rgba(7,14,9,.72);
+    --border:rgba(57,255,114,.13);
+    --muted:#69736c;
+    --danger:#ff6262;
+}
+
+
+/* =========================================================
    RESET
 ========================================================= */
 
@@ -29,21 +44,39 @@ html{
 }
 
 body{
+    min-height:100vh;
+
     font-family:
         Tahoma,
         Arial,
         sans-serif;
 
-    background:#020503;
     color:#fff;
 
-    min-height:100vh;
+    background:
+        radial-gradient(
+            circle at 15% 10%,
+            rgba(57,255,114,.09),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 90% 40%,
+            rgba(0,255,136,.055),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(57,255,114,.035),
+            transparent 30%
+        ),
+        #010402;
 
     overflow-x:hidden;
 }
 
+
 /* =========================================================
-   BACKGROUND
+   BACKGROUND GRID
 ========================================================= */
 
 body::before{
@@ -52,56 +85,94 @@ body::before{
     position:fixed;
     inset:0;
 
-    background:
-        radial-gradient(
-            circle at 15% 20%,
-            rgba(57,255,114,.07),
-            transparent 25%
-        ),
-        radial-gradient(
-            circle at 85% 70%,
-            rgba(57,255,114,.05),
-            transparent 25%
-        );
-
-    pointer-events:none;
-    z-index:-3;
-}
-
-body::after{
-    content:"";
-
-    position:fixed;
-    inset:0;
+    z-index:-5;
 
     background-image:
         linear-gradient(
-            rgba(57,255,114,.025) 1px,
+            rgba(57,255,114,.028) 1px,
             transparent 1px
         ),
         linear-gradient(
             90deg,
-            rgba(57,255,114,.025) 1px,
+            rgba(57,255,114,.028) 1px,
             transparent 1px
         );
 
-    background-size:50px 50px;
+    background-size:
+        55px 55px;
 
-    animation:gridMove 15s linear infinite;
-
-    pointer-events:none;
-    z-index:-2;
+    animation:
+        gridMove 18s linear infinite;
 }
 
 @keyframes gridMove{
+
     from{
-        transform:translateY(0);
+        background-position:
+            0 0,
+            0 0;
     }
 
     to{
-        transform:translateY(50px);
+        background-position:
+            0 55px,
+            55px 0;
     }
+
 }
+
+
+/* =========================================================
+   AMBIENT GLOW
+========================================================= */
+
+.ambient{
+    position:fixed;
+
+    width:420px;
+    height:420px;
+
+    border-radius:50%;
+
+    filter:blur(100px);
+
+    opacity:.055;
+
+    background:var(--green);
+
+    pointer-events:none;
+
+    z-index:-4;
+
+    animation:
+        ambientFloat 12s ease-in-out infinite;
+}
+
+.ambient.one{
+    top:-180px;
+    right:-100px;
+}
+
+.ambient.two{
+    bottom:-180px;
+    left:-120px;
+
+    animation-delay:-5s;
+}
+
+@keyframes ambientFloat{
+
+    0%,
+    100%{
+        transform:translate(0,0);
+    }
+
+    50%{
+        transform:translate(30px,-25px);
+    }
+
+}
+
 
 /* =========================================================
    NAVBAR
@@ -109,238 +180,625 @@ body::after{
 
 .navbar{
     position:sticky;
-    top:0;
-    z-index:1000;
 
-    height:72px;
+    top:0;
+
+    z-index:2000;
+
+    height:76px;
 
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
 
-    padding:0 7%;
+    padding:
+        0
+        max(5%,calc((100% - 1200px)/2));
 
     background:
-        rgba(2,7,4,.86);
+        rgba(2,7,4,.74);
 
-    backdrop-filter:blur(16px);
+    backdrop-filter:
+        blur(22px)
+        saturate(140%);
 
     border-bottom:
         1px solid
-        rgba(57,255,114,.12);
+        rgba(57,255,114,.11);
+
+    box-shadow:
+        0 12px 40px
+        rgba(0,0,0,.18);
 }
 
 .logo{
-    color:#39ff72;
+    position:relative;
 
-    font-size:24px;
-    font-weight:900;
+    color:var(--green);
+
+    font-size:25px;
+
+    font-weight:1000;
 
     letter-spacing:2px;
 
     text-shadow:
-        0 0 15px
-        rgba(57,255,114,.35);
+        0 0 12px
+        rgba(57,255,114,.3),
+        0 0 35px
+        rgba(57,255,114,.1);
+}
+
+.logo::after{
+    content:"";
+
+    display:inline-block;
+
+    width:7px;
+    height:7px;
+
+    margin-right:7px;
+
+    border-radius:50%;
+
+    background:var(--green);
+
+    box-shadow:
+        0 0 10px
+        var(--green);
+
+    animation:
+        blink 1.8s infinite;
+}
+
+@keyframes blink{
+
+    0%,
+    100%{
+        opacity:1;
+    }
+
+    50%{
+        opacity:.3;
+    }
+
 }
 
 .nav-links{
     display:flex;
+
     align-items:center;
-    gap:25px;
+
+    gap:7px;
 }
 
 .nav-links a{
-    color:#858d87;
+    position:relative;
+
+    color:#79827c;
 
     text-decoration:none;
 
-    font-size:13px;
+    font-size:12px;
+
+    padding:
+        10px
+        12px;
+
+    border-radius:10px;
 
     transition:.25s;
 }
 
 .nav-links a:hover{
-    color:#39ff72;
+    color:#fff;
 
-    text-shadow:
-        0 0 10px
-        rgba(57,255,114,.35);
+    background:
+        rgba(57,255,114,.045);
+}
+
+.nav-links a:hover::after{
+    width:50%;
+}
+
+.nav-links a::after{
+    content:"";
+
+    position:absolute;
+
+    right:50%;
+    bottom:4px;
+
+    transform:translateX(50%);
+
+    width:0;
+    height:1px;
+
+    background:var(--green);
+
+    box-shadow:
+        0 0 8px
+        var(--green);
+
+    transition:.3s;
 }
 
 .logout{
-    color:#ff6464 !important;
+    color:
+        #ff7070 !important;
 }
+
 
 /* =========================================================
    CONTAINER
 ========================================================= */
 
 .container{
-    width:min(1180px,92%);
+    width:min(1200px,92%);
 
     margin:auto;
 }
 
+
 /* =========================================================
-   WELCOME
+   HERO
 ========================================================= */
 
 .welcome{
-    padding:75px 0 40px;
+    position:relative;
+
+    padding:
+        90px
+        25px
+        65px;
 
     text-align:center;
+
+    animation:
+        fadeUp .7s ease both;
 }
 
-.welcome h1{
-    font-size:
-        clamp(28px,5vw,48px);
+.welcome::before{
+    content:"";
 
-    margin-bottom:14px;
+    position:absolute;
 
-    font-weight:900;
-}
+    width:180px;
+    height:180px;
 
-.green{
-    color:#39ff72;
+    left:50%;
+    top:35px;
 
-    text-shadow:
-        0 0 22px
-        rgba(57,255,114,.3);
-}
-
-.welcome p{
-    color:#777f79;
-
-    font-size:14px;
-}
-
-/* =========================================================
-   PROFILE
-========================================================= */
-
-.profile-box{
-    margin-bottom:30px;
-
-    padding:28px;
-
-    border-radius:20px;
+    transform:translateX(-50%);
 
     background:
-        linear-gradient(
-            145deg,
-            rgba(10,20,13,.92),
-            rgba(3,7,4,.95)
+        radial-gradient(
+            circle,
+            rgba(57,255,114,.12),
+            transparent 70%
         );
+
+    filter:blur(15px);
+
+    pointer-events:none;
+}
+
+.welcome-badge{
+    position:relative;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    margin-bottom:20px;
+
+    padding:
+        8px
+        14px;
+
+    border-radius:50px;
+
+    color:#8f9a92;
+
+    font-size:10px;
+
+    background:
+        rgba(57,255,114,.035);
 
     border:
         1px solid
         rgba(57,255,114,.13);
 
     box-shadow:
-        0 20px 60px
-        rgba(0,0,0,.35);
+        0 0 25px
+        rgba(57,255,114,.025);
+}
+
+.welcome-badge span{
+    width:6px;
+    height:6px;
+
+    border-radius:50%;
+
+    background:var(--green);
+
+    box-shadow:
+        0 0 9px
+        var(--green);
+}
+
+.welcome h1{
+    position:relative;
+
+    font-size:
+        clamp(32px,6vw,58px);
+
+    line-height:1.25;
+
+    font-weight:1000;
+
+    margin-bottom:16px;
+
+    letter-spacing:-1px;
+}
+
+.green{
+    color:var(--green);
+
+    text-shadow:
+        0 0 18px
+        rgba(57,255,114,.28),
+        0 0 50px
+        rgba(57,255,114,.08);
+}
+
+.welcome p{
+    color:#69746d;
+
+    font-size:13px;
+
+    line-height:2;
+}
+
+
+/* =========================================================
+   SECTION LABEL
+========================================================= */
+
+.section-label{
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin:
+        0
+        0
+        16px;
+
+    color:#7b857e;
+
+    font-size:11px;
+
+    font-weight:bold;
+}
+
+.section-label::before{
+    content:"";
+
+    width:24px;
+    height:2px;
+
+    border-radius:10px;
+
+    background:var(--green);
+
+    box-shadow:
+        0 0 12px
+        rgba(57,255,114,.4);
+}
+
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+.profile-box{
+    position:relative;
+
+    margin-bottom:22px;
+
+    padding:26px;
+
+    border-radius:24px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(10,21,13,.78),
+            rgba(3,8,5,.82)
+        );
+
+    border:
+        1px solid
+        var(--border);
+
+    backdrop-filter:blur(18px);
+
+    overflow:hidden;
+
+    box-shadow:
+        0 25px 70px
+        rgba(0,0,0,.28);
+
+    animation:
+        fadeUp .7s .1s ease both;
+}
+
+.profile-box::before{
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    right:0;
+
+    width:220px;
+    height:100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(57,255,114,.025)
+        );
+
+    pointer-events:none;
+}
+
+.profile-box::after{
+    content:"";
+
+    position:absolute;
+
+    width:90px;
+    height:90px;
+
+    top:-55px;
+    right:25%;
+
+    border-radius:50%;
+
+    background:var(--green);
+
+    filter:blur(70px);
+
+    opacity:.07;
 }
 
 .profile-title{
+    position:relative;
+
     display:flex;
+
     align-items:center;
-    gap:12px;
+
+    gap:10px;
 
     margin-bottom:20px;
 
-    font-size:18px;
+    color:#fff;
+
+    font-size:16px;
+
+    font-weight:bold;
 }
 
 .profile-title span{
-    color:#39ff72;
+    display:flex;
+
+    width:9px;
+    height:9px;
+
+    border-radius:50%;
+
+    background:var(--green);
+
+    box-shadow:
+        0 0 12px
+        var(--green);
 }
 
 .profile-content{
     display:flex;
+
     align-items:center;
-    gap:20px;
+
+    gap:18px;
 }
 
 .avatar{
-    width:64px;
-    height:64px;
+    position:relative;
+
+    width:72px;
+    height:72px;
 
     flex-shrink:0;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
-    border-radius:18px;
+    border-radius:21px;
+
+    color:var(--green);
+
+    font-size:28px;
 
     background:
-        rgba(57,255,114,.07);
+        linear-gradient(
+            145deg,
+            rgba(57,255,114,.12),
+            rgba(57,255,114,.025)
+        );
 
     border:
         1px solid
-        rgba(57,255,114,.2);
-
-    color:#39ff72;
-
-    font-size:25px;
+        rgba(57,255,114,.25);
 
     box-shadow:
-        0 0 25px
-        rgba(57,255,114,.07);
+        inset 0 0 25px
+        rgba(57,255,114,.035),
+        0 0 30px
+        rgba(57,255,114,.045);
+}
+
+.avatar::before{
+    content:"";
+
+    position:absolute;
+
+    inset:5px;
+
+    border-radius:17px;
+
+    border:
+        1px dashed
+        rgba(57,255,114,.15);
 }
 
 .profile-info{
     min-width:0;
+
+    flex:1;
 }
 
 .profile-label{
-    color:#626a65;
-    font-size:11px;
-    margin-bottom:7px;
+    color:#59625d;
+
+    font-size:10px;
+
+    margin-bottom:8px;
 }
 
 .profile-username{
     color:#fff;
-    font-size:18px;
-    font-weight:bold;
+
+    font-size:19px;
+
+    font-weight:900;
 
     word-break:break-word;
 }
+
+.profile-online{
+    display:flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    margin-top:8px;
+
+    color:#58635c;
+
+    font-size:9px;
+}
+
+.profile-online span{
+    width:5px;
+    height:5px;
+
+    border-radius:50%;
+
+    background:var(--green);
+
+    box-shadow:
+        0 0 8px
+        var(--green);
+}
+
 
 /* =========================================================
    SETTINGS
 ========================================================= */
 
 .settings{
-    margin-bottom:35px;
+    position:relative;
 
-    padding:28px;
+    margin-bottom:38px;
 
-    border-radius:20px;
+    padding:27px;
 
-    background:#050a06;
+    border-radius:24px;
+
+    background:
+        rgba(5,11,7,.72);
 
     border:
         1px solid
-        #172219;
+        rgba(57,255,114,.1);
+
+    backdrop-filter:blur(15px);
+
+    animation:
+        fadeUp .7s .2s ease both;
+}
+
+.settings-top{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    margin-bottom:18px;
 }
 
 .settings h2{
-    font-size:18px;
-    margin-bottom:7px;
+    font-size:16px;
+
+    margin-bottom:6px;
 }
 
 .settings-description{
-    color:#666e68;
+    color:#5d6760;
 
-    font-size:12px;
+    font-size:10px;
+}
 
-    margin-bottom:20px;
+.settings-tag{
+    padding:
+        7px
+        11px;
+
+    border-radius:8px;
+
+    color:#68746c;
+
+    font-size:9px;
+
+    background:
+        rgba(57,255,114,.035);
+
+    border:
+        1px solid
+        rgba(57,255,114,.1);
 }
 
 .username-row{
     display:flex;
-    gap:12px;
+
+    gap:10px;
 }
 
 .username-row input{
@@ -348,78 +806,167 @@ body::after{
 
     min-width:0;
 
-    height:48px;
+    height:52px;
 
-    padding:0 16px;
+    padding:
+        0
+        17px;
 
-    border-radius:12px;
-
-    border:
-        1px solid
-        #243127;
+    border-radius:14px;
 
     outline:none;
 
-    background:#020503;
+    border:
+        1px solid
+        #1c2920;
+
+    background:
+        rgba(1,5,3,.75);
 
     color:#fff;
 
     font-family:inherit;
 
-    transition:.25s;
+    font-size:12px;
+
+    transition:.3s;
+}
+
+.username-row input::placeholder{
+    color:#414a44;
 }
 
 .username-row input:focus{
-    border-color:#39ff72;
+    border-color:
+        rgba(57,255,114,.5);
+
+    background:
+        rgba(57,255,114,.025);
 
     box-shadow:
-        0 0 18px
-        rgba(57,255,114,.08);
+        0 0 0 4px
+        rgba(57,255,114,.035),
+        0 0 25px
+        rgba(57,255,114,.045);
 }
 
 .username-row button{
-    width:130px;
+    position:relative;
+
+    width:145px;
 
     border:none;
 
-    border-radius:12px;
+    border-radius:14px;
 
-    background:#39ff72;
+    background:
+        linear-gradient(
+            135deg,
+            #39ff72,
+            #19e95c
+        );
 
-    color:#020503;
+    color:#021006;
 
     font-family:inherit;
 
-    font-weight:900;
+    font-size:11px;
+
+    font-weight:1000;
 
     cursor:pointer;
 
-    transition:.25s;
+    overflow:hidden;
+
+    transition:.3s;
+}
+
+.username-row button::before{
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:-100%;
+
+    width:60%;
+    height:100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.28),
+            transparent
+        );
+
+    transition:.5s;
 }
 
 .username-row button:hover{
     transform:translateY(-2px);
 
     box-shadow:
-        0 10px 25px
-        rgba(57,255,114,.15);
+        0 12px 30px
+        rgba(57,255,114,.16);
+}
+
+.username-row button:hover::before{
+    left:130%;
 }
 
 .username-row button:disabled{
     opacity:.5;
+
     cursor:not-allowed;
+
     transform:none;
+
+    box-shadow:none;
 }
 
 .status{
-    min-height:20px;
+    min-height:18px;
 
-    margin-top:12px;
+    margin-top:11px;
 
-    color:#6d756f;
+    color:#657069;
 
-    font-size:12px;
+    font-size:10px;
 }
+
+
+/* =========================================================
+   CARDS HEADER
+========================================================= */
+
+.cards-header{
+    display:flex;
+
+    align-items:end;
+
+    justify-content:space-between;
+
+    margin-bottom:18px;
+
+    animation:
+        fadeUp .7s .25s ease both;
+}
+
+.cards-title{
+    font-size:22px;
+
+    font-weight:1000;
+}
+
+.cards-subtitle{
+    color:#555f58;
+
+    font-size:10px;
+
+    margin-top:6px;
+}
+
 
 /* =========================================================
    CARDS
@@ -431,39 +978,48 @@ body::after{
     grid-template-columns:
         repeat(3,1fr);
 
-    gap:18px;
+    gap:17px;
 
-    margin-bottom:60px;
+    margin-bottom:70px;
 }
 
 .card{
+    --mx:50%;
+    --my:50%;
+
     position:relative;
 
-    min-height:190px;
+    min-height:205px;
 
-    padding:27px;
+    padding:26px;
 
-    border-radius:20px;
+    border-radius:23px;
+
+    overflow:hidden;
+
+    cursor:pointer;
 
     background:
         linear-gradient(
             145deg,
-            rgba(9,17,11,.94),
-            rgba(3,7,4,.97)
+            rgba(9,18,12,.86),
+            rgba(2,7,4,.91)
         );
 
     border:
         1px solid
-        rgba(57,255,114,.1);
+        rgba(57,255,114,.105);
 
-    cursor:pointer;
+    backdrop-filter:blur(15px);
 
-    overflow:hidden;
+    box-shadow:
+        0 15px 45px
+        rgba(0,0,0,.22);
 
     transition:
-        transform .3s,
-        border-color .3s,
-        box-shadow .3s;
+        transform .35s cubic-bezier(.2,.8,.2,1),
+        border-color .35s,
+        box-shadow .35s;
 }
 
 .card::before{
@@ -471,108 +1027,216 @@ body::after{
 
     position:absolute;
 
-    width:100px;
-    height:100px;
+    inset:0;
 
-    top:-50px;
-    left:-50px;
+    background:
+        radial-gradient(
+            circle at var(--mx) var(--my),
+            rgba(57,255,114,.105),
+            transparent 28%
+        );
 
-    background:#39ff72;
+    opacity:0;
 
-    opacity:.025;
+    transition:.3s;
 
-    border-radius:50%;
+    pointer-events:none;
+}
 
-    transition:.4s;
+.card::after{
+    content:"";
+
+    position:absolute;
+
+    width:140px;
+    height:1px;
+
+    right:-40px;
+    top:30px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(57,255,114,.25),
+            transparent
+        );
+
+    transform:rotate(-35deg);
+
+    opacity:.4;
 }
 
 .card:hover{
-    transform:translateY(-6px);
+    transform:
+        translateY(-8px)
+        scale(1.008);
+
+    border-color:
+        rgba(57,255,114,.32);
+
+    box-shadow:
+        0 25px 60px
+        rgba(0,0,0,.4),
+        0 0 35px
+        rgba(57,255,114,.045);
+}
+
+.card:hover::before{
+    opacity:1;
+}
+
+.card-icon{
+    position:relative;
+
+    width:53px;
+    height:53px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin-bottom:22px;
+
+    border-radius:16px;
+
+    font-size:23px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(57,255,114,.09),
+            rgba(57,255,114,.025)
+        );
+
+    border:
+        1px solid
+        rgba(57,255,114,.15);
+
+    box-shadow:
+        inset 0 0 20px
+        rgba(57,255,114,.025);
+
+    transition:.35s;
+}
+
+.card:hover .card-icon{
+    transform:
+        translateY(-3px)
+        rotate(-2deg);
 
     border-color:
         rgba(57,255,114,.35);
 
     box-shadow:
-        0 20px 50px
-        rgba(0,0,0,.4),
         0 0 25px
-        rgba(57,255,114,.04);
-}
-
-.card:hover::before{
-    transform:scale(2);
-}
-
-.card-icon{
-    width:48px;
-    height:48px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:14px;
-
-    margin-bottom:20px;
-
-    background:
-        rgba(57,255,114,.06);
-
-    border:
-        1px solid
-        rgba(57,255,114,.13);
-
-    font-size:22px;
+        rgba(57,255,114,.08);
 }
 
 .card h3{
-    font-size:17px;
+    position:relative;
 
-    margin-bottom:10px;
+    font-size:16px;
+
+    margin-bottom:9px;
+
+    font-weight:900;
 }
 
 .card p{
-    color:#666e68;
+    position:relative;
 
-    line-height:1.9;
+    color:#5f6962;
 
-    font-size:12px;
+    font-size:10px;
+
+    line-height:2;
+
+    max-width:270px;
 }
 
+.card-arrow{
+    position:absolute;
+
+    bottom:22px;
+    left:23px;
+
+    color:#39433d;
+
+    font-size:17px;
+
+    transition:.3s;
+}
+
+.card:hover .card-arrow{
+    color:var(--green);
+
+    transform:
+        translateX(-5px);
+}
+
+
+/* =========================================================
+   DISABLED RANKING
+========================================================= */
+
 .disabled-card{
-    opacity:.5;
+    opacity:.46;
+
     cursor:not-allowed;
+
+    filter:saturate(.65);
 }
 
 .disabled-card:hover{
     transform:none;
 
     border-color:
-        rgba(57,255,114,.1);
+        rgba(57,255,114,.105);
 
-    box-shadow:none;
+    box-shadow:
+        0 15px 45px
+        rgba(0,0,0,.22);
+}
+
+.disabled-card:hover .card-icon{
+    transform:none;
+
+    border-color:
+        rgba(57,255,114,.15);
+
+    box-shadow:
+        inset 0 0 20px
+        rgba(57,255,114,.025);
 }
 
 .soon{
-    display:inline-block;
+    position:relative;
 
-    margin-top:12px;
+    display:inline-flex;
 
-    padding:5px 10px;
+    margin-top:15px;
+
+    padding:
+        5px
+        10px;
 
     border-radius:20px;
 
     color:#39ff72;
 
     background:
-        rgba(57,255,114,.06);
+        rgba(57,255,114,.045);
 
     border:
         1px solid
         rgba(57,255,114,.12);
 
-    font-size:10px;
+    font-size:8px;
 }
+
 
 /* =========================================================
    WALLET CARD
@@ -580,32 +1244,53 @@ body::after{
 
 .wallet-card{
     border-color:
-        rgba(57,255,114,.22);
+        rgba(57,255,114,.2);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(10,27,15,.9),
+            rgba(2,8,4,.94)
+        );
 }
 
-.wallet-card:hover{
-    border-color:#39ff72;
-
-    box-shadow:
-        0 20px 55px
-        rgba(0,0,0,.45),
-        0 0 30px
-        rgba(57,255,114,.08);
+.wallet-card .card-icon{
+    background:
+        linear-gradient(
+            145deg,
+            rgba(57,255,114,.14),
+            rgba(57,255,114,.025)
+        );
 }
 
 .wallet-balance{
-    margin-top:14px;
+    position:relative;
 
-    color:#39ff72;
+    margin-top:15px;
 
-    font-size:16px;
+    color:var(--green);
 
-    font-weight:900;
+    font-size:15px;
+
+    font-weight:1000;
 
     text-shadow:
-        0 0 13px
-        rgba(57,255,114,.25);
+        0 0 15px
+        rgba(57,255,114,.2);
 }
+
+
+/* =========================================================
+   ADMIN
+========================================================= */
+
+.admin-card{
+    display:none;
+
+    border-color:
+        rgba(57,255,114,.18);
+}
+
 
 /* =========================================================
    WALLET OVERLAY
@@ -619,6 +1304,7 @@ body::after{
     display:none;
 
     align-items:center;
+
     justify-content:center;
 
     padding:20px;
@@ -626,14 +1312,16 @@ body::after{
     background:
         rgba(0,0,0,.82);
 
-    backdrop-filter:blur(13px);
+    backdrop-filter:
+        blur(18px);
 
-    z-index:5000;
+    z-index:6000;
 }
 
 .wallet-overlay.active{
     display:flex;
 }
+
 
 /* =========================================================
    WALLET MODAL
@@ -643,129 +1331,231 @@ body::after{
     position:relative;
 
     width:100%;
-    max-width:470px;
 
-    padding:34px;
+    max-width:500px;
 
-    border-radius:25px;
+    padding:32px;
+
+    border-radius:29px;
 
     background:
         linear-gradient(
             145deg,
-            #0b170d,
-            #020503
+            rgba(11,25,15,.97),
+            rgba(2,6,3,.98)
         );
 
     border:
         1px solid
-        rgba(57,255,114,.28);
+        rgba(57,255,114,.27);
 
     box-shadow:
-        0 30px 100px
-        rgba(0,0,0,.75),
-        0 0 50px
-        rgba(57,255,114,.06);
+        0 40px 120px
+        rgba(0,0,0,.8),
+        0 0 60px
+        rgba(57,255,114,.055);
+
+    overflow:hidden;
 
     animation:
-        walletIn .3s ease;
+        walletIn .35s cubic-bezier(.2,.8,.2,1);
+}
+
+.wallet-modal::before{
+    content:"";
+
+    position:absolute;
+
+    width:280px;
+    height:180px;
+
+    top:-120px;
+    right:-70px;
+
+    border-radius:50%;
+
+    background:var(--green);
+
+    filter:blur(100px);
+
+    opacity:.08;
+}
+
+.wallet-modal::after{
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        linear-gradient(
+            125deg,
+            transparent 40%,
+            rgba(57,255,114,.018),
+            transparent 60%
+        );
+
+    pointer-events:none;
 }
 
 @keyframes walletIn{
 
     from{
         opacity:0;
+
         transform:
-            translateY(25px)
-            scale(.95);
+            translateY(30px)
+            scale(.94);
     }
 
     to{
         opacity:1;
+
         transform:
             translateY(0)
             scale(1);
     }
+
 }
 
 .wallet-close{
     position:absolute;
 
-    top:15px;
-    left:15px;
+    top:17px;
+    left:17px;
 
-    width:37px;
-    height:37px;
+    width:38px;
+    height:38px;
 
-    border-radius:10px;
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:11px;
 
     border:
         1px solid
-        #29352c;
+        #243027;
 
-    background:#080d09;
+    background:
+        rgba(2,7,4,.8);
 
-    color:#888f8a;
+    color:#737c76;
 
     cursor:pointer;
 
     font-size:21px;
 
     transition:.25s;
+
+    z-index:5;
 }
 
 .wallet-close:hover{
-    color:#ff6262;
+    color:#ff6666;
 
-    border-color:#ff6262;
+    border-color:#ff6666;
 
-    transform:rotate(5deg);
+    transform:rotate(90deg);
 }
 
+
+/* =========================================================
+   WALLET HEADER
+========================================================= */
+
 .wallet-header{
+    position:relative;
+
     text-align:center;
 
     margin-bottom:24px;
+
+    z-index:1;
 }
 
 .wallet-icon-big{
-    width:68px;
-    height:68px;
+    position:relative;
+
+    width:76px;
+    height:76px;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
-    margin:0 auto 15px;
+    margin:
+        0
+        auto
+        16px;
 
-    border-radius:20px;
+    border-radius:23px;
+
+    font-size:32px;
 
     background:
-        rgba(57,255,114,.07);
+        linear-gradient(
+            145deg,
+            rgba(57,255,114,.13),
+            rgba(57,255,114,.025)
+        );
 
     border:
         1px solid
-        rgba(57,255,114,.2);
-
-    font-size:30px;
+        rgba(57,255,114,.25);
 
     box-shadow:
-        0 0 35px
-        rgba(57,255,114,.08);
+        0 0 40px
+        rgba(57,255,114,.07),
+        inset 0 0 25px
+        rgba(57,255,114,.035);
+
+    animation:
+        walletPulse 3s ease-in-out infinite;
+}
+
+@keyframes walletPulse{
+
+    0%,
+    100%{
+        box-shadow:
+            0 0 35px
+            rgba(57,255,114,.05),
+            inset 0 0 25px
+            rgba(57,255,114,.025);
+    }
+
+    50%{
+        box-shadow:
+            0 0 50px
+            rgba(57,255,114,.1),
+            inset 0 0 30px
+            rgba(57,255,114,.04);
+    }
+
 }
 
 .wallet-title{
-    font-size:25px;
+    font-size:26px;
 
-    margin-bottom:8px;
+    font-weight:1000;
+
+    margin-bottom:7px;
 }
 
 .wallet-description{
-    color:#69716b;
+    color:#68736c;
 
-    font-size:12px;
+    font-size:10px;
 
-    line-height:1.8;
+    line-height:2;
 }
+
 
 /* =========================================================
    WALLET BALANCE
@@ -774,26 +1564,26 @@ body::after{
 .wallet-balance-box{
     position:relative;
 
-    padding:25px;
+    padding:27px 20px;
 
-    border-radius:18px;
+    border-radius:20px;
+
+    text-align:center;
+
+    margin-bottom:17px;
+
+    overflow:hidden;
 
     background:
         linear-gradient(
             145deg,
-            rgba(57,255,114,.075),
-            rgba(57,255,114,.02)
+            rgba(57,255,114,.095),
+            rgba(57,255,114,.018)
         );
 
     border:
         1px solid
-        rgba(57,255,114,.18);
-
-    text-align:center;
-
-    margin-bottom:18px;
-
-    overflow:hidden;
+        rgba(57,255,114,.2);
 }
 
 .wallet-balance-box::before{
@@ -802,16 +1592,18 @@ body::after{
     position:absolute;
 
     top:0;
-    left:-100%;
+    left:-120%;
 
-    width:70%;
+    width:80%;
     height:100%;
+
+    transform:skewX(-20deg);
 
     background:
         linear-gradient(
             90deg,
             transparent,
-            rgba(255,255,255,.035),
+            rgba(255,255,255,.045),
             transparent
         );
 
@@ -822,67 +1614,91 @@ body::after{
 @keyframes walletShine{
 
     0%{
-        left:-100%;
+        left:-120%;
     }
 
     45%,
     100%{
-        left:130%;
+        left:140%;
     }
+
 }
 
 .wallet-balance-label{
-    color:#777f79;
+    position:relative;
 
-    font-size:12px;
+    color:#727c75;
 
-    margin-bottom:10px;
+    font-size:10px;
+
+    margin-bottom:11px;
 }
 
 .wallet-balance-value{
-    color:#39ff72;
+    position:relative;
 
-    font-size:29px;
+    color:var(--green);
 
-    font-weight:900;
+    font-size:31px;
+
+    font-weight:1000;
 
     text-shadow:
-        0 0 18px
+        0 0 20px
         rgba(57,255,114,.25);
 }
+
 
 /* =========================================================
    WALLET INFO
 ========================================================= */
 
+.wallet-info-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:11px;
+}
+
 .wallet-info-box{
-    padding:15px 17px;
+    padding:16px;
 
-    margin-top:12px;
+    border-radius:15px;
 
-    border-radius:13px;
-
-    background:#070c08;
+    background:
+        rgba(3,9,5,.8);
 
     border:
         1px solid
-        #1d2920;
+        #1b2820;
+
+    transition:.25s;
+}
+
+.wallet-info-box:hover{
+    border-color:
+        rgba(57,255,114,.2);
+
+    background:
+        rgba(57,255,114,.025);
 }
 
 .wallet-info-label{
     display:block;
 
-    color:#666e68;
+    color:#59645d;
 
-    font-size:11px;
+    font-size:9px;
 
-    margin-bottom:8px;
+    margin-bottom:9px;
 }
 
 .wallet-info-value{
     color:#fff;
 
-    font-size:14px;
+    font-size:12px;
 
     font-weight:bold;
 
@@ -891,6 +1707,7 @@ body::after{
     text-align:left;
 }
 
+
 /* =========================================================
    PAYMENT NOTE
 ========================================================= */
@@ -898,24 +1715,24 @@ body::after{
 .wallet-payment-note{
     position:relative;
 
-    margin-top:18px;
+    margin-top:13px;
 
-    padding:17px 18px;
+    padding:19px;
 
-    border-radius:15px;
+    border-radius:17px;
+
+    text-align:center;
 
     background:
         linear-gradient(
             135deg,
-            rgba(57,255,114,.08),
-            rgba(57,255,114,.025)
+            rgba(57,255,114,.075),
+            rgba(57,255,114,.015)
         );
 
     border:
         1px solid
-        rgba(57,255,114,.2);
-
-    text-align:center;
+        rgba(57,255,114,.18);
 
     overflow:hidden;
 }
@@ -927,82 +1744,121 @@ body::after{
 
     inset:0;
 
-    border-radius:15px;
-
-    box-shadow:
-        inset 0 0 25px
-        rgba(57,255,114,.025);
+    background:
+        radial-gradient(
+            circle at 50% 0,
+            rgba(57,255,114,.08),
+            transparent 55%
+        );
 
     pointer-events:none;
 }
 
 .payment-icon{
+    position:relative;
+
     display:block;
 
-    margin-bottom:8px;
+    margin-bottom:7px;
 
     font-size:18px;
 }
 
 .payment-text{
-    color:#9aa29c;
+    position:relative;
 
-    font-size:11px;
+    color:#89938c;
+
+    font-size:10px;
 
     line-height:2;
 }
 
 .payment-id{
+    position:relative;
+
     display:inline-block;
 
-    margin-top:4px;
+    margin-top:5px;
 
     direction:ltr;
 
-    color:#39ff72;
+    color:var(--green);
 
-    font-size:14px;
+    font-size:15px;
 
-    font-weight:900;
+    font-weight:1000;
 
     letter-spacing:.5px;
 
     text-shadow:
-        0 0 10px
-        rgba(57,255,114,.2);
+        0 0 12px
+        rgba(57,255,114,.25);
 }
+
 
 /* =========================================================
    FOOTER
 ========================================================= */
 
 footer{
-    padding:30px 20px 40px;
+    position:relative;
+
+    padding:
+        30px
+        20px
+        42px;
 
     text-align:center;
 
     border-top:
         1px solid
-        rgba(57,255,114,.08);
+        rgba(57,255,114,.07);
 
-    color:#454c47;
+    color:#3f4942;
 
-    font-size:11px;
+    font-size:9px;
 }
+
+.footer-logo{
+    color:#59645d;
+
+    font-weight:bold;
+
+    letter-spacing:2px;
+
+    margin-bottom:7px;
+}
+
 
 /* =========================================================
-   ADMIN
+   ANIMATIONS
 ========================================================= */
 
-.admin-card{
-    display:none;
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+
+        transform:
+            translateY(20px);
+    }
+
+    to{
+        opacity:1;
+
+        transform:
+            translateY(0);
+    }
+
 }
+
 
 /* =========================================================
    RESPONSIVE
 ========================================================= */
 
-@media(max-width:900px){
+@media(max-width:950px){
 
     .cards{
         grid-template-columns:
@@ -1010,15 +1866,29 @@ footer{
     }
 
     .nav-links{
-        gap:15px;
+        gap:2px;
+    }
+
+    .nav-links a{
+        padding:
+            9px 8px;
     }
 
 }
 
-@media(max-width:650px){
+
+@media(max-width:680px){
 
     .navbar{
-        padding:0 5%;
+        height:65px;
+
+        padding:
+            0
+            5%;
+    }
+
+    .logo{
+        font-size:20px;
     }
 
     .nav-links{
@@ -1026,15 +1896,19 @@ footer{
     }
 
     .welcome{
-        padding-top:50px;
+        padding:
+            65px
+            15px
+            45px;
     }
 
-    .cards{
-        grid-template-columns:1fr;
+    .welcome h1{
+        font-size:34px;
     }
 
-    .profile-content{
-        align-items:flex-start;
+    .profile-box,
+    .settings{
+        padding:21px;
     }
 
     .username-row{
@@ -1043,11 +1917,56 @@ footer{
 
     .username-row button{
         width:100%;
-        height:48px;
+
+        height:50px;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+
+        gap:14px;
+    }
+
+    .card{
+        min-height:185px;
+
+        padding:23px;
     }
 
     .wallet-modal{
-        padding:28px 20px;
+        padding:28px 18px;
+
+        border-radius:24px;
+    }
+
+    .wallet-info-grid{
+        grid-template-columns:1fr;
+    }
+
+    .wallet-balance-value{
+        font-size:27px;
+    }
+
+}
+
+
+@media(max-width:390px){
+
+    .welcome h1{
+        font-size:29px;
+    }
+
+    .welcome p{
+        font-size:11px;
+    }
+
+    .profile-content{
+        align-items:flex-start;
+    }
+
+    .avatar{
+        width:60px;
+        height:60px;
     }
 
 }
@@ -1060,6 +1979,10 @@ footer{
 <body>
 
 
+<div class="ambient one"></div>
+<div class="ambient two"></div>
+
+
 <!-- =======================================================
      NAVBAR
 ======================================================= -->
@@ -1067,7 +1990,7 @@ footer{
 <nav class="navbar">
 
     <div class="logo">
-        CALLAFINO.
+        CALLAFINO
     </div>
 
     <div class="nav-links">
@@ -1114,18 +2037,27 @@ footer{
 
 <section class="welcome">
 
+    <div class="welcome-badge">
+        <span></span>
+        حساب کاربری شما فعال است
+    </div>
+
     <h1>
+
         خوش آمدی
+
         <span
             class="green"
             id="usernameText"
         >
             کاربر
         </span>
+
     </h1>
 
     <p>
-        به داشبورد حساب کاربری CALLAFINO خوش آمدید.
+        مرکز کنترل حساب کاربری شما در
+        <b class="green">CALLAFINO</b>
     </p>
 
 </section>
@@ -1135,18 +2067,28 @@ footer{
      PROFILE
 ======================================================= -->
 
+<div class="section-label">
+    ACCOUNT
+</div>
+
+
 <section class="profile-box">
 
     <div class="profile-title">
-        <span>●</span>
+
+        <span></span>
+
         پروفایل شما
+
     </div>
+
 
     <div class="profile-content">
 
         <div class="avatar">
             👤
         </div>
+
 
         <div class="profile-info">
 
@@ -1159,6 +2101,14 @@ footer{
                 id="profileUsername"
             >
                 در حال دریافت...
+            </div>
+
+            <div class="profile-online">
+
+                <span></span>
+
+                حساب کاربری فعال
+
             </div>
 
         </div>
@@ -1174,22 +2124,38 @@ footer{
 
 <section class="settings">
 
-    <h2>
-        تنظیمات حساب
-    </h2>
+    <div class="settings-top">
 
-    <p class="settings-description">
-        نام کاربری خود را تغییر دهید.
-    </p>
+        <div>
+
+            <h2>
+                تنظیمات حساب
+            </h2>
+
+            <p class="settings-description">
+                نام نمایشی خود را مدیریت کنید.
+            </p>
+
+        </div>
+
+
+        <div class="settings-tag">
+            PROFILE
+        </div>
+
+    </div>
+
 
     <div class="username-row">
 
         <input
             type="text"
             id="usernameInput"
-            placeholder="نام کاربری جدید"
+            placeholder="نام کاربری جدید..."
             maxlength="30"
+            autocomplete="off"
         >
+
 
         <button
             type="button"
@@ -1200,12 +2166,34 @@ footer{
 
     </div>
 
+
     <div
         class="status"
         id="status"
     ></div>
 
 </section>
+
+
+<!-- =======================================================
+     CARDS HEADER
+======================================================= -->
+
+<div class="cards-header">
+
+    <div>
+
+        <div class="cards-title">
+            مرکز کنترل
+        </div>
+
+        <div class="cards-subtitle">
+            دسترسی سریع به امکانات CALLAFINO
+        </div>
+
+    </div>
+
+</div>
 
 
 <!-- =======================================================
@@ -1231,8 +2219,13 @@ footer{
         </h3>
 
         <p>
-            مشاهده و شرکت در تورنمنت‌های CALLAFINO.
+            مشاهده مسابقات، ثبت‌نام و شرکت
+            در رقابت‌های CALLAFINO.
         </p>
+
+        <div class="card-arrow">
+            ←
+        </div>
 
     </div>
 
@@ -1253,8 +2246,13 @@ footer{
         </h3>
 
         <p>
-            دوستان خود را پیدا کنید و با آن‌ها ارتباط داشته باشید.
+            دوستان خود را پیدا کنید و با
+            بازیکنان دیگر ارتباط داشته باشید.
         </p>
+
+        <div class="card-arrow">
+            ←
+        </div>
 
     </div>
 
@@ -1275,8 +2273,13 @@ footer{
         </h3>
 
         <p>
-            اسکواد خود را مدیریت کنید و برای مسابقات آماده شوید.
+            اسکواد خود را مدیریت کنید و
+            برای رقابت‌های گروهی آماده شوید.
         </p>
+
+        <div class="card-arrow">
+            ←
+        </div>
 
     </div>
 
@@ -1297,17 +2300,20 @@ footer{
         </h3>
 
         <p>
-            آیتم‌ها و امکانات مختلف CALLAFINO را مشاهده کنید.
+            آیتم‌ها و امکانات مختلف
+            CALLAFINO را مشاهده کنید.
         </p>
+
+        <div class="card-arrow">
+            ←
+        </div>
 
     </div>
 
 
     <!-- RANKING -->
 
-    <div
-        class="card disabled-card"
-    >
+    <div class="card disabled-card">
 
         <div class="card-icon">
             📊
@@ -1318,7 +2324,8 @@ footer{
         </h3>
 
         <p>
-            سیستم رتبه‌بندی CALLAFINO به‌زودی فعال می‌شود.
+            سیستم رتبه‌بندی بازیکنان
+            CALLAFINO به‌زودی فعال خواهد شد.
         </p>
 
         <span class="soon">
@@ -1344,8 +2351,13 @@ footer{
         </h3>
 
         <p>
-            اخبار، مسابقات و امکانات مربوط به COD Mobile.
+            اخبار، مسابقات و امکانات
+            مربوط به COD Mobile.
         </p>
+
+        <div class="card-arrow">
+            ←
+        </div>
 
     </div>
 
@@ -1366,7 +2378,8 @@ footer{
         </h3>
 
         <p>
-            مشاهده موجودی کیف پول CALLAFINO.
+            موجودی و اطلاعات مالی حساب
+            CALLAFINO خود را مشاهده کنید.
         </p>
 
         <div
@@ -1374,6 +2387,10 @@ footer{
             id="walletCardBalance"
         >
             در حال دریافت...
+        </div>
+
+        <div class="card-arrow">
+            ←
         </div>
 
     </div>
@@ -1396,8 +2413,13 @@ footer{
         </h3>
 
         <p>
-            مدیریت کاربران، تورنمنت‌ها و سیستم CALLAFINO.
+            مدیریت کاربران، تورنمنت‌ها و
+            سیستم CALLAFINO.
         </p>
+
+        <div class="card-arrow">
+            ←
+        </div>
 
     </div>
 
@@ -1428,6 +2450,8 @@ footer{
         </button>
 
 
+        <!-- HEADER -->
+
         <div class="wallet-header">
 
             <div class="wallet-icon-big">
@@ -1439,7 +2463,7 @@ footer{
             </h2>
 
             <p class="wallet-description">
-                موجودی حساب شما در CALLAFINO
+                مدیریت موجودی و اطلاعات پرداخت حساب شما
             </p>
 
         </div>
@@ -1450,7 +2474,7 @@ footer{
         <div class="wallet-balance-box">
 
             <div class="wallet-balance-label">
-                موجودی فعلی
+                موجودی فعلی کیف پول
             </div>
 
             <div
@@ -1463,37 +2487,41 @@ footer{
         </div>
 
 
-        <!-- CARD NUMBER -->
+        <!-- INFO -->
 
-        <div class="wallet-info-box">
+        <div class="wallet-info-grid">
 
-            <span class="wallet-info-label">
-                💳 شماره کارت
-            </span>
 
-            <div class="wallet-info-value">
-                در حال تنظیم توسط ادمین
+            <div class="wallet-info-box">
+
+                <span class="wallet-info-label">
+                    💳 شماره کارت
+                </span>
+
+                <div class="wallet-info-value">
+                    در حال تنظیم توسط ادمین
+                </div>
+
             </div>
+
+
+            <div class="wallet-info-box">
+
+                <span class="wallet-info-label">
+                    🆔 شناسه پرداخت
+                </span>
+
+                <div class="wallet-info-value">
+                    در حال تنظیم توسط ادمین
+                </div>
+
+            </div>
+
 
         </div>
 
 
-        <!-- PAYMENT ID -->
-
-        <div class="wallet-info-box">
-
-            <span class="wallet-info-label">
-                🆔 شناسه پرداخت
-            </span>
-
-            <div class="wallet-info-value">
-                در حال تنظیم توسط ادمین
-            </div>
-
-        </div>
-
-
-        <!-- PAYMENT NOTE -->
+        <!-- PAYMENT -->
 
         <div class="wallet-payment-note">
 
@@ -1523,6 +2551,10 @@ footer{
 ======================================================= -->
 
 <footer>
+
+    <div class="footer-logo">
+        CALLAFINO
+    </div>
 
     © 2026 CALLAFINO — تمامی حقوق محفوظ است.
 
@@ -1623,6 +2655,7 @@ function showStatus(
         success
         ? "#39ff72"
         : "#ff7777";
+
 }
 
 
@@ -1649,6 +2682,7 @@ async function loadUser(){
             "login.html";
 
         return;
+
     }
 
 
@@ -1698,10 +2732,14 @@ async function loadProfile(){
         );
 
         return;
+
     }
 
 
-    if(data && data.username){
+    if(
+        data &&
+        data.username
+    ){
 
         usernameText.textContent =
             data.username;
@@ -1741,6 +2779,7 @@ saveBtn.addEventListener(
             );
 
             return;
+
         }
 
 
@@ -1755,6 +2794,7 @@ saveBtn.addEventListener(
             );
 
             return;
+
         }
 
 
@@ -1898,7 +2938,9 @@ saveBtn.addEventListener(
                 error.message &&
                 error.message
                     .toLowerCase()
-                    .includes("row-level security")
+                    .includes(
+                        "row-level security"
+                    )
             ){
 
                 showStatus(
@@ -1959,6 +3001,7 @@ async function checkAdmin(){
         );
 
         return;
+
     }
 
 
@@ -2123,7 +3166,7 @@ walletClose.addEventListener(
 
 
 /* =========================================================
-   CLOSE BY OUTSIDE CLICK
+   OUTSIDE CLICK
 ========================================================= */
 
 walletOverlay.addEventListener(
@@ -2146,7 +3189,7 @@ walletOverlay.addEventListener(
 
 
 /* =========================================================
-   ESC CLOSE
+   ESC
 ========================================================= */
 
 document.addEventListener(
@@ -2162,6 +3205,51 @@ document.addEventListener(
             );
 
         }
+
+    }
+);
+
+
+/* =========================================================
+   CARD MOUSE LIGHT
+========================================================= */
+
+document.querySelectorAll(
+    ".card"
+)
+.forEach(
+    function(card){
+
+        card.addEventListener(
+            "mousemove",
+            function(e){
+
+                const rect =
+                    card.getBoundingClientRect();
+
+                const x =
+                    ((e.clientX - rect.left)
+                    / rect.width)
+                    * 100;
+
+                const y =
+                    ((e.clientY - rect.top)
+                    / rect.height)
+                    * 100;
+
+
+                card.style.setProperty(
+                    "--mx",
+                    x + "%"
+                );
+
+                card.style.setProperty(
+                    "--my",
+                    y + "%"
+                );
+
+            }
+        );
 
     }
 );
