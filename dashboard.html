@@ -725,17 +725,62 @@ body::before{
         var(--green);
 }
 
+
+/* =========================================================
+   USER FIVE DIGIT ID
+========================================================= */
+
 .profile-user-code{
-    margin-top:6px;
+    display:flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    margin-top:7px;
+
     color:var(--green);
+
     font-size:10px;
+
     font-weight:bold;
-    letter-spacing:.7px;
+
+    letter-spacing:.8px;
+
     direction:ltr;
+
     text-align:right;
-    opacity:.85;
-    text-shadow:0 0 10px rgba(57,255,114,.15);
+
+    opacity:.9;
+
+    text-shadow:
+        0 0 10px
+        rgba(57,255,114,.15);
 }
+
+.profile-user-code-label{
+    color:#59645d;
+
+    font-size:9px;
+
+    letter-spacing:0;
+
+    direction:rtl;
+}
+
+.profile-user-code-value{
+    color:var(--green);
+
+    font-size:11px;
+
+    font-weight:1000;
+
+    letter-spacing:1.2px;
+
+    direction:ltr;
+}
+
+
 /* =========================================================
    SETTINGS
 ========================================================= */
@@ -2113,6 +2158,27 @@ footer{
                 در حال دریافت...
             </div>
 
+            <!-- USER FIVE DIGIT ID -->
+
+            <div
+                class="profile-user-code"
+                id="profileUserCode"
+            >
+
+                <span class="profile-user-code-label">
+                    ID:
+                </span>
+
+                <span
+                    class="profile-user-code-value"
+                    id="userCodeText"
+                >
+                    در حال دریافت...
+                </span>
+
+            </div>
+
+
             <div class="profile-online">
 
                 <span></span>
@@ -2616,6 +2682,11 @@ document.getElementById(
     "profileUsername"
 );
 
+const userCodeText =
+document.getElementById(
+    "userCodeText"
+);
+
 const usernameInput =
 document.getElementById(
     "usernameInput"
@@ -2726,7 +2797,9 @@ async function loadProfile(){
     } =
     await supabase
         .from("profiles")
-        .select("username")
+        .select(
+            "username,user_code"
+        )
         .eq(
             "id",
             currentUser.id
@@ -2740,6 +2813,9 @@ async function loadProfile(){
             "PROFILE ERROR:",
             error
         );
+
+        userCodeText.textContent =
+            "خطا";
 
         return;
 
@@ -2768,6 +2844,42 @@ async function loadProfile(){
 
         profileUsername.textContent =
             "نام کاربری تنظیم نشده";
+
+    }
+
+
+    /* =====================================================
+       USER CODE
+    ===================================================== */
+
+    if(
+        data &&
+        data.user_code !== null &&
+        data.user_code !== undefined
+    ){
+
+        /*
+         * تبدیل به رشته برای جلوگیری از نمایش
+         * علمی یا فرمت‌های ناخواسته
+         */
+
+        const userCode =
+            String(
+                data.user_code
+            ).padStart(
+                5,
+                "0"
+            );
+
+
+        userCodeText.textContent =
+            userCode;
+
+    }
+    else{
+
+        userCodeText.textContent =
+            "در حال تنظیم...";
 
     }
 
@@ -2840,6 +2952,14 @@ saveBtn.addEventListener(
 
             if(!existingProfile){
 
+                /*
+                 * فقط username و id را می‌فرستیم.
+                 *
+                 * user_code را خودمان نمی‌سازیم.
+                 * Trigger دیتابیس به صورت خودکار
+                 * یک ID پنج رقمی ایجاد می‌کند.
+                 */
+
                 const {
                     error:insertError
                 } =
@@ -2883,13 +3003,20 @@ saveBtn.addEventListener(
             }
 
 
+            /*
+             * دریافت مجدد پروفایل
+             * شامل username و user_code
+             */
+
             const {
                 data:verifiedProfile,
                 error:verifyError
             } =
             await supabase
                 .from("profiles")
-                .select("username")
+                .select(
+                    "username,user_code"
+                )
                 .eq(
                     "id",
                     currentUser.id
@@ -2903,18 +3030,45 @@ saveBtn.addEventListener(
 
 
             if(
-                verifiedProfile &&
-                verifiedProfile.username
+                verifiedProfile
             ){
 
-                usernameText.textContent =
-                    verifiedProfile.username;
+                if(
+                    verifiedProfile.username
+                ){
 
-                profileUsername.textContent =
-                    verifiedProfile.username;
+                    usernameText.textContent =
+                        verifiedProfile.username;
 
-                usernameInput.value =
-                    verifiedProfile.username;
+                    profileUsername.textContent =
+                        verifiedProfile.username;
+
+                    usernameInput.value =
+                        verifiedProfile.username;
+
+                }
+
+
+                /*
+                 * ID کاربر بعد از ذخیره username
+                 * دوباره خوانده می‌شود اما هرگز
+                 * تغییر داده نمی‌شود.
+                 */
+
+                if(
+                    verifiedProfile.user_code !== null &&
+                    verifiedProfile.user_code !== undefined
+                ){
+
+                    userCodeText.textContent =
+                        String(
+                            verifiedProfile.user_code
+                        ).padStart(
+                            5,
+                            "0"
+                        );
+
+                }
 
             }
 
