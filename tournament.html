@@ -1249,6 +1249,32 @@ function escapeHTML(value){
 
 
 /* =========================
+   FORMAT FEE
+========================= */
+
+function formatEntryFee(fee){
+
+    const amount =
+    Number(fee || 0);
+
+
+    if(amount <= 0){
+
+        return "رایگان";
+
+    }
+
+
+    return (
+        amount.toLocaleString("fa-IR")
+        +
+        " تومان"
+    );
+
+}
+
+
+/* =========================
    INIT
 ========================= */
 
@@ -1396,6 +1422,12 @@ async function loadTournaments(){
         );
 
 
+        const entryFee =
+        Number(
+            tournament.entry_fee || 0
+        );
+
+
         card.innerHTML = `
 
             ${image}
@@ -1438,6 +1470,16 @@ async function loadTournaments(){
                     ${escapeHTML(
                         tournament.tournament_time || "-"
                     )}
+
+                    <br>
+
+                    💰
+                    هزینه ثبت‌نام:
+                    <b>
+                        ${escapeHTML(
+                            formatEntryFee(entryFee)
+                        )}
+                    </b>
 
                 </div>
 
@@ -1549,6 +1591,15 @@ async function showDetails(tournament){
         <div class="detail-box">
             <strong>🪑 ظرفیت</strong>
             ${escapeHTML(tournament.max_players || "-")}
+        </div>
+
+        <div class="detail-box">
+            <strong>💰 هزینه ثبت‌نام</strong>
+            ${escapeHTML(
+                formatEntryFee(
+                    tournament.entry_fee
+                )
+            )}
         </div>
 
     `;
@@ -2054,11 +2105,39 @@ async function registerTournament(tournament){
     ).toLowerCase();
 
 
+    const entryFee =
+    Number(
+        tournament.entry_fee || 0
+    );
+
+
+    /*
+       قبل از هر کاری هزینه را به کاربر نشان می‌دهیم.
+       اگر رایگان باشد، بدون تأیید اضافه ادامه می‌دهیم.
+    */
+
+    if(entryFee > 0){
+
+        const confirmed =
+        confirm(
+            `هزینه ثبت‌نام این مسابقه ${formatEntryFee(entryFee)} است.\n\n` +
+            `این مبلغ از کیف پول داخلی CALLAFINO شما کسر می‌شود.\n\n` +
+            `آیا می‌خواهید ادامه دهید؟`
+        );
+
+
+        if(!confirmed)
+            return;
+
+    }
+
+
     if(type==="solo"){
 
         await doRegister(
             tournament.id,
-            null
+            null,
+            tournament
         );
 
         return;
@@ -2260,6 +2339,25 @@ async function loadTournamentFriends(){
                 : "۳ دوست انتخاب کن."
             }
 
+            ${
+                Number(
+                    selectedTournament?.entry_fee || 0
+                ) > 0
+                ?
+                `<br><br>
+                💰 هزینه:
+                <strong>
+                    ${escapeHTML(
+                        formatEntryFee(
+                            selectedTournament.entry_fee
+                        )
+                    )}
+                </strong>`
+                :
+                `<br><br>
+                💰 رایگان`
+            }
+
         </div>
 
         <div
@@ -2345,11 +2443,13 @@ async function loadTournamentFriends(){
         checkbox.addEventListener(
             "change",
             ()=>{
+
                 handleFriendSelection(
                     friend.id,
                     checkbox,
                     row
                 );
+
             }
         );
 
@@ -2708,14 +2808,20 @@ async function createTournamentTeam(){
 
     /*
        ثبت تیم در تورنمنت
+       و کسر اعتبار کیف پول
+       در یک عملیات دیتابیسی
     */
+
+    button.textContent =
+    "در حال ثبت‌نام و کسر اعتبار...";
+
 
     const {
         data,
         error
     } =
     await supabase.rpc(
-        "register_for_tournament",
+        "register_for_tournament_with_wallet",
         {
             p_tournament_id:
             selectedTournament.id,
@@ -2750,10 +2856,24 @@ async function createTournamentTeam(){
     }
 
 
+    const fee =
+    Number(
+        data?.fee || 0
+    );
+
+
+    const remainingBalance =
+    Number(
+        data?.remaining_balance || 0
+    );
+
+
     alert(
         `ثبت‌نام موفق بود! 🎉\n\n` +
         `${type==="duo" ? "Duo" : "Squad"} شما ثبت شد.\n` +
-        `Slot #${data.slot}`
+        `Slot #${data?.slot || "-"}\n\n` +
+        `💰 هزینه: ${formatEntryFee(fee)}\n` +
+        `💳 موجودی باقی‌مانده: ${formatEntryFee(remainingBalance)}`
     );
 
 
@@ -2807,15 +2927,45 @@ document
 
 async function doRegister(
     tournamentId,
-    squadId
+    squadId,
+    tournament
 ){
+
+    const entryFee =
+    Number(
+        tournament?.entry_fee || 0
+    );
+
+
+    /*
+       برای Solo هم قبل از ارسال درخواست
+       هزینه را نمایش می‌دهیم.
+       در Duo/Squad این تأیید در ابتدای
+       registerTournament انجام شده است.
+    */
+
+    if(entryFee > 0){
+
+        const confirmed =
+        confirm(
+            `هزینه ثبت‌نام این مسابقه ${formatEntryFee(entryFee)} است.\n\n` +
+            `این مبلغ از کیف پول داخلی CALLAFINO شما کسر می‌شود.\n\n` +
+            `آیا مطمئن هستید؟`
+        );
+
+
+        if(!confirmed)
+            return;
+
+    }
+
 
     const {
         data,
         error
     } =
     await supabase.rpc(
-        "register_for_tournament",
+        "register_for_tournament_with_wallet",
         {
             p_tournament_id:
             tournamentId,
@@ -2837,8 +2987,23 @@ async function doRegister(
     }
 
 
+    const fee =
+    Number(
+        data?.fee || 0
+    );
+
+
+    const remainingBalance =
+    Number(
+        data?.remaining_balance || 0
+    );
+
+
     alert(
-        `ثبت‌نام موفق بود.\nSlot #${data.slot}`
+        `ثبت‌نام موفق بود. 🎉\n\n` +
+        `Slot #${data?.slot || "-"}\n\n` +
+        `💰 هزینه: ${formatEntryFee(fee)}\n` +
+        `💳 موجودی باقی‌مانده: ${formatEntryFee(remainingBalance)}`
     );
 
 
