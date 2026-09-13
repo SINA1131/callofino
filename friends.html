@@ -58,17 +58,42 @@ body::before{
 
     background:
         radial-gradient(
-            circle at 20% 20%,
-            rgba(0,255,136,.08),
+            circle at 15% 15%,
+            rgba(0,255,136,.09),
             transparent 30%
         ),
         radial-gradient(
-            circle at 80% 80%,
-            rgba(0,255,136,.05),
+            circle at 85% 80%,
+            rgba(0,255,136,.06),
             transparent 30%
         );
 
     z-index:-2;
+}
+
+body::after{
+    content:"";
+
+    position:fixed;
+
+    width:500px;
+    height:500px;
+
+    border-radius:50%;
+
+    background:
+        rgba(0,255,136,.025);
+
+    filter:blur(100px);
+
+    top:30%;
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    pointer-events:none;
+
+    z-index:-1;
 }
 
 
@@ -97,11 +122,15 @@ body::before{
     background:
         rgba(5,5,5,.92);
 
-    backdrop-filter:blur(15px);
+    backdrop-filter:blur(18px);
 
     border-bottom:
         1px solid
         rgba(0,255,136,.15);
+
+    box-shadow:
+        0 5px 25px
+        rgba(0,0,0,.25);
 }
 
 .logo{
@@ -123,14 +152,16 @@ body::before{
 
     display:flex;
 
-    gap:25px;
-
     align-items:center;
+
+    gap:25px;
 }
 
 .nav-links a{
 
-    color:#aaa;
+    position:relative;
+
+    color:#999;
 
     text-decoration:none;
 
@@ -139,13 +170,37 @@ body::before{
     transition:.3s;
 }
 
+.nav-links a::after{
+
+    content:"";
+
+    position:absolute;
+
+    right:0;
+
+    bottom:-8px;
+
+    width:0;
+
+    height:2px;
+
+    background:#00ff88;
+
+    box-shadow:
+        0 0 8px
+        rgba(0,255,136,.6);
+
+    transition:.3s;
+}
+
 .nav-links a:hover{
 
     color:#00ff88;
+}
 
-    text-shadow:
-        0 0 8px
-        rgba(0,255,136,.5);
+.nav-links a:hover::after{
+
+    width:100%;
 }
 
 
@@ -179,11 +234,11 @@ body::before{
 
 .page-title h1{
 
-    font-size:36px;
+    font-size:38px;
 
     margin-bottom:12px;
 
-    color:#fff;
+    font-weight:900;
 }
 
 .page-title h1 span{
@@ -192,12 +247,12 @@ body::before{
 
     text-shadow:
         0 0 15px
-        rgba(0,255,136,.45);
+        rgba(0,255,136,.5);
 }
 
 .page-title p{
 
-    color:#777;
+    color:#666;
 
     font-size:14px;
 }
@@ -209,49 +264,71 @@ body::before{
 
 .search-box{
 
+    position:relative;
+
     background:
         linear-gradient(
             145deg,
-            rgba(20,20,20,.95),
-            rgba(8,8,8,.95)
+            rgba(18,18,18,.96),
+            rgba(7,7,7,.96)
         );
 
     border:
         1px solid
-        rgba(0,255,136,.15);
+        rgba(0,255,136,.13);
 
-    border-radius:20px;
+    border-radius:22px;
 
     padding:30px;
 
-    margin-bottom:30px;
+    margin-bottom:28px;
+
+    overflow:hidden;
 
     box-shadow:
-        0 10px 40px
-        rgba(0,0,0,.3);
+        0 15px 45px
+        rgba(0,0,0,.35);
 
     transition:.3s;
+}
+
+.search-box::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    right:0;
+
+    width:100%;
+
+    height:2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #00ff88,
+            transparent
+        );
+
+    opacity:.5;
 }
 
 .search-box:hover{
 
     border-color:
-        rgba(0,255,136,.35);
-
-    box-shadow:
-        0 10px 45px
-        rgba(0,255,136,.06);
+        rgba(0,255,136,.3);
 }
 
 .search-title{
 
-    font-size:20px;
+    font-size:21px;
 
     font-weight:bold;
 
     margin-bottom:8px;
-
-    color:#fff;
 }
 
 .search-subtitle{
@@ -276,13 +353,13 @@ body::before{
 
     height:52px;
 
-    border-radius:12px;
+    border-radius:13px;
 
     border:
         1px solid
         #222;
 
-    background:#0d0d0d;
+    background:#0c0c0c;
 
     color:#fff;
 
@@ -292,6 +369,10 @@ body::before{
         0 18px;
 
     font-size:14px;
+
+    font-family:inherit;
+
+    direction:rtl;
 
     transition:.3s;
 }
@@ -306,7 +387,7 @@ body::before{
     border-color:#00ff88;
 
     box-shadow:
-        0 0 15px
+        0 0 18px
         rgba(0,255,136,.1);
 }
 
@@ -315,17 +396,19 @@ body::before{
     height:52px;
 
     padding:
-        0 25px;
+        0 27px;
 
     border:none;
 
-    border-radius:12px;
+    border-radius:13px;
 
     background:#00ff88;
 
     color:#000;
 
     font-weight:bold;
+
+    font-family:inherit;
 
     cursor:pointer;
 
@@ -338,7 +421,7 @@ body::before{
         translateY(-2px);
 
     box-shadow:
-        0 0 20px
+        0 0 25px
         rgba(0,255,136,.3);
 }
 
@@ -366,17 +449,22 @@ body::before{
 
     justify-content:space-between;
 
-    gap:15px;
+    gap:20px;
 
-    padding:18px;
+    padding:19px;
 
-    background:#0b0b0b;
+    background:
+        linear-gradient(
+            145deg,
+            #101010,
+            #090909
+        );
 
     border:
         1px solid
-        rgba(255,255,255,.06);
+        rgba(0,255,136,.12);
 
-    border-radius:14px;
+    border-radius:16px;
 
     transition:.3s;
 }
@@ -384,7 +472,7 @@ body::before{
 .user-card:hover{
 
     border-color:
-        rgba(0,255,136,.3);
+        rgba(0,255,136,.35);
 
     transform:
         translateY(-2px);
@@ -408,12 +496,6 @@ body::before{
     font-weight:bold;
 
     color:#fff;
-
-    overflow:hidden;
-
-    text-overflow:ellipsis;
-
-    white-space:nowrap;
 }
 
 .user-id{
@@ -431,9 +513,9 @@ body::before{
 
 .user-type{
 
-    color:#666;
+    color:#555;
 
-    font-size:12px;
+    font-size:11px;
 }
 
 .add-btn{
@@ -442,17 +524,17 @@ body::before{
 
     border:
         1px solid
-        rgba(0,255,136,.3);
+        rgba(0,255,136,.35);
 
     background:
         rgba(0,255,136,.07);
 
     color:#00ff88;
 
-    border-radius:10px;
+    border-radius:11px;
 
     padding:
-        10px 16px;
+        10px 17px;
 
     cursor:pointer;
 
@@ -466,6 +548,10 @@ body::before{
     background:#00ff88;
 
     color:#000;
+
+    box-shadow:
+        0 0 18px
+        rgba(0,255,136,.2);
 }
 
 .add-btn:disabled{
@@ -475,6 +561,8 @@ body::before{
     cursor:not-allowed;
 
     transform:none;
+
+    box-shadow:none;
 }
 
 
@@ -484,22 +572,52 @@ body::before{
 
 .section{
 
+    position:relative;
+
     background:
         linear-gradient(
             145deg,
-            rgba(15,15,15,.95),
-            rgba(8,8,8,.95)
+            rgba(15,15,15,.97),
+            rgba(7,7,7,.97)
         );
 
     border:
         1px solid
-        rgba(255,255,255,.06);
+        rgba(255,255,255,.055);
 
-    border-radius:20px;
+    border-radius:22px;
 
     padding:28px;
 
     margin-bottom:25px;
+
+    box-shadow:
+        0 12px 40px
+        rgba(0,0,0,.25);
+
+    overflow:hidden;
+}
+
+.section::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    right:8%;
+
+    width:35%;
+
+    height:1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(0,255,136,.5),
+            transparent
+        );
 }
 
 .section-header{
@@ -510,7 +628,7 @@ body::before{
 
     align-items:center;
 
-    margin-bottom:20px;
+    margin-bottom:22px;
 }
 
 .section-title{
@@ -523,13 +641,19 @@ body::before{
 .section-title span{
 
     color:#00ff88;
+
+    text-shadow:
+        0 0 8px
+        rgba(0,255,136,.3);
 }
 
 .count{
 
-    min-width:28px;
+    min-width:31px;
 
-    height:28px;
+    height:31px;
+
+    padding:0 8px;
 
     display:flex;
 
@@ -540,7 +664,11 @@ body::before{
     border-radius:50%;
 
     background:
-        rgba(0,255,136,.1);
+        rgba(0,255,136,.08);
+
+    border:
+        1px solid
+        rgba(0,255,136,.2);
 
     color:#00ff88;
 
@@ -551,7 +679,7 @@ body::before{
 
 
 /* =========================
-   REQUEST
+   REQUESTS
 ========================= */
 
 .requests{
@@ -571,17 +699,30 @@ body::before{
 
     align-items:center;
 
-    gap:15px;
+    gap:18px;
 
-    padding:16px;
+    padding:18px;
 
-    background:#0b0b0b;
-
-    border-radius:14px;
+    background:
+        linear-gradient(
+            145deg,
+            #101010,
+            #0a0a0a
+        );
 
     border:
         1px solid
         rgba(255,255,255,.05);
+
+    border-radius:15px;
+
+    transition:.3s;
+}
+
+.request-card:hover{
+
+    border-color:
+        rgba(0,255,136,.22);
 }
 
 .request-info{
@@ -608,16 +749,16 @@ body::before{
 
     font-size:11px;
 
+    font-weight:bold;
+
     direction:ltr;
 
     text-align:right;
-
-    font-weight:bold;
 }
 
 .request-text{
 
-    color:#666;
+    color:#555;
 
     font-size:11px;
 }
@@ -636,10 +777,10 @@ body::before{
 
     border:none;
 
-    border-radius:9px;
+    border-radius:10px;
 
     padding:
-        9px 14px;
+        9px 15px;
 
     cursor:pointer;
 
@@ -655,24 +796,29 @@ body::before{
     background:#00ff88;
 
     color:#000;
+
+    font-weight:bold;
 }
 
 .accept-btn:hover{
 
     box-shadow:
-        0 0 15px
+        0 0 18px
         rgba(0,255,136,.3);
+
+    transform:
+        translateY(-1px);
 }
 
 .reject-btn{
 
-    background:#171717;
+    background:#151515;
 
     color:#aaa;
 
     border:
         1px solid
-        #222;
+        #292929;
 }
 
 .reject-btn:hover{
@@ -684,7 +830,7 @@ body::before{
 
 
 /* =========================
-   FRIENDS
+   FRIENDS GRID
 ========================= */
 
 .friends-grid{
@@ -694,29 +840,41 @@ body::before{
     grid-template-columns:
         repeat(
             auto-fill,
-            minmax(230px,1fr)
+            minmax(250px,1fr)
         );
 
-    gap:15px;
+    gap:16px;
 }
+
+
+/* =========================
+   FRIEND CARD
+========================= */
 
 .friend-card{
 
     position:relative;
 
-    padding:20px;
+    min-height:155px;
 
-    background:#0b0b0b;
+    padding:22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #111,
+            #080808
+        );
 
     border:
         1px solid
-        rgba(255,255,255,.06);
+        rgba(0,255,136,.1);
 
-    border-radius:15px;
-
-    transition:.3s;
+    border-radius:18px;
 
     overflow:hidden;
+
+    transition:.35s;
 }
 
 .friend-card::before{
@@ -744,13 +902,92 @@ body::before{
     opacity:.4;
 }
 
+.friend-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:100px;
+    height:100px;
+
+    border-radius:50%;
+
+    background:
+        rgba(0,255,136,.04);
+
+    filter:blur(25px);
+
+    left:-40px;
+
+    bottom:-50px;
+
+    pointer-events:none;
+}
+
 .friend-card:hover{
 
     transform:
-        translateY(-3px);
+        translateY(-5px);
 
     border-color:
-        rgba(0,255,136,.25);
+        rgba(0,255,136,.3);
+
+    box-shadow:
+        0 12px 35px
+        rgba(0,255,136,.07);
+}
+
+.friend-top{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    margin-bottom:18px;
+}
+
+.friend-avatar{
+
+    width:48px;
+
+    height:48px;
+
+    flex-shrink:0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:14px;
+
+    background:
+        rgba(0,255,136,.08);
+
+    border:
+        1px solid
+        rgba(0,255,136,.18);
+
+    color:#00ff88;
+
+    font-size:18px;
+
+    font-weight:900;
+
+    box-shadow:
+        inset 0 0 15px
+        rgba(0,255,136,.04);
+}
+
+.friend-details{
+
+    min-width:0;
+
+    flex:1;
 }
 
 .friend-name{
@@ -759,20 +996,93 @@ body::before{
 
     font-weight:bold;
 
-    margin-bottom:7px;
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+    margin-bottom:6px;
 }
 
 .friend-id{
 
     color:#00ff88;
 
-    font-size:12px;
+    font-size:11px;
 
     font-weight:bold;
 
     direction:ltr;
 
     text-align:right;
+}
+
+.friend-status{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    color:#666;
+
+    font-size:10px;
+
+    margin-bottom:16px;
+}
+
+.status-dot{
+
+    width:6px;
+
+    height:6px;
+
+    border-radius:50%;
+
+    background:#00ff88;
+
+    box-shadow:
+        0 0 8px
+        rgba(0,255,136,.7);
+}
+
+.remove-friend-btn{
+
+    width:100%;
+
+    height:38px;
+
+    border-radius:10px;
+
+    border:
+        1px solid
+        rgba(255,70,70,.18);
+
+    background:
+        rgba(255,70,70,.04);
+
+    color:#999;
+
+    font-family:inherit;
+
+    font-size:11px;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.remove-friend-btn:hover{
+
+    background:
+        rgba(255,70,70,.1);
+
+    border-color:
+        rgba(255,70,70,.4);
+
+    color:#ff7070;
 }
 
 
@@ -784,7 +1094,7 @@ body::before{
 
     text-align:center;
 
-    padding:30px 10px;
+    padding:32px 10px;
 
     color:#555;
 
@@ -793,7 +1103,7 @@ body::before{
 
 
 /* =========================
-   DASHBOARD BUTTON
+   BACK BUTTON
 ========================= */
 
 .back-btn{
@@ -803,12 +1113,12 @@ body::before{
     width:max-content;
 
     margin:
-        30px
+        32px
         auto
         0;
 
     padding:
-        12px 25px;
+        12px 27px;
 
     border-radius:12px;
 
@@ -833,8 +1143,11 @@ body::before{
     color:#000;
 
     box-shadow:
-        0 0 20px
+        0 0 22px
         rgba(0,255,136,.2);
+
+    transform:
+        translateY(-2px);
 }
 
 
@@ -854,11 +1167,18 @@ body::before{
         translateX(-50%)
         translateY(20px);
 
-    background:#111;
+    min-width:220px;
+
+    max-width:90%;
+
+    text-align:center;
+
+    background:
+        rgba(15,15,15,.96);
 
     border:
         1px solid
-        rgba(0,255,136,.3);
+        rgba(0,255,136,.25);
 
     color:#fff;
 
@@ -876,6 +1196,10 @@ body::before{
     transition:.3s;
 
     z-index:9999;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,.4);
 }
 
 .toast.show{
@@ -900,6 +1224,11 @@ body::before{
 
     }
 
+    .logo{
+
+        font-size:20px;
+    }
+
     .nav-links{
 
         gap:12px;
@@ -919,7 +1248,12 @@ body::before{
 
     .page-title h1{
 
-        font-size:28px;
+        font-size:29px;
+    }
+
+    .search-box{
+
+        padding:22px;
     }
 
     .search-row{
@@ -932,8 +1266,7 @@ body::before{
         width:100%;
     }
 
-    .user-card,
-    .request-card{
+    .user-card{
 
         align-items:flex-start;
 
@@ -943,6 +1276,13 @@ body::before{
     .add-btn{
 
         width:100%;
+    }
+
+    .request-card{
+
+        align-items:flex-start;
+
+        flex-direction:column;
     }
 
     .request-actions{
@@ -955,6 +1295,42 @@ body::before{
 
         flex:1;
     }
+
+    .friends-grid{
+
+        grid-template-columns:
+            1fr;
+    }
+
+}
+
+
+/* =========================
+   EXTRA SMALL
+========================= */
+
+@media(max-width:430px){
+
+    .nav-links{
+
+        gap:8px;
+    }
+
+    .nav-links a{
+
+        font-size:10px;
+    }
+
+    .section{
+
+        padding:20px;
+    }
+
+    .section-title{
+
+        font-size:17px;
+    }
+
 }
 
 </style>
@@ -1027,7 +1403,7 @@ body::before{
         </div>
 
         <div class="search-subtitle">
-            برای پیدا کردن کاربر، ID پنج‌رقمی او را وارد کنید.
+            با ID پنج‌رقمی کاربر موردنظر خود را پیدا کنید.
         </div>
 
         <div class="search-row">
@@ -1036,7 +1412,7 @@ body::before{
                 type="text"
                 id="userIdSearch"
                 class="search-input"
-                placeholder="ID پنج‌رقمی کاربر را وارد کنید..."
+                placeholder="مثلاً 48217"
                 maxlength="5"
                 inputmode="numeric"
                 autocomplete="off"
@@ -1060,7 +1436,7 @@ body::before{
 
 
     <!-- =========================
-         FRIEND REQUESTS
+         REQUESTS
     ========================= -->
 
     <section class="section">
@@ -1129,7 +1505,9 @@ body::before{
     </section>
 
 
-    <!-- BACK -->
+    <!-- =========================
+         BACK
+    ========================= -->
 
     <a
         href="dashboard.html"
@@ -1248,7 +1626,6 @@ function escapeHTML(value){
 
 /* =========================
    NORMALIZE DIGITS
-   Persian + Arabic → English
 ========================= */
 
 function normalizeDigits(value){
@@ -1295,6 +1672,25 @@ function formatUserId(userCode){
 
 
 /* =========================
+   GET AVATAR LETTER
+========================= */
+
+function getAvatarLetter(username){
+
+    const name =
+        String(
+            username ||
+            "C"
+        ).trim();
+
+    return escapeHTML(
+        name.charAt(0).toUpperCase()
+    );
+
+}
+
+
+/* =========================
    TOAST
 ========================= */
 
@@ -1321,6 +1717,7 @@ function showToast(message){
             );
 
         },3000);
+
 }
 
 
@@ -1336,6 +1733,7 @@ async function loadUser(){
     } =
     await supabase.auth
         .getUser();
+
 
     if(
         error ||
@@ -1512,29 +1910,93 @@ async function loadFriends(){
         (profiles || [])
         .map(friend => `
 
-            <div class="friend-card">
+            <div
+                class="friend-card"
+                id="friend-${escapeHTML(
+                    friend.id
+                )}"
+            >
 
-                <div class="friend-name">
-                    ${escapeHTML(
+                <div class="friend-top">
+
+                    <div class="friend-avatar">
+                        ${getAvatarLetter(
+                            friend.username
+                        )}
+                    </div>
+
+                    <div class="friend-details">
+
+                        <div class="friend-name">
+                            ${escapeHTML(
+                                friend.username ||
+                                "کاربر CALLAFINO"
+                            )}
+                        </div>
+
+                        <div class="friend-id">
+                            ID:
+                            ${escapeHTML(
+                                formatUserId(
+                                    friend.user_code
+                                )
+                            )}
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="friend-status">
+
+                    <span class="status-dot"></span>
+
+                    دوست شما در CALLAFINO
+
+                </div>
+
+                <button
+                    class="remove-friend-btn"
+                    data-friend-id="${escapeHTML(
+                        friend.id
+                    )}"
+                    data-friend-name="${escapeHTML(
                         friend.username ||
-                        "کاربر CALLAFINO"
-                    )}
-                </div>
-
-                <div class="friend-id">
-                    ID:
-                    ${escapeHTML(
-                        formatUserId(
-                            friend.user_code
-                        )
-                    )}
-                </div>
+                        "این کاربر"
+                    )}"
+                >
+                    حذف دوست
+                </button>
 
             </div>
 
         `)
         .join("");
 
+
+    /*
+       DELETE BUTTONS
+    */
+
+    document
+        .querySelectorAll(
+            ".remove-friend-btn"
+        )
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    removeFriend(
+                        button.dataset.friendId,
+                        button.dataset.friendName
+                    );
+
+                }
+            );
+
+        });
 
 }
 
@@ -1558,10 +2020,6 @@ async function searchUser(){
             rawValue
         );
 
-
-    /*
-       فقط ID پنج‌رقمی
-    */
 
     if(!/^\d{5}$/.test(searchCode)){
 
@@ -1633,10 +2091,6 @@ async function searchUser(){
     }
 
 
-    /*
-       جلوگیری از پیدا کردن خود کاربر
-    */
-
     if(
         user.id ===
         currentUser.id
@@ -1654,11 +2108,12 @@ async function searchUser(){
 
 
     /*
-       بررسی دوستی قبلی
+       CHECK FRIENDSHIP
     */
 
     const {
-        data: friendship
+        data: friendship,
+        error: friendshipError
     } =
     await supabase
 
@@ -1674,12 +2129,22 @@ async function searchUser(){
         .maybeSingle();
 
 
+    if(friendshipError){
+
+        console.error(
+            friendshipError
+        );
+
+    }
+
+
     /*
-       بررسی درخواست pending
+       CHECK PENDING REQUEST
     */
 
     const {
-        data: pendingRequest
+        data: pendingRequest,
+        error: pendingError
     } =
     await supabase
 
@@ -1693,6 +2158,15 @@ async function searchUser(){
             `and(sender_id.eq.${currentUser.id},receiver_id.eq.${user.id},status.eq.pending),and(sender_id.eq.${user.id},receiver_id.eq.${currentUser.id},status.eq.pending)`
         )
         .maybeSingle();
+
+
+    if(pendingError){
+
+        console.error(
+            pendingError
+        );
+
+    }
 
 
     let buttonText =
@@ -1833,7 +2307,7 @@ async function sendFriendRequest(
 
 
     /*
-       بررسی دوستی
+       CHECK FRIENDSHIP
     */
 
     const {
@@ -1887,7 +2361,7 @@ async function sendFriendRequest(
 
 
     /*
-       بررسی درخواست قبلی
+       CHECK REQUEST
     */
 
     const {
@@ -1941,7 +2415,7 @@ async function sendFriendRequest(
 
 
     /*
-       ایجاد درخواست
+       INSERT REQUEST
     */
 
     const {
@@ -2201,7 +2675,7 @@ async function loadRequests(){
 
 
     /*
-       ACCEPT
+       ACCEPT BUTTONS
     */
 
     document
@@ -2226,7 +2700,7 @@ async function loadRequests(){
 
 
     /*
-       REJECT
+       REJECT BUTTONS
     */
 
     document
@@ -2264,10 +2738,6 @@ async function acceptRequest(
         return;
 
 
-    /*
-       ایجاد friendship
-    */
-
     const {
         error: friendshipError
     } =
@@ -2300,10 +2770,6 @@ async function acceptRequest(
 
     }
 
-
-    /*
-       تغییر وضعیت درخواست
-    */
 
     const {
         error: updateError
@@ -2410,6 +2876,81 @@ async function rejectRequest(
 
 
 /* =========================
+   REMOVE FRIEND
+========================= */
+
+async function removeFriend(
+    friendId,
+    friendName
+){
+
+    if(!currentUser)
+        return;
+
+
+    /*
+       CONFIRM
+    */
+
+    const confirmed =
+        confirm(
+            `آیا مطمئن هستید که می‌خواهید ${friendName} را از دوستان خود حذف کنید؟`
+        );
+
+
+    if(!confirmed)
+        return;
+
+
+    /*
+       DELETE FRIENDSHIP
+       چه کاربر اول باشد چه دوم
+    */
+
+    const {
+        error
+    } =
+    await supabase
+
+        .from("friendships")
+
+        .delete()
+
+        .or(
+            `and(user_id.eq.${currentUser.id},friend_id.eq.${friendId}),and(user_id.eq.${friendId},friend_id.eq.${currentUser.id})`
+        );
+
+
+    if(error){
+
+        console.error(
+            error
+        );
+
+        showToast(
+            "حذف دوست ناموفق بود."
+        );
+
+        return;
+
+    }
+
+
+    showToast(
+        `${friendName} از دوستان شما حذف شد.`
+    );
+
+
+    /*
+       REFRESH
+    */
+
+    await loadFriends();
+
+}
+
+
+/* =========================
    SEARCH EVENTS
 ========================= */
 
@@ -2436,10 +2977,9 @@ userIdSearch.addEventListener(
 );
 
 
-/*
-   فقط اجازه ورود اعداد
-   + پشتیبانی از اعداد فارسی
-*/
+/* =========================
+   ONLY NUMBERS
+========================= */
 
 userIdSearch.addEventListener(
     "input",
