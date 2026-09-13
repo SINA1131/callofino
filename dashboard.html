@@ -14,6 +14,10 @@
 
 <style>
 
+/* =========================================================
+   ROOT
+========================================================= */
+
 :root{
     --green:#39ff72;
     --green2:#00ff88;
@@ -23,6 +27,11 @@
     --muted:#69736c;
     --danger:#ff6262;
 }
+
+
+/* =========================================================
+   RESET
+========================================================= */
 
 *{
     margin:0;
@@ -36,10 +45,12 @@ html{
 
 body{
     min-height:100vh;
+
     font-family:
         Tahoma,
         Arial,
         sans-serif;
+
     color:#fff;
 
     background:
@@ -63,10 +74,17 @@ body{
     overflow-x:hidden;
 }
 
+
+/* =========================================================
+   BACKGROUND GRID
+========================================================= */
+
 body::before{
     content:"";
+
     position:fixed;
     inset:0;
+
     z-index:-5;
 
     background-image:
@@ -103,15 +121,27 @@ body::before{
 
 }
 
+
+/* =========================================================
+   AMBIENT GLOW
+========================================================= */
+
 .ambient{
     position:fixed;
+
     width:420px;
     height:420px;
+
     border-radius:50%;
+
     filter:blur(100px);
+
     opacity:.055;
+
     background:var(--green);
+
     pointer-events:none;
+
     z-index:-4;
 
     animation:
@@ -126,6 +156,7 @@ body::before{
 .ambient.two{
     bottom:-180px;
     left:-120px;
+
     animation-delay:-5s;
 }
 
@@ -142,14 +173,24 @@ body::before{
 
 }
 
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
 .navbar{
     position:sticky;
+
     top:0;
+
     z-index:2000;
+
     height:76px;
 
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
 
     padding:
@@ -174,9 +215,13 @@ body::before{
 
 .logo{
     position:relative;
+
     color:var(--green);
+
     font-size:25px;
+
     font-weight:1000;
+
     letter-spacing:2px;
 
     text-shadow:
@@ -188,11 +233,16 @@ body::before{
 
 .logo::after{
     content:"";
+
     display:inline-block;
+
     width:7px;
     height:7px;
+
     margin-right:7px;
+
     border-radius:50%;
+
     background:var(--green);
 
     box-shadow:
@@ -218,14 +268,19 @@ body::before{
 
 .nav-links{
     display:flex;
+
     align-items:center;
+
     gap:7px;
 }
 
 .nav-links a{
     position:relative;
+
     color:#79827c;
+
     text-decoration:none;
+
     font-size:12px;
 
     padding:
@@ -233,11 +288,13 @@ body::before{
         12px;
 
     border-radius:10px;
+
     transition:.25s;
 }
 
 .nav-links a:hover{
     color:#fff;
+
     background:
         rgba(57,255,114,.045);
 }
@@ -248,6 +305,7 @@ body::before{
 
 .nav-links a::after{
     content:"";
+
     position:absolute;
 
     right:50%;
@@ -272,10 +330,21 @@ body::before{
         #ff7070 !important;
 }
 
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
 .container{
     width:min(1200px,92%);
+
     margin:auto;
 }
+
+
+/* =========================================================
+   HERO
+========================================================= */
 
 .welcome{
     position:relative;
@@ -312,6 +381,7 @@ body::before{
         );
 
     filter:blur(15px);
+
     pointer-events:none;
 }
 
@@ -319,7 +389,9 @@ body::before{
     position:relative;
 
     display:inline-flex;
+
     align-items:center;
+
     gap:8px;
 
     margin-bottom:20px;
@@ -331,6 +403,7 @@ body::before{
     border-radius:50px;
 
     color:#8f9a92;
+
     font-size:10px;
 
     background:
@@ -348,7 +421,9 @@ body::before{
 .welcome-badge span{
     width:6px;
     height:6px;
+
     border-radius:50%;
+
     background:var(--green);
 
     box-shadow:
@@ -363,8 +438,11 @@ body::before{
         clamp(32px,6vw,58px);
 
     line-height:1.25;
+
     font-weight:1000;
+
     margin-bottom:16px;
+
     letter-spacing:-1px;
 }
 
@@ -380,13 +458,22 @@ body::before{
 
 .welcome p{
     color:#69746d;
+
     font-size:13px;
+
     line-height:2;
 }
 
+
+/* =========================================================
+   SECTION LABEL
+========================================================= */
+
 .section-label{
     display:flex;
+
     align-items:center;
+
     gap:12px;
 
     margin:
@@ -395,7 +482,9 @@ body::before{
         16px;
 
     color:#7b857e;
+
     font-size:11px;
+
     font-weight:bold;
 }
 
@@ -414,10 +503,16 @@ body::before{
         rgba(57,255,114,.4);
 }
 
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
 .profile-box{
     position:relative;
 
     margin-bottom:22px;
+
     padding:26px;
 
     border-radius:24px;
@@ -434,6 +529,7 @@ body::before{
         var(--border);
 
     backdrop-filter:blur(18px);
+
     overflow:hidden;
 
     box-shadow:
@@ -481,6 +577,7 @@ body::before{
     background:var(--green);
 
     filter:blur(70px);
+
     opacity:.07;
 }
 
@@ -488,13 +585,17 @@ body::before{
     position:relative;
 
     display:flex;
+
     align-items:center;
+
     gap:10px;
 
     margin-bottom:20px;
 
     color:#fff;
+
     font-size:16px;
+
     font-weight:bold;
 }
 
@@ -515,7 +616,9 @@ body::before{
 
 .profile-content{
     display:flex;
+
     align-items:center;
+
     gap:18px;
 }
 
@@ -528,12 +631,15 @@ body::before{
     flex-shrink:0;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
     border-radius:21px;
 
     color:var(--green);
+
     font-size:28px;
 
     background:
@@ -558,6 +664,7 @@ body::before{
     content:"";
 
     position:absolute;
+
     inset:5px;
 
     border-radius:17px;
@@ -569,30 +676,39 @@ body::before{
 
 .profile-info{
     min-width:0;
+
     flex:1;
 }
 
 .profile-label{
     color:#59625d;
+
     font-size:10px;
+
     margin-bottom:8px;
 }
 
 .profile-username{
     color:#fff;
+
     font-size:19px;
+
     font-weight:900;
+
     word-break:break-word;
 }
 
 .profile-online{
     display:flex;
+
     align-items:center;
+
     gap:6px;
 
     margin-top:8px;
 
     color:#58635c;
+
     font-size:9px;
 }
 
@@ -609,21 +725,32 @@ body::before{
         var(--green);
 }
 
+
+/* =========================================================
+   USER FIVE DIGIT ID
+========================================================= */
+
 .profile-user-code{
     display:flex;
+
     align-items:center;
+
     gap:6px;
 
     margin-top:7px;
 
     color:var(--green);
+
     font-size:10px;
+
     font-weight:bold;
 
     letter-spacing:.8px;
 
     direction:ltr;
+
     text-align:right;
+
     opacity:.9;
 
     text-shadow:
@@ -633,23 +760,36 @@ body::before{
 
 .profile-user-code-label{
     color:#59645d;
+
     font-size:9px;
+
     letter-spacing:0;
+
     direction:rtl;
 }
 
 .profile-user-code-value{
     color:var(--green);
+
     font-size:11px;
+
     font-weight:1000;
+
     letter-spacing:1.2px;
+
     direction:ltr;
 }
+
+
+/* =========================================================
+   SETTINGS
+========================================================= */
 
 .settings{
     position:relative;
 
     margin-bottom:38px;
+
     padding:27px;
 
     border-radius:24px;
@@ -669,20 +809,25 @@ body::before{
 
 .settings-top{
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
 
     gap:15px;
+
     margin-bottom:18px;
 }
 
 .settings h2{
     font-size:16px;
+
     margin-bottom:6px;
 }
 
 .settings-description{
     color:#5d6760;
+
     font-size:10px;
 }
 
@@ -694,6 +839,7 @@ body::before{
     border-radius:8px;
 
     color:#68746c;
+
     font-size:9px;
 
     background:
@@ -706,11 +852,13 @@ body::before{
 
 .username-row{
     display:flex;
+
     gap:10px;
 }
 
 .username-row input{
     flex:1;
+
     min-width:0;
 
     height:52px;
@@ -720,6 +868,7 @@ body::before{
         17px;
 
     border-radius:14px;
+
     outline:none;
 
     border:
@@ -730,7 +879,9 @@ body::before{
         rgba(1,5,3,.75);
 
     color:#fff;
+
     font-family:inherit;
+
     font-size:12px;
 
     transition:.3s;
@@ -760,6 +911,7 @@ body::before{
     width:145px;
 
     border:none;
+
     border-radius:14px;
 
     background:
@@ -772,10 +924,13 @@ body::before{
     color:#021006;
 
     font-family:inherit;
+
     font-size:11px;
+
     font-weight:1000;
 
     cursor:pointer;
+
     overflow:hidden;
 
     transition:.3s;
@@ -817,21 +972,34 @@ body::before{
 
 .username-row button:disabled{
     opacity:.5;
+
     cursor:not-allowed;
+
     transform:none;
+
     box-shadow:none;
 }
 
 .status{
     min-height:18px;
+
     margin-top:11px;
+
     color:#657069;
+
     font-size:10px;
 }
 
+
+/* =========================================================
+   CARDS HEADER
+========================================================= */
+
 .cards-header{
     display:flex;
+
     align-items:end;
+
     justify-content:space-between;
 
     margin-bottom:18px;
@@ -842,14 +1010,22 @@ body::before{
 
 .cards-title{
     font-size:22px;
+
     font-weight:1000;
 }
 
 .cards-subtitle{
     color:#555f58;
+
     font-size:10px;
+
     margin-top:6px;
 }
+
+
+/* =========================================================
+   CARDS
+========================================================= */
 
 .cards{
     display:grid;
@@ -858,6 +1034,7 @@ body::before{
         repeat(3,1fr);
 
     gap:17px;
+
     margin-bottom:70px;
 }
 
@@ -868,9 +1045,11 @@ body::before{
     position:relative;
 
     min-height:205px;
+
     padding:26px;
 
     border-radius:23px;
+
     overflow:hidden;
 
     cursor:pointer;
@@ -902,6 +1081,7 @@ body::before{
     content:"";
 
     position:absolute;
+
     inset:0;
 
     background:
@@ -912,7 +1092,9 @@ body::before{
         );
 
     opacity:0;
+
     transition:.3s;
+
     pointer-events:none;
 }
 
@@ -936,6 +1118,7 @@ body::before{
         );
 
     transform:rotate(-35deg);
+
     opacity:.4;
 }
 
@@ -965,12 +1148,15 @@ body::before{
     height:53px;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
     margin-bottom:22px;
 
     border-radius:16px;
+
     font-size:23px;
 
     background:
@@ -1006,8 +1192,11 @@ body::before{
 
 .card h3{
     position:relative;
+
     font-size:16px;
+
     margin-bottom:9px;
+
     font-weight:900;
 }
 
@@ -1015,7 +1204,9 @@ body::before{
     position:relative;
 
     color:#5f6962;
+
     font-size:10px;
+
     line-height:2;
 
     max-width:270px;
@@ -1028,6 +1219,7 @@ body::before{
     left:23px;
 
     color:#39433d;
+
     font-size:17px;
 
     transition:.3s;
@@ -1040,9 +1232,16 @@ body::before{
         translateX(-5px);
 }
 
+
+/* =========================================================
+   DISABLED RANKING
+========================================================= */
+
 .disabled-card{
     opacity:.46;
+
     cursor:not-allowed;
+
     filter:saturate(.65);
 }
 
@@ -1093,6 +1292,11 @@ body::before{
     font-size:8px;
 }
 
+
+/* =========================================================
+   WALLET CARD
+========================================================= */
+
 .wallet-card{
     border-color:
         rgba(57,255,114,.2);
@@ -1122,12 +1326,18 @@ body::before{
     color:var(--green);
 
     font-size:15px;
+
     font-weight:1000;
 
     text-shadow:
         0 0 15px
         rgba(57,255,114,.2);
 }
+
+
+/* =========================================================
+   ADMIN
+========================================================= */
 
 .admin-card{
     display:none;
@@ -1136,13 +1346,20 @@ body::before{
         rgba(57,255,114,.18);
 }
 
+
+/* =========================================================
+   WALLET OVERLAY
+========================================================= */
+
 .wallet-overlay{
     position:fixed;
+
     inset:0;
 
     display:none;
 
     align-items:center;
+
     justify-content:center;
 
     padding:20px;
@@ -1160,10 +1377,16 @@ body::before{
     display:flex;
 }
 
+
+/* =========================================================
+   WALLET MODAL
+========================================================= */
+
 .wallet-modal{
     position:relative;
 
     width:100%;
+
     max-width:500px;
 
     padding:32px;
@@ -1209,6 +1432,7 @@ body::before{
     background:var(--green);
 
     filter:blur(100px);
+
     opacity:.08;
 }
 
@@ -1216,6 +1440,7 @@ body::before{
     content:"";
 
     position:absolute;
+
     inset:0;
 
     background:
@@ -1259,7 +1484,9 @@ body::before{
     height:38px;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
     border-radius:11px;
@@ -1274,7 +1501,9 @@ body::before{
     color:#737c76;
 
     cursor:pointer;
+
     font-size:21px;
+
     transition:.25s;
 
     z-index:5;
@@ -1282,14 +1511,24 @@ body::before{
 
 .wallet-close:hover{
     color:#ff6666;
+
     border-color:#ff6666;
+
     transform:rotate(90deg);
 }
 
+
+/* =========================================================
+   WALLET HEADER
+========================================================= */
+
 .wallet-header{
     position:relative;
+
     text-align:center;
+
     margin-bottom:24px;
+
     z-index:1;
 }
 
@@ -1300,7 +1539,9 @@ body::before{
     height:76px;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
     margin:
@@ -1309,6 +1550,7 @@ body::before{
         16px;
 
     border-radius:23px;
+
     font-size:32px;
 
     background:
@@ -1355,15 +1597,24 @@ body::before{
 
 .wallet-title{
     font-size:26px;
+
     font-weight:1000;
+
     margin-bottom:7px;
 }
 
 .wallet-description{
     color:#68736c;
+
     font-size:10px;
+
     line-height:2;
 }
+
+
+/* =========================================================
+   WALLET BALANCE
+========================================================= */
 
 .wallet-balance-box{
     position:relative;
@@ -1432,7 +1683,9 @@ body::before{
     position:relative;
 
     color:#727c75;
+
     font-size:10px;
+
     margin-bottom:11px;
 }
 
@@ -1442,12 +1695,18 @@ body::before{
     color:var(--green);
 
     font-size:31px;
+
     font-weight:1000;
 
     text-shadow:
         0 0 20px
         rgba(57,255,114,.25);
 }
+
+
+/* =========================================================
+   WALLET INFO
+========================================================= */
 
 .wallet-info-grid{
     display:grid;
@@ -1485,23 +1744,34 @@ body::before{
     display:block;
 
     color:#59645d;
+
     font-size:9px;
+
     margin-bottom:9px;
 }
 
 .wallet-info-value{
     color:#fff;
+
     font-size:12px;
+
     font-weight:bold;
 
     direction:ltr;
+
     text-align:left;
 }
+
+
+/* =========================================================
+   PAYMENT NOTE
+========================================================= */
 
 .wallet-payment-note{
     position:relative;
 
     margin-top:13px;
+
     padding:19px;
 
     border-radius:17px;
@@ -1526,6 +1796,7 @@ body::before{
     content:"";
 
     position:absolute;
+
     inset:0;
 
     background:
@@ -1542,7 +1813,9 @@ body::before{
     position:relative;
 
     display:block;
+
     margin-bottom:7px;
+
     font-size:18px;
 }
 
@@ -1550,7 +1823,9 @@ body::before{
     position:relative;
 
     color:#89938c;
+
     font-size:10px;
+
     line-height:2;
 }
 
@@ -1566,6 +1841,7 @@ body::before{
     color:var(--green);
 
     font-size:15px;
+
     font-weight:1000;
 
     letter-spacing:.5px;
@@ -1574,6 +1850,11 @@ body::before{
         0 0 12px
         rgba(57,255,114,.25);
 }
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
 
 footer{
     position:relative;
@@ -1590,15 +1871,24 @@ footer{
         rgba(57,255,114,.07);
 
     color:#3f4942;
+
     font-size:9px;
 }
 
 .footer-logo{
     color:#59645d;
+
     font-weight:bold;
+
     letter-spacing:2px;
+
     margin-bottom:7px;
 }
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
 
 @keyframes fadeUp{
 
@@ -1618,6 +1908,11 @@ footer{
 
 }
 
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
 @media(max-width:950px){
 
     .cards{
@@ -1635,6 +1930,7 @@ footer{
     }
 
 }
+
 
 @media(max-width:680px){
 
@@ -1676,21 +1972,25 @@ footer{
 
     .username-row button{
         width:100%;
+
         height:50px;
     }
 
     .cards{
         grid-template-columns:1fr;
+
         gap:14px;
     }
 
     .card{
         min-height:185px;
+
         padding:23px;
     }
 
     .wallet-modal{
         padding:28px 18px;
+
         border-radius:24px;
     }
 
@@ -1703,6 +2003,7 @@ footer{
     }
 
 }
+
 
 @media(max-width:390px){
 
@@ -1729,10 +2030,17 @@ footer{
 
 </head>
 
+
 <body>
+
 
 <div class="ambient one"></div>
 <div class="ambient two"></div>
+
+
+<!-- =======================================================
+     NAVBAR
+======================================================= -->
 
 <nav class="navbar">
 
@@ -1774,7 +2082,13 @@ footer{
 
 </nav>
 
+
 <main class="container">
+
+
+<!-- =======================================================
+     WELCOME
+======================================================= -->
 
 <section class="welcome">
 
@@ -1803,9 +2117,15 @@ footer{
 
 </section>
 
+
+<!-- =======================================================
+     PROFILE
+======================================================= -->
+
 <div class="section-label">
     ACCOUNT
 </div>
+
 
 <section class="profile-box">
 
@@ -1817,11 +2137,13 @@ footer{
 
     </div>
 
+
     <div class="profile-content">
 
         <div class="avatar">
             👤
         </div>
+
 
         <div class="profile-info">
 
@@ -1835,6 +2157,8 @@ footer{
             >
                 در حال دریافت...
             </div>
+
+            <!-- USER FIVE DIGIT ID -->
 
             <div
                 class="profile-user-code"
@@ -1854,6 +2178,7 @@ footer{
 
             </div>
 
+
             <div class="profile-online">
 
                 <span></span>
@@ -1867,6 +2192,11 @@ footer{
     </div>
 
 </section>
+
+
+<!-- =======================================================
+     SETTINGS
+======================================================= -->
 
 <section class="settings">
 
@@ -1884,11 +2214,13 @@ footer{
 
         </div>
 
+
         <div class="settings-tag">
             PROFILE
         </div>
 
     </div>
+
 
     <div class="username-row">
 
@@ -1900,6 +2232,7 @@ footer{
             autocomplete="off"
         >
 
+
         <button
             type="button"
             id="saveBtn"
@@ -1909,12 +2242,18 @@ footer{
 
     </div>
 
+
     <div
         class="status"
         id="status"
     ></div>
 
 </section>
+
+
+<!-- =======================================================
+     CARDS HEADER
+======================================================= -->
 
 <div class="cards-header">
 
@@ -1932,13 +2271,19 @@ footer{
 
 </div>
 
+
+<!-- =======================================================
+     CARDS
+======================================================= -->
+
 <section class="cards">
+
 
     <!-- TOURNAMENT -->
 
     <div
         class="card"
-        onclick="window.location.href='./tournament.html'"
+        onclick="location.href='tournament.html'"
     >
 
         <div class="card-icon">
@@ -2154,9 +2499,15 @@ footer{
 
     </div>
 
+
 </section>
 
 </main>
+
+
+<!-- =======================================================
+     WALLET MODAL
+======================================================= -->
 
 <div
     class="wallet-overlay"
@@ -2165,6 +2516,7 @@ footer{
 
     <div class="wallet-modal">
 
+
         <button
             type="button"
             class="wallet-close"
@@ -2172,6 +2524,9 @@ footer{
         >
             ×
         </button>
+
+
+        <!-- HEADER -->
 
         <div class="wallet-header">
 
@@ -2189,6 +2544,9 @@ footer{
 
         </div>
 
+
+        <!-- BALANCE -->
+
         <div class="wallet-balance-box">
 
             <div class="wallet-balance-label">
@@ -2204,7 +2562,11 @@ footer{
 
         </div>
 
+
+        <!-- INFO -->
+
         <div class="wallet-info-grid">
+
 
             <div class="wallet-info-box">
 
@@ -2218,6 +2580,7 @@ footer{
 
             </div>
 
+
             <div class="wallet-info-box">
 
                 <span class="wallet-info-label">
@@ -2230,7 +2593,11 @@ footer{
 
             </div>
 
+
         </div>
+
+
+        <!-- PAYMENT -->
 
         <div class="wallet-payment-note">
 
@@ -2249,9 +2616,15 @@ footer{
 
         </div>
 
+
     </div>
 
 </div>
+
+
+<!-- =======================================================
+     FOOTER
+======================================================= -->
 
 <footer>
 
@@ -2263,6 +2636,11 @@ footer{
 
 </footer>
 
+
+<!-- =======================================================
+     SUPABASE
+======================================================= -->
+
 <script type="module">
 
 import {
@@ -2271,6 +2649,10 @@ import {
 from
 "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
+
+/* =========================================================
+   SUPABASE CONFIG
+========================================================= */
 
 const SUPABASE_URL =
 "https://oisqrkqwbskvqkparmiw.supabase.co";
@@ -2285,6 +2667,10 @@ createClient(
     SUPABASE_KEY
 );
 
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
 
 const usernameText =
 document.getElementById(
@@ -2327,8 +2713,16 @@ document.getElementById(
 );
 
 
+/* =========================================================
+   CURRENT USER
+========================================================= */
+
 let currentUser = null;
 
+
+/* =========================================================
+   STATUS
+========================================================= */
 
 function showStatus(
     message,
@@ -2345,6 +2739,10 @@ function showStatus(
 
 }
 
+
+/* =========================================================
+   LOAD USER
+========================================================= */
 
 async function loadUser(){
 
@@ -2381,6 +2779,10 @@ async function loadUser(){
 
 }
 
+
+/* =========================================================
+   LOAD PROFILE
+========================================================= */
 
 async function loadProfile(){
 
@@ -2446,11 +2848,20 @@ async function loadProfile(){
     }
 
 
+    /* =====================================================
+       USER CODE
+    ===================================================== */
+
     if(
         data &&
         data.user_code !== null &&
         data.user_code !== undefined
     ){
+
+        /*
+         * تبدیل به رشته برای جلوگیری از نمایش
+         * علمی یا فرمت‌های ناخواسته
+         */
 
         const userCode =
             String(
@@ -2474,6 +2885,10 @@ async function loadProfile(){
 
 }
 
+
+/* =========================================================
+   SAVE USERNAME
+========================================================= */
 
 saveBtn.addEventListener(
     "click",
@@ -2537,6 +2952,14 @@ saveBtn.addEventListener(
 
             if(!existingProfile){
 
+                /*
+                 * فقط username و id را می‌فرستیم.
+                 *
+                 * user_code را خودمان نمی‌سازیم.
+                 * Trigger دیتابیس به صورت خودکار
+                 * یک ID پنج رقمی ایجاد می‌کند.
+                 */
+
                 const {
                     error:insertError
                 } =
@@ -2580,6 +3003,11 @@ saveBtn.addEventListener(
             }
 
 
+            /*
+             * دریافت مجدد پروفایل
+             * شامل username و user_code
+             */
+
             const {
                 data:verifiedProfile,
                 error:verifyError
@@ -2620,6 +3048,12 @@ saveBtn.addEventListener(
 
                 }
 
+
+                /*
+                 * ID کاربر بعد از ذخیره username
+                 * دوباره خوانده می‌شود اما هرگز
+                 * تغییر داده نمی‌شود.
+                 */
 
                 if(
                     verifiedProfile.user_code !== null &&
@@ -2698,6 +3132,10 @@ saveBtn.addEventListener(
 );
 
 
+/* =========================================================
+   ADMIN CHECK
+========================================================= */
+
 async function checkAdmin(){
 
     if(!currentUser){
@@ -2747,6 +3185,10 @@ async function checkAdmin(){
 }
 
 
+/* =========================================================
+   WALLET ELEMENTS
+========================================================= */
+
 const walletCard =
 document.getElementById(
     "walletCard"
@@ -2772,6 +3214,10 @@ document.getElementById(
     "walletModalBalance"
 );
 
+
+/* =========================================================
+   LOAD WALLET
+========================================================= */
 
 async function loadWallet(){
 
@@ -2848,6 +3294,10 @@ async function loadWallet(){
 }
 
 
+/* =========================================================
+   WALLET OPEN
+========================================================= */
+
 walletCard.addEventListener(
     "click",
     async function(){
@@ -2863,6 +3313,10 @@ walletCard.addEventListener(
 );
 
 
+/* =========================================================
+   WALLET CLOSE
+========================================================= */
+
 walletClose.addEventListener(
     "click",
     function(){
@@ -2874,6 +3328,10 @@ walletClose.addEventListener(
     }
 );
 
+
+/* =========================================================
+   OUTSIDE CLICK
+========================================================= */
 
 walletOverlay.addEventListener(
     "click",
@@ -2894,6 +3352,10 @@ walletOverlay.addEventListener(
 );
 
 
+/* =========================================================
+   ESC
+========================================================= */
+
 document.addEventListener(
     "keydown",
     function(e){
@@ -2911,6 +3373,10 @@ document.addEventListener(
     }
 );
 
+
+/* =========================================================
+   CARD MOUSE LIGHT
+========================================================= */
 
 document.querySelectorAll(
     ".card"
@@ -2953,6 +3419,10 @@ document.querySelectorAll(
 );
 
 
+/* =========================================================
+   LOGOUT
+========================================================= */
+
 logoutBtn.addEventListener(
     "click",
     async function(e){
@@ -2969,6 +3439,10 @@ logoutBtn.addEventListener(
     }
 );
 
+
+/* =========================================================
+   START
+========================================================= */
 
 loadUser();
 
