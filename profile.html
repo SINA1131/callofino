@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
@@ -8,30 +7,17 @@
 
 <title>CALLAFINO | Profile</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
-
-/* =========================
-   RESET
-========================= */
 
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
+    font-family:Tahoma, Arial, sans-serif;
 }
 
 body{
-    font-family:Tahoma, Arial, sans-serif;
-    background:
-        radial-gradient(circle at 10% 10%, rgba(0,255,136,.07), transparent 28%),
-        radial-gradient(circle at 90% 30%, rgba(0,255,136,.04), transparent 30%),
-        #030403;
+    background:#050505;
     color:#fff;
     min-height:100vh;
     overflow-x:hidden;
@@ -44,13 +30,26 @@ body{
 body::before{
     content:"";
     position:fixed;
-    inset:0;
-    pointer-events:none;
-    background-image:
-        linear-gradient(rgba(0,255,136,.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,255,136,.025) 1px, transparent 1px);
-    background-size:50px 50px;
-    mask-image:linear-gradient(to bottom, black, transparent);
+    width:600px;
+    height:600px;
+    background:#00ff88;
+    opacity:.05;
+    filter:blur(140px);
+    top:-200px;
+    right:-200px;
+    z-index:-1;
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    width:500px;
+    height:500px;
+    background:#00ff88;
+    opacity:.04;
+    filter:blur(130px);
+    bottom:-200px;
+    left:-150px;
     z-index:-1;
 }
 
@@ -61,244 +60,118 @@ body::before{
 header{
     position:sticky;
     top:0;
-    z-index:1000;
-
-    height:72px;
-
+    z-index:100;
+    height:75px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-
-    padding:0 6%;
-
-    background:rgba(3,4,3,.82);
-    backdrop-filter:blur(18px);
-
-    border-bottom:1px solid rgba(0,255,136,.14);
+    padding:0 7%;
+    background:rgba(5,5,5,.88);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid rgba(0,255,136,.12);
 }
 
 .logo{
-    color:#00ff88;
-    text-decoration:none;
-
     font-size:25px;
     font-weight:900;
-    letter-spacing:2px;
-
-    text-shadow:
-        0 0 15px rgba(0,255,136,.35);
-}
-
-.logo span{
-    color:#fff;
+    color:#00ff88;
+    letter-spacing:1px;
 }
 
 nav{
     display:flex;
-    align-items:center;
-    gap:28px;
+    gap:10px;
 }
 
 nav a{
-    position:relative;
-
-    color:#8c8c8c;
     text-decoration:none;
-
-    font-size:13px;
-
+    color:#aaa;
+    padding:10px 16px;
+    border-radius:10px;
     transition:.3s;
-}
-
-nav a::after{
-    content:"";
-    position:absolute;
-
-    right:0;
-    bottom:-8px;
-
-    width:0;
-    height:2px;
-
-    background:#00ff88;
-
-    transition:.3s;
+    font-size:14px;
 }
 
 nav a:hover{
     color:#00ff88;
-}
-
-nav a:hover::after{
-    width:100%;
+    background:rgba(0,255,136,.07);
 }
 
 /* =========================
-   CONTAINER
+   MAIN
 ========================= */
 
 .container{
     width:90%;
     max-width:1150px;
-    margin:45px auto 80px;
+    margin:45px auto;
 }
 
 /* =========================
-   PAGE TITLE
-========================= */
-
-.page-title{
-    margin-bottom:25px;
-}
-
-.page-title small{
-    color:#00ff88;
-    font-size:11px;
-    letter-spacing:2px;
-}
-
-.page-title h1{
-    margin-top:8px;
-    font-size:32px;
-}
-
-.page-title p{
-    margin-top:8px;
-    color:#666;
-    font-size:13px;
-}
-
-/* =========================
-   PROFILE CARD
+   PROFILE HERO
 ========================= */
 
 .profile-card{
-
     position:relative;
-    overflow:hidden;
-
-    min-height:270px;
-
-    padding:38px;
-
+    display:flex;
+    align-items:center;
+    gap:30px;
+    padding:35px;
+    border-radius:24px;
+    background:linear-gradient(
+        145deg,
+        rgba(20,20,20,.95),
+        rgba(8,8,8,.95)
+    );
     border:1px solid rgba(0,255,136,.16);
-    border-radius:28px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(0,255,136,.075),
-            rgba(7,9,7,.96) 48%,
-            rgba(0,255,136,.025)
-        );
-
     box-shadow:
-        0 25px 80px rgba(0,0,0,.4),
-        inset 0 0 60px rgba(0,255,136,.015);
+        0 20px 70px rgba(0,0,0,.5),
+        inset 0 0 40px rgba(0,255,136,.015);
+    overflow:hidden;
 }
 
 .profile-card::before{
     content:"";
-
     position:absolute;
-
-    width:300px;
-    height:300px;
-
-    left:-120px;
-    top:-160px;
-
-    border-radius:50%;
-
-    background:rgba(0,255,136,.07);
-
-    filter:blur(50px);
+    width:250px;
+    height:250px;
+    background:#00ff88;
+    opacity:.04;
+    filter:blur(70px);
+    top:-120px;
+    left:-80px;
 }
 
-.profile-card::after{
-    content:"";
-
-    position:absolute;
-
-    width:200px;
-    height:200px;
-
-    right:-90px;
-    bottom:-100px;
-
-    border-radius:50%;
-
-    background:rgba(0,255,136,.05);
-
-    filter:blur(45px);
-}
-
-.profile-main{
+.avatar-box{
     position:relative;
-    z-index:2;
-
-    display:flex;
-    align-items:center;
-    gap:30px;
-}
-
-/* =========================
-   AVATAR
-========================= */
-
-.avatar-wrap{
-    position:relative;
+    width:130px;
+    height:130px;
     flex-shrink:0;
 }
 
 .avatar{
     width:130px;
     height:130px;
-
     border-radius:50%;
-
     object-fit:cover;
-
     border:3px solid #00ff88;
-
-    background:#07100b;
-
+    padding:4px;
+    background:#080808;
     box-shadow:
-        0 0 0 7px rgba(0,255,136,.06),
-        0 0 35px rgba(0,255,136,.2);
-
-    transition:.4s;
-}
-
-.avatar:hover{
-    transform:scale(1.04);
-
-    box-shadow:
-        0 0 0 9px rgba(0,255,136,.07),
-        0 0 45px rgba(0,255,136,.3);
+        0 0 25px rgba(0,255,136,.25);
 }
 
 .online-dot{
     position:absolute;
-
-    width:19px;
-    height:19px;
-
-    bottom:8px;
-    left:8px;
-
+    width:18px;
+    height:18px;
     background:#00ff88;
-
-    border:4px solid #07100b;
-
+    border:3px solid #080808;
     border-radius:50%;
-
-    box-shadow:0 0 12px rgba(0,255,136,.7);
+    bottom:8px;
+    right:8px;
+    box-shadow:0 0 12px rgba(0,255,136,.8);
 }
-
-/* =========================
-   PROFILE INFO
-========================= */
 
 .profile-info{
     flex:1;
@@ -308,65 +181,34 @@ nav a:hover::after{
     color:#00ff88;
     font-size:11px;
     letter-spacing:2px;
+    margin-bottom:10px;
 }
 
 .profile-info h2{
-    margin-top:8px;
-
-    font-size:30px;
-    font-weight:900;
+    font-size:28px;
+    margin-bottom:8px;
 }
 
 .username{
-    margin-top:9px;
-
     color:#888;
-
     font-size:14px;
+    margin-bottom:18px;
 }
-
-.user-id{
-    margin-top:13px;
-
-    color:#4e4e4e;
-
-    font-size:10px;
-
-    direction:ltr;
-    text-align:right;
-
-    word-break:break-all;
-}
-
-/* =========================
-   EDIT BUTTON
-========================= */
 
 .edit-btn{
-    margin-top:20px;
-
     border:none;
-    border-radius:12px;
-
-    padding:12px 22px;
-
     background:#00ff88;
-    color:#000;
-
-    font-family:inherit;
-    font-size:12px;
+    color:#00150b;
+    padding:11px 20px;
+    border-radius:10px;
     font-weight:bold;
-
     cursor:pointer;
-
     transition:.3s;
 }
 
 .edit-btn:hover{
     transform:translateY(-2px);
-
-    box-shadow:
-        0 0 25px rgba(0,255,136,.3);
+    box-shadow:0 8px 25px rgba(0,255,136,.2);
 }
 
 /* =========================
@@ -374,192 +216,95 @@ nav a:hover::after{
 ========================= */
 
 .stats{
-    position:relative;
-    z-index:3;
-
     display:grid;
     grid-template-columns:repeat(3,1fr);
-
-    gap:15px;
-
-    margin-top:20px;
+    gap:18px;
+    margin-top:22px;
 }
 
-.stat{
-    padding:23px;
-
+.stat-card{
+    padding:25px;
     border-radius:18px;
-
-    background:rgba(8,10,8,.82);
-
-    border:1px solid #151915;
-
+    background:#0b0b0b;
+    border:1px solid rgba(255,255,255,.07);
+    text-align:center;
     transition:.3s;
 }
 
-.stat:hover{
-    border-color:rgba(0,255,136,.25);
+.stat-card:hover{
     transform:translateY(-4px);
+    border-color:rgba(0,255,136,.25);
 }
 
-.stat-icon{
-    font-size:22px;
-    margin-bottom:13px;
+.stat-number{
+    color:#00ff88;
+    font-size:28px;
+    font-weight:900;
+    margin-bottom:8px;
 }
 
 .stat-title{
-    color:#666;
-    font-size:11px;
-}
-
-.stat-value{
-    margin-top:7px;
-
-    color:#00ff88;
-
-    font-size:25px;
-    font-weight:bold;
+    color:#888;
+    font-size:13px;
 }
 
 /* =========================
-   SECTIONS GRID
+   SECTION
 ========================= */
 
-.sections{
-    display:grid;
-
-    grid-template-columns:1.2fr .8fr;
-
-    gap:20px;
-
-    margin-top:20px;
-}
-
 .section{
-    background:rgba(7,8,7,.88);
-
-    border:1px solid #151815;
-
-    border-radius:22px;
-
-    padding:25px;
-
-    box-shadow:0 15px 50px rgba(0,0,0,.18);
+    margin-top:30px;
 }
 
 .section-title{
     display:flex;
     align-items:center;
     justify-content:space-between;
-
-    margin-bottom:20px;
+    margin-bottom:16px;
 }
 
 .section-title h3{
-    font-size:16px;
+    font-size:20px;
 }
 
 .section-title span{
     color:#00ff88;
+    font-size:12px;
 }
 
 /* =========================
    TOURNAMENTS
 ========================= */
 
-.tournament-list{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
+.tournaments{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:18px;
 }
 
 .tournament{
-    padding:15px;
-
-    border:1px solid #161916;
-
-    background:#0b0d0b;
-
-    border-radius:14px;
-
+    background:#0b0b0b;
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:18px;
+    padding:20px;
     transition:.3s;
 }
 
 .tournament:hover{
+    transform:translateY(-4px);
     border-color:rgba(0,255,136,.25);
 }
 
-.tournament-name{
-    color:#00ff88;
-    font-size:13px;
-    font-weight:bold;
+.tournament h4{
+    color:#fff;
+    margin-bottom:12px;
+    font-size:16px;
 }
 
 .tournament-info{
-    margin-top:7px;
-
-    color:#666;
-
-    font-size:11px;
-}
-
-/* =========================
-   ACTIONS
-========================= */
-
-.action-list{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-}
-
-.action{
-    width:100%;
-
-    padding:15px 17px;
-
-    display:flex;
-    align-items:center;
-    gap:12px;
-
-    border:1px solid #161916;
-    border-radius:14px;
-
-    background:#0b0d0b;
-
-    color:#ccc;
-
-    cursor:pointer;
-
-    font-family:inherit;
+    color:#888;
     font-size:12px;
-
-    text-align:right;
-
-    transition:.3s;
-}
-
-.action:hover{
-    color:#00ff88;
-
-    border-color:rgba(0,255,136,.28);
-
-    transform:translateX(-3px);
-}
-
-.action-icon{
-    width:32px;
-    height:32px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:9px;
-
-    background:rgba(0,255,136,.06);
-
-    font-size:15px;
+    line-height:2;
 }
 
 /* =========================
@@ -567,53 +312,73 @@ nav a:hover::after{
 ========================= */
 
 .wallet{
-    margin-top:20px;
-
-    padding:23px;
-
-    border-radius:20px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(0,255,136,.07),
-            rgba(7,8,7,.9)
-        );
-
-    border:1px solid rgba(0,255,136,.14);
-
     display:flex;
     align-items:center;
     justify-content:space-between;
+    padding:24px;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0,255,136,.08),
+            rgba(0,0,0,.4)
+        );
+    border:1px solid rgba(0,255,136,.15);
+    border-radius:18px;
 }
 
-.wallet-label{
-    color:#777;
-    font-size:11px;
+.wallet-title{
+    color:#aaa;
+    font-size:13px;
+    margin-bottom:8px;
 }
 
 .wallet-value{
-    margin-top:7px;
-
-    color:#00ff88;
-
-    font-size:23px;
+    font-size:24px;
     font-weight:bold;
+    color:#00ff88;
 }
 
-.wallet-icon{
-    width:50px;
-    height:50px;
+.wallet-status{
+    color:#777;
+    font-size:12px;
+}
 
-    border-radius:15px;
+/* =========================
+   ACTIONS
+========================= */
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+.actions{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
 
-    background:rgba(0,255,136,.07);
+.action-btn{
+    padding:17px;
+    border-radius:14px;
+    background:#0b0b0b;
+    color:#fff;
+    border:1px solid rgba(255,255,255,.07);
+    cursor:pointer;
+    transition:.3s;
+    font-size:14px;
+}
 
-    font-size:22px;
+.action-btn:hover{
+    border-color:#00ff88;
+    color:#00ff88;
+    background:rgba(0,255,136,.04);
+}
+
+.logout{
+    border-color:rgba(255,70,70,.2);
+    color:#ff7777;
+}
+
+.logout:hover{
+    border-color:#ff5555;
+    color:#ff5555;
+    background:rgba(255,50,50,.04);
 }
 
 /* =========================
@@ -623,315 +388,114 @@ nav a:hover::after{
 .modal{
     position:fixed;
     inset:0;
-
+    background:rgba(0,0,0,.78);
+    backdrop-filter:blur(10px);
     display:none;
     align-items:center;
     justify-content:center;
-
+    z-index:1000;
     padding:20px;
-
-    background:rgba(0,0,0,.78);
-
-    backdrop-filter:blur(12px);
-
-    z-index:5000;
 }
 
-.modal.show{
+.modal.active{
     display:flex;
 }
 
 .modal-box{
     width:100%;
-    max-width:600px;
-
-    background:#090b09;
-
+    max-width:650px;
+    background:#0b0b0b;
     border:1px solid rgba(0,255,136,.2);
-
-    border-radius:24px;
-
-    padding:27px;
-
-    box-shadow:
-        0 25px 100px rgba(0,0,0,.7),
-        0 0 40px rgba(0,255,136,.05);
-
-    animation:modalIn .25s ease;
+    border-radius:22px;
+    padding:25px;
+    box-shadow:0 30px 100px rgba(0,0,0,.7);
 }
 
-@keyframes modalIn{
-    from{
-        opacity:0;
-        transform:translateY(20px) scale(.97);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0) scale(1);
-    }
-}
-
-.modal-head{
+.modal-header{
     display:flex;
     align-items:center;
     justify-content:space-between;
-
-    margin-bottom:25px;
+    margin-bottom:20px;
 }
 
-.modal-head h3{
-    font-size:18px;
+.modal-header h3{
+    color:#00ff88;
 }
 
-.close{
+.close-btn{
+    border:none;
+    background:#151515;
+    color:#aaa;
     width:35px;
     height:35px;
-
-    border:1px solid #202520;
-    border-radius:10px;
-
-    background:#111;
-
-    color:#aaa;
-
+    border-radius:9px;
     cursor:pointer;
-
     font-size:18px;
 }
 
-.close:hover{
-    color:#00ff88;
-    border-color:#00ff88;
+.close-btn:hover{
+    color:#fff;
 }
-
-/* =========================
-   AVATAR GRID
-========================= */
 
 .avatar-grid{
     display:grid;
-
     grid-template-columns:repeat(4,1fr);
-
-    gap:14px;
+    gap:15px;
 }
 
 .avatar-option{
-    position:relative;
-
     aspect-ratio:1;
-
-    border-radius:18px;
-
-    overflow:hidden;
-
-    border:2px solid #171a17;
-
+    border-radius:16px;
+    padding:4px;
+    background:#111;
+    border:2px solid transparent;
     cursor:pointer;
-
-    background:#0d0f0d;
-
     transition:.3s;
+}
+
+.avatar-option:hover{
+    border-color:rgba(0,255,136,.5);
+    transform:scale(1.04);
+}
+
+.avatar-option.selected{
+    border-color:#00ff88;
+    box-shadow:0 0 20px rgba(0,255,136,.25);
 }
 
 .avatar-option img{
     width:100%;
     height:100%;
-
     object-fit:cover;
-
-    display:block;
-
-    transition:.35s;
-}
-
-.avatar-option:hover{
-    transform:translateY(-4px);
-
-    border-color:rgba(0,255,136,.5);
-
-    box-shadow:
-        0 0 25px rgba(0,255,136,.12);
-}
-
-.avatar-option:hover img{
-    transform:scale(1.06);
-}
-
-.avatar-option.selected{
-    border-color:#00ff88;
-
-    box-shadow:
-        0 0 0 3px rgba(0,255,136,.12),
-        0 0 30px rgba(0,255,136,.2);
-}
-
-.selected-check{
-    position:absolute;
-
-    top:8px;
-    right:8px;
-
-    width:27px;
-    height:27px;
-
-    display:none;
-
-    align-items:center;
-    justify-content:center;
-
-    border-radius:50%;
-
-    background:#00ff88;
-    color:#000;
-
-    font-size:14px;
-    font-weight:bold;
-}
-
-.avatar-option.selected .selected-check{
-    display:flex;
+    border-radius:12px;
 }
 
 /* =========================
-   MODAL FOOTER
+   EMPTY
 ========================= */
 
-.modal-footer{
-    display:flex;
-
-    justify-content:flex-end;
-
-    gap:10px;
-
-    margin-top:22px;
-}
-
-.modal-btn{
-    border:none;
-
-    border-radius:11px;
-
-    padding:12px 20px;
-
-    font-family:inherit;
-    font-size:12px;
-
-    cursor:pointer;
-}
-
-.save-btn{
-    background:#00ff88;
-    color:#000;
-    font-weight:bold;
-}
-
-.cancel-btn{
-    background:#111;
-    color:#aaa;
-    border:1px solid #202520;
-}
-
-/* =========================
-   TOAST
-========================= */
-
-.toast{
-    position:fixed;
-
-    bottom:25px;
-    right:25px;
-
-    z-index:9999;
-
-    padding:14px 20px;
-
-    border-radius:13px;
-
-    background:#0c110d;
-
-    border:1px solid rgba(0,255,136,.3);
-
-    color:#fff;
-
-    font-size:12px;
-
-    box-shadow:
-        0 10px 40px rgba(0,0,0,.5);
-
-    opacity:0;
-
-    transform:translateY(20px);
-
-    pointer-events:none;
-
-    transition:.3s;
-}
-
-.toast.show{
-    opacity:1;
-    transform:translateY(0);
-}
-
-/* =========================
-   LOADING
-========================= */
-
-.loading{
-    min-height:400px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    color:#00ff88;
-
-    font-size:14px;
+.empty{
+    padding:35px;
+    text-align:center;
+    color:#666;
+    background:#0b0b0b;
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:18px;
 }
 
 /* =========================
    RESPONSIVE
 ========================= */
 
-@media(max-width:850px){
-
-    .sections{
-        grid-template-columns:1fr;
-    }
-
-    .profile-main{
-        flex-direction:column;
-        text-align:center;
-    }
-
-    .user-id{
-        text-align:center;
-    }
-
-    .edit-btn{
-        margin-left:auto;
-        margin-right:auto;
-    }
-
-}
-
-@media(max-width:600px){
+@media(max-width:700px){
 
     header{
         padding:0 4%;
     }
 
-    nav{
-        gap:13px;
-    }
-
     nav a{
-        font-size:10px;
-    }
-
-    .logo{
-        font-size:20px;
+        padding:8px 9px;
+        font-size:12px;
     }
 
     .container{
@@ -940,28 +504,21 @@ nav a:hover::after{
     }
 
     .profile-card{
-        padding:25px 18px;
-    }
-
-    .avatar{
-        width:105px;
-        height:105px;
-    }
-
-    .profile-info h2{
-        font-size:24px;
+        flex-direction:column;
+        text-align:center;
+        padding:28px 20px;
     }
 
     .stats{
         grid-template-columns:1fr;
     }
 
-    .avatar-grid{
-        grid-template-columns:repeat(3,1fr);
+    .actions{
+        grid-template-columns:1fr;
     }
 
-    .modal-box{
-        padding:20px;
+    .avatar-grid{
+        grid-template-columns:repeat(3,1fr);
     }
 
 }
@@ -971,514 +528,354 @@ nav a:hover::after{
 
 <body>
 
-<!-- =========================
-     HEADER
-========================= -->
-
 <header>
 
-<a href="index.html" class="logo">
-CALLAFINO<span>.</span>
-</a>
+    <div class="logo">CALLAFINO.</div>
 
-<nav>
-
-<a href="index.html">
-خانه
-</a>
-
-<a href="codm.html">
-کالاف موبایل
-</a>
-
-<a href="dashboard.html">
-داشبورد
-</a>
-
-</nav>
+    <nav>
+        <a href="index.html">خانه</a>
+        <a href="codm.html">CODM</a>
+        <a href="dashboard.html">داشبورد</a>
+    </nav>
 
 </header>
 
 
-<!-- =========================
-     MAIN
-========================= -->
-
 <main class="container">
 
-<div id="loading" class="loading">
-در حال بارگذاری پروفایل...
-</div>
+    <!-- PROFILE -->
 
+    <section class="profile-card">
 
-<div id="profileContent" style="display:none;">
+        <div class="avatar-box">
 
-<div class="page-title">
+            <img
+                id="profileAvatar"
+                class="avatar"
+                src="https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000001cec820a80715b1deedc0a36.png"
+                alt="Avatar"
+            >
 
-<small>CALLAFINO ACCOUNT</small>
+            <div class="online-dot"></div>
 
-<h1>پروفایل من</h1>
+        </div>
 
-<p>
-اطلاعات و فعالیت‌های حساب کاربری شما
-</p>
 
-</div>
+        <div class="profile-info">
 
+            <div class="profile-label">
+                PLAYER PROFILE
+            </div>
 
-<!-- =========================
-     PROFILE
-========================= -->
+            <h2 id="displayName">
+                کاربر CALLAFINO
+            </h2>
 
-<section class="profile-card">
+            <div
+                class="username"
+                id="username"
+            >
+                @username
+            </div>
 
-<div class="profile-main">
+            <button
+                class="edit-btn"
+                onclick="openAvatarModal()"
+            >
+                تغییر آواتار
+            </button>
 
-<div class="avatar-wrap">
+        </div>
 
-<img
-    id="avatar"
-    class="avatar"
-    src=""
-    alt="Avatar"
->
+    </section>
 
-<div class="online-dot"></div>
 
-</div>
+    <!-- STATS -->
 
+    <section class="stats">
 
-<div class="profile-info">
+        <div class="stat-card">
 
-<div class="profile-label">
-PLAYER PROFILE
-</div>
+            <div
+                class="stat-number"
+                id="tournamentCount"
+            >
+                0
+            </div>
 
-<h2 id="displayName">
-کاربر CALLAFINO
-</h2>
+            <div class="stat-title">
+                تورنمنت‌ها
+            </div>
 
-<div class="username" id="username">
-@username
-</div>
+        </div>
 
-<div class="user-id" id="userId">
-ID: -
-</div>
 
-<button
-    class="edit-btn"
-    onclick="openAvatarModal()"
->
-تغییر آواتار
-</button>
+        <div class="stat-card">
 
-</div>
+            <div
+                class="stat-number"
+                id="friendCount"
+            >
+                0
+            </div>
 
-</div>
+            <div class="stat-title">
+                دوستان
+            </div>
 
-</section>
+        </div>
 
 
-<!-- =========================
-     STATS
-========================= -->
+        <div class="stat-card">
 
-<div class="stats">
+            <div class="stat-number">
+                0
+            </div>
 
-<div class="stat">
+            <div class="stat-title">
+                بردها
+            </div>
 
-<div class="stat-icon">
-🏆
-</div>
+        </div>
 
-<div class="stat-title">
-تورنمنت‌ها
-</div>
+    </section>
 
-<div
-    class="stat-value"
-    id="tournamentCount"
->
-0
-</div>
 
-</div>
+    <!-- TOURNAMENTS -->
 
+    <section class="section">
 
-<div class="stat">
+        <div class="section-title">
 
-<div class="stat-icon">
-👥
-</div>
+            <h3>
+                تورنمنت‌های من
+            </h3>
 
-<div class="stat-title">
-دوستان
-</div>
+            <span>
+                MY TOURNAMENTS
+            </span>
 
-<div
-    class="stat-value"
-    id="friendCount"
->
-0
-</div>
+        </div>
 
-</div>
 
+        <div
+            class="tournaments"
+            id="tournamentsList"
+        >
 
-<div class="stat">
+            <div class="empty">
+                در حال دریافت اطلاعات...
+            </div>
 
-<div class="stat-icon">
-🥇
-</div>
+        </div>
 
-<div class="stat-title">
-بردها
-</div>
+    </section>
 
-<div class="stat-value">
-به‌زودی
-</div>
 
-</div>
+    <!-- WALLET -->
 
-</div>
+    <section class="section">
 
+        <div class="section-title">
 
-<!-- =========================
-     CONTENT
-========================= -->
+            <h3>
+                کیف پول
+            </h3>
 
-<div class="sections">
+            <span>
+                WALLET
+            </span>
 
+        </div>
 
-<!-- TOURNAMENTS -->
 
-<section class="section">
+        <div class="wallet">
 
-<div class="section-title">
+            <div>
 
-<h3>
-🎮 <span>تورنمنت‌های من</span>
-</h3>
+                <div class="wallet-title">
+                    موجودی حساب
+                </div>
 
-</div>
+                <div class="wallet-value">
+                    به‌زودی
+                </div>
 
-<div
-    id="myTournaments"
-    class="tournament-list"
->
+            </div>
 
-<div class="loading">
-در حال بررسی...
-</div>
 
-</div>
+            <div class="wallet-status">
+                سیستم کیف پول فعال نشده است
+            </div>
 
-</section>
+        </div>
 
+    </section>
 
-<!-- ACTIONS -->
 
-<section class="section">
+    <!-- ACTIONS -->
 
-<div class="section-title">
+    <section class="section">
 
-<h3>
-⚙️ <span>حساب کاربری</span>
-</h3>
+        <div class="section-title">
 
-</div>
+            <h3>
+                حساب کاربری
+            </h3>
 
+        </div>
 
-<div class="action-list">
 
-<button
-    class="action"
-    onclick="openAvatarModal()"
->
+        <div class="actions">
 
-<div class="action-icon">
-🖼️
-</div>
+            <button
+                class="action-btn"
+                onclick="location.href='dashboard.html'"
+            >
+                ⚡ ورود به داشبورد
+            </button>
 
-تغییر آواتار
 
-</button>
+            <button
+                class="action-btn"
+                onclick="location.href='index.html'"
+            >
+                🏠 بازگشت به خانه
+            </button>
 
 
-<button
-    class="action"
-    onclick="comingSoon()"
->
+            <button
+                class="action-btn logout"
+                onclick="logout()"
+            >
+                خروج از حساب
+            </button>
 
-<div class="action-icon">
-✏️
-</div>
+        </div>
 
-ویرایش اطلاعات
-
-</button>
-
-
-<button
-    class="action"
-    onclick="comingSoon()"
->
-
-<div class="action-icon">
-⚙️
-</div>
-
-تنظیمات حساب
-
-</button>
-
-
-<button
-    class="action"
-    onclick="logout()"
->
-
-<div class="action-icon">
-🚪
-</div>
-
-خروج از حساب
-
-</button>
-
-</div>
-
-</section>
-
-</div>
-
-
-<!-- =========================
-     WALLET
-========================= -->
-
-<section class="wallet">
-
-<div>
-
-<div class="wallet-label">
-موجودی کیف پول
-</div>
-
-<div class="wallet-value">
-به‌زودی
-</div>
-
-</div>
-
-<div class="wallet-icon">
-💰
-</div>
-
-</section>
-
-</div>
+    </section>
 
 </main>
 
 
-<!-- =========================
-     AVATAR MODAL
-========================= -->
+<!-- AVATAR MODAL -->
 
 <div
     class="modal"
     id="avatarModal"
-    onclick="closeModalOutside(event)"
 >
 
-<div
-    class="modal-box"
-    onclick="event.stopPropagation()"
->
+    <div class="modal-box">
 
-<div class="modal-head">
+        <div class="modal-header">
 
-<h3>
-انتخاب آواتار
-</h3>
+            <h3>
+                انتخاب آواتار
+            </h3>
 
-<button
-    class="close"
-    onclick="closeAvatarModal()"
->
-×
-</button>
+            <button
+                class="close-btn"
+                onclick="closeAvatarModal()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="avatar-grid" id="avatarGrid">
+
+            <!-- Avatar 1 -->
+
+            <div
+                class="avatar-option"
+                onclick="selectAvatar(this, 'https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000001cec820a80715b1deedc0a36.png')"
+            >
+
+                <img src="https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000001cec820a80715b1deedc0a36.png">
+
+            </div>
+
+
+            <!-- Avatar 2 -->
+
+            <div
+                class="avatar-option"
+                onclick="selectAvatar(this, 'https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000003d0c81f58e0dfb39902285f1.png')"
+            >
+
+                <img src="https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000003d0c81f58e0dfb39902285f1.png">
+
+            </div>
+
+
+            <!-- Avatar 3 -->
+
+            <div
+                class="avatar-option"
+                onclick="selectAvatar(this, 'https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000005e30820a813850e742f74eb6.png')"
+            >
+
+                <img src="https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000005e30820a813850e742f74eb6.png">
+
+            </div>
+
+
+            <!-- Avatar 4 -->
+
+            <div
+                class="avatar-option"
+                onclick="selectAvatar(this, 'https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_00000000637882108a483fede744b6ab.png')"
+            >
+
+                <img src="https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_00000000637882108a483fede744b6ab.png">
+
+            </div>
+
+
+            <!-- Avatar 5 -->
+
+            <div
+                class="avatar-option"
+                onclick="selectAvatar(this, 'https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000006fe8820a9e92ebd9a546320f.png')"
+            >
+
+                <img src="https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000006fe8820a9e92ebd9a546320f.png">
+
+            </div>
+
+
+            <!-- Avatar 6 -->
+
+            <div
+                class="avatar-option"
+                onclick="selectAvatar(this, 'https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000008e6481f5ae96b2522254cc0e.png')"
+            >
+
+                <img src="https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000008e6481f5ae96b2522254cc0e.png">
+
+            </div>
+
+
+            <!-- Avatar 7 -->
+
+            <div
+                class="avatar-option"
+                onclick="selectAvatar(this, 'https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_00000000c374824395592931b290c7db.png')"
+            >
+
+                <img src="https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_00000000c374824395592931b290c7db.png">
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
 
-<div class="avatar-grid" id="avatarGrid">
-
-<!-- AVATARS -->
-
-<div
-    class="avatar-option"
-    data-avatar="1"
-    onclick="selectAvatar(1)"
->
-
-<img
-src="https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000001cec820a80715b1deedc0a36.png"
-alt="Avatar 1"
->
-
-<div class="selected-check">
-✓
-</div>
-
-</div>
-
-
-<div
-    class="avatar-option"
-    data-avatar="2"
-    onclick="selectAvatar(2)"
->
-
-<img
-src="https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000003d0c81f58e0dfb39902285f1.png"
-alt="Avatar 2"
->
-
-<div class="selected-check">
-✓
-</div>
-
-</div>
-
-
-<div
-    class="avatar-option"
-    data-avatar="3"
-    onclick="selectAvatar(3)"
->
-
-<img
-src="https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000005e30820a813850e742f74eb6.png"
-alt="Avatar 3"
->
-
-<div class="selected-check">
-✓
-</div>
-
-</div>
-
-
-<div
-    class="avatar-option"
-    data-avatar="4"
-    onclick="selectAvatar(4)"
->
-
-<img
-src="https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_00000000637882108a483fede744b6ab.png"
-alt="Avatar 4"
->
-
-<div class="selected-check">
-✓
-</div>
-
-</div>
-
-
-<div
-    class="avatar-option"
-    data-avatar="5"
-    onclick="selectAvatar(5)"
->
-
-<img
-src="https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000006fe8820a9e92ebd9a546320f.png"
-alt="Avatar 5"
->
-
-<div class="selected-check">
-✓
-</div>
-
-</div>
-
-
-<div
-    class="avatar-option"
-    data-avatar="6"
-    onclick="selectAvatar(6)"
->
-
-<img
-src="https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000008e6481f5ae96b2522254cc0e.png"
-alt="Avatar 6"
->
-
-<div class="selected-check">
-✓
-</div>
-
-</div>
-
-
-<div
-    class="avatar-option"
-    data-avatar="7"
-    onclick="selectAvatar(7)"
->
-
-<img
-src="https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_00000000c374824395592931b290c7db.png"
-alt="Avatar 7"
->
-
-<div class="selected-check">
-✓
-</div>
-
-</div>
-
-</div>
-
-
-<div class="modal-footer">
-
-<button
-    class="modal-btn cancel-btn"
-    onclick="closeAvatarModal()"
->
-انصراف
-</button>
-
-<button
-    class="modal-btn save-btn"
-    onclick="saveAvatar()"
->
-ذخیره آواتار
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- =========================
-     TOAST
-========================= -->
-
-<div
-    id="toast"
-    class="toast"
-></div>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
@@ -1487,342 +884,27 @@ alt="Avatar 7"
 ========================= */
 
 const SUPABASE_URL =
-"https://oisqrkqwbskvqkparmiw.supabase.co";
+    "https://oisqrkqwbskvqkparmiw.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_FGoXFElayJeRdyFxyc61hQ_c5CUn5HL";
+    "sb_publishable_FGoXFElayJeRdyFxyc61hQ_c5CUn5HL";
 
 const supabaseClient =
-supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
 
 
 /* =========================
-   AVATAR URLS
+   AVATARS
 ========================= */
 
-const avatarUrls = {
+const defaultAvatar =
+"https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000001cec820a80715b1deedc0a36.png";
 
-    1:
-    "https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000001cec820a80715b1deedc0a36.png",
 
-    2:
-    "https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000003d0c81f58e0dfb39902285f1.png",
-
-    3:
-    "https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000005e30820a813850e742f74eb6.png",
-
-    4:
-    "https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_00000000637882108a483fede744b6ab.png",
-
-    5:
-    "https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000006fe8820a9e92ebd9a546320f.png",
-
-    6:
-    "https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000008e6481f5ae96b2522254cc0e.png",
-
-    7:
-    "https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_00000000c374824395592931b290c7db.png"
-
-};
-
-
-/* =========================
-   VARIABLES
-========================= */
-
-let selectedAvatar =
-    localStorage.getItem("callafino_avatar") || "1";
-
-let currentUser = null;
-
-
-/* =========================
-   TOAST
-========================= */
-
-function showToast(message){
-
-    const toast =
-        document.getElementById("toast");
-
-    toast.textContent = message;
-
-    toast.classList.add("show");
-
-    setTimeout(() => {
-
-        toast.classList.remove("show");
-
-    },3000);
-
-}
-
-
-/* =========================
-   LOAD PROFILE
-========================= */
-
-async function loadProfile(){
-
-    try{
-
-        const {
-            data: {
-                user
-            },
-            error: authError
-        } =
-        await supabaseClient.auth.getUser();
-
-
-        if(authError || !user){
-
-            window.location.href =
-                "login.html";
-
-            return;
-
-        }
-
-
-        currentUser = user;
-
-
-        /* =========================
-           USER ID
-        ========================= */
-
-        document.getElementById(
-            "userId"
-        ).textContent =
-            "ID: " + user.id;
-
-
-        /* =========================
-           PROFILE
-        ========================= */
-
-        const {
-            data: profile
-        } =
-        await supabaseClient
-            .from("profiles")
-            .select("*")
-            .eq("id", user.id)
-            .maybeSingle();
-
-
-        let name =
-            profile?.username ||
-            user.user_metadata?.username ||
-            user.email?.split("@")[0] ||
-            "کاربر CALLAFINO";
-
-
-        document.getElementById(
-            "displayName"
-        ).textContent = name;
-
-
-        document.getElementById(
-            "username"
-        ).textContent =
-            "@" + name;
-
-
-        /* =========================
-           AVATAR
-        ========================= */
-
-        const avatar =
-            document.getElementById("avatar");
-
-
-        avatar.src =
-            avatarUrls[selectedAvatar];
-
-
-        /* =========================
-           TOURNAMENT COUNT
-        ========================= */
-
-        const {
-            count: tournamentCount
-        } =
-        await supabaseClient
-            .from("tournament_registrations")
-            .select(
-                "*",
-                {
-                    count:"exact",
-                    head:true
-                }
-            )
-            .eq(
-                "user_id",
-                user.id
-            );
-
-
-        document.getElementById(
-            "tournamentCount"
-        ).textContent =
-            tournamentCount || 0;
-
-
-        /* =========================
-           FRIEND COUNT
-        ========================= */
-
-        const {
-            count: friendCount
-        } =
-        await supabaseClient
-            .from("friendships")
-            .select(
-                "*",
-                {
-                    count:"exact",
-                    head:true
-                }
-            )
-            .or(
-                `user_id.eq.${user.id},friend_id.eq.${user.id}`
-            );
-
-
-        document.getElementById(
-            "friendCount"
-        ).textContent =
-            friendCount || 0;
-
-
-        /* =========================
-           MY TOURNAMENTS
-        ========================= */
-
-        const {
-            data: registrations
-        } =
-        await supabaseClient
-            .from("tournament_registrations")
-            .select(`
-                tournament_id,
-                created_at,
-                tournaments (
-                    title,
-                    game,
-                    type
-                )
-            `)
-            .eq(
-                "user_id",
-                user.id
-            )
-            .order(
-                "created_at",
-                {
-                    ascending:false
-                }
-            )
-            .limit(5);
-
-
-        const box =
-            document.getElementById(
-                "myTournaments"
-            );
-
-
-        if(
-            !registrations ||
-            registrations.length === 0
-        ){
-
-            box.innerHTML = `
-                <div class="tournament">
-                    <div class="tournament-info">
-                        هنوز در هیچ تورنمنتی ثبت‌نام نکرده‌ای.
-                    </div>
-                </div>
-            `;
-
-        }else{
-
-            box.innerHTML =
-                registrations.map(item => {
-
-                    const t =
-                        item.tournaments;
-
-                    if(!t) return "";
-
-                    return `
-                        <div class="tournament">
-
-                            <div class="tournament-name">
-                                ${escapeHtml(t.title)}
-                            </div>
-
-                            <div class="tournament-info">
-                                ${escapeHtml(t.game || "-")}
-                                •
-                                ${escapeHtml(t.type || "-")}
-                            </div>
-
-                        </div>
-                    `;
-
-                }).join("");
-
-        }
-
-
-        /* =========================
-           SHOW PAGE
-        ========================= */
-
-        document.getElementById(
-            "loading"
-        ).style.display = "none";
-
-
-        document.getElementById(
-            "profileContent"
-        ).style.display = "block";
-
-
-    }catch(error){
-
-        console.error(error);
-
-        document.getElementById(
-            "loading"
-        ).textContent =
-            "خطا در بارگذاری پروفایل.";
-
-    }
-
-}
-
-
-/* =========================
-   ESCAPE
-========================= */
-
-function escapeHtml(text){
-
-    return String(text)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-
-}
+let selectedAvatar = null;
 
 
 /* =========================
@@ -1831,43 +913,9 @@ function escapeHtml(text){
 
 function openAvatarModal(){
 
-    selectedAvatar =
-        localStorage.getItem(
-            "callafino_avatar"
-        ) || "1";
-
-
     document
-        .querySelectorAll(".avatar-option")
-        .forEach(option => {
-
-            option.classList.remove(
-                "selected"
-            );
-
-        });
-
-
-    const selected =
-        document.querySelector(
-            `[data-avatar="${selectedAvatar}"]`
-        );
-
-
-    if(selected){
-
-        selected.classList.add(
-            "selected"
-        );
-
-    }
-
-
-    document
-        .getElementById(
-            "avatarModal"
-        )
-        .classList.add("show");
+        .getElementById("avatarModal")
+        .classList.add("active");
 
 }
 
@@ -1879,28 +927,8 @@ function openAvatarModal(){
 function closeAvatarModal(){
 
     document
-        .getElementById(
-            "avatarModal"
-        )
-        .classList.remove("show");
-
-}
-
-
-/* =========================
-   OUTSIDE CLICK
-========================= */
-
-function closeModalOutside(event){
-
-    if(
-        event.target.id ===
-        "avatarModal"
-    ){
-
-        closeAvatarModal();
-
-    }
+        .getElementById("avatarModal")
+        .classList.remove("active");
 
 }
 
@@ -1909,77 +937,350 @@ function closeModalOutside(event){
    SELECT AVATAR
 ========================= */
 
-function selectAvatar(number){
-
-    selectedAvatar =
-        String(number);
-
+function selectAvatar(element, url){
 
     document
         .querySelectorAll(".avatar-option")
-        .forEach(option => {
-
-            option.classList.remove(
-                "selected"
-            );
-
+        .forEach(item => {
+            item.classList.remove("selected");
         });
 
 
-    const option =
-        document.querySelector(
-            `[data-avatar="${number}"]`
-        );
+    element.classList.add("selected");
 
 
-    if(option){
-
-        option.classList.add(
-            "selected"
-        );
-
-    }
-
-}
+    selectedAvatar = url;
 
 
-/* =========================
-   SAVE AVATAR
-========================= */
+    document
+        .getElementById("profileAvatar")
+        .src = url;
 
-function saveAvatar(){
 
     localStorage.setItem(
         "callafino_avatar",
-        selectedAvatar
+        url
     );
 
 
-    document.getElementById(
-        "avatar"
-    ).src =
-        avatarUrls[selectedAvatar];
+    setTimeout(() => {
 
+        closeAvatarModal();
 
-    closeAvatarModal();
-
-
-    showToast(
-        "آواتار با موفقیت تغییر کرد ✓"
-    );
+    }, 300);
 
 }
 
 
 /* =========================
-   COMING SOON
+   LOAD USER
 ========================= */
 
-function comingSoon(){
+async function loadProfile(){
 
-    showToast(
-        "این بخش به‌زودی اضافه می‌شود."
-    );
+    const {
+        data: {
+            user
+        }
+    } = await supabaseClient.auth.getUser();
+
+
+    if(!user){
+
+        window.location.href = "login.html";
+
+        return;
+
+    }
+
+
+    /* =========================
+       PROFILE
+    ========================= */
+
+    const {
+        data: profile
+    } = await supabaseClient
+        .from("profiles")
+        .select("*")
+        .eq("id", user.id)
+        .maybeSingle();
+
+
+    let displayName =
+        "کاربر CALLAFINO";
+
+
+    let username =
+        user.email
+        ? user.email.split("@")[0]
+        : "username";
+
+
+    if(profile){
+
+        if(profile.username){
+
+            username =
+                profile.username;
+
+        }
+
+
+        if(profile.full_name){
+
+            displayName =
+                profile.full_name;
+
+        }
+        else if(profile.name){
+
+            displayName =
+                profile.name;
+
+        }
+
+    }
+
+
+    document
+        .getElementById("displayName")
+        .textContent =
+        displayName;
+
+
+    document
+        .getElementById("username")
+        .textContent =
+        "@" + username;
+
+
+    /* =========================
+       AVATAR
+    ========================= */
+
+    const savedAvatar =
+        localStorage.getItem(
+            "callafino_avatar"
+        );
+
+
+    if(savedAvatar){
+
+        document
+            .getElementById("profileAvatar")
+            .src =
+            savedAvatar;
+
+    }
+
+
+    /* =========================
+       TOURNAMENT COUNT
+    ========================= */
+
+    const {
+        count: tournamentCount
+    } = await supabaseClient
+        .from("tournament_registrations")
+        .select(
+            "*",
+            {
+                count:"exact",
+                head:true
+            }
+        )
+        .eq(
+            "user_id",
+            user.id
+        );
+
+
+    document
+        .getElementById("tournamentCount")
+        .textContent =
+        tournamentCount || 0;
+
+
+    /* =========================
+       FRIEND COUNT
+    ========================= */
+
+    const {
+        count: friendCount
+    } = await supabaseClient
+        .from("friendships")
+        .select(
+            "*",
+            {
+                count:"exact",
+                head:true
+            }
+        )
+        .or(
+            `user_id.eq.${user.id},friend_id.eq.${user.id}`
+        );
+
+
+    document
+        .getElementById("friendCount")
+        .textContent =
+        friendCount || 0;
+
+
+    /* =========================
+       MY TOURNAMENTS
+    ========================= */
+
+    const {
+        data: registrations
+    } = await supabaseClient
+        .from("tournament_registrations")
+        .select(`
+            slot,
+            type,
+            created_at,
+            tournament_id,
+            tournaments (
+                title,
+                game,
+                tournament_date,
+                tournament_time
+            )
+        `)
+        .eq(
+            "user_id",
+            user.id
+        )
+        .order(
+            "created_at",
+            {
+                ascending:false
+            }
+        );
+
+
+    const list =
+        document.getElementById(
+            "tournamentsList"
+        );
+
+
+    if(
+        !registrations ||
+        registrations.length === 0
+    ){
+
+        list.innerHTML = `
+            <div class="empty">
+                هنوز در هیچ تورنمنتی ثبت‌نام نکرده‌اید.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    list.innerHTML = "";
+
+
+    registrations.forEach(item => {
+
+        const tournament =
+            item.tournaments;
+
+
+        if(!tournament){
+
+            return;
+
+        }
+
+
+        const card =
+            document.createElement("div");
+
+
+        card.className =
+            "tournament";
+
+
+        card.innerHTML = `
+
+            <h4>
+                ${escapeHTML(
+                    tournament.title ||
+                    "Tournament"
+                )}
+            </h4>
+
+            <div class="tournament-info">
+
+                🎮 بازی:
+                ${escapeHTML(
+                    tournament.game ||
+                    "-"
+                )}
+
+                <br>
+
+                📅 تاریخ:
+                ${escapeHTML(
+                    tournament.tournament_date ||
+                    "-"
+                )}
+
+                <br>
+
+                ⏰ ساعت:
+                ${escapeHTML(
+                    tournament.tournament_time ||
+                    "-"
+                )}
+
+                <br>
+
+                👥 نوع:
+                ${escapeHTML(
+                    item.type ||
+                    "-"
+                )}
+
+                <br>
+
+                🎯 اسلات:
+                ${escapeHTML(
+                    String(
+                        item.slot ||
+                        "-"
+                    )
+                )}
+
+            </div>
+
+        `;
+
+
+        list.appendChild(card);
+
+    });
+
+}
+
+
+/* =========================
+   HTML SAFE
+========================= */
+
+function escapeHTML(value){
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
 
 }
 
@@ -1990,27 +1291,38 @@ function comingSoon(){
 
 async function logout(){
 
-    const {
-        error
-    } =
     await supabaseClient.auth.signOut();
 
-
-    if(error){
-
-        showToast(
-            "خطا در خروج از حساب"
-        );
-
-        return;
-
-    }
-
+    localStorage.removeItem(
+        "callafino_avatar"
+    );
 
     window.location.href =
         "login.html";
 
 }
+
+
+/* =========================
+   MODAL CLICK OUTSIDE
+========================= */
+
+document
+    .getElementById("avatarModal")
+    .addEventListener(
+        "click",
+        function(e){
+
+            if(
+                e.target === this
+            ){
+
+                closeAvatarModal();
+
+            }
+
+        }
+    );
 
 
 /* =========================
@@ -2023,4 +1335,3 @@ loadProfile();
 
 </body>
 </html>
-```
