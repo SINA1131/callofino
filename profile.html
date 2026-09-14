@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
@@ -472,6 +473,7 @@ nav a:hover{
     .avatar-grid{
         grid-template-columns:repeat(3,1fr);
     }
+
 }
 
 </style>
@@ -812,118 +814,120 @@ function closeAvatarModal(){
 
 
 /* =========================
+GET CURRENT USER
+========================= */
+
+async function getCurrentUser(){
+
+    const {
+        data:{
+            user
+        },
+        error
+    } =
+    await supabaseClient.auth.getUser();
+
+    if(error){
+
+        console.error(
+            "Auth user error:",
+            error
+        );
+
+        return null;
+
+    }
+
+    return user || null;
+
+}
+
+
+/* =========================
 SAVE AVATAR TO DATABASE
 ========================= */
 
 async function saveAvatarToDatabase(url){
 
+    if(!url || !String(url).trim()){
+
+        console.error(
+            "Invalid avatar URL."
+        );
+
+        return false;
+
+    }
+
+
+    const user =
+        await getCurrentUser();
+
+
+    if(!user){
+
+        console.error(
+            "No logged in user."
+        );
+
+        return false;
+
+    }
+
+
     try{
 
-        const {
-            data:{
-                user
-            },
-            error:userError
-        } =
-        await supabaseClient.auth.getUser();
-
-
-        if(userError){
-
-            console.error(
-                "User error:",
-                userError
-            );
-
-            return false;
-
-        }
-
-
-        if(!user){
-
-            console.error(
-                "No logged in user."
-            );
-
-            return false;
-
-        }
-
-
         /*
-           اول بررسی می‌کنیم پروفایل وجود دارد یا نه
+        همیشه UPDATE را امتحان می‌کنیم.
         */
 
         const {
-            data:existingProfile,
-            error:profileCheckError
+            data:updateData,
+            error:updateError
         } =
         await supabaseClient
             .from("profiles")
-            .select("id")
+            .update({
+                avatar_url:url
+            })
             .eq(
                 "id",
                 user.id
             )
+            .select("id,avatar_url")
             .maybeSingle();
 
 
-        if(profileCheckError){
+        /*
+        اگر پروفایل وجود داشته باشد
+        updateData برمی‌گردد.
+        */
 
-            console.error(
-                "Profile check error:",
-                profileCheckError
+        if(!updateError && updateData){
+
+            console.log(
+                "Avatar updated successfully:",
+                updateData
             );
 
-            return false;
+            return true;
 
         }
 
 
         /*
-           اگر پروفایل وجود داشت
-           فقط آواتار را آپدیت می‌کنیم
+        اگر پروفایل وجود نداشت،
+        آن را می‌سازیم.
         */
 
-        if(existingProfile){
+        if(
+            !updateData &&
+            !updateError
+        ){
 
             const {
-                error
-            } =
-            await supabaseClient
-                .from("profiles")
-                .update({
-                    avatar_url:url
-                })
-                .eq(
-                    "id",
-                    user.id
-                );
-
-
-            if(error){
-
-                console.error(
-                    "Avatar update error:",
-                    error
-                );
-
-                return false;
-
-            }
-
-        }
-
-        /*
-           اگر پروفایل وجود نداشت
-           یک پروفایل جدید می‌سازیم
-        */
-
-        else{
-
-            const {
-                error
+                data:insertData,
+                error:insertError
             } =
             await supabaseClient
                 .from("profiles")
@@ -934,29 +938,43 @@ async function saveAvatarToDatabase(url){
                         user.email?.split("@")[0] ||
                         "Player",
                     avatar_url:url
-                });
+                })
+                .select("id,avatar_url")
+                .single();
 
 
-            if(error){
+            if(insertError){
 
                 console.error(
                     "Avatar insert error:",
-                    error
+                    insertError
                 );
 
                 return false;
 
             }
 
+
+            console.log(
+                "Avatar inserted successfully:",
+                insertData
+            );
+
+            return true;
+
         }
 
 
-        console.log(
-            "Avatar saved in Supabase:",
-            url
+        /*
+        اگر UPDATE خطا داد، خطا را نمایش می‌دهیم.
+        */
+
+        console.error(
+            "Avatar update error:",
+            updateError
         );
 
-        return true;
+        return false;
 
     }
     catch(error){
@@ -974,10 +992,63 @@ async function saveAvatarToDatabase(url){
 
 
 /* =========================
+VERIFY SAVED AVATAR
+========================= */
+
+async function verifyAvatarSaved(url){
+
+    const user =
+        await getCurrentUser();
+
+
+    if(!user)
+        return false;
+
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+        .from("profiles")
+        .select("avatar_url")
+        .eq(
+            "id",
+            user.id
+        )
+        .maybeSingle();
+
+
+    if(error){
+
+        console.error(
+            "Avatar verification error:",
+            error
+        );
+
+        return false;
+
+    }
+
+
+    return !!(
+        data &&
+        data.avatar_url &&
+        data.avatar_url === url
+    );
+
+}
+
+
+/* =========================
 SELECT AVATAR
 ========================= */
 
 async function selectAvatar(element,url){
+
+    /*
+    اول ظاهر انتخاب را تغییر می‌دهیم
+    */
 
     document
         .querySelectorAll(".avatar-option")
@@ -992,10 +1063,18 @@ async function selectAvatar(element,url){
     selectedAvatar=url;
 
 
+    /*
+    نمایش فوری آواتار
+    */
+
     document
         .getElementById("profileAvatar")
         .src=url;
 
+
+    /*
+    ذخیره در LocalStorage
+    */
 
     localStorage.setItem(
         "callafino_avatar",
@@ -1004,7 +1083,7 @@ async function selectAvatar(element,url){
 
 
     /*
-       ذخیره واقعی در Supabase
+    ذخیره در Supabase
     */
 
     const saved =
@@ -1017,7 +1096,42 @@ async function selectAvatar(element,url){
             "Avatar was NOT saved to Supabase."
         );
 
+        alert(
+            "ذخیره آواتار انجام نشد. کنسول مرورگر را بررسی کنید."
+        );
+
+        return;
+
     }
+
+
+    /*
+    دوباره بررسی می‌کنیم که واقعاً
+    داخل profiles ذخیره شده باشد.
+    */
+
+    const verified =
+        await verifyAvatarSaved(url);
+
+
+    if(!verified){
+
+        console.error(
+            "Avatar verification failed."
+        );
+
+        alert(
+            "آواتار ذخیره شد اما تأیید نهایی انجام نشد."
+        );
+
+        return;
+
+    }
+
+
+    console.log(
+        "Avatar saved and verified successfully."
+    );
 
 
     setTimeout(()=>{
@@ -1028,17 +1142,46 @@ async function selectAvatar(element,url){
 
 
 /* =========================
+MARK SELECTED AVATAR
+========================= */
+
+function markSelectedAvatar(url){
+
+    document
+        .querySelectorAll(".avatar-option")
+        .forEach(item=>{
+
+            item.classList.remove(
+                "selected"
+            );
+
+            const image =
+                item.querySelector("img");
+
+            if(
+                image &&
+                image.src === url
+            ){
+
+                item.classList.add(
+                    "selected"
+                );
+
+            }
+
+        });
+
+}
+
+
+/* =========================
 LOAD USER
 ========================= */
 
 async function loadProfile(){
 
-    const {
-        data:{
-            user
-        }
-    } =
-    await supabaseClient.auth.getUser();
+    const user =
+        await getCurrentUser();
 
 
     if(!user){
@@ -1117,19 +1260,29 @@ async function loadProfile(){
         .textContent="@"+username;
 
 
-    const savedAvatar =
+    /*
+    اولویت آواتار:
+
+    1. آواتار ذخیره‌شده در Supabase
+    2. آواتار قبلی LocalStorage
+    3. آواتار پیش‌فرض
+    */
+
+    let savedAvatar =
         profile &&
         profile.avatar_url
-        ?
-        profile.avatar_url
-        :
-        (
+        ? profile.avatar_url
+        : (
             localStorage.getItem(
                 "callafino_avatar"
             ) ||
             defaultAvatar
         );
 
+
+    /*
+    نمایش آواتار
+    */
 
     document
         .getElementById("profileAvatar")
@@ -1145,27 +1298,53 @@ async function loadProfile(){
     );
 
 
-    /* =========================
-       اگر پروفایل وجود داشت ولی
-       avatar_url خالی بود، همینجا
-       هم در دیتابیس ذخیره می‌کنیم
-    ========================= */
+    /*
+    آواتار انتخاب‌شده را در پنجره
+    هم مشخص می‌کنیم.
+    */
+
+    markSelectedAvatar(
+        savedAvatar
+    );
+
+
+    /*
+    اگر avatar_url دیتابیس خالی بود،
+    فقط در صورتی که LocalStorage آواتار
+    واقعی داشته باشد آن را ذخیره می‌کنیم.
+
+    آواتار پیش‌فرض را به اجبار در DB
+    ذخیره نمی‌کنیم.
+    */
 
     if(
-        user &&
-        savedAvatar &&
-        (
-            !profile ||
-            !profile.avatar_url
-        )
+        profile &&
+        !profile.avatar_url
     ){
 
-        await saveAvatarToDatabase(
-            savedAvatar
-        );
+        const localAvatar =
+            localStorage.getItem(
+                "callafino_avatar"
+            );
+
+
+        if(
+            localAvatar &&
+            localAvatar !== defaultAvatar
+        ){
+
+            await saveAvatarToDatabase(
+                localAvatar
+            );
+
+        }
 
     }
 
+
+    /* =========================
+       TOURNAMENT COUNT
+    ========================= */
 
     const {
         count:tournamentCount
@@ -1191,6 +1370,10 @@ async function loadProfile(){
         tournamentCount || 0;
 
 
+    /* =========================
+       FRIEND COUNT
+    ========================= */
+
     const {
         count:friendCount
     } =
@@ -1213,6 +1396,10 @@ async function loadProfile(){
         .textContent =
         friendCount || 0;
 
+
+    /* =========================
+       MY TOURNAMENTS
+    ========================= */
 
     const {
         data:registrations
@@ -1410,3 +1597,4 @@ loadProfile();
 
 </body>
 </html>
+```
