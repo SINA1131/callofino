@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
@@ -23,10 +22,6 @@ body{
     min-height:100vh;
     overflow-x:hidden;
 }
-
-/* =========================
-BACKGROUND
-========================= */
 
 body::before{
     content:"";
@@ -53,10 +48,6 @@ body::after{
     left:-150px;
     z-index:-1;
 }
-
-/* =========================
-HEADER
-========================= */
 
 header{
     position:sticky;
@@ -98,19 +89,11 @@ nav a:hover{
     background:rgba(0,255,136,.07);
 }
 
-/* =========================
-MAIN
-========================= */
-
 .container{
     width:90%;
     max-width:1150px;
     margin:45px auto;
 }
-
-/* =========================
-PROFILE HERO
-========================= */
 
 .profile-card{
     position:relative;
@@ -212,10 +195,6 @@ PROFILE HERO
     box-shadow:0 8px 25px rgba(0,255,136,.2);
 }
 
-/* =========================
-STATS
-========================= */
-
 .stats{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -249,10 +228,6 @@ STATS
     font-size:13px;
 }
 
-/* =========================
-SECTION
-========================= */
-
 .section{
     margin-top:30px;
 }
@@ -272,10 +247,6 @@ SECTION
     color:#00ff88;
     font-size:12px;
 }
-
-/* =========================
-TOURNAMENTS
-========================= */
 
 .tournaments{
     display:grid;
@@ -308,10 +279,6 @@ TOURNAMENTS
     line-height:2;
 }
 
-/* =========================
-WALLET
-========================= */
-
 .wallet{
     display:flex;
     align-items:center;
@@ -343,10 +310,6 @@ WALLET
     color:#777;
     font-size:12px;
 }
-
-/* =========================
-ACTIONS
-========================= */
 
 .actions{
     display:grid;
@@ -381,10 +344,6 @@ ACTIONS
     color:#ff5555;
     background:rgba(255,50,50,.04);
 }
-
-/* =========================
-MODAL
-========================= */
 
 .modal{
     position:fixed;
@@ -471,10 +430,6 @@ MODAL
     border-radius:12px;
 }
 
-/* =========================
-EMPTY
-========================= */
-
 .empty{
     padding:35px;
     text-align:center;
@@ -483,10 +438,6 @@ EMPTY
     border:1px solid rgba(255,255,255,.06);
     border-radius:18px;
 }
-
-/* =========================
-RESPONSIVE
-========================= */
 
 @media(max-width:700px){
 
@@ -542,8 +493,6 @@ RESPONSIVE
 
 <main class="container">
 
-    <!-- PROFILE -->
-
     <section class="profile-card">
 
         <div class="avatar-box">
@@ -587,9 +536,6 @@ RESPONSIVE
 
     </section>
 
-
-    <!-- STATS -->
-
     <section class="stats">
 
         <div class="stat-card">
@@ -607,7 +553,6 @@ RESPONSIVE
 
         </div>
 
-
         <div class="stat-card">
 
             <div
@@ -623,7 +568,6 @@ RESPONSIVE
 
         </div>
 
-
         <div class="stat-card">
 
             <div class="stat-number">
@@ -637,9 +581,6 @@ RESPONSIVE
         </div>
 
     </section>
-
-
-    <!-- TOURNAMENTS -->
 
     <section class="section">
 
@@ -655,7 +596,6 @@ RESPONSIVE
 
         </div>
 
-
         <div
             class="tournaments"
             id="tournamentsList"
@@ -668,9 +608,6 @@ RESPONSIVE
         </div>
 
     </section>
-
-
-    <!-- WALLET -->
 
     <section class="section">
 
@@ -686,7 +623,6 @@ RESPONSIVE
 
         </div>
 
-
         <div class="wallet">
 
             <div>
@@ -701,7 +637,6 @@ RESPONSIVE
 
             </div>
 
-
             <div class="wallet-status">
                 سیستم کیف پول فعال نشده است
             </div>
@@ -709,9 +644,6 @@ RESPONSIVE
         </div>
 
     </section>
-
-
-    <!-- ACTIONS -->
 
     <section class="section">
 
@@ -723,7 +655,6 @@ RESPONSIVE
 
         </div>
 
-
         <div class="actions">
 
             <button
@@ -733,14 +664,12 @@ RESPONSIVE
                 ⚡ ورود به داشبورد
             </button>
 
-
             <button
                 class="action-btn"
                 onclick="location.href='index.html'"
             >
                 🏠 بازگشت به خانه
             </button>
-
 
             <button
                 class="action-btn logout"
@@ -754,9 +683,6 @@ RESPONSIVE
     </section>
 
 </main>
-
-
-<!-- AVATAR MODAL -->
 
 <div
     class="modal"
@@ -780,90 +706,55 @@ RESPONSIVE
 
         </div>
 
-
         <div class="avatar-grid" id="avatarGrid">
-
-            <!-- Avatar 1 -->
 
             <div
                 class="avatar-option"
                 onclick="selectAvatar(this, 'https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000001cec820a80715b1deedc0a36.png')"
             >
-
                 <img src="https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000001cec820a80715b1deedc0a36.png">
-
             </div>
-
-
-            <!-- Avatar 2 -->
 
             <div
                 class="avatar-option"
                 onclick="selectAvatar(this, 'https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000003d0c81f58e0dfb39902285f1.png')"
             >
-
                 <img src="https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000003d0c81f58e0dfb39902285f1.png">
-
             </div>
-
-
-            <!-- Avatar 3 -->
 
             <div
                 class="avatar-option"
                 onclick="selectAvatar(this, 'https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000005e30820a813850e742f74eb6.png')"
             >
-
                 <img src="https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000005e30820a813850e742f74eb6.png">
-
             </div>
-
-
-            <!-- Avatar 4 -->
 
             <div
                 class="avatar-option"
                 onclick="selectAvatar(this, 'https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_00000000637882108a483fede744b6ab.png')"
             >
-
                 <img src="https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_00000000637882108a483fede744b6ab.png">
-
             </div>
-
-
-            <!-- Avatar 5 -->
 
             <div
                 class="avatar-option"
                 onclick="selectAvatar(this, 'https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000006fe8820a9e92ebd9a546320f.png')"
             >
-
                 <img src="https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000006fe8820a9e92ebd9a546320f.png">
-
             </div>
-
-
-            <!-- Avatar 6 -->
 
             <div
                 class="avatar-option"
                 onclick="selectAvatar(this, 'https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000008e6481f5ae96b2522254cc0e.png')"
             >
-
                 <img src="https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000008e6481f5ae96b2522254cc0e.png">
-
             </div>
-
-
-            <!-- Avatar 7 -->
 
             <div
                 class="avatar-option"
                 onclick="selectAvatar(this, 'https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_00000000c374824395592931b290c7db.png')"
             >
-
                 <img src="https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_00000000c374824395592931b290c7db.png">
-
             </div>
 
         </div>
@@ -872,14 +763,9 @@ RESPONSIVE
 
 </div>
 
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-
-/* =========================
-SUPABASE
-========================= */
 
 const SUPABASE_URL =
 "https://oisqrkqwbskvqkparmiw.supabase.co";
@@ -892,11 +778,6 @@ supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
 );
-
-
-/* =========================
-AVATARS
-========================= */
 
 const defaultAvatar =
 "https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000001cec820a80715b1deedc0a36.png";
@@ -931,14 +812,176 @@ function closeAvatarModal(){
 
 
 /* =========================
+SAVE AVATAR TO DATABASE
+========================= */
+
+async function saveAvatarToDatabase(url){
+
+    try{
+
+        const {
+            data:{
+                user
+            },
+            error:userError
+        } =
+        await supabaseClient.auth.getUser();
+
+
+        if(userError){
+
+            console.error(
+                "User error:",
+                userError
+            );
+
+            return false;
+
+        }
+
+
+        if(!user){
+
+            console.error(
+                "No logged in user."
+            );
+
+            return false;
+
+        }
+
+
+        /*
+           اول بررسی می‌کنیم پروفایل وجود دارد یا نه
+        */
+
+        const {
+            data:existingProfile,
+            error:profileCheckError
+        } =
+        await supabaseClient
+            .from("profiles")
+            .select("id")
+            .eq(
+                "id",
+                user.id
+            )
+            .maybeSingle();
+
+
+        if(profileCheckError){
+
+            console.error(
+                "Profile check error:",
+                profileCheckError
+            );
+
+            return false;
+
+        }
+
+
+        /*
+           اگر پروفایل وجود داشت
+           فقط آواتار را آپدیت می‌کنیم
+        */
+
+        if(existingProfile){
+
+            const {
+                error
+            } =
+            await supabaseClient
+                .from("profiles")
+                .update({
+                    avatar_url:url
+                })
+                .eq(
+                    "id",
+                    user.id
+                );
+
+
+            if(error){
+
+                console.error(
+                    "Avatar update error:",
+                    error
+                );
+
+                return false;
+
+            }
+
+        }
+
+        /*
+           اگر پروفایل وجود نداشت
+           یک پروفایل جدید می‌سازیم
+        */
+
+        else{
+
+            const {
+                error
+            } =
+            await supabaseClient
+                .from("profiles")
+                .insert({
+                    id:user.id,
+                    username:
+                        user.user_metadata?.username ||
+                        user.email?.split("@")[0] ||
+                        "Player",
+                    avatar_url:url
+                });
+
+
+            if(error){
+
+                console.error(
+                    "Avatar insert error:",
+                    error
+                );
+
+                return false;
+
+            }
+
+        }
+
+
+        console.log(
+            "Avatar saved in Supabase:",
+            url
+        );
+
+        return true;
+
+    }
+    catch(error){
+
+        console.error(
+            "Unexpected avatar save error:",
+            error
+        );
+
+        return false;
+
+    }
+
+}
+
+
+/* =========================
 SELECT AVATAR
 ========================= */
 
-async function selectAvatar(element, url){
+async function selectAvatar(element,url){
 
     document
         .querySelectorAll(".avatar-option")
-        .forEach(item => {
+        .forEach(item=>{
             item.classList.remove("selected");
         });
 
@@ -946,15 +989,13 @@ async function selectAvatar(element, url){
     element.classList.add("selected");
 
 
-    selectedAvatar = url;
+    selectedAvatar=url;
 
 
     document
         .getElementById("profileAvatar")
-        .src = url;
+        .src=url;
 
-
-    /* ذخیره محلی */
 
     localStorage.setItem(
         "callafino_avatar",
@@ -962,49 +1003,26 @@ async function selectAvatar(element, url){
     );
 
 
-    /* =========================
-       ذخیره در SUPABASE
-    ========================= */
+    /*
+       ذخیره واقعی در Supabase
+    */
 
-    const {
-        data: {
-            user
-        }
-    } = await supabaseClient.auth.getUser();
+    const saved =
+        await saveAvatarToDatabase(url);
 
 
-    if(user){
+    if(!saved){
 
-        const {
-            error
-        } = await supabaseClient
-            .from("profiles")
-            .update({
-                avatar_url:url
-            })
-            .eq(
-                "id",
-                user.id
-            );
-
-
-        if(error){
-
-            console.error(
-                "Avatar save error:",
-                error
-            );
-
-        }
+        console.error(
+            "Avatar was NOT saved to Supabase."
+        );
 
     }
 
 
-    setTimeout(() => {
-
+    setTimeout(()=>{
         closeAvatarModal();
-
-    }, 300);
+    },300);
 
 }
 
@@ -1016,29 +1034,27 @@ LOAD USER
 async function loadProfile(){
 
     const {
-        data: {
+        data:{
             user
         }
-    } = await supabaseClient.auth.getUser();
+    } =
+    await supabaseClient.auth.getUser();
 
 
     if(!user){
 
-        window.location.href =
-            "login.html";
+        window.location.href="login.html";
 
         return;
 
     }
 
 
-    /* =========================
-       PROFILE
-    ========================= */
-
     const {
-        data: profile
-    } = await supabaseClient
+        data:profile,
+        error:profileError
+    } =
+    await supabaseClient
         .from("profiles")
         .select("*")
         .eq(
@@ -1046,6 +1062,16 @@ async function loadProfile(){
             user.id
         )
         .maybeSingle();
+
+
+    if(profileError){
+
+        console.error(
+            "Profile load error:",
+            profileError
+        );
+
+    }
 
 
     let displayName =
@@ -1062,22 +1088,19 @@ async function loadProfile(){
 
         if(profile.username){
 
-            username =
-                profile.username;
+            username=profile.username;
 
         }
 
 
         if(profile.full_name){
 
-            displayName =
-                profile.full_name;
+            displayName=profile.full_name;
 
         }
         else if(profile.name){
 
-            displayName =
-                profile.name;
+            displayName=profile.name;
 
         }
 
@@ -1086,41 +1109,34 @@ async function loadProfile(){
 
     document
         .getElementById("displayName")
-        .textContent =
-        displayName;
+        .textContent=displayName;
 
 
     document
         .getElementById("username")
-        .textContent =
-        "@" + username;
+        .textContent="@"+username;
 
-
-    /* =========================
-       AVATAR
-    ========================= */
 
     const savedAvatar =
+        profile &&
+        profile.avatar_url
+        ?
+        profile.avatar_url
+        :
         (
-            profile &&
-            profile.avatar_url
-        )
-        ? profile.avatar_url
-        : (
             localStorage.getItem(
                 "callafino_avatar"
-            ) || defaultAvatar
+            ) ||
+            defaultAvatar
         );
 
 
     document
         .getElementById("profileAvatar")
-        .src =
-        savedAvatar;
+        .src=savedAvatar;
 
 
-    selectedAvatar =
-        savedAvatar;
+    selectedAvatar=savedAvatar;
 
 
     localStorage.setItem(
@@ -1130,12 +1146,31 @@ async function loadProfile(){
 
 
     /* =========================
-       TOURNAMENT COUNT
+       اگر پروفایل وجود داشت ولی
+       avatar_url خالی بود، همینجا
+       هم در دیتابیس ذخیره می‌کنیم
     ========================= */
 
+    if(
+        user &&
+        savedAvatar &&
+        (
+            !profile ||
+            !profile.avatar_url
+        )
+    ){
+
+        await saveAvatarToDatabase(
+            savedAvatar
+        );
+
+    }
+
+
     const {
-        count: tournamentCount
-    } = await supabaseClient
+        count:tournamentCount
+    } =
+    await supabaseClient
         .from("tournament_registrations")
         .select(
             "*",
@@ -1156,13 +1191,10 @@ async function loadProfile(){
         tournamentCount || 0;
 
 
-    /* =========================
-       FRIEND COUNT
-    ========================= */
-
     const {
-        count: friendCount
-    } = await supabaseClient
+        count:friendCount
+    } =
+    await supabaseClient
         .from("friendships")
         .select(
             "*",
@@ -1182,13 +1214,10 @@ async function loadProfile(){
         friendCount || 0;
 
 
-    /* =========================
-       MY TOURNAMENTS
-    ========================= */
-
     const {
-        data: registrations
-    } = await supabaseClient
+        data:registrations
+    } =
+    await supabaseClient
         .from("tournament_registrations")
         .select(`
             slot,
@@ -1222,10 +1251,10 @@ async function loadProfile(){
 
     if(
         !registrations ||
-        registrations.length === 0
+        registrations.length===0
     ){
 
-        list.innerHTML = `
+        list.innerHTML=`
             <div class="empty">
                 هنوز در هیچ تورنمنتی ثبت‌نام نکرده‌اید.
             </div>
@@ -1236,31 +1265,26 @@ async function loadProfile(){
     }
 
 
-    list.innerHTML = "";
+    list.innerHTML="";
 
 
-    registrations.forEach(item => {
+    registrations.forEach(item=>{
 
-        const tournament =
-            item.tournaments;
+        const tournament=item.tournaments;
 
 
-        if(!tournament){
-
+        if(!tournament)
             return;
-
-        }
 
 
         const card =
             document.createElement("div");
 
 
-        card.className =
-            "tournament";
+        card.className="tournament";
 
 
-        card.innerHTML = `
+        card.innerHTML=`
 
             <h4>
                 ${escapeHTML(
@@ -1347,14 +1371,11 @@ async function logout(){
 
     await supabaseClient.auth.signOut();
 
-
     localStorage.removeItem(
         "callafino_avatar"
     );
 
-
-    window.location.href =
-        "login.html";
+    window.location.href="login.html";
 
 }
 
@@ -1369,9 +1390,7 @@ document
         "click",
         function(e){
 
-            if(
-                e.target === this
-            ){
+            if(e.target===this){
 
                 closeAvatarModal();
 
@@ -1391,4 +1410,3 @@ loadProfile();
 
 </body>
 </html>
-```
