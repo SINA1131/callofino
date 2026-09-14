@@ -190,7 +190,6 @@ button{
     background:#151515;
 }
 
-
 /* ROOM */
 
 .room-announcement{
@@ -250,7 +249,6 @@ button{
 .room-timer strong{
     color:#fff;
 }
-
 
 /* DETAILS */
 
@@ -1583,7 +1581,7 @@ from
 
 
 const SUPABASE_URL =
-"https://oisqrkqwbskvqparmiw.supabase.co";
+"https://oisqrkqwbskvqkparmiw.supabase.co";
 
 
 const SUPABASE_KEY =
@@ -2308,6 +2306,7 @@ function getPlayerAvatar(name){
 
 /* =========================================================
    LOAD SLOTS
+   SOLO NAME FIX
 ========================================================= */
 
 async function loadSlots(tournament){
@@ -2328,9 +2327,7 @@ async function loadSlots(tournament){
     const type =
     String(
         tournament.type || ""
-    )
-    .trim()
-    .toLowerCase();
+    ).trim().toLowerCase();
 
 
     const slotSize =
@@ -2343,9 +2340,9 @@ async function loadSlots(tournament){
     :1;
 
 
-    /* =========================
-       GET SLOT DATA FROM RPC
-    ========================= */
+    /* =====================================================
+       1. GET SLOT STRUCTURE FROM RPC
+    ===================================================== */
 
     const {
         data:rpcData,
@@ -2369,7 +2366,9 @@ async function loadSlots(tournament){
 
         container.innerHTML =
         `<div class="error">
-            ${escapeHTML(rpcError.message)}
+            ${escapeHTML(
+                rpcError.message
+            )}
         </div>`;
 
         return;
@@ -2379,27 +2378,26 @@ async function loadSlots(tournament){
 
     let data =
     Array.isArray(rpcData)
-    ? rpcData
+    ? [...rpcData]
     : [];
 
 
     /* =====================================================
-       DIRECT REGISTRATIONS
-       این قسمت برای حل مشکل نمایش نام Solo اضافه شده
+       2. GET REGISTRATIONS DIRECTLY
+       این قسمت باعث می‌شود Solo وابسته به RPC نباشد.
     ===================================================== */
 
-    let registrations=[];
-
-
     const {
-        data:registrationData,
+        data:registrations,
         error:registrationError
     } =
     await supabase
     .from("tournament_registrations")
-    .select(
-        "slot,user_id,type"
-    )
+    .select(`
+        slot,
+        user_id,
+        type
+    `)
     .eq(
         "tournament_id",
         tournament.id
@@ -2415,79 +2413,89 @@ async function loadSlots(tournament){
     if(registrationError){
 
         console.error(
-            "Tournament registrations loading error:",
+            "Registration loading error:",
             registrationError
         );
-
-    }
-    else{
-
-        registrations =
-        registrationData || [];
 
     }
 
 
     /* =====================================================
-       BUILD SOLO REGISTRATION MAP
+       3. SOLO SLOT -> USER MAP
     ===================================================== */
 
-    const soloRegistrationMap={};
+    const soloMap={};
 
     const soloUserIds=[];
 
 
     if(type==="solo"){
 
-        registrations.forEach(reg=>{
+        (registrations || []).forEach(
+            registration=>{
 
-            const slotNumber =
-            Number(reg.slot);
+                const slotNumber =
+                Number(
+                    registration.slot
+                );
 
-            if(!slotNumber)
-                return;
+                const userId =
+                registration.user_id;
 
-            if(!soloRegistrationMap[slotNumber]){
 
-                soloRegistrationMap[slotNumber]={
-                    user_id:reg.user_id
+                if(
+                    !slotNumber ||
+                    !userId
+                ){
+
+                    return;
+
+                }
+
+
+                soloMap[
+                    slotNumber
+                ] = {
+
+                    user_id:
+                    userId
+
                 };
 
-            }
-
-            if(reg.user_id){
 
                 soloUserIds.push(
-                    reg.user_id
+                    userId
                 );
 
             }
-
-        });
+        );
 
     }
 
 
     /* =====================================================
-       LOAD SOLO PROFILES DIRECTLY
+       4. GET SOLO PROFILES
     ===================================================== */
 
     const soloProfiles={};
 
 
-    if(soloUserIds.length){
+    if(
+        type==="solo" &&
+        soloUserIds.length
+    ){
 
-        const uniqueSoloIds =
+        const uniqueIds =
         [
             ...new Set(
-                soloUserIds.filter(Boolean)
+                soloUserIds
             )
         ];
 
 
         const {
-            data:soloProfileData,
-            error:soloProfileError
+            data:profileRows,
+            error:profileError
         } =
         await supabase
         .from("profiles")
@@ -2496,29 +2504,30 @@ async function loadSlots(tournament){
         )
         .in(
             "id",
-            uniqueSoloIds
+            uniqueIds
         );
 
 
-        if(soloProfileError){
+        if(profileError){
 
             console.error(
                 "Solo profile loading error:",
-                soloProfileError
+                profileError
             );
 
         }
         else{
 
-            (soloProfileData || [])
-            .forEach(profile=>{
+            (profileRows || [])
+            .forEach(
+                profile=>{
 
-                soloProfiles[
-                    profile.id
-                ] =
-                profile;
+                    soloProfiles[
+                        profile.id
+                    ] = profile;
 
-            });
+                }
+            );
 
         }
 
@@ -2526,48 +2535,55 @@ async function loadSlots(tournament){
 
 
     /* =====================================================
-       IF RPC HAS NO SOLO SLOTS
-       CREATE THEM FROM REGISTRATIONS
+       5. IF RPC RETURNS NO SOLO SLOTS
+          CREATE THEM DIRECTLY FROM REGISTRATIONS
     ===================================================== */
 
     if(
         type==="solo" &&
         !data.length &&
-        registrations.length
+        registrations?.length
     ){
 
         data =
         registrations.map(
-            reg=>({
+            registration=>{
 
-                slot:
-                reg.slot,
+                const userId =
+                registration.user_id;
 
-                player1_id:
-                reg.user_id,
 
-                player1_name:
-                soloProfiles[
-                    reg.user_id
-                ]?.username || ""
+                return {
 
-            })
+                    slot:
+                    registration.slot,
+
+                    player1_id:
+                    userId,
+
+                    player1_name:
+                    soloProfiles[
+                        userId
+                    ]
+                    ?.username ||
+                    ""
+
+                };
+
+            }
         );
 
     }
 
 
-    container.innerHTML="";
-
-
-    /* =========================
-       EMPTY
-    ========================= */
+    /* =====================================================
+       6. NO SLOT DATA
+    ===================================================== */
 
     if(!data.length){
 
         container.innerHTML =
-        `<div class="loading">
+        `<div class="empty">
             هنوز اسلاتی وجود ندارد.
         </div>`;
 
@@ -2577,37 +2593,43 @@ async function loadSlots(tournament){
 
 
     /* =====================================================
-       COLLECT PLAYER IDS FROM RPC
+       7. COLLECT PLAYER IDS
     ===================================================== */
 
     const playerIds=[];
 
 
-    data.forEach(slot=>{
+    data.forEach(
+        slot=>{
 
-        for(
-            let i=1;
-            i<=slotSize;
-            i++
-        ){
+            for(
+                let i=1;
+                i<=slotSize;
+                i++
+            ){
 
-            const id =
-            slot[`player${i}_id`] ||
-            slot[`player${i}_user_id`];
+                const playerId =
+                slot[`player${i}_id`] ||
+                slot[`player${i}_user_id`] ||
+                null;
 
-            if(id){
 
-                playerIds.push(id);
+                if(playerId){
+
+                    playerIds.push(
+                        playerId
+                    );
+
+                }
 
             }
 
         }
-
-    });
+    );
 
 
     /* =====================================================
-       LOAD NORMAL PROFILES
+       8. LOAD NORMAL PROFILES
     ===================================================== */
 
     const profiles =
@@ -2617,226 +2639,231 @@ async function loadSlots(tournament){
 
 
     /* =====================================================
-       RENDER SLOTS
+       9. RENDER SLOTS
     ===================================================== */
 
-    data.forEach(slot=>{
-
-        const div =
-        document.createElement("div");
-
-        div.className="slot";
+    container.innerHTML="";
 
 
-        const players=[];
+    data.forEach(
+        slot=>{
 
-
-        for(
-            let i=1;
-            i<=slotSize;
-            i++
-        ){
-
-            /* =========================
-               PLAYER ID
-            ========================= */
-
-            let playerId =
-            slot[`player${i}_id`] ||
-            slot[`player${i}_user_id`] ||
-            null;
-
-
-            /* =========================
-               PLAYER NAME FROM RPC
-            ========================= */
-
-            let name =
-            getSlotPlayerName(
-                slot,
-                i,
-                profiles
+            const div =
+            document.createElement(
+                "div"
             );
 
+            div.className="slot";
 
-            /* =================================================
-               SOLO DIRECT FALLBACK
-               اگر RPC اسم را ندهد، از registration می‌گیریم
-            ================================================= */
 
-            if(
-                type==="solo" &&
-                i===1
+            const players=[];
+
+
+            for(
+                let i=1;
+                i<=slotSize;
+                i++
             ){
 
-                const slotNumber =
-                Number(slot.slot);
+                let playerId =
+                slot[`player${i}_id`] ||
+                slot[`player${i}_user_id`] ||
+                null;
 
-                const directRegistration =
-                soloRegistrationMap[
-                    slotNumber
-                ];
 
+                let name =
+                slot[`player${i}_name`] ||
+                slot[`player${i}_username`] ||
+                "";
+
+
+                /* =================================================
+                   SOLO DIRECT DATABASE LOOKUP
+                ================================================= */
 
                 if(
-                    directRegistration?.user_id
+                    type==="solo" &&
+                    i===1
                 ){
 
-                    playerId =
-                    directRegistration.user_id;
+                    const slotNumber =
+                    Number(
+                        slot.slot
+                    );
 
+
+                    const registration =
+                    soloMap[
+                        slotNumber
+                    ];
+
+
+                    if(
+                        registration &&
+                        registration.user_id
+                    ){
+
+                        playerId =
+                        registration.user_id;
+
+
+                        name =
+                        soloProfiles[
+                            playerId
+                        ]
+                        ?.username ||
+                        name ||
+                        "";
+
+                    }
+
+                }
+
+
+                /* =================================================
+                   NORMAL PROFILE FALLBACK
+                ================================================= */
+
+                if(
+                    !name &&
+                    playerId &&
+                    profiles[playerId]
+                ){
 
                     name =
-                    soloProfiles[
-                        playerId
-                    ]?.username
-                    ||
-                    name
-                    ||
+                    profiles[playerId]
+                    .username ||
                     "";
+
+                }
+
+
+                /* =================================================
+                   AVATAR
+                ================================================= */
+
+                const avatarUrl =
+                slot[`player${i}_avatar`] ||
+                slot[`player${i}_avatar_url`] ||
+                (
+                    playerId &&
+                    profiles[playerId]
+                    ?
+                    profiles[playerId].avatar_url
+                    :
+                    null
+                );
+
+
+                /* =================================================
+                   PLAYER
+                ================================================= */
+
+                if(name){
+
+                    players.push(`
+
+                        <div class="player">
+
+                            <div class="player-avatar">
+
+                                ${
+                                    avatarUrl
+                                    ?
+                                    `
+                                    <img
+                                        src="${escapeHTML(
+                                            avatarUrl
+                                        )}"
+                                        alt=""
+                                        onerror="this.style.display='none';this.parentElement.textContent='${getPlayerAvatar(name)}';"
+                                    >
+                                    `
+                                    :
+                                    getPlayerAvatar(name)
+                                }
+
+                            </div>
+
+
+                            <div class="player-name">
+
+                                ${escapeHTML(name)}
+
+                            </div>
+
+                        </div>
+
+                    `);
+
+                }
+                else{
+
+                    players.push(`
+
+                        <div class="player empty">
+
+                            <div class="player-avatar">
+                                👤
+                            </div>
+
+                            <div class="player-name">
+                                خالی
+                            </div>
+
+                        </div>
+
+                    `);
 
                 }
 
             }
 
 
-            /* =================================================
-               FINAL PROFILE FALLBACK
-            ================================================= */
+            /* =====================================================
+               SLOT HTML
+            ===================================================== */
 
-            if(
-                !name &&
-                playerId &&
-                profiles[playerId]
-            ){
+            div.innerHTML=`
 
-                name =
-                profiles[playerId].username ||
-                "";
+                <div class="slot-title">
 
-            }
+                    <span>
+                        Slot #${escapeHTML(
+                            slot.slot
+                        )}
+                    </span>
+
+                    <span class="slot-size">
+
+                        ${slotSize}
+                        نفره
+
+                    </span>
+
+                </div>
 
 
-            /* =========================
-               AVATAR
-            ========================= */
+                <div
+                    class="
+                        slot-players
+                        players-${slotSize}
+                    "
+                >
 
-            const avatarUrl =
-            slot[`player${i}_avatar`] ||
-            slot[`player${i}_avatar_url`] ||
-            (
-                playerId &&
-                profiles[playerId]
-                ?
-                profiles[playerId].avatar_url
-                :
-                null
+                    ${players.join("")}
+
+                </div>
+
+            `;
+
+
+            container.appendChild(
+                div
             );
 
-
-            /* =========================
-               PLAYER EXISTS
-            ========================= */
-
-            if(name){
-
-                players.push(`
-
-                    <div class="player">
-
-                        <div class="player-avatar">
-
-                            ${
-                                avatarUrl
-                                ?
-                                `
-                                <img
-                                    src="${escapeHTML(avatarUrl)}"
-                                    alt=""
-                                    onerror="this.style.display='none';this.parentElement.textContent='${getPlayerAvatar(name)}';"
-                                >
-                                `
-                                :
-                                getPlayerAvatar(name)
-                            }
-
-                        </div>
-
-                        <div class="player-name">
-
-                            ${escapeHTML(name)}
-
-                        </div>
-
-                    </div>
-
-                `);
-
-            }
-
-            /* =========================
-               EMPTY PLAYER
-            ========================= */
-
-            else{
-
-                players.push(`
-
-                    <div class="player empty">
-
-                        <div class="player-avatar">
-                            👤
-                        </div>
-
-                        <div class="player-name">
-                            خالی
-                        </div>
-
-                    </div>
-
-                `);
-
-            }
-
         }
-
-
-        /* =====================================================
-           SLOT HTML
-        ===================================================== */
-
-        div.innerHTML=`
-
-            <div class="slot-title">
-
-                <span>
-                    Slot #${escapeHTML(slot.slot)}
-                </span>
-
-                <span class="slot-size">
-                    ${slotSize} نفره
-                </span>
-
-            </div>
-
-
-            <div
-                class="
-                    slot-players
-                    players-${slotSize}
-                "
-            >
-
-                ${players.join("")}
-
-            </div>
-
-        `;
-
-
-        container.appendChild(div);
-
-    });
+    );
 
 }
 
