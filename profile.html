@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
@@ -11,17 +12,46 @@
 
 <style>
 
+/* =========================
+   RESET
+========================= */
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
     font-family:Tahoma, Arial, sans-serif;
-    background:#050505;
+    background:
+        radial-gradient(circle at 10% 10%, rgba(0,255,136,.07), transparent 28%),
+        radial-gradient(circle at 90% 30%, rgba(0,255,136,.04), transparent 30%),
+        #030403;
     color:#fff;
     min-height:100vh;
+    overflow-x:hidden;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background-image:
+        linear-gradient(rgba(0,255,136,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,136,.025) 1px, transparent 1px);
+    background-size:50px 50px;
+    mask-image:linear-gradient(to bottom, black, transparent);
+    z-index:-1;
 }
 
 /* =========================
@@ -29,35 +59,69 @@ body{
 ========================= */
 
 header{
-    height:70px;
-    background:#080808;
-    border-bottom:1px solid rgba(0,255,136,.18);
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    height:72px;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     padding:0 6%;
-    position:sticky;
-    top:0;
-    z-index:100;
+
+    background:rgba(3,4,3,.82);
+    backdrop-filter:blur(18px);
+
+    border-bottom:1px solid rgba(0,255,136,.14);
 }
 
 .logo{
+    color:#00ff88;
+    text-decoration:none;
+
     font-size:25px;
     font-weight:900;
     letter-spacing:2px;
-    color:#00ff88;
-    text-decoration:none;
+
+    text-shadow:
+        0 0 15px rgba(0,255,136,.35);
+}
+
+.logo span{
+    color:#fff;
 }
 
 nav{
     display:flex;
+    align-items:center;
     gap:28px;
 }
 
 nav a{
-    color:#aaa;
+    position:relative;
+
+    color:#8c8c8c;
     text-decoration:none;
-    font-size:14px;
+
+    font-size:13px;
+
+    transition:.3s;
+}
+
+nav a::after{
+    content:"";
+    position:absolute;
+
+    right:0;
+    bottom:-8px;
+
+    width:0;
+    height:2px;
+
+    background:#00ff88;
+
     transition:.3s;
 }
 
@@ -65,233 +129,708 @@ nav a:hover{
     color:#00ff88;
 }
 
+nav a:hover::after{
+    width:100%;
+}
+
 /* =========================
-   PAGE
+   CONTAINER
 ========================= */
 
 .container{
     width:90%;
-    max-width:1100px;
-    margin:45px auto;
+    max-width:1150px;
+    margin:45px auto 80px;
 }
 
 /* =========================
-   PROFILE HERO
+   PAGE TITLE
 ========================= */
 
-.profile-top{
-    background:linear-gradient(
-        135deg,
-        rgba(0,255,136,.08),
-        rgba(0,0,0,.95)
-    );
+.page-title{
+    margin-bottom:25px;
+}
 
-    border:1px solid rgba(0,255,136,.18);
-    border-radius:24px;
+.page-title small{
+    color:#00ff88;
+    font-size:11px;
+    letter-spacing:2px;
+}
 
-    padding:35px;
+.page-title h1{
+    margin-top:8px;
+    font-size:32px;
+}
+
+.page-title p{
+    margin-top:8px;
+    color:#666;
+    font-size:13px;
+}
+
+/* =========================
+   PROFILE CARD
+========================= */
+
+.profile-card{
+
+    position:relative;
+    overflow:hidden;
+
+    min-height:270px;
+
+    padding:38px;
+
+    border:1px solid rgba(0,255,136,.16);
+    border-radius:28px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0,255,136,.075),
+            rgba(7,9,7,.96) 48%,
+            rgba(0,255,136,.025)
+        );
+
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.4),
+        inset 0 0 60px rgba(0,255,136,.015);
+}
+
+.profile-card::before{
+    content:"";
+
+    position:absolute;
+
+    width:300px;
+    height:300px;
+
+    left:-120px;
+    top:-160px;
+
+    border-radius:50%;
+
+    background:rgba(0,255,136,.07);
+
+    filter:blur(50px);
+}
+
+.profile-card::after{
+    content:"";
+
+    position:absolute;
+
+    width:200px;
+    height:200px;
+
+    right:-90px;
+    bottom:-100px;
+
+    border-radius:50%;
+
+    background:rgba(0,255,136,.05);
+
+    filter:blur(45px);
+}
+
+.profile-main{
+    position:relative;
+    z-index:2;
 
     display:flex;
     align-items:center;
-    gap:28px;
+    gap:30px;
+}
 
-    box-shadow:
-        0 0 40px rgba(0,255,136,.04);
+/* =========================
+   AVATAR
+========================= */
+
+.avatar-wrap{
+    position:relative;
+    flex-shrink:0;
 }
 
 .avatar{
-    width:110px;
-    height:110px;
+    width:130px;
+    height:130px;
+
     border-radius:50%;
 
-    background:
-        radial-gradient(
-            circle at center,
-            #123c2c,
-            #07110c 65%
-        );
+    object-fit:cover;
 
     border:3px solid #00ff88;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:42px;
-    font-weight:bold;
-    color:#00ff88;
+    background:#07100b;
 
     box-shadow:
-        0 0 25px rgba(0,255,136,.25);
+        0 0 0 7px rgba(0,255,136,.06),
+        0 0 35px rgba(0,255,136,.2);
 
-    flex-shrink:0;
+    transition:.4s;
 }
+
+.avatar:hover{
+    transform:scale(1.04);
+
+    box-shadow:
+        0 0 0 9px rgba(0,255,136,.07),
+        0 0 45px rgba(0,255,136,.3);
+}
+
+.online-dot{
+    position:absolute;
+
+    width:19px;
+    height:19px;
+
+    bottom:8px;
+    left:8px;
+
+    background:#00ff88;
+
+    border:4px solid #07100b;
+
+    border-radius:50%;
+
+    box-shadow:0 0 12px rgba(0,255,136,.7);
+}
+
+/* =========================
+   PROFILE INFO
+========================= */
 
 .profile-info{
     flex:1;
 }
 
-.profile-info h1{
+.profile-label{
+    color:#00ff88;
+    font-size:11px;
+    letter-spacing:2px;
+}
+
+.profile-info h2{
+    margin-top:8px;
+
     font-size:30px;
-    margin-bottom:10px;
+    font-weight:900;
 }
 
 .username{
-    color:#00ff88;
-    font-size:15px;
+    margin-top:9px;
+
+    color:#888;
+
+    font-size:14px;
 }
 
 .user-id{
-    margin-top:10px;
-    color:#777;
-    font-size:12px;
+    margin-top:13px;
+
+    color:#4e4e4e;
+
+    font-size:10px;
+
     direction:ltr;
     text-align:right;
+
+    word-break:break-all;
 }
 
 /* =========================
-   GRID
+   EDIT BUTTON
 ========================= */
 
-.grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:18px;
-    margin-top:22px;
-}
+.edit-btn{
+    margin-top:20px;
 
-.card{
-    background:#0a0a0a;
-    border:1px solid #171717;
-    border-radius:18px;
-    padding:25px;
+    border:none;
+    border-radius:12px;
+
+    padding:12px 22px;
+
+    background:#00ff88;
+    color:#000;
+
+    font-family:inherit;
+    font-size:12px;
+    font-weight:bold;
+
+    cursor:pointer;
 
     transition:.3s;
 }
 
-.card:hover{
-    transform:translateY(-4px);
-    border-color:rgba(0,255,136,.35);
+.edit-btn:hover{
+    transform:translateY(-2px);
 
     box-shadow:
-        0 10px 35px rgba(0,255,136,.06);
+        0 0 25px rgba(0,255,136,.3);
 }
 
-.card-icon{
-    font-size:25px;
-    margin-bottom:15px;
+/* =========================
+   STATS
+========================= */
+
+.stats{
+    position:relative;
+    z-index:3;
+
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+
+    gap:15px;
+
+    margin-top:20px;
 }
 
-.card-title{
-    color:#888;
-    font-size:13px;
-    margin-bottom:9px;
+.stat{
+    padding:23px;
+
+    border-radius:18px;
+
+    background:rgba(8,10,8,.82);
+
+    border:1px solid #151915;
+
+    transition:.3s;
 }
 
-.card-value{
+.stat:hover{
+    border-color:rgba(0,255,136,.25);
+    transform:translateY(-4px);
+}
+
+.stat-icon{
+    font-size:22px;
+    margin-bottom:13px;
+}
+
+.stat-title{
+    color:#666;
+    font-size:11px;
+}
+
+.stat-value{
+    margin-top:7px;
+
     color:#00ff88;
-    font-size:26px;
+
+    font-size:25px;
     font-weight:bold;
 }
 
 /* =========================
-   SECTIONS
+   SECTIONS GRID
 ========================= */
 
-.section{
-    margin-top:25px;
+.sections{
+    display:grid;
 
-    background:#080808;
-    border:1px solid #151515;
+    grid-template-columns:1.2fr .8fr;
 
-    border-radius:20px;
-    padding:25px;
+    gap:20px;
+
+    margin-top:20px;
 }
 
-.section h2{
-    font-size:18px;
+.section{
+    background:rgba(7,8,7,.88);
+
+    border:1px solid #151815;
+
+    border-radius:22px;
+
+    padding:25px;
+
+    box-shadow:0 15px 50px rgba(0,0,0,.18);
+}
+
+.section-title{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
     margin-bottom:20px;
 }
 
-.section h2 span{
+.section-title h3{
+    font-size:16px;
+}
+
+.section-title span{
     color:#00ff88;
 }
 
 /* =========================
-   BUTTONS
+   TOURNAMENTS
 ========================= */
 
-.actions{
+.tournament-list{
     display:flex;
-    flex-wrap:wrap;
-    gap:12px;
+    flex-direction:column;
+    gap:10px;
 }
 
-.btn{
-    border:none;
-    border-radius:12px;
-    padding:13px 22px;
+.tournament{
+    padding:15px;
 
-    cursor:pointer;
+    border:1px solid #161916;
 
-    font-family:inherit;
-    font-size:13px;
+    background:#0b0d0b;
+
+    border-radius:14px;
 
     transition:.3s;
 }
 
-.btn-green{
+.tournament:hover{
+    border-color:rgba(0,255,136,.25);
+}
+
+.tournament-name{
+    color:#00ff88;
+    font-size:13px;
+    font-weight:bold;
+}
+
+.tournament-info{
+    margin-top:7px;
+
+    color:#666;
+
+    font-size:11px;
+}
+
+/* =========================
+   ACTIONS
+========================= */
+
+.action-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.action{
+    width:100%;
+
+    padding:15px 17px;
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    border:1px solid #161916;
+    border-radius:14px;
+
+    background:#0b0d0b;
+
+    color:#ccc;
+
+    cursor:pointer;
+
+    font-family:inherit;
+    font-size:12px;
+
+    text-align:right;
+
+    transition:.3s;
+}
+
+.action:hover{
+    color:#00ff88;
+
+    border-color:rgba(0,255,136,.28);
+
+    transform:translateX(-3px);
+}
+
+.action-icon{
+    width:32px;
+    height:32px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:9px;
+
+    background:rgba(0,255,136,.06);
+
+    font-size:15px;
+}
+
+/* =========================
+   WALLET
+========================= */
+
+.wallet{
+    margin-top:20px;
+
+    padding:23px;
+
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0,255,136,.07),
+            rgba(7,8,7,.9)
+        );
+
+    border:1px solid rgba(0,255,136,.14);
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.wallet-label{
+    color:#777;
+    font-size:11px;
+}
+
+.wallet-value{
+    margin-top:7px;
+
+    color:#00ff88;
+
+    font-size:23px;
+    font-weight:bold;
+}
+
+.wallet-icon{
+    width:50px;
+    height:50px;
+
+    border-radius:15px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:rgba(0,255,136,.07);
+
+    font-size:22px;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+
+    display:none;
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+
+    background:rgba(0,0,0,.78);
+
+    backdrop-filter:blur(12px);
+
+    z-index:5000;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+    max-width:600px;
+
+    background:#090b09;
+
+    border:1px solid rgba(0,255,136,.2);
+
+    border-radius:24px;
+
+    padding:27px;
+
+    box-shadow:
+        0 25px 100px rgba(0,0,0,.7),
+        0 0 40px rgba(0,255,136,.05);
+
+    animation:modalIn .25s ease;
+}
+
+@keyframes modalIn{
+    from{
+        opacity:0;
+        transform:translateY(20px) scale(.97);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+.modal-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    margin-bottom:25px;
+}
+
+.modal-head h3{
+    font-size:18px;
+}
+
+.close{
+    width:35px;
+    height:35px;
+
+    border:1px solid #202520;
+    border-radius:10px;
+
+    background:#111;
+
+    color:#aaa;
+
+    cursor:pointer;
+
+    font-size:18px;
+}
+
+.close:hover{
+    color:#00ff88;
+    border-color:#00ff88;
+}
+
+/* =========================
+   AVATAR GRID
+========================= */
+
+.avatar-grid{
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:14px;
+}
+
+.avatar-option{
+    position:relative;
+
+    aspect-ratio:1;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    border:2px solid #171a17;
+
+    cursor:pointer;
+
+    background:#0d0f0d;
+
+    transition:.3s;
+}
+
+.avatar-option img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+
+    transition:.35s;
+}
+
+.avatar-option:hover{
+    transform:translateY(-4px);
+
+    border-color:rgba(0,255,136,.5);
+
+    box-shadow:
+        0 0 25px rgba(0,255,136,.12);
+}
+
+.avatar-option:hover img{
+    transform:scale(1.06);
+}
+
+.avatar-option.selected{
+    border-color:#00ff88;
+
+    box-shadow:
+        0 0 0 3px rgba(0,255,136,.12),
+        0 0 30px rgba(0,255,136,.2);
+}
+
+.selected-check{
+    position:absolute;
+
+    top:8px;
+    right:8px;
+
+    width:27px;
+    height:27px;
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:#00ff88;
+    color:#000;
+
+    font-size:14px;
+    font-weight:bold;
+}
+
+.avatar-option.selected .selected-check{
+    display:flex;
+}
+
+/* =========================
+   MODAL FOOTER
+========================= */
+
+.modal-footer{
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:10px;
+
+    margin-top:22px;
+}
+
+.modal-btn{
+    border:none;
+
+    border-radius:11px;
+
+    padding:12px 20px;
+
+    font-family:inherit;
+    font-size:12px;
+
+    cursor:pointer;
+}
+
+.save-btn{
     background:#00ff88;
     color:#000;
     font-weight:bold;
 }
 
-.btn-green:hover{
-    box-shadow:0 0 20px rgba(0,255,136,.3);
-    transform:translateY(-2px);
-}
-
-.btn-dark{
+.cancel-btn{
     background:#111;
-    color:#ddd;
-    border:1px solid #222;
-}
-
-.btn-dark:hover{
-    border-color:#00ff88;
-    color:#00ff88;
-}
-
-.btn-danger{
-    background:#160707;
-    color:#ff5555;
-    border:1px solid rgba(255,70,70,.2);
-}
-
-.btn-danger:hover{
-    background:#210909;
-}
-
-/* =========================
-   EMPTY
-========================= */
-
-.empty{
-    color:#666;
-    font-size:13px;
-    text-align:center;
-    padding:25px 0;
-}
-
-/* =========================
-   LOADING
-========================= */
-
-.loading{
-    text-align:center;
-    padding:80px 20px;
-    color:#00ff88;
-    font-size:15px;
+    color:#aaa;
+    border:1px solid #202520;
 }
 
 /* =========================
@@ -300,25 +839,34 @@ nav a:hover{
 
 .toast{
     position:fixed;
+
     bottom:25px;
     right:25px;
 
-    background:#101010;
-    color:#fff;
-
-    border:1px solid rgba(0,255,136,.3);
-    border-radius:12px;
+    z-index:9999;
 
     padding:14px 20px;
 
+    border-radius:13px;
+
+    background:#0c110d;
+
+    border:1px solid rgba(0,255,136,.3);
+
+    color:#fff;
+
+    font-size:12px;
+
+    box-shadow:
+        0 10px 40px rgba(0,0,0,.5);
+
     opacity:0;
+
     transform:translateY(20px);
 
     pointer-events:none;
 
     transition:.3s;
-
-    z-index:999;
 }
 
 .toast.show{
@@ -327,10 +875,48 @@ nav a:hover{
 }
 
 /* =========================
-   MOBILE
+   LOADING
 ========================= */
 
-@media(max-width:800px){
+.loading{
+    min-height:400px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#00ff88;
+
+    font-size:14px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:850px){
+
+    .sections{
+        grid-template-columns:1fr;
+    }
+
+    .profile-main{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .user-id{
+        text-align:center;
+    }
+
+    .edit-btn{
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+}
+
+@media(max-width:600px){
 
     header{
         padding:0 4%;
@@ -341,7 +927,11 @@ nav a:hover{
     }
 
     nav a{
-        font-size:12px;
+        font-size:10px;
+    }
+
+    .logo{
+        font-size:20px;
     }
 
     .container{
@@ -349,27 +939,31 @@ nav a:hover{
         margin-top:25px;
     }
 
-    .profile-top{
-        padding:25px;
-        flex-direction:column;
-        text-align:center;
+    .profile-card{
+        padding:25px 18px;
     }
 
-    .user-id{
-        text-align:center;
+    .avatar{
+        width:105px;
+        height:105px;
     }
 
-    .grid{
+    .profile-info h2{
+        font-size:24px;
+    }
+
+    .stats{
         grid-template-columns:1fr;
     }
 
-    .actions{
-        flex-direction:column;
+    .avatar-grid{
+        grid-template-columns:repeat(3,1fr);
     }
 
-    .btn{
-        width:100%;
+    .modal-box{
+        padding:20px;
     }
+
 }
 
 </style>
@@ -384,13 +978,23 @@ nav a:hover{
 <header>
 
 <a href="index.html" class="logo">
-CALLAFINO.
+CALLAFINO<span>.</span>
 </a>
 
 <nav>
-<a href="index.html">خانه</a>
-<a href="codm.html">کالاف موبایل</a>
-<a href="dashboard.html">داشبورد</a>
+
+<a href="index.html">
+خانه
+</a>
+
+<a href="codm.html">
+کالاف موبایل
+</a>
+
+<a href="dashboard.html">
+داشبورد
+</a>
+
 </nav>
 
 </header>
@@ -409,19 +1013,50 @@ CALLAFINO.
 
 <div id="profileContent" style="display:none;">
 
-<!-- PROFILE -->
+<div class="page-title">
 
-<section class="profile-top">
+<small>CALLAFINO ACCOUNT</small>
 
-<div class="avatar" id="avatar">
-C
+<h1>پروفایل من</h1>
+
+<p>
+اطلاعات و فعالیت‌های حساب کاربری شما
+</p>
+
 </div>
+
+
+<!-- =========================
+     PROFILE
+========================= -->
+
+<section class="profile-card">
+
+<div class="profile-main">
+
+<div class="avatar-wrap">
+
+<img
+    id="avatar"
+    class="avatar"
+    src=""
+    alt="Avatar"
+>
+
+<div class="online-dot"></div>
+
+</div>
+
 
 <div class="profile-info">
 
-<h1 id="displayName">
+<div class="profile-label">
+PLAYER PROFILE
+</div>
+
+<h2 id="displayName">
 کاربر CALLAFINO
-</h1>
+</h2>
 
 <div class="username" id="username">
 @username
@@ -431,128 +1066,215 @@ C
 ID: -
 </div>
 
+<button
+    class="edit-btn"
+    onclick="openAvatarModal()"
+>
+تغییر آواتار
+</button>
+
+</div>
+
 </div>
 
 </section>
 
 
-<!-- STATS -->
+<!-- =========================
+     STATS
+========================= -->
 
-<div class="grid">
+<div class="stats">
 
-<div class="card">
+<div class="stat">
 
-<div class="card-icon">
+<div class="stat-icon">
 🏆
 </div>
 
-<div class="card-title">
+<div class="stat-title">
 تورنمنت‌ها
 </div>
 
-<div class="card-value" id="tournamentCount">
+<div
+    class="stat-value"
+    id="tournamentCount"
+>
 0
 </div>
 
 </div>
 
 
-<div class="card">
+<div class="stat">
 
-<div class="card-icon">
-🥇
-</div>
-
-<div class="card-title">
-بردها
-</div>
-
-<div class="card-value">
--
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-icon">
+<div class="stat-icon">
 👥
 </div>
 
-<div class="card-title">
+<div class="stat-title">
 دوستان
 </div>
 
-<div class="card-value" id="friendCount">
+<div
+    class="stat-value"
+    id="friendCount"
+>
 0
 </div>
 
 </div>
 
+
+<div class="stat">
+
+<div class="stat-icon">
+🥇
 </div>
 
-
-<!-- WALLET -->
-
-<section class="section">
-
-<h2>
-💰 <span>کیف پول</span>
-</h2>
-
-<div class="card">
-
-<div class="card-title">
-موجودی حساب
+<div class="stat-title">
+بردها
 </div>
 
-<div class="card-value">
+<div class="stat-value">
 به‌زودی
 </div>
 
 </div>
 
-</section>
-
-
-<!-- ACCOUNT -->
-
-<section class="section">
-
-<h2>
-⚙️ <span>حساب کاربری</span>
-</h2>
-
-<div class="actions">
-
-<button class="btn btn-green" onclick="editProfile()">
-ویرایش پروفایل
-</button>
-
-<button class="btn btn-dark" onclick="comingSoon()">
-تنظیمات حساب
-</button>
-
-<button class="btn btn-danger" onclick="logout()">
-خروج از حساب
-</button>
-
 </div>
 
-</section>
+
+<!-- =========================
+     CONTENT
+========================= -->
+
+<div class="sections">
 
 
 <!-- TOURNAMENTS -->
 
 <section class="section">
 
-<h2>
-🎮 <span>تورنمنت‌های من</span>
-</h2>
+<div class="section-title">
 
-<div id="myTournaments" class="empty">
+<h3>
+🎮 <span>تورنمنت‌های من</span>
+</h3>
+
+</div>
+
+<div
+    id="myTournaments"
+    class="tournament-list"
+>
+
+<div class="loading">
 در حال بررسی...
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ACTIONS -->
+
+<section class="section">
+
+<div class="section-title">
+
+<h3>
+⚙️ <span>حساب کاربری</span>
+</h3>
+
+</div>
+
+
+<div class="action-list">
+
+<button
+    class="action"
+    onclick="openAvatarModal()"
+>
+
+<div class="action-icon">
+🖼️
+</div>
+
+تغییر آواتار
+
+</button>
+
+
+<button
+    class="action"
+    onclick="comingSoon()"
+>
+
+<div class="action-icon">
+✏️
+</div>
+
+ویرایش اطلاعات
+
+</button>
+
+
+<button
+    class="action"
+    onclick="comingSoon()"
+>
+
+<div class="action-icon">
+⚙️
+</div>
+
+تنظیمات حساب
+
+</button>
+
+
+<button
+    class="action"
+    onclick="logout()"
+>
+
+<div class="action-icon">
+🚪
+</div>
+
+خروج از حساب
+
+</button>
+
+</div>
+
+</section>
+
+</div>
+
+
+<!-- =========================
+     WALLET
+========================= -->
+
+<section class="wallet">
+
+<div>
+
+<div class="wallet-label">
+موجودی کیف پول
+</div>
+
+<div class="wallet-value">
+به‌زودی
+</div>
+
+</div>
+
+<div class="wallet-icon">
+💰
 </div>
 
 </section>
@@ -562,7 +1284,200 @@ ID: -
 </main>
 
 
-<div id="toast" class="toast"></div>
+<!-- =========================
+     AVATAR MODAL
+========================= -->
+
+<div
+    class="modal"
+    id="avatarModal"
+    onclick="closeModalOutside(event)"
+>
+
+<div
+    class="modal-box"
+    onclick="event.stopPropagation()"
+>
+
+<div class="modal-head">
+
+<h3>
+انتخاب آواتار
+</h3>
+
+<button
+    class="close"
+    onclick="closeAvatarModal()"
+>
+×
+</button>
+
+</div>
+
+
+<div class="avatar-grid" id="avatarGrid">
+
+<!-- AVATARS -->
+
+<div
+    class="avatar-option"
+    data-avatar="1"
+    onclick="selectAvatar(1)"
+>
+
+<img
+src="https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000001cec820a80715b1deedc0a36.png"
+alt="Avatar 1"
+>
+
+<div class="selected-check">
+✓
+</div>
+
+</div>
+
+
+<div
+    class="avatar-option"
+    data-avatar="2"
+    onclick="selectAvatar(2)"
+>
+
+<img
+src="https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000003d0c81f58e0dfb39902285f1.png"
+alt="Avatar 2"
+>
+
+<div class="selected-check">
+✓
+</div>
+
+</div>
+
+
+<div
+    class="avatar-option"
+    data-avatar="3"
+    onclick="selectAvatar(3)"
+>
+
+<img
+src="https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000005e30820a813850e742f74eb6.png"
+alt="Avatar 3"
+>
+
+<div class="selected-check">
+✓
+</div>
+
+</div>
+
+
+<div
+    class="avatar-option"
+    data-avatar="4"
+    onclick="selectAvatar(4)"
+>
+
+<img
+src="https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_00000000637882108a483fede744b6ab.png"
+alt="Avatar 4"
+>
+
+<div class="selected-check">
+✓
+</div>
+
+</div>
+
+
+<div
+    class="avatar-option"
+    data-avatar="5"
+    onclick="selectAvatar(5)"
+>
+
+<img
+src="https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000006fe8820a9e92ebd9a546320f.png"
+alt="Avatar 5"
+>
+
+<div class="selected-check">
+✓
+</div>
+
+</div>
+
+
+<div
+    class="avatar-option"
+    data-avatar="6"
+    onclick="selectAvatar(6)"
+>
+
+<img
+src="https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000008e6481f5ae96b2522254cc0e.png"
+alt="Avatar 6"
+>
+
+<div class="selected-check">
+✓
+</div>
+
+</div>
+
+
+<div
+    class="avatar-option"
+    data-avatar="7"
+    onclick="selectAvatar(7)"
+>
+
+<img
+src="https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_00000000c374824395592931b290c7db.png"
+alt="Avatar 7"
+>
+
+<div class="selected-check">
+✓
+</div>
+
+</div>
+
+</div>
+
+
+<div class="modal-footer">
+
+<button
+    class="modal-btn cancel-btn"
+    onclick="closeAvatarModal()"
+>
+انصراف
+</button>
+
+<button
+    class="modal-btn save-btn"
+    onclick="saveAvatar()"
+>
+ذخیره آواتار
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     TOAST
+========================= -->
+
+<div
+    id="toast"
+    class="toast"
+></div>
 
 
 <script>
@@ -585,6 +1500,46 @@ supabase.createClient(
 
 
 /* =========================
+   AVATAR URLS
+========================= */
+
+const avatarUrls = {
+
+    1:
+    "https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000001cec820a80715b1deedc0a36.png",
+
+    2:
+    "https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000003d0c81f58e0dfb39902285f1.png",
+
+    3:
+    "https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000005e30820a813850e742f74eb6.png",
+
+    4:
+    "https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_00000000637882108a483fede744b6ab.png",
+
+    5:
+    "https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000006fe8820a9e92ebd9a546320f.png",
+
+    6:
+    "https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000008e6481f5ae96b2522254cc0e.png",
+
+    7:
+    "https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_00000000c374824395592931b290c7db.png"
+
+};
+
+
+/* =========================
+   VARIABLES
+========================= */
+
+let selectedAvatar =
+    localStorage.getItem("callafino_avatar") || "1";
+
+let currentUser = null;
+
+
+/* =========================
    TOAST
 ========================= */
 
@@ -598,8 +1553,11 @@ function showToast(message){
     toast.classList.add("show");
 
     setTimeout(() => {
+
         toast.classList.remove("show");
+
     },3000);
+
 }
 
 
@@ -626,13 +1584,20 @@ async function loadProfile(){
                 "login.html";
 
             return;
+
         }
 
 
-        /* USER ID */
+        currentUser = user;
 
-        document.getElementById("userId")
-            .textContent =
+
+        /* =========================
+           USER ID
+        ========================= */
+
+        document.getElementById(
+            "userId"
+        ).textContent =
             "ID: " + user.id;
 
 
@@ -640,10 +1605,8 @@ async function loadProfile(){
            PROFILE
         ========================= */
 
-        let profile = null;
-
         const {
-            data: profileData
+            data: profile
         } =
         await supabaseClient
             .from("profiles")
@@ -652,87 +1615,34 @@ async function loadProfile(){
             .maybeSingle();
 
 
-        profile = profileData;
+        let name =
+            profile?.username ||
+            user.user_metadata?.username ||
+            user.email?.split("@")[0] ||
+            "کاربر CALLAFINO";
 
 
-        if(profile){
-
-            const name =
-                profile.username ||
-                user.user_metadata?.username ||
-                "کاربر CALLAFINO";
+        document.getElementById(
+            "displayName"
+        ).textContent = name;
 
 
-            document.getElementById(
-                "displayName"
-            ).textContent = name;
+        document.getElementById(
+            "username"
+        ).textContent =
+            "@" + name;
 
 
-            document.getElementById(
-                "username"
-            ).textContent =
-                "@" + name;
+        /* =========================
+           AVATAR
+        ========================= */
+
+        const avatar =
+            document.getElementById("avatar");
 
 
-            const firstLetter =
-                name.charAt(0).toUpperCase();
-
-
-            document.getElementById(
-                "avatar"
-            ).textContent = firstLetter;
-
-
-            /* اگر avatar_url در پروفایل وجود داشته باشد */
-
-            if(profile.avatar_url){
-
-                document.getElementById(
-                    "avatar"
-                ).style.backgroundImage =
-                    `url("${profile.avatar_url}")`;
-
-                document.getElementById(
-                    "avatar"
-                ).style.backgroundSize =
-                    "cover";
-
-                document.getElementById(
-                    "avatar"
-                ).style.backgroundPosition =
-                    "center";
-
-                document.getElementById(
-                    "avatar"
-                ).textContent = "";
-
-            }
-
-        }else{
-
-            const name =
-                user.user_metadata?.username ||
-                user.email?.split("@")[0] ||
-                "کاربر CALLAFINO";
-
-
-            document.getElementById(
-                "displayName"
-            ).textContent = name;
-
-
-            document.getElementById(
-                "username"
-            ).textContent =
-                "@" + name;
-
-
-            document.getElementById(
-                "avatar"
-            ).textContent =
-                name.charAt(0).toUpperCase();
-
-        }
+        avatar.src =
+            avatarUrls[selectedAvatar];
 
 
         /* =========================
@@ -751,7 +1661,10 @@ async function loadProfile(){
                     head:true
                 }
             )
-            .eq("user_id", user.id);
+            .eq(
+                "user_id",
+                user.id
+            );
 
 
         document.getElementById(
@@ -805,7 +1718,10 @@ async function loadProfile(){
                     type
                 )
             `)
-            .eq("user_id", user.id)
+            .eq(
+                "user_id",
+                user.id
+            )
             .order(
                 "created_at",
                 {
@@ -815,7 +1731,7 @@ async function loadProfile(){
             .limit(5);
 
 
-        const tournamentsBox =
+        const box =
             document.getElementById(
                 "myTournaments"
             );
@@ -826,12 +1742,17 @@ async function loadProfile(){
             registrations.length === 0
         ){
 
-            tournamentsBox.innerHTML =
-                "هنوز در هیچ تورنمنتی ثبت‌نام نکرده‌ای.";
+            box.innerHTML = `
+                <div class="tournament">
+                    <div class="tournament-info">
+                        هنوز در هیچ تورنمنتی ثبت‌نام نکرده‌ای.
+                    </div>
+                </div>
+            `;
 
         }else{
 
-            tournamentsBox.innerHTML =
+            box.innerHTML =
                 registrations.map(item => {
 
                     const t =
@@ -840,26 +1761,13 @@ async function loadProfile(){
                     if(!t) return "";
 
                     return `
-                        <div style="
-                            padding:15px;
-                            margin-bottom:10px;
-                            background:#101010;
-                            border:1px solid #191919;
-                            border-radius:12px;
-                        ">
+                        <div class="tournament">
 
-                            <div style="
-                                color:#00ff88;
-                                font-weight:bold;
-                                margin-bottom:7px;
-                            ">
+                            <div class="tournament-name">
                                 ${escapeHtml(t.title)}
                             </div>
 
-                            <div style="
-                                color:#777;
-                                font-size:12px;
-                            ">
+                            <div class="tournament-info">
                                 ${escapeHtml(t.game || "-")}
                                 •
                                 ${escapeHtml(t.type || "-")}
@@ -873,7 +1781,9 @@ async function loadProfile(){
         }
 
 
-        /* SHOW */
+        /* =========================
+           SHOW PAGE
+        ========================= */
 
         document.getElementById(
             "loading"
@@ -900,7 +1810,7 @@ async function loadProfile(){
 
 
 /* =========================
-   ESCAPE HTML
+   ESCAPE
 ========================= */
 
 function escapeHtml(text){
@@ -916,26 +1826,159 @@ function escapeHtml(text){
 
 
 /* =========================
-   EDIT
+   OPEN MODAL
 ========================= */
 
-function editProfile(){
+function openAvatarModal(){
+
+    selectedAvatar =
+        localStorage.getItem(
+            "callafino_avatar"
+        ) || "1";
+
+
+    document
+        .querySelectorAll(".avatar-option")
+        .forEach(option => {
+
+            option.classList.remove(
+                "selected"
+            );
+
+        });
+
+
+    const selected =
+        document.querySelector(
+            `[data-avatar="${selectedAvatar}"]`
+        );
+
+
+    if(selected){
+
+        selected.classList.add(
+            "selected"
+        );
+
+    }
+
+
+    document
+        .getElementById(
+            "avatarModal"
+        )
+        .classList.add("show");
+
+}
+
+
+/* =========================
+   CLOSE MODAL
+========================= */
+
+function closeAvatarModal(){
+
+    document
+        .getElementById(
+            "avatarModal"
+        )
+        .classList.remove("show");
+
+}
+
+
+/* =========================
+   OUTSIDE CLICK
+========================= */
+
+function closeModalOutside(event){
+
+    if(
+        event.target.id ===
+        "avatarModal"
+    ){
+
+        closeAvatarModal();
+
+    }
+
+}
+
+
+/* =========================
+   SELECT AVATAR
+========================= */
+
+function selectAvatar(number){
+
+    selectedAvatar =
+        String(number);
+
+
+    document
+        .querySelectorAll(".avatar-option")
+        .forEach(option => {
+
+            option.classList.remove(
+                "selected"
+            );
+
+        });
+
+
+    const option =
+        document.querySelector(
+            `[data-avatar="${number}"]`
+        );
+
+
+    if(option){
+
+        option.classList.add(
+            "selected"
+        );
+
+    }
+
+}
+
+
+/* =========================
+   SAVE AVATAR
+========================= */
+
+function saveAvatar(){
+
+    localStorage.setItem(
+        "callafino_avatar",
+        selectedAvatar
+    );
+
+
+    document.getElementById(
+        "avatar"
+    ).src =
+        avatarUrls[selectedAvatar];
+
+
+    closeAvatarModal();
+
 
     showToast(
-        "بخش ویرایش پروفایل به‌زودی اضافه می‌شود."
+        "آواتار با موفقیت تغییر کرد ✓"
     );
 
 }
 
 
 /* =========================
-   SETTINGS
+   COMING SOON
 ========================= */
 
 function comingSoon(){
 
     showToast(
-        "تنظیمات حساب به‌زودی اضافه می‌شود."
+        "این بخش به‌زودی اضافه می‌شود."
     );
 
 }
@@ -960,6 +2003,7 @@ async function logout(){
         );
 
         return;
+
     }
 
 
@@ -979,3 +2023,4 @@ loadProfile();
 
 </body>
 </html>
+```
