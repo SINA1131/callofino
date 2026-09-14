@@ -34,13 +34,10 @@ header{
     background:rgba(5,5,5,.90);
     backdrop-filter:blur(15px);
     border-bottom:1px solid rgba(26,255,0,.35);
-
     display:flex;
     align-items:center;
     justify-content:space-between;
-
     padding:0 5%;
-
     position:sticky;
     top:0;
     z-index:100;
@@ -51,9 +48,7 @@ header{
     font-size:25px;
     font-weight:bold;
     letter-spacing:2px;
-
-    text-shadow:
-        0 0 10px rgba(26,255,0,.5);
+    text-shadow:0 0 10px rgba(26,255,0,.5);
 }
 
 nav{
@@ -88,9 +83,7 @@ nav a:hover{
     font-size:42px;
     color:#1aff00;
     letter-spacing:2px;
-
-    text-shadow:
-        0 0 15px rgba(26,255,0,.35);
+    text-shadow:0 0 15px rgba(26,255,0,.35);
 }
 
 .title p{
@@ -100,82 +93,46 @@ nav a:hover{
 
 .tournaments{
     display:grid;
-
-    grid-template-columns:
-    repeat(
-        auto-fit,
-        minmax(280px,1fr)
-    );
-
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
     gap:22px;
 }
 
 .tournament-card{
-    background:
-        linear-gradient(
-            145deg,
-            #111,
-            #080808
-        );
-
+    background:linear-gradient(145deg,#111,#080808);
     border:1px solid #222;
-
     border-radius:16px;
-
     overflow:hidden;
-
     position:relative;
-
-    transition:
-        transform .3s,
-        border-color .3s,
-        box-shadow .3s;
+    transition:transform .3s,border-color .3s,box-shadow .3s;
 }
 
 .tournament-card:hover{
     transform:translateY(-6px);
-
     border-color:#1aff00;
-
-    box-shadow:
-        0 15px 45px rgba(0,0,0,.5),
-        0 0 25px rgba(26,255,0,.08);
+    box-shadow:0 15px 45px rgba(0,0,0,.5),0 0 25px rgba(26,255,0,.08);
 }
 
 .tournament-image{
     width:100%;
     height:190px;
-
     object-fit:cover;
-
     display:block;
-
     transition:.4s;
 }
 
-.tournament-card:hover
-.tournament-image{
+.tournament-card:hover .tournament-image{
     transform:scale(1.04);
 }
 
 .tournament-placeholder{
     width:100%;
     height:190px;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     font-size:55px;
-
     color:#1aff00;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(26,255,0,.12),
-            transparent 60%
-        );
+    background:radial-gradient(circle,rgba(26,255,0,.12),transparent 60%);
 }
 
 .tournament-content{
@@ -185,17 +142,13 @@ nav a:hover{
 .tournament-content h2{
     color:#fff;
     font-size:21px;
-
     margin-bottom:17px;
 }
 
 .info{
     color:#888;
-
     line-height:2;
-
     font-size:14px;
-
     margin-bottom:18px;
 }
 
@@ -206,42 +159,29 @@ nav a:hover{
 button{
     border:0;
     cursor:pointer;
-
     border-radius:9px;
-
     padding:12px 15px;
-
     font-weight:bold;
-
     transition:.25s;
 }
 
 .register-btn{
     width:100%;
-
     background:#1aff00;
     color:#000;
-
-    box-shadow:
-        0 0 15px rgba(26,255,0,.12);
+    box-shadow:0 0 15px rgba(26,255,0,.12);
 }
 
 .register-btn:hover{
     transform:translateY(-2px);
-
-    box-shadow:
-        0 0 25px rgba(26,255,0,.35);
+    box-shadow:0 0 25px rgba(26,255,0,.35);
 }
 
 .view-btn{
     width:100%;
-
     margin-top:10px;
-
     background:#111;
-
     border:1px solid #333;
-
     color:#1aff00;
 }
 
@@ -254,48 +194,28 @@ button{
 
 .room-announcement{
     display:none;
-
     margin-bottom:35px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #101010,
-            #070707
-        );
-
+    background:linear-gradient(135deg,#101010,#070707);
     border:1px solid #1aff00;
-
     border-radius:18px;
-
     overflow:hidden;
-
-    box-shadow:
-        0 0 30px rgba(26,255,0,.12);
-
+    box-shadow:0 0 30px rgba(26,255,0,.12);
     animation:roomPulse 2.5s infinite;
 }
 
 @keyframes roomPulse{
-
     0%,100%{
-        box-shadow:
-        0 0 20px rgba(26,255,0,.08);
+        box-shadow:0 0 20px rgba(26,255,0,.08);
     }
-
     50%{
-        box-shadow:
-        0 0 40px rgba(26,255,0,.22);
+        box-shadow:0 0 40px rgba(26,255,0,.22);
     }
-
 }
 
 .room-image{
     width:100%;
     max-height:400px;
-
     object-fit:cover;
-
     display:block;
 }
 
@@ -306,29 +226,19 @@ button{
 
 .room-title{
     color:#1aff00;
-
     font-size:25px;
-
     margin-bottom:12px;
-
     font-weight:bold;
 }
 
 .room-code{
     direction:ltr;
-
     color:#1aff00;
-
     font-size:40px;
-
     font-weight:bold;
-
     letter-spacing:6px;
-
     margin:17px 0;
-
-    text-shadow:
-        0 0 15px rgba(26,255,0,.35);
+    text-shadow:0 0 15px rgba(26,255,0,.35);
 }
 
 .room-timer{
@@ -344,32 +254,18 @@ button{
 
 .details{
     display:none;
-
-    background:
-        linear-gradient(
-            145deg,
-            #101010,
-            #070707
-        );
-
+    background:linear-gradient(145deg,#101010,#070707);
     border:1px solid #1aff00;
-
     border-radius:18px;
-
     overflow:hidden;
-
     margin-top:45px;
-
-    box-shadow:
-        0 0 35px rgba(26,255,0,.08);
+    box-shadow:0 0 35px rgba(26,255,0,.08);
 }
 
 .details-image{
     width:100%;
     max-height:430px;
-
     object-fit:cover;
-
     display:block;
 }
 
@@ -379,35 +275,22 @@ button{
 
 .details-title{
     color:#1aff00;
-
     font-size:32px;
-
     margin-bottom:22px;
 }
 
 .details-info{
     display:grid;
-
-    grid-template-columns:
-    repeat(
-        auto-fit,
-        minmax(170px,1fr)
-    );
-
+    grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
     gap:13px;
 }
 
 .detail-box{
     background:#0d0d0d;
-
     border:1px solid #222;
-
     border-radius:11px;
-
     padding:16px;
-
     color:#ccc;
-
     transition:.25s;
 }
 
@@ -417,9 +300,7 @@ button{
 
 .detail-box strong{
     display:block;
-
     color:#1aff00;
-
     margin-bottom:7px;
 }
 
@@ -429,52 +310,32 @@ button{
 
 .detail-block h3{
     color:#1aff00;
-
     margin-bottom:12px;
-
     font-size:19px;
 }
 
 .read-box{
-    background:
-        linear-gradient(
-            145deg,
-            #111,
-            #0b0b0b
-        );
-
+    background:linear-gradient(145deg,#111,#0b0b0b);
     border:1px solid #222;
-
     border-radius:12px;
-
     padding:18px;
-
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
-
     gap:15px;
 }
 
 .read-box span{
     color:#777;
-
     overflow:hidden;
-
     white-space:nowrap;
-
     text-overflow:ellipsis;
 }
 
 .read-button{
     background:#151515;
-
     border:1px solid #1aff00;
-
     color:#1aff00;
-
     min-width:105px;
 }
 
@@ -487,61 +348,41 @@ button{
 
 .slots{
     display:grid;
-
-    grid-template-columns:
-    repeat(
-        auto-fit,
-        minmax(230px,1fr)
-    );
-
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
     gap:15px;
 }
 
 .slot{
     background:#0c0c0c;
-
     border:1px solid #222;
-
     border-radius:12px;
-
     padding:16px;
-
     transition:.25s;
 }
 
 .slot:hover{
     border-color:#1aff00;
-
     transform:translateY(-2px);
 }
 
 .slot-title{
     color:#1aff00;
-
     margin-bottom:12px;
-
     font-weight:bold;
 }
 
 .slot-size{
     color:#666;
-
     font-size:12px;
-
     margin-right:8px;
 }
 
 .player{
     background:#151515;
-
     border:1px solid #202020;
-
     border-radius:7px;
-
     padding:10px;
-
     margin-top:7px;
-
     color:#ddd;
 }
 
@@ -553,122 +394,78 @@ button{
 
 .modal{
     display:none;
-
     position:fixed;
-
     inset:0;
-
     background:rgba(0,0,0,.86);
-
     backdrop-filter:blur(8px);
-
     align-items:center;
     justify-content:center;
-
     z-index:1000;
-
     padding:20px;
 }
 
 .modal-box{
     width:100%;
     max-width:600px;
-
     max-height:85vh;
-
     overflow-y:auto;
-
-    background:
-        linear-gradient(
-            145deg,
-            #111,
-            #070707
-        );
-
+    background:linear-gradient(145deg,#111,#070707);
     border:1px solid #1aff00;
-
     border-radius:16px;
-
     padding:25px;
-
-    box-shadow:
-        0 0 50px rgba(26,255,0,.12);
-
+    box-shadow:0 0 50px rgba(26,255,0,.12);
     animation:modalOpen .25s ease;
 }
 
 @keyframes modalOpen{
-
     from{
         opacity:0;
         transform:scale(.94) translateY(10px);
     }
-
     to{
         opacity:1;
         transform:scale(1) translateY(0);
     }
-
 }
 
 .modal-box h2{
     color:#1aff00;
-
     margin-bottom:20px;
-
     font-size:23px;
 }
 
 .modal-text{
     background:#0b0b0b;
-
     border:1px solid #222;
-
     border-radius:11px;
-
     padding:20px;
-
     color:#ccc;
-
     line-height:2;
-
     white-space:pre-wrap;
-
     word-break:break-word;
 }
 
 .close-modal{
     width:100%;
-
     background:#1aff00;
-
     color:#000;
-
     margin-top:15px;
 }
 
 .close-modal:hover{
-    box-shadow:
-        0 0 20px rgba(26,255,0,.3);
+    box-shadow:0 0 20px rgba(26,255,0,.3);
 }
 
 /* TEAM SELECT */
 
 .team-info{
     background:#0c0c0c;
-
     border:1px solid #222;
-
     border-radius:11px;
-
     padding:15px;
-
     margin-bottom:15px;
-
     color:#aaa;
-
     line-height:1.9;
-
     text-align:center;
 }
 
@@ -678,69 +475,44 @@ button{
 
 .friend-select{
     display:flex;
-
     align-items:center;
-
     gap:12px;
-
     background:#101010;
-
     border:1px solid #252525;
-
     padding:14px;
-
     border-radius:11px;
-
     margin-bottom:10px;
-
     cursor:pointer;
-
     transition:.25s;
 }
 
 .friend-select:hover{
     border-color:#1aff00;
-
     transform:translateX(-3px);
 }
 
 .friend-select.selected{
     border-color:#1aff00;
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(26,255,0,.12),
-            #101010
-        );
-
-    box-shadow:
-        0 0 15px rgba(26,255,0,.07);
+    background:linear-gradient(90deg,rgba(26,255,0,.12),#101010);
+    box-shadow:0 0 15px rgba(26,255,0,.07);
 }
 
 .friend-checkbox{
     width:20px;
     height:20px;
-
     accent-color:#1aff00;
-
     cursor:pointer;
 }
 
 .friend-avatar{
     width:40px;
     height:40px;
-
     border-radius:50%;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     background:#1aff00;
-
     color:#000;
-
     font-weight:bold;
 }
 
@@ -751,9 +523,7 @@ button{
 
 .selection-counter{
     text-align:center;
-
     color:#777;
-
     margin:15px 0;
 }
 
@@ -763,141 +533,91 @@ button{
 
 .confirm-team{
     width:100%;
-
     background:#1aff00;
-
     color:#000;
-
     margin-top:5px;
 }
 
 .confirm-team:disabled{
     opacity:.35;
-
     cursor:not-allowed;
-
     box-shadow:none;
 }
 
 .no-friends{
     text-align:center;
-
     color:#777;
-
     background:#0c0c0c;
-
     border:1px solid #222;
-
     border-radius:10px;
-
     padding:20px;
-
     line-height:2;
 }
 
-/* =========================
-   REGISTER MODE
-========================= */
+/* REGISTER MODE */
 
 .register-options{
     display:grid;
-
-    grid-template-columns:
-    repeat(2,1fr);
-
+    grid-template-columns:repeat(2,1fr);
     gap:15px;
-
     margin-top:10px;
 }
 
 .register-option{
-    background:
-        linear-gradient(
-            145deg,
-            #111,
-            #090909
-        );
-
+    background:linear-gradient(145deg,#111,#090909);
     border:1px solid #292929;
-
     border-radius:14px;
-
     padding:24px 15px;
-
     color:#fff;
-
     text-align:center;
-
     transition:.25s;
 }
 
 .register-option:hover{
     border-color:#1aff00;
-
     transform:translateY(-3px);
-
-    box-shadow:
-        0 0 25px rgba(26,255,0,.08);
+    box-shadow:0 0 25px rgba(26,255,0,.08);
 }
 
 .register-option-icon{
     font-size:35px;
-
     margin-bottom:12px;
 }
 
 .register-option-title{
     color:#1aff00;
-
     font-size:18px;
-
     font-weight:bold;
-
     margin-bottom:8px;
 }
 
 .register-option-text{
     color:#777;
-
     font-size:13px;
-
     line-height:1.8;
 }
 
 .register-option button{
     width:100%;
-
     margin-top:17px;
-
     background:#1aff00;
-
     color:#000;
 }
 
 .register-option.solo{
-    border-color:
-    rgba(26,255,0,.35);
+    border-color:rgba(26,255,0,.35);
 }
 
-/* =========================
-   CONFIRM MODAL
-========================= */
+/* CONFIRM */
 
 .confirm-info{
     background:#0b0b0b;
-
     border:1px solid #222;
-
     border-radius:12px;
-
     padding:18px;
-
     color:#aaa;
-
     line-height:2;
-
     margin-bottom:15px;
-
     text-align:center;
 }
 
@@ -907,99 +627,59 @@ button{
 
 .confirm-buttons{
     display:grid;
-
     grid-template-columns:1fr 1fr;
-
     gap:10px;
 }
 
 .confirm-yes{
     background:#1aff00;
-
     color:#000;
 }
 
 .confirm-no{
     background:#151515;
-
     border:1px solid #333;
-
     color:#aaa;
 }
 
 .confirm-no:hover{
     border-color:#1aff00;
-
     color:#fff;
 }
 
-/* =========================
-   TOAST
-========================= */
+/* TOAST */
 
 #toastContainer{
     position:fixed;
-
     left:50%;
-
     bottom:25px;
-
     transform:translateX(-50%);
-
     width:min(92%,450px);
-
     z-index:5000;
-
     display:flex;
-
     flex-direction:column;
-
     gap:10px;
-
     pointer-events:none;
 }
 
 .toast{
-    background:
-        linear-gradient(
-            145deg,
-            #151515,
-            #090909
-        );
-
+    background:linear-gradient(145deg,#151515,#090909);
     border:1px solid #333;
-
     border-radius:14px;
-
     padding:16px 18px;
-
-    box-shadow:
-        0 15px 40px rgba(0,0,0,.55);
-
+    box-shadow:0 15px 40px rgba(0,0,0,.55);
     display:flex;
-
     align-items:flex-start;
-
     gap:12px;
-
     opacity:0;
-
-    transform:
-        translateY(20px)
-        scale(.97);
-
-    animation:
-        toastIn .3s ease forwards;
-
+    transform:translateY(20px) scale(.97);
+    animation:toastIn .3s ease forwards;
     pointer-events:auto;
 }
 
 .toast.success{
     border-color:#1aff00;
-
-    box-shadow:
-        0 0 25px rgba(26,255,0,.12),
-        0 15px 40px rgba(0,0,0,.55);
+    box-shadow:0 0 25px rgba(26,255,0,.12),0 15px 40px rgba(0,0,0,.55);
 }
 
 .toast.error{
@@ -1013,32 +693,23 @@ button{
 .toast-icon{
     width:36px;
     height:36px;
-
     flex:none;
-
     border-radius:50%;
-
     display:flex;
-
     align-items:center;
     justify-content:center;
-
     background:#1aff00;
-
     color:#000;
-
     font-weight:bold;
 }
 
 .toast.error .toast-icon{
     background:#ff4545;
-
     color:#fff;
 }
 
 .toast.warning .toast-icon{
     background:#ffc400;
-
     color:#000;
 }
 
@@ -1048,29 +719,21 @@ button{
 
 .toast-title{
     color:#fff;
-
     font-size:15px;
-
     font-weight:bold;
-
     margin-bottom:4px;
 }
 
 .toast-message{
     color:#999;
-
     font-size:13px;
-
     line-height:1.7;
 }
 
 .toast-close{
     background:none;
-
     padding:0;
-
     color:#555;
-
     font-size:18px;
 }
 
@@ -1079,32 +742,21 @@ button{
 }
 
 .toast.hide{
-    animation:
-        toastOut .3s ease forwards;
+    animation:toastOut .3s ease forwards;
 }
 
 @keyframes toastIn{
-
     to{
         opacity:1;
-
-        transform:
-            translateY(0)
-            scale(1);
+        transform:translateY(0) scale(1);
     }
-
 }
 
 @keyframes toastOut{
-
     to{
         opacity:0;
-
-        transform:
-            translateY(20px)
-            scale(.97);
+        transform:translateY(20px) scale(.97);
     }
-
 }
 
 /* MY TOURNAMENTS */
@@ -1115,30 +767,17 @@ button{
 
 .my-tournaments h2{
     color:#1aff00;
-
     margin-bottom:20px;
-
     font-size:24px;
 }
 
 .my-item{
-    background:
-        linear-gradient(
-            145deg,
-            #101010,
-            #090909
-        );
-
+    background:linear-gradient(145deg,#101010,#090909);
     border:1px solid #222;
-
     padding:17px;
-
     border-radius:10px;
-
     margin-bottom:10px;
-
     color:#aaa;
-
     transition:.25s;
 }
 
@@ -1152,35 +791,26 @@ button{
 
 .loading{
     text-align:center;
-
     color:#666;
-
     padding:35px;
 }
 
 .error{
     text-align:center;
-
     color:#ff5555;
-
     padding:25px;
 }
 
 .close{
     width:100%;
-
     margin-top:30px;
-
     background:#151515;
-
     border:1px solid #333;
-
     color:#aaa;
 }
 
 .close:hover{
     color:#fff;
-
     border-color:#1aff00;
 }
 
@@ -1537,7 +1167,6 @@ Loading...
 
 </div>
 
-
 <div class="register-option solo">
 
 <div class="register-option-icon">
@@ -1667,16 +1296,10 @@ createClient(
 
 
 let currentUser = null;
-
 let selectedTournament = null;
-
 let roomTimerInterval = null;
-
 let selectedFriendIds = [];
-
 let requiredFriends = 0;
-
-let pendingRegistration = null;
 
 
 /* =========================
@@ -1710,13 +1333,9 @@ function formatEntryFee(fee){
     const amount =
     Number(fee || 0);
 
-
     if(amount <= 0){
-
         return "رایگان";
-
     }
-
 
     return (
         amount.toLocaleString("fa-IR")
@@ -1743,14 +1362,11 @@ function showToast(
         "toastContainer"
     );
 
-
     const toast =
     document.createElement("div");
 
-
     toast.className =
     `toast ${type}`;
-
 
     const icon =
     type==="success"
@@ -1758,7 +1374,6 @@ function showToast(
     : type==="error"
     ? "!"
     : "⚠";
-
 
     toast.innerHTML = `
 
@@ -1778,26 +1393,19 @@ function showToast(
 
         </div>
 
-        <button
-            class="toast-close"
-        >
+        <button class="toast-close">
             ×
         </button>
 
     `;
 
-
     toast
     .querySelector(".toast-close")
     .onclick=()=>{
-
         removeToast(toast);
-
     };
 
-
     container.appendChild(toast);
-
 
     setTimeout(
         ()=>{
@@ -1814,9 +1422,7 @@ function removeToast(toast){
     if(!toast || !toast.isConnected)
         return;
 
-
     toast.classList.add("hide");
-
 
     setTimeout(
         ()=>{
@@ -1843,60 +1449,47 @@ function showConfirm(
         "confirmModal"
     );
 
-
     document.getElementById(
         "confirmTitle"
     ).textContent =
     title;
-
 
     document.getElementById(
         "confirmContent"
     ).innerHTML =
     html;
 
-
     modal.style.display="flex";
-
 
     const yes =
     document.getElementById(
         "confirmYes"
     );
 
-
     const no =
     document.getElementById(
         "confirmNo"
     );
 
-
     const newYes =
     yes.cloneNode(true);
 
-
     const newNo =
     no.cloneNode(true);
-
 
     yes.parentNode.replaceChild(
         newYes,
         yes
     );
 
-
     no.parentNode.replaceChild(
         newNo,
         no
     );
 
-
     newNo.onclick=()=>{
-
         modal.style.display="none";
-
     };
-
 
     newYes.onclick=async()=>{
 
@@ -1922,7 +1515,6 @@ async function init(){
     } =
     await supabase.auth.getUser();
 
-
     if(!user){
 
         location.href="login.html";
@@ -1931,16 +1523,13 @@ async function init(){
 
     }
 
-
     currentUser=user;
-
 
     await loadTournaments();
 
     await loadMyTournaments();
 
     await checkRoomAnnouncement();
-
 
     setInterval(
         checkRoomAnnouncement,
@@ -1959,7 +1548,6 @@ async function loadTournaments(){
     const container =
     document.getElementById("tournaments");
 
-
     const {
         data,
         error
@@ -1974,7 +1562,6 @@ async function loadTournaments(){
         }
     );
 
-
     if(error){
 
         container.innerHTML =
@@ -1985,7 +1572,6 @@ async function loadTournaments(){
         return;
 
     }
-
 
     if(!data?.length){
 
@@ -1998,46 +1584,35 @@ async function loadTournaments(){
 
     }
 
-
     container.innerHTML="";
-
 
     for(const tournament of data){
 
         const card =
         document.createElement("div");
 
-
         card.className =
         "tournament-card";
 
-
         const image =
         tournament.image_url
-
         ?
-
         `<img
             class="tournament-image"
             src="${escapeHTML(tournament.image_url)}"
         >`
-
         :
-
         `<div class="tournament-placeholder">
             🏆
         </div>`;
-
 
         const type =
         String(
             tournament.type || "-"
         );
 
-
         const typeLower =
         type.toLowerCase();
-
 
         const slotSize =
         typeLower === "solo"
@@ -2048,7 +1623,6 @@ async function loadTournaments(){
         ? 4
         : 1;
 
-
         const slotCount =
         Math.ceil(
             Number(
@@ -2056,12 +1630,10 @@ async function loadTournaments(){
             ) / slotSize
         );
 
-
         const entryFee =
         Number(
             tournament.entry_fee || 0
         );
-
 
         card.innerHTML = `
 
@@ -2135,20 +1707,17 @@ async function loadTournaments(){
             </div>
         `;
 
-
         card
         .querySelector("[data-register]")
         .onclick =
         () =>
         registerTournament(tournament);
 
-
         card
         .querySelector("[data-view]")
         .onclick =
         () =>
         showDetails(tournament);
-
 
         container.appendChild(card);
 
@@ -2165,23 +1734,18 @@ async function showDetails(tournament){
 
     selectedTournament=tournament;
 
-
     const details =
     document.getElementById("details");
 
-
     details.style.display="block";
-
 
     document.getElementById(
         "detailsTitle"
     ).textContent =
     tournament.title || "";
 
-
     const image =
     document.getElementById("detailsImage");
-
 
     if(tournament.image_url){
 
@@ -2197,7 +1761,6 @@ async function showDetails(tournament){
         image.innerHTML="";
 
     }
-
 
     document.getElementById(
         "detailsInfo"
@@ -2239,13 +1802,11 @@ async function showDetails(tournament){
 
     `;
 
-
     document.getElementById(
         "descriptionPreview"
     ).textContent =
     tournament.description ||
     "توضیحی برای این مسابقه ثبت نشده است.";
-
 
     document.getElementById(
         "rulesPreview"
@@ -2253,9 +1814,7 @@ async function showDetails(tournament){
     tournament.rules ||
     "قوانینی برای این مسابقه ثبت نشده است.";
 
-
     await loadSlots(tournament);
-
 
     details.scrollIntoView({
         behavior:"smooth"
@@ -2263,10 +1822,6 @@ async function showDetails(tournament){
 
 }
 
-
-/* =========================
-   CLOSE DETAILS
-========================= */
 
 window.closeDetails=function(){
 
@@ -2277,27 +1832,19 @@ window.closeDetails=function(){
 };
 
 
-/* =========================
-   TEXT MODAL
-========================= */
-
 window.openTextModal=function(type){
 
     if(!selectedTournament)
         return;
 
-
     const modal =
     document.getElementById("textModal");
-
 
     const title =
     document.getElementById("textModalTitle");
 
-
     const content =
     document.getElementById("textModalContent");
-
 
     if(type==="description"){
 
@@ -2317,7 +1864,6 @@ window.openTextModal=function(type){
         "قوانینی برای این مسابقه ثبت نشده است.";
 
     }
-
 
     modal.style.display="flex";
 
@@ -2355,12 +1901,10 @@ async function loadSlots(tournament){
     const container =
     document.getElementById("detailsSlots");
 
-
     container.innerHTML =
     `<div class="loading">
         Loading...
     </div>`;
-
 
     const {
         data,
@@ -2373,7 +1917,6 @@ async function loadSlots(tournament){
         }
     );
 
-
     if(error){
 
         container.innerHTML =
@@ -2385,15 +1928,12 @@ async function loadSlots(tournament){
 
     }
 
-
     container.innerHTML="";
-
 
     const type =
     String(
         tournament.type || ""
     ).toLowerCase();
-
 
     const slotSize =
     type==="solo"
@@ -2403,7 +1943,6 @@ async function loadSlots(tournament){
     :type==="squad"
     ?4
     :1;
-
 
     if(!data?.length){
 
@@ -2416,18 +1955,14 @@ async function loadSlots(tournament){
 
     }
 
-
     data.forEach(slot=>{
 
         const div =
         document.createElement("div");
 
-
         div.className="slot";
 
-
         let players=[];
-
 
         for(
             let i=1;
@@ -2437,7 +1972,6 @@ async function loadSlots(tournament){
 
             const name =
             slot[`player${i}_name`];
-
 
             players.push(`
 
@@ -2456,7 +1990,6 @@ async function loadSlots(tournament){
 
         }
 
-
         div.innerHTML=`
 
             <div class="slot-title">
@@ -2472,7 +2005,6 @@ async function loadSlots(tournament){
             ${players.join("")}
 
         `;
-
 
         container.appendChild(div);
 
@@ -2490,7 +2022,6 @@ async function checkRoomAnnouncement(){
     if(!currentUser)
         return;
 
-
     const {
         data:registrations,
         error
@@ -2500,7 +2031,6 @@ async function checkRoomAnnouncement(){
     .select("tournament_id")
     .eq("user_id",currentUser.id);
 
-
     if(error){
 
         console.error(error);
@@ -2508,7 +2038,6 @@ async function checkRoomAnnouncement(){
         return;
 
     }
-
 
     if(!registrations?.length){
 
@@ -2518,16 +2047,13 @@ async function checkRoomAnnouncement(){
 
     }
 
-
     const ids =
     registrations.map(
         r=>r.tournament_id
     );
 
-
     const now =
     new Date().toISOString();
-
 
     const {
         data:announcements,
@@ -2557,7 +2083,6 @@ async function checkRoomAnnouncement(){
     )
     .limit(1);
 
-
     if(announcementError){
 
         console.error(
@@ -2568,7 +2093,6 @@ async function checkRoomAnnouncement(){
 
     }
 
-
     if(!announcements?.length){
 
         hideRoomAnnouncement();
@@ -2576,7 +2100,6 @@ async function checkRoomAnnouncement(){
         return;
 
     }
-
 
     showRoomAnnouncement(
         announcements[0]
@@ -2592,12 +2115,10 @@ function showRoomAnnouncement(announcement){
         "roomAnnouncement"
     );
 
-
     const imageContainer =
     document.getElementById(
         "roomImageContainer"
     );
-
 
     if(announcement.image_url){
 
@@ -2616,7 +2137,6 @@ function showRoomAnnouncement(announcement){
 
     }
 
-
     document.getElementById(
         "roomTitle"
     ).textContent =
@@ -2626,15 +2146,12 @@ function showRoomAnnouncement(announcement){
         "ROOM IS OPEN"
     );
 
-
     document.getElementById(
         "roomCode"
     ).textContent =
     announcement.room_code;
 
-
     box.style.display="block";
-
 
     updateRoomTimer(
         announcement.ends_at
@@ -2653,13 +2170,11 @@ function updateRoomTimer(endsAt){
 
     }
 
-
     function update(){
 
         const remaining =
         new Date(endsAt).getTime() -
         Date.now();
-
 
         if(remaining<=0){
 
@@ -2669,22 +2184,18 @@ function updateRoomTimer(endsAt){
 
         }
 
-
         const totalSeconds =
         Math.floor(
             remaining/1000
         );
-
 
         const minutes =
         Math.floor(
             totalSeconds/60
         );
 
-
         const seconds =
         totalSeconds%60;
-
 
         document.getElementById(
             "roomTimer"
@@ -2695,9 +2206,7 @@ function updateRoomTimer(endsAt){
 
     }
 
-
     update();
-
 
     roomTimerInterval =
     setInterval(
@@ -2713,7 +2222,6 @@ function hideRoomAnnouncement(){
     document.getElementById(
         "roomAnnouncement"
     ).style.display="none";
-
 
     if(roomTimerInterval){
 
@@ -2736,17 +2244,15 @@ async function registerTournament(tournament){
 
     selectedTournament=tournament;
 
-
     const type =
     String(
         tournament.type || ""
     ).toLowerCase();
 
 
-    /*
-       اگر تورنمنت Solo واقعی باشد،
-       مستقیم وارد ثبت‌نام Solo می‌شویم.
-    */
+    /* =========================
+       REAL SOLO TOURNAMENT
+    ========================= */
 
     if(type==="solo"){
 
@@ -2781,18 +2287,10 @@ async function registerTournament(tournament){
         "registerModeModal"
     );
 
-
     const info =
     document.getElementById(
         "registerModeInfo"
     );
-
-
-    const slotSize =
-    type==="duo"
-    ?2
-    :4;
-
 
     info.innerHTML = `
 
@@ -2858,18 +2356,14 @@ function openSquadRegistration(tournament){
         tournament.type || ""
     ).toLowerCase();
 
-
     selectedTournament=tournament;
-
 
     requiredFriends =
     type==="duo"
     ?1
     :3;
 
-
     selectedFriendIds=[];
-
 
     document.getElementById(
         "modalTitle"
@@ -2878,11 +2372,9 @@ function openSquadRegistration(tournament){
     ? "🏆 انتخاب Duo"
     : "🏆 انتخاب Squad";
 
-
     document.getElementById(
         "squadModal"
     ).style.display="flex";
-
 
     loadTournamentFriends();
 
@@ -2925,12 +2417,10 @@ function startRegistrationConfirmation(
         tournament.type || ""
     ).toLowerCase();
 
-
     const entryFee =
     Number(
         tournament.entry_fee || 0
     );
-
 
     const label =
     mode==="solo"
@@ -2945,7 +2435,10 @@ function startRegistrationConfirmation(
         `
 
             <strong>
-                ${escapeHTML(tournament.title || "Tournament")}
+                ${escapeHTML(
+                    tournament.title ||
+                    "Tournament"
+                )}
             </strong>
 
             <br>
@@ -2969,8 +2462,8 @@ function startRegistrationConfirmation(
                 ?
                 `
                 <br><br>
-                اگر جای خالی در یک Squad Solo وجود داشته باشد،
-                به همان تیم اضافه می‌شوی.
+                در ثبت‌نام تکی، سیستم به صورت خودکار
+                اولین Slot دارای ظرفیت را برایت انتخاب می‌کند.
                 `
                 :
                 ""
@@ -3004,12 +2497,10 @@ async function loadTournamentFriends(){
         "squadList"
     );
 
-
     list.innerHTML =
     `<div class="loading">
         در حال دریافت دوستان...
     </div>`;
-
 
     const {
         data:friendships,
@@ -3021,7 +2512,6 @@ async function loadTournamentFriends(){
     .or(
         `user_id.eq.${currentUser.id},friend_id.eq.${currentUser.id}`
     );
-
 
     if(error){
 
@@ -3036,9 +2526,7 @@ async function loadTournamentFriends(){
 
     }
 
-
     const friendIds=[];
-
 
     (friendships || []).forEach(friendship=>{
 
@@ -3046,7 +2534,6 @@ async function loadTournamentFriends(){
         friendship.user_id === currentUser.id
         ? friendship.friend_id
         : friendship.user_id;
-
 
         if(
             friendId &&
@@ -3059,7 +2546,6 @@ async function loadTournamentFriends(){
         }
 
     });
-
 
     if(!friendIds.length){
 
@@ -3085,7 +2571,6 @@ async function loadTournamentFriends(){
 
     }
 
-
     const {
         data:profiles,
         error:profileError
@@ -3094,7 +2579,6 @@ async function loadTournamentFriends(){
     .from("profiles")
     .select("id,username")
     .in("id",friendIds);
-
 
     if(profileError){
 
@@ -3109,7 +2593,6 @@ async function loadTournamentFriends(){
 
     }
 
-
     const sortedProfiles =
     (profiles || []).sort(
         (a,b)=>
@@ -3118,7 +2601,6 @@ async function loadTournamentFriends(){
             String(b.username || "")
         )
     );
-
 
     list.innerHTML = `
 
@@ -3152,9 +2634,7 @@ async function loadTournamentFriends(){
 
         </div>
 
-        <div
-            id="friendsSelection"
-        ></div>
+        <div id="friendsSelection"></div>
 
         <div class="selection-counter">
 
@@ -3179,21 +2659,17 @@ async function loadTournamentFriends(){
 
     `;
 
-
     const selection =
     document.getElementById(
         "friendsSelection"
     );
-
 
     sortedProfiles.forEach(friend=>{
 
         const row =
         document.createElement("div");
 
-
         row.className="friend-select";
-
 
         row.innerHTML = `
 
@@ -3225,12 +2701,10 @@ async function loadTournamentFriends(){
 
         `;
 
-
         const checkbox =
         row.querySelector(
             ".friend-checkbox"
         );
-
 
         checkbox.addEventListener(
             "change",
@@ -3245,7 +2719,6 @@ async function loadTournamentFriends(){
             }
         );
 
-
         row.addEventListener(
             "click",
             e=>{
@@ -3257,17 +2730,14 @@ async function loadTournamentFriends(){
                 )
                     return;
 
-
                 checkbox.click();
 
             }
         );
 
-
         selection.appendChild(row);
 
     });
-
 
     document
     .getElementById(
@@ -3310,7 +2780,6 @@ function handleFriendSelection(
 
         }
 
-
         if(
             !selectedFriendIds.includes(
                 friendId
@@ -3322,7 +2791,6 @@ function handleFriendSelection(
             );
 
         }
-
 
         row.classList.add(
             "selected"
@@ -3337,13 +2805,11 @@ function handleFriendSelection(
             id !== friendId
         );
 
-
         row.classList.remove(
             "selected"
         );
 
     }
-
 
     updateSelectionUI();
 
@@ -3361,20 +2827,16 @@ function updateSelectionUI(){
         "selectionCount"
     );
 
-
     const button =
     document.getElementById(
         "confirmTeamBtn"
     );
 
-
     if(!count || !button)
         return;
 
-
     count.textContent =
     `${selectedFriendIds.length} / ${requiredFriends}`;
-
 
     button.disabled =
     selectedFriendIds.length !==
@@ -3392,7 +2854,6 @@ async function createTournamentTeam(){
     if(!selectedTournament)
         return;
 
-
     if(
         selectedFriendIds.length !==
         requiredFriends
@@ -3408,24 +2869,20 @@ async function createTournamentTeam(){
 
     }
 
-
     const type =
     String(
         selectedTournament.type || ""
     ).toLowerCase();
-
 
     const button =
     document.getElementById(
         "confirmTeamBtn"
     );
 
-
     button.disabled=true;
 
     button.textContent =
     "در حال ساخت تیم...";
-
 
     const squadData = {
 
@@ -3444,7 +2901,6 @@ async function createTournamentTeam(){
         status:"ready"
 
     };
-
 
     const {
         data:existingSquads,
@@ -3472,7 +2928,6 @@ async function createTournamentTeam(){
         ]
     );
 
-
     if(existingError){
 
         console.error(existingError);
@@ -3484,7 +2939,6 @@ async function createTournamentTeam(){
         ? "ثبت Duo"
         : "ثبت Squad";
 
-
         showToast(
             "error",
             "ثبت‌نام ناموفق",
@@ -3495,16 +2949,13 @@ async function createTournamentTeam(){
 
     }
 
-
     const desiredPlayers =
     [
         currentUser.id,
         ...selectedFriendIds
     ];
 
-
     let squadId=null;
-
 
     const existingMatch =
     (existingSquads || []).find(
@@ -3519,13 +2970,11 @@ async function createTournamentTeam(){
             ]
             .filter(Boolean);
 
-
             if(
                 members.length !==
                 desiredPlayers.length
             )
                 return false;
-
 
             return desiredPlayers.every(
                 id =>
@@ -3534,7 +2983,6 @@ async function createTournamentTeam(){
 
         }
     );
-
 
     if(existingMatch){
 
@@ -3556,7 +3004,6 @@ async function createTournamentTeam(){
         .select()
         .single();
 
-
         if(createError){
 
             console.error(createError);
@@ -3568,7 +3015,6 @@ async function createTournamentTeam(){
             ? "ثبت Duo"
             : "ثبت Squad";
 
-
             showToast(
                 "error",
                 "ساخت تیم ناموفق",
@@ -3579,16 +3025,13 @@ async function createTournamentTeam(){
 
         }
 
-
         squadId =
         newSquad.id;
 
     }
 
-
     button.textContent =
     "در حال ثبت‌نام و کسر اعتبار...";
-
 
     const {
         data,
@@ -3605,7 +3048,6 @@ async function createTournamentTeam(){
         }
     );
 
-
     if(error){
 
         console.error(error);
@@ -3617,29 +3059,26 @@ async function createTournamentTeam(){
         ? "ثبت Duo"
         : "ثبت Squad";
 
-
         showToast(
             "error",
             "ثبت‌نام ناموفق",
-            error.message || "عملیات ثبت‌نام انجام نشد."
+            error.message ||
+            "عملیات ثبت‌نام انجام نشد."
         );
 
         return;
 
     }
 
-
     const fee =
     Number(
         data?.fee || 0
     );
 
-
     const remainingBalance =
     Number(
         data?.remaining_balance || 0
     );
-
 
     showToast(
         "success",
@@ -3648,29 +3087,27 @@ async function createTournamentTeam(){
         6000
     );
 
-
     if(fee > 0){
 
         setTimeout(
             ()=>{
+
                 showToast(
                     "success",
                     "پرداخت موفق",
                     `مبلغ ${formatEntryFee(fee)} از کیف پول کسر شد. موجودی باقی‌مانده: ${formatEntryFee(remainingBalance)}`,
                     6500
                 );
+
             },
             500
         );
 
     }
 
-
     closeSquadModal();
 
-
     selectedFriendIds=[];
-
 
     await loadTournaments();
 
@@ -3681,13 +3118,26 @@ async function createTournamentTeam(){
 }
 
 
-/* =========================
-   SOLO REGISTER
-========================= */
+/* =========================================================
+   SOLO REGISTER - FIXED
+========================================================= */
 
 async function registerSoloTournament(
     tournament
 ){
+
+    if(!currentUser){
+
+        showToast(
+            "error",
+            "ثبت‌نام ناموفق",
+            "ابتدا وارد حساب کاربری شوید."
+        );
+
+        return;
+
+    }
+
 
     const type =
     String(
@@ -3695,25 +3145,28 @@ async function registerSoloTournament(
     ).toLowerCase();
 
 
-    const slotSize =
-    type==="duo"
-    ?2
-    :type==="squad"
-    ?4
-    :1;
+    /*
+       ثبت‌نام تکی برای Duo/Squad:
+
+       خیلی مهم:
+       اینجا نباید Squad ساخته شود.
+       نباید p_squad_id ارسال شود.
+
+       تابع SQL خودت وقتی p_squad_id = NULL باشد،
+       خودش اولین Slot ناقص را پیدا می‌کند.
+    */
 
 
     showToast(
         "warning",
         "در حال ثبت‌نام",
-        "در حال پیدا کردن جای مناسب برای ثبت‌نام تک‌نفره..."
+        "در حال پیدا کردن اولین Slot دارای ظرفیت..."
     );
 
 
-    /*
-       اول بررسی می‌کنیم کاربر قبلاً
-       در همین تورنمنت ثبت‌نام نکرده باشد.
-    */
+    /* =========================
+       CHECK DUPLICATE
+    ========================= */
 
     const {
         data:existingRegistration,
@@ -3755,7 +3208,7 @@ async function registerSoloTournament(
         showToast(
             "warning",
             "قبلاً ثبت‌نام کرده‌ای",
-            "این کاربر قبلاً در این مسابقه ثبت‌نام شده است."
+            "شما قبلاً در این تورنمنت ثبت‌نام کرده‌اید."
         );
 
         return;
@@ -3763,260 +3216,10 @@ async function registerSoloTournament(
     }
 
 
-    /*
-       پیدا کردن ثبت‌نام‌های Solo/نیمه‌خالی
-       همین تورنمنت
-    */
-
-    const {
-        data:registrations,
-        error:registrationsError
-    } =
-    await supabase
-    .from("tournament_registrations")
-    .select(`
-        id,
-        user_id,
-        squad_id,
-        slot
-    `)
-    .eq(
-        "tournament_id",
-        tournament.id
-    )
-    .not(
-        "squad_id",
-        "is",
-        null
-    );
-
-
-    if(registrationsError){
-
-        console.error(
-            registrationsError
-        );
-
-        showToast(
-            "error",
-            "ثبت‌نام ناموفق",
-            registrationsError.message
-        );
-
-        return;
-
-    }
-
-
-    let usableSquad=null;
-
-
-    const squadIds =
-    [
-        ...new Set(
-            (registrations || [])
-            .map(r=>r.squad_id)
-            .filter(Boolean)
-        )
-    ];
-
-
-    if(squadIds.length){
-
-        const {
-            data:squads,
-            error:squadsError
-        } =
-        await supabase
-        .from("squads")
-        .select(`
-            id,
-            player1_id,
-            player2_id,
-            player3_id,
-            player4_id,
-            status
-        `)
-        .in(
-            "id",
-            squadIds
-        );
-
-
-        if(squadsError){
-
-            console.error(
-                squadsError
-            );
-
-            showToast(
-                "error",
-                "ثبت‌نام ناموفق",
-                squadsError.message
-            );
-
-            return;
-
-        }
-
-
-        /*
-           Squad نیمه‌خالی یعنی ظرفیتش
-           کمتر از اندازه تیم باشد.
-        */
-
-        usableSquad =
-        (squads || []).find(
-            squad=>{
-
-                const members =
-                [
-                    squad.player1_id,
-                    squad.player2_id,
-                    squad.player3_id,
-                    squad.player4_id
-                ]
-                .filter(Boolean);
-
-
-                return (
-                    members.length > 0 &&
-                    members.length < slotSize &&
-                    !members.includes(
-                        currentUser.id
-                    )
-                );
-
-            }
-        ) || null;
-
-    }
-
-
-    let squadId=null;
-
-
-    /*
-       اگر Squad نیمه‌خالی پیدا شد،
-       بازیکن جدید را داخل اولین جای خالی می‌گذاریم.
-    */
-
-    if(usableSquad){
-
-        const updateData={};
-
-
-        if(!usableSquad.player1_id)
-            updateData.player1_id=currentUser.id;
-
-        else if(!usableSquad.player2_id)
-            updateData.player2_id=currentUser.id;
-
-        else if(!usableSquad.player3_id)
-            updateData.player3_id=currentUser.id;
-
-        else if(!usableSquad.player4_id)
-            updateData.player4_id=currentUser.id;
-
-
-        if(
-            Object.keys(updateData).length
-        ){
-
-            const {
-                error:updateError
-            } =
-            await supabase
-            .from("squads")
-            .update(updateData)
-            .eq(
-                "id",
-                usableSquad.id
-            );
-
-
-            if(updateError){
-
-                console.error(
-                    updateError
-                );
-
-                showToast(
-                    "error",
-                    "ثبت‌نام ناموفق",
-                    updateError.message
-                );
-
-                return;
-
-            }
-
-        }
-
-
-        squadId =
-        usableSquad.id;
-
-    }
-    else{
-
-        /*
-           اگر تیم نیمه‌خالی نداریم،
-           یک Squad جدید با کاربر Solo
-           ساخته می‌شود.
-        */
-
-        const {
-            data:newSquad,
-            error:createError
-        } =
-        await supabase
-        .from("squads")
-        .insert({
-
-            player1_id:
-            currentUser.id,
-
-            player2_id:null,
-
-            player3_id:null,
-
-            player4_id:null,
-
-            status:"ready"
-
-        })
-        .select()
-        .single();
-
-
-        if(createError){
-
-            console.error(
-                createError
-            );
-
-            showToast(
-                "error",
-                "ساخت تیم Solo ناموفق",
-                createError.message
-            );
-
-            return;
-
-        }
-
-
-        squadId =
-        newSquad.id;
-
-    }
-
-
-    /*
-       حالا ثبت‌نام واقعی و پرداخت
-       از همان RPC قبلی انجام می‌شود.
-    */
+    /* =========================
+       REAL SOLO REGISTRATION
+       p_squad_id MUST BE NULL
+    ========================= */
 
     const {
         data,
@@ -4028,20 +3231,32 @@ async function registerSoloTournament(
             p_tournament_id:
             tournament.id,
 
-            p_squad_id:
-            squadId
+            /*
+               ⭐ مهم‌ترین تغییر:
+               برای ثبت‌نام تکی باید NULL باشد.
+            */
+
+            p_squad_id:null
         }
     );
 
 
+    /* =========================
+       ERROR
+    ========================= */
+
     if(error){
 
-        console.error(error);
+        console.error(
+            "Solo registration error:",
+            error
+        );
 
         showToast(
             "error",
             "ثبت‌نام ناموفق",
-            error.message || "ثبت‌نام انجام نشد."
+            error.message ||
+            "ثبت‌نام انجام نشد."
         );
 
         return;
@@ -4049,22 +3264,28 @@ async function registerSoloTournament(
     }
 
 
+    /* =========================
+       SUCCESS
+    ========================= */
+
     const fee =
     Number(
         data?.fee || 0
     );
-
 
     const remainingBalance =
     Number(
         data?.remaining_balance || 0
     );
 
+    const slot =
+    data?.slot || "-";
+
 
     showToast(
         "success",
-        "ثبت‌نام موفق",
-        `ثبت‌نام تک‌نفره با موفقیت انجام شد. Slot #${data?.slot || "-"}`,
+        "ثبت‌نام موفق 🎉",
+        `ثبت‌نام تک‌نفره با موفقیت انجام شد. Slot #${slot}`,
         6000
     );
 
@@ -4073,12 +3294,14 @@ async function registerSoloTournament(
 
         setTimeout(
             ()=>{
+
                 showToast(
                     "success",
                     "پرداخت موفق",
                     `مبلغ ${formatEntryFee(fee)} از کیف پول کسر شد. موجودی باقی‌مانده: ${formatEntryFee(remainingBalance)}`,
                     6500
                 );
+
             },
             500
         );
@@ -4092,6 +3315,21 @@ async function registerSoloTournament(
 
     await checkRoomAnnouncement();
 
+
+    /*
+       اگر جزئیات همین تورنمنت باز است،
+       Slotها را هم دوباره بارگذاری می‌کنیم.
+    */
+
+    if(
+        selectedTournament &&
+        selectedTournament.id === tournament.id
+    ){
+
+        await loadSlots(tournament);
+
+    }
+
 }
 
 
@@ -4104,7 +3342,6 @@ window.closeSquadModal=function(){
     document.getElementById(
         "squadModal"
     ).style.display="none";
-
 
     selectedFriendIds=[];
 
@@ -4135,7 +3372,6 @@ async function loadMyTournaments(){
         "myTournaments"
     );
 
-
     const {
         data,
         error
@@ -4165,7 +3401,6 @@ async function loadMyTournaments(){
         }
     );
 
-
     if(error){
 
         container.innerHTML =
@@ -4176,7 +3411,6 @@ async function loadMyTournaments(){
         return;
 
     }
-
 
     if(!data?.length){
 
@@ -4189,22 +3423,17 @@ async function loadMyTournaments(){
 
     }
 
-
     container.innerHTML="";
-
 
     data.forEach(item=>{
 
         const div =
         document.createElement("div");
 
-
         div.className="my-item";
-
 
         const t =
         item.tournaments;
-
 
         div.innerHTML = `
 
@@ -4245,7 +3474,6 @@ async function loadMyTournaments(){
 
         `;
 
-
         container.appendChild(div);
 
     });
@@ -4254,7 +3482,7 @@ async function loadMyTournaments(){
 
 
 /* =========================
-   CLOSE CONFIRM BY OUTSIDE
+   CLOSE CONFIRM
 ========================= */
 
 document
