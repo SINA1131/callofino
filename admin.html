@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
@@ -302,6 +303,13 @@ textarea:focus{
     box-shadow:0 0 0 3px rgba(57,255,20,.05);
 }
 
+input:disabled,
+select:disabled{
+    opacity:.55;
+    cursor:not-allowed;
+    background:#070907;
+}
+
 textarea{
     min-height:120px;
     resize:vertical;
@@ -316,6 +324,17 @@ input[type=file]{
     color:#626a64;
     font-size:11px;
     line-height:1.7;
+}
+
+.match-type-help{
+    color:var(--green);
+    font-size:11px;
+    line-height:1.8;
+    padding:10px 12px;
+    background:rgba(57,255,20,.035);
+    border:1px solid rgba(57,255,20,.12);
+    border-radius:8px;
+    margin-top:2px;
 }
 
 .actions{
@@ -536,6 +555,23 @@ input[type=file]{
     background:#111;
     border:1px solid #292929;
     color:#888;
+}
+
+.match-badge{
+    display:inline-block;
+    margin-top:8px;
+    padding:5px 9px;
+    border-radius:6px;
+    font-size:11px;
+    background:rgba(57,255,20,.06);
+    border:1px solid rgba(57,255,20,.20);
+    color:#b8ffac;
+}
+
+.five-v-five-badge{
+    border-color:rgba(57,255,20,.45);
+    color:var(--green);
+    box-shadow:0 0 12px rgba(57,255,20,.05);
 }
 
 table{
@@ -1188,10 +1224,42 @@ Minecraft
 </div>
 
 
+<!-- MATCH TYPE -->
+
 <div class="form-group">
 
 <label>
-Type
+نوع مسابقه
+</label>
+
+<select id="tourMatchType">
+
+<option value="Battle Royale">
+Battle Royale
+</option>
+
+<option value="Multiplayer 5v5">
+Multiplayer 5v5
+</option>
+
+</select>
+
+<div
+class="match-type-help"
+id="tourMatchTypeHelp"
+>
+Battle Royale: مسابقه با Solo / Duo / Squad
+</div>
+
+</div>
+
+
+<!-- BATTLE ROYALE TYPE -->
+
+<div class="form-group" id="tourBattleRoyaleTypeGroup">
+
+<label>
+نوع تیم در Battle Royale
 </label>
 
 <select id="tourType">
@@ -1225,6 +1293,13 @@ id="tourMaxPlayers"
 value="32"
 min="1"
 >
+
+<div
+class="help"
+id="tourMaxPlayersHelp"
+>
+برای Battle Royale تعداد بازیکنان قابل تنظیم است.
+</div>
 
 </div>
 
@@ -2179,6 +2254,126 @@ function setupPaidTournamentUI(){
 
 
 /* ==========================================
+   MATCH TYPE UI
+========================================== */
+
+function setupMatchTypeUI(){
+
+    const matchType =
+    document.getElementById(
+        "tourMatchType"
+    );
+
+    const battleRoyaleTypeGroup =
+    document.getElementById(
+        "tourBattleRoyaleTypeGroup"
+    );
+
+    const battleRoyaleType =
+    document.getElementById(
+        "tourType"
+    );
+
+    const maxPlayers =
+    document.getElementById(
+        "tourMaxPlayers"
+    );
+
+    const maxPlayersHelp =
+    document.getElementById(
+        "tourMaxPlayersHelp"
+    );
+
+    const help =
+    document.getElementById(
+        "tourMatchTypeHelp"
+    );
+
+
+    function update(){
+
+        if(
+            matchType.value ===
+            "Multiplayer 5v5"
+        ){
+
+            battleRoyaleTypeGroup.style.display =
+            "none";
+
+            battleRoyaleType.value =
+            "Solo";
+
+            battleRoyaleType.disabled =
+            true;
+
+            maxPlayers.value =
+            10;
+
+            maxPlayers.min =
+            10;
+
+            maxPlayers.max =
+            10;
+
+            maxPlayers.disabled =
+            true;
+
+            maxPlayersHelp.textContent =
+            "Multiplayer 5v5 همیشه 10 بازیکن دارد؛ 5 بازیکن در برابر 5 بازیکن.";
+
+            help.textContent =
+            "Multiplayer 5v5: ثبت‌نام بازیکنان به‌صورت انفرادی و ظرفیت دقیقاً 10 نفر است.";
+
+        }
+        else{
+
+            battleRoyaleTypeGroup.style.display =
+            "flex";
+
+            battleRoyaleType.disabled =
+            false;
+
+            maxPlayers.disabled =
+            false;
+
+            maxPlayers.min =
+            1;
+
+            maxPlayers.removeAttribute(
+                "max"
+            );
+
+            if(
+                Number(maxPlayers.value) ===
+                10
+            ){
+                maxPlayers.value =
+                32;
+            }
+
+            maxPlayersHelp.textContent =
+            "برای Battle Royale تعداد بازیکنان قابل تنظیم است.";
+
+            help.textContent =
+            "Battle Royale: مسابقه با Solo / Duo / Squad.";
+
+        }
+
+    }
+
+
+    matchType.addEventListener(
+        "change",
+        update
+    );
+
+
+    update();
+
+}
+
+
+/* ==========================================
    ADMIN CHECK
 ========================================== */
 
@@ -2386,8 +2581,22 @@ function fillTournamentSelects(){
                     tournament.id;
 
 
+                    const matchType =
+                    tournament.match_type ||
+                    "Battle Royale";
+
+
+                    const displayType =
+                    matchType ===
+                    "Multiplayer 5v5"
+                    ?
+                    "Multiplayer 5v5"
+                    :
+                    tournament.type;
+
+
                     option.textContent =
-                    `${tournament.title} — ${tournament.type}${tournament.is_paid ? " — 💰 پولی" : ""}`;
+                    `${tournament.title} — ${displayType}${tournament.is_paid ? " — 💰 پولی" : ""}`;
 
 
                     select.appendChild(
@@ -2472,6 +2681,60 @@ function renderTournamentList(){
             </span>`;
 
 
+            const matchType =
+            tournament.match_type ||
+            "Battle Royale";
+
+
+            const isFiveVFive =
+            matchType ===
+            "Multiplayer 5v5";
+
+
+            const matchTypeHTML =
+            `<span class="match-badge ${
+                isFiveVFive
+                ?
+                "five-v-five-badge"
+                :
+                ""
+            }">
+                🎮 نوع مسابقه: ${escapeHTML(matchType)}
+            </span>`;
+
+
+            const typeHTML =
+            isFiveVFive
+            ?
+            `
+                👥
+                ثبت‌نام:
+                انفرادی
+
+                <br>
+
+                🪑
+                ظرفیت:
+                10 بازیکن
+            `
+            :
+            `
+                👥
+                نوع:
+                ${escapeHTML(
+                    tournament.type
+                )}
+
+                <br>
+
+                🪑
+                ظرفیت:
+                ${escapeHTML(
+                    tournament.max_players
+                )}
+            `;
+
+
             card.innerHTML = `
 
                 <div class="tournament-top">
@@ -2495,18 +2758,11 @@ function renderTournamentList(){
 
                             <br>
 
-                            👥
-                            ${escapeHTML(
-                                tournament.type
-                            )}
+                            ${typeHTML}
 
                             <br>
 
-                            🪑
-                            ظرفیت:
-                            ${escapeHTML(
-                                tournament.max_players
-                            )}
+                            ${matchTypeHTML}
 
                             <br>
 
@@ -2612,10 +2868,51 @@ function renderTournamentList(){
                         </div>
 
 
+                        <!-- EDIT MATCH TYPE -->
+
                         <div class="form-group">
 
                             <label>
-                                Type
+                                نوع مسابقه
+                            </label>
+
+                            <select
+                                id="edit-match-type-${tournament.id}"
+                            >
+
+                                <option
+                                    value="Battle Royale"
+                                    ${(tournament.match_type || "Battle Royale") === "Battle Royale" ? "selected" : ""}
+                                >
+                                    Battle Royale
+                                </option>
+
+                                <option
+                                    value="Multiplayer 5v5"
+                                    ${(tournament.match_type || "Battle Royale") === "Multiplayer 5v5" ? "selected" : ""}
+                                >
+                                    Multiplayer 5v5
+                                </option>
+
+                            </select>
+
+                            <div
+                                class="match-type-help"
+                                id="edit-match-help-${tournament.id}"
+                            ></div>
+
+                        </div>
+
+
+                        <!-- EDIT BATTLE ROYALE TYPE -->
+
+                        <div
+                            class="form-group"
+                            id="edit-battle-group-${tournament.id}"
+                        >
+
+                            <label>
+                                نوع تیم در Battle Royale
                             </label>
 
                             <select
@@ -2660,6 +2957,11 @@ function renderTournamentList(){
                                 value="${tournament.max_players || 32}"
                                 min="1"
                             >
+
+                            <div
+                                class="help"
+                                id="edit-max-help-${tournament.id}"
+                            ></div>
 
                         </div>
 
@@ -2853,6 +3155,114 @@ function renderTournamentList(){
             container.appendChild(card);
 
 
+            /* ==========================================
+               EDIT MATCH TYPE UI
+            ========================================== */
+
+            const editMatchType =
+            document.getElementById(
+                `edit-match-type-${tournament.id}`
+            );
+
+            const editBattleGroup =
+            document.getElementById(
+                `edit-battle-group-${tournament.id}`
+            );
+
+            const editType =
+            document.getElementById(
+                `edit-type-${tournament.id}`
+            );
+
+            const editMax =
+            document.getElementById(
+                `edit-max-${tournament.id}`
+            );
+
+            const editMaxHelp =
+            document.getElementById(
+                `edit-max-help-${tournament.id}`
+            );
+
+            const editMatchHelp =
+            document.getElementById(
+                `edit-match-help-${tournament.id}`
+            );
+
+
+            function updateEditMatchType(){
+
+                if(
+                    editMatchType.value ===
+                    "Multiplayer 5v5"
+                ){
+
+                    editBattleGroup.style.display =
+                    "none";
+
+                    editType.value =
+                    "Solo";
+
+                    editType.disabled =
+                    true;
+
+                    editMax.value =
+                    10;
+
+                    editMax.min =
+                    10;
+
+                    editMax.max =
+                    10;
+
+                    editMax.disabled =
+                    true;
+
+                    editMaxHelp.textContent =
+                    "Multiplayer 5v5 ظرفیت ثابت 10 بازیکن دارد.";
+
+                    editMatchHelp.textContent =
+                    "5 بازیکن در برابر 5 بازیکن — ثبت‌نام به‌صورت انفرادی.";
+
+                }
+                else{
+
+                    editBattleGroup.style.display =
+                    "flex";
+
+                    editType.disabled =
+                    false;
+
+                    editMax.disabled =
+                    false;
+
+                    editMax.min =
+                    1;
+
+                    editMax.removeAttribute(
+                        "max"
+                    );
+
+                    editMaxHelp.textContent =
+                    "ظرفیت Battle Royale قابل تنظیم است.";
+
+                    editMatchHelp.textContent =
+                    "Battle Royale با Solo / Duo / Squad.";
+
+                }
+
+            }
+
+
+            editMatchType.addEventListener(
+                "change",
+                updateEditMatchType
+            );
+
+
+            updateEditMatchType();
+
+
             /* EDIT PAID TOGGLE */
 
             const paidCheckbox =
@@ -2992,18 +3402,37 @@ async function createTournament(){
     ).value;
 
 
+    const matchType =
+    document.getElementById(
+        "tourMatchType"
+    ).value;
+
+
     const type =
     document.getElementById(
         "tourType"
     ).value;
 
 
-    const maxPlayers =
+    let maxPlayers =
     Number(
         document.getElementById(
             "tourMaxPlayers"
         ).value
     );
+
+
+    /* 5V5 ALWAYS 10 */
+
+    if(
+        matchType ===
+        "Multiplayer 5v5"
+    ){
+
+        maxPlayers =
+        10;
+
+    }
 
 
     const date =
@@ -3087,6 +3516,22 @@ async function createTournament(){
         showMessage(
             message,
             "ظرفیت معتبر نیست.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if(
+        matchType ===
+        "Multiplayer 5v5" &&
+        maxPlayers !== 10
+    ){
+
+        showMessage(
+            message,
+            "ظرفیت Multiplayer 5v5 باید 10 نفر باشد.",
             "error"
         );
 
@@ -3216,7 +3661,15 @@ async function createTournament(){
 
             game:game,
 
-            type:type,
+            match_type:matchType,
+
+            type:
+            matchType ===
+            "Multiplayer 5v5"
+            ?
+            "5v5"
+            :
+            type,
 
             max_players:maxPlayers,
 
@@ -3256,9 +3709,9 @@ async function createTournament(){
             message,
             isPaid
             ?
-            `تورنمنت پولی با موفقیت ساخته شد. هزینه ورود: ${formatMoney(entryFee)}`
+            `تورنمنت ${matchType} با موفقیت ساخته شد. هزینه ورود: ${formatMoney(entryFee)}`
             :
-            "تورنمنت رایگان با موفقیت ساخته شد."
+            `تورنمنت ${matchType} با موفقیت ساخته شد.`
         );
 
 
@@ -3304,6 +3757,27 @@ async function createTournament(){
         );
 
 
+        document.getElementById(
+            "tourMatchType"
+        ).value =
+        "Battle Royale";
+
+
+        document.getElementById(
+            "tourType"
+        ).value =
+        "Solo";
+
+
+        document.getElementById(
+            "tourMaxPlayers"
+        ).value =
+        32;
+
+
+        updateCreateMatchTypeUI();
+
+
         await loadTournaments();
 
     }
@@ -3314,6 +3788,105 @@ async function createTournament(){
             "خطا: " + error.message,
             "error"
         );
+
+    }
+
+}
+
+
+/* ==========================================
+   CREATE MATCH TYPE RESET
+========================================== */
+
+function updateCreateMatchTypeUI(){
+
+    const matchType =
+    document.getElementById(
+        "tourMatchType"
+    );
+
+    const battleRoyaleTypeGroup =
+    document.getElementById(
+        "tourBattleRoyaleTypeGroup"
+    );
+
+    const battleRoyaleType =
+    document.getElementById(
+        "tourType"
+    );
+
+    const maxPlayers =
+    document.getElementById(
+        "tourMaxPlayers"
+    );
+
+    const maxPlayersHelp =
+    document.getElementById(
+        "tourMaxPlayersHelp"
+    );
+
+    const help =
+    document.getElementById(
+        "tourMatchTypeHelp"
+    );
+
+
+    if(
+        matchType.value ===
+        "Multiplayer 5v5"
+    ){
+
+        battleRoyaleTypeGroup.style.display =
+        "none";
+
+        battleRoyaleType.value =
+        "Solo";
+
+        battleRoyaleType.disabled =
+        true;
+
+        maxPlayers.value =
+        10;
+
+        maxPlayers.min =
+        10;
+
+        maxPlayers.max =
+        10;
+
+        maxPlayers.disabled =
+        true;
+
+        maxPlayersHelp.textContent =
+        "Multiplayer 5v5 همیشه 10 بازیکن دارد؛ 5 بازیکن در برابر 5 بازیکن.";
+
+        help.textContent =
+        "Multiplayer 5v5: ثبت‌نام بازیکنان به‌صورت انفرادی و ظرفیت دقیقاً 10 نفر است.";
+
+    }
+    else{
+
+        battleRoyaleTypeGroup.style.display =
+        "flex";
+
+        battleRoyaleType.disabled =
+        false;
+
+        maxPlayers.disabled =
+        false;
+
+        maxPlayers.min =
+        1;
+
+        maxPlayers.removeAttribute(
+            "max"
+        );
+
+        maxPlayersHelp.textContent =
+        "برای Battle Royale تعداد بازیکنان قابل تنظیم است.";
+
+        help.textContent =
+        "Battle Royale: مسابقه با Solo / Duo / Squad.";
 
     }
 
@@ -3348,18 +3921,35 @@ async function saveTournamentEdit(id){
     ).value;
 
 
+    const matchType =
+    document.getElementById(
+        `edit-match-type-${id}`
+    ).value;
+
+
     const type =
     document.getElementById(
         `edit-type-${id}`
     ).value;
 
 
-    const maxPlayers =
+    let maxPlayers =
     Number(
         document.getElementById(
             `edit-max-${id}`
         ).value
     );
+
+
+    if(
+        matchType ===
+        "Multiplayer 5v5"
+    ){
+
+        maxPlayers =
+        10;
+
+    }
 
 
     const date =
@@ -3434,6 +4024,20 @@ async function saveTournamentEdit(id){
 
 
     if(
+        matchType ===
+        "Multiplayer 5v5" &&
+        maxPlayers !== 10
+    ){
+
+        alert(
+            "ظرفیت Multiplayer 5v5 باید 10 نفر باشد."
+        );
+
+        return;
+    }
+
+
+    if(
         isPaid &&
         (
             !entryFee ||
@@ -3491,7 +4095,15 @@ async function saveTournamentEdit(id){
 
             game:game,
 
-            type:type,
+            match_type:matchType,
+
+            type:
+            matchType ===
+            "Multiplayer 5v5"
+            ?
+            "5v5"
+            :
+            type,
 
             max_players:maxPlayers,
 
@@ -6310,6 +6922,17 @@ document
 setupPaidTournamentUI();
 
 
+setupMatchTypeUI();
+
+
+/*
+    این تابع را هم اجرا می‌کنیم تا
+    وضعیت اولیه فرم دقیق باشد.
+*/
+
+updateCreateMatchTypeUI();
+
+
 const ok =
 await checkAdmin();
 
@@ -6328,3 +6951,4 @@ if(ok){
 
 </body>
 </html>
+```
