@@ -795,6 +795,318 @@ button{
     line-height:2;
 }
 
+/* =========================
+   REGISTER MODE
+========================= */
+
+.register-options{
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:15px;
+
+    margin-top:10px;
+}
+
+.register-option{
+    background:
+        linear-gradient(
+            145deg,
+            #111,
+            #090909
+        );
+
+    border:1px solid #292929;
+
+    border-radius:14px;
+
+    padding:24px 15px;
+
+    color:#fff;
+
+    text-align:center;
+
+    transition:.25s;
+}
+
+.register-option:hover{
+    border-color:#1aff00;
+
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 0 25px rgba(26,255,0,.08);
+}
+
+.register-option-icon{
+    font-size:35px;
+
+    margin-bottom:12px;
+}
+
+.register-option-title{
+    color:#1aff00;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    margin-bottom:8px;
+}
+
+.register-option-text{
+    color:#777;
+
+    font-size:13px;
+
+    line-height:1.8;
+}
+
+.register-option button{
+    width:100%;
+
+    margin-top:17px;
+
+    background:#1aff00;
+
+    color:#000;
+}
+
+.register-option.solo{
+    border-color:
+    rgba(26,255,0,.35);
+}
+
+/* =========================
+   CONFIRM MODAL
+========================= */
+
+.confirm-info{
+    background:#0b0b0b;
+
+    border:1px solid #222;
+
+    border-radius:12px;
+
+    padding:18px;
+
+    color:#aaa;
+
+    line-height:2;
+
+    margin-bottom:15px;
+
+    text-align:center;
+}
+
+.confirm-info strong{
+    color:#1aff00;
+}
+
+.confirm-buttons{
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:10px;
+}
+
+.confirm-yes{
+    background:#1aff00;
+
+    color:#000;
+}
+
+.confirm-no{
+    background:#151515;
+
+    border:1px solid #333;
+
+    color:#aaa;
+}
+
+.confirm-no:hover{
+    border-color:#1aff00;
+
+    color:#fff;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+#toastContainer{
+    position:fixed;
+
+    left:50%;
+
+    bottom:25px;
+
+    transform:translateX(-50%);
+
+    width:min(92%,450px);
+
+    z-index:5000;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+    pointer-events:none;
+}
+
+.toast{
+    background:
+        linear-gradient(
+            145deg,
+            #151515,
+            #090909
+        );
+
+    border:1px solid #333;
+
+    border-radius:14px;
+
+    padding:16px 18px;
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.55);
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:12px;
+
+    opacity:0;
+
+    transform:
+        translateY(20px)
+        scale(.97);
+
+    animation:
+        toastIn .3s ease forwards;
+
+    pointer-events:auto;
+}
+
+.toast.success{
+    border-color:#1aff00;
+
+    box-shadow:
+        0 0 25px rgba(26,255,0,.12),
+        0 15px 40px rgba(0,0,0,.55);
+}
+
+.toast.error{
+    border-color:#ff4545;
+}
+
+.toast.warning{
+    border-color:#ffc400;
+}
+
+.toast-icon{
+    width:36px;
+    height:36px;
+
+    flex:none;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    background:#1aff00;
+
+    color:#000;
+
+    font-weight:bold;
+}
+
+.toast.error .toast-icon{
+    background:#ff4545;
+
+    color:#fff;
+}
+
+.toast.warning .toast-icon{
+    background:#ffc400;
+
+    color:#000;
+}
+
+.toast-content{
+    flex:1;
+}
+
+.toast-title{
+    color:#fff;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    margin-bottom:4px;
+}
+
+.toast-message{
+    color:#999;
+
+    font-size:13px;
+
+    line-height:1.7;
+}
+
+.toast-close{
+    background:none;
+
+    padding:0;
+
+    color:#555;
+
+    font-size:18px;
+}
+
+.toast-close:hover{
+    color:#fff;
+}
+
+.toast.hide{
+    animation:
+        toastOut .3s ease forwards;
+}
+
+@keyframes toastIn{
+
+    to{
+        opacity:1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+
+}
+
+@keyframes toastOut{
+
+    to{
+        opacity:0;
+
+        transform:
+            translateY(20px)
+            scale(.97);
+    }
+
+}
+
 /* MY TOURNAMENTS */
 
 .my-tournaments{
@@ -937,6 +1249,14 @@ button{
 
     .read-button{
         width:100%;
+    }
+
+    .register-options{
+        grid-template-columns:1fr;
+    }
+
+    .confirm-buttons{
+        grid-template-columns:1fr;
     }
 
 }
@@ -1144,6 +1464,7 @@ Loading...
 
 </div>
 
+
 <!-- TEXT MODAL -->
 
 <div
@@ -1173,6 +1494,86 @@ Loading...
 
 </div>
 
+
+<!-- REGISTER OPTIONS MODAL -->
+
+<div
+    id="registerModeModal"
+    class="modal"
+>
+
+<div class="modal-box">
+
+<h2>
+🏆 نحوه ثبت‌نام
+</h2>
+
+<div
+    id="registerModeInfo"
+    class="team-info"
+></div>
+
+<div class="register-options">
+
+<div class="register-option">
+
+<div class="register-option-icon">
+👥
+</div>
+
+<div class="register-option-title">
+ثبت‌نام با Squad
+</div>
+
+<div class="register-option-text">
+خودت و دوستانت را انتخاب کن و به صورت تیمی وارد مسابقه شوید.
+</div>
+
+<button
+    id="squadRegisterButton"
+>
+انتخاب Squad
+</button>
+
+</div>
+
+
+<div class="register-option solo">
+
+<div class="register-option-icon">
+👤
+</div>
+
+<div class="register-option-title">
+ثبت‌نام تک‌نفره
+</div>
+
+<div class="register-option-text">
+سایت تو را به صورت خودکار کنار بازیکنان Solo دیگر قرار می‌دهد.
+</div>
+
+<button
+    id="soloRegisterButton"
+>
+ثبت‌نام Solo
+</button>
+
+</div>
+
+</div>
+
+<button
+    class="close"
+    onclick="closeRegisterModeModal()"
+>
+انصراف
+</button>
+
+</div>
+
+</div>
+
+
 <!-- TEAM MODAL -->
 
 <div
@@ -1191,6 +1592,55 @@ Loading...
 </div>
 
 </div>
+
+
+<!-- CONFIRM MODAL -->
+
+<div
+    id="confirmModal"
+    class="modal"
+>
+
+<div class="modal-box">
+
+<h2 id="confirmTitle">
+تأیید ثبت‌نام
+</h2>
+
+<div
+    id="confirmContent"
+    class="confirm-info"
+></div>
+
+<div class="confirm-buttons">
+
+<button
+    id="confirmYes"
+    class="confirm-yes"
+>
+تأیید و ادامه
+</button>
+
+<button
+    id="confirmNo"
+    class="confirm-no"
+>
+انصراف
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div
+    id="toastContainer"
+></div>
+
 
 <script type="module">
 
@@ -1226,6 +1676,8 @@ let selectedFriendIds = [];
 
 let requiredFriends = 0;
 
+let pendingRegistration = null;
+
 
 /* =========================
    ESCAPE
@@ -1245,6 +1697,7 @@ function escapeHTML(value){
         .replace(/>/g,"&gt;")
         .replace(/"/g,"&quot;")
         .replace(/'/g,"&#039;");
+
 }
 
 
@@ -1270,6 +1723,188 @@ function formatEntryFee(fee){
         +
         " تومان"
     );
+
+}
+
+
+/* =========================
+   INTERNAL MESSAGE
+========================= */
+
+function showToast(
+    type,
+    title,
+    message,
+    duration=4500
+){
+
+    const container =
+    document.getElementById(
+        "toastContainer"
+    );
+
+
+    const toast =
+    document.createElement("div");
+
+
+    toast.className =
+    `toast ${type}`;
+
+
+    const icon =
+    type==="success"
+    ? "✓"
+    : type==="error"
+    ? "!"
+    : "⚠";
+
+
+    toast.innerHTML = `
+
+        <div class="toast-icon">
+            ${icon}
+        </div>
+
+        <div class="toast-content">
+
+            <div class="toast-title">
+                ${escapeHTML(title)}
+            </div>
+
+            <div class="toast-message">
+                ${escapeHTML(message)}
+            </div>
+
+        </div>
+
+        <button
+            class="toast-close"
+        >
+            ×
+        </button>
+
+    `;
+
+
+    toast
+    .querySelector(".toast-close")
+    .onclick=()=>{
+
+        removeToast(toast);
+
+    };
+
+
+    container.appendChild(toast);
+
+
+    setTimeout(
+        ()=>{
+            removeToast(toast);
+        },
+        duration
+    );
+
+}
+
+
+function removeToast(toast){
+
+    if(!toast || !toast.isConnected)
+        return;
+
+
+    toast.classList.add("hide");
+
+
+    setTimeout(
+        ()=>{
+            toast.remove();
+        },
+        300
+    );
+
+}
+
+
+/* =========================
+   CUSTOM CONFIRM
+========================= */
+
+function showConfirm(
+    title,
+    html,
+    onConfirm
+){
+
+    const modal =
+    document.getElementById(
+        "confirmModal"
+    );
+
+
+    document.getElementById(
+        "confirmTitle"
+    ).textContent =
+    title;
+
+
+    document.getElementById(
+        "confirmContent"
+    ).innerHTML =
+    html;
+
+
+    modal.style.display="flex";
+
+
+    const yes =
+    document.getElementById(
+        "confirmYes"
+    );
+
+
+    const no =
+    document.getElementById(
+        "confirmNo"
+    );
+
+
+    const newYes =
+    yes.cloneNode(true);
+
+
+    const newNo =
+    no.cloneNode(true);
+
+
+    yes.parentNode.replaceChild(
+        newYes,
+        yes
+    );
+
+
+    no.parentNode.replaceChild(
+        newNo,
+        no
+    );
+
+
+    newNo.onclick=()=>{
+
+        modal.style.display="none";
+
+    };
+
+
+    newYes.onclick=async()=>{
+
+        modal.style.display="none";
+
+        await onConfirm();
+
+    };
 
 }
 
@@ -2099,45 +2734,25 @@ function hideRoomAnnouncement(){
 
 async function registerTournament(tournament){
 
+    selectedTournament=tournament;
+
+
     const type =
     String(
         tournament.type || ""
     ).toLowerCase();
 
 
-    const entryFee =
-    Number(
-        tournament.entry_fee || 0
-    );
-
-
     /*
-       قبل از هر کاری هزینه را به کاربر نشان می‌دهیم.
-       اگر رایگان باشد، بدون تأیید اضافه ادامه می‌دهیم.
+       اگر تورنمنت Solo واقعی باشد،
+       مستقیم وارد ثبت‌نام Solo می‌شویم.
     */
-
-    if(entryFee > 0){
-
-        const confirmed =
-        confirm(
-            `هزینه ثبت‌نام این مسابقه ${formatEntryFee(entryFee)} است.\n\n` +
-            `این مبلغ از کیف پول داخلی CALLAFINO شما کسر می‌شود.\n\n` +
-            `آیا می‌خواهید ادامه دهید؟`
-        );
-
-
-        if(!confirmed)
-            return;
-
-    }
-
 
     if(type==="solo"){
 
-        await doRegister(
-            tournament.id,
-            null,
-            tournament
+        startRegistrationConfirmation(
+            tournament,
+            "solo"
         );
 
         return;
@@ -2150,11 +2765,98 @@ async function registerTournament(tournament){
         type!=="squad"
     ){
 
-        alert("نوع تورنمنت نامعتبر است.");
+        showToast(
+            "error",
+            "ثبت‌نام ناموفق",
+            "نوع تورنمنت نامعتبر است."
+        );
 
         return;
 
     }
+
+
+    const modeModal =
+    document.getElementById(
+        "registerModeModal"
+    );
+
+
+    const info =
+    document.getElementById(
+        "registerModeInfo"
+    );
+
+
+    const slotSize =
+    type==="duo"
+    ?2
+    :4;
+
+
+    info.innerHTML = `
+
+        <strong>
+            ${type==="duo" ? "Duo" : "Squad"}
+        </strong>
+
+        <br>
+
+        می‌توانی با دوستانت تیم بسازی
+        یا به صورت تک‌نفره ثبت‌نام کنی.
+
+        <br>
+
+        💰 هزینه:
+        <strong>
+            ${escapeHTML(
+                formatEntryFee(
+                    tournament.entry_fee
+                )
+            )}
+        </strong>
+
+    `;
+
+
+    document.getElementById(
+        "squadRegisterButton"
+    ).onclick=()=>{
+
+        closeRegisterModeModal();
+
+        openSquadRegistration(
+            tournament
+        );
+
+    };
+
+
+    document.getElementById(
+        "soloRegisterButton"
+    ).onclick=()=>{
+
+        closeRegisterModeModal();
+
+        startRegistrationConfirmation(
+            tournament,
+            "solo"
+        );
+
+    };
+
+
+    modeModal.style.display="flex";
+
+}
+
+
+function openSquadRegistration(tournament){
+
+    const type =
+    String(
+        tournament.type || ""
+    ).toLowerCase();
 
 
     selectedTournament=tournament;
@@ -2182,7 +2884,111 @@ async function registerTournament(tournament){
     ).style.display="flex";
 
 
-    await loadTournamentFriends();
+    loadTournamentFriends();
+
+}
+
+
+window.closeRegisterModeModal=function(){
+
+    document.getElementById(
+        "registerModeModal"
+    ).style.display="none";
+
+};
+
+
+document
+.getElementById("registerModeModal")
+.addEventListener(
+    "click",
+    function(e){
+
+        if(e.target===this)
+            closeRegisterModeModal();
+
+    }
+);
+
+
+/* =========================
+   START CONFIRMATION
+========================= */
+
+function startRegistrationConfirmation(
+    tournament,
+    mode
+){
+
+    const type =
+    String(
+        tournament.type || ""
+    ).toLowerCase();
+
+
+    const entryFee =
+    Number(
+        tournament.entry_fee || 0
+    );
+
+
+    const label =
+    mode==="solo"
+    ? "ثبت‌نام تک‌نفره"
+    : type==="duo"
+    ? "ثبت Duo"
+    : "ثبت Squad";
+
+
+    showConfirm(
+        `تأیید ${label}`,
+        `
+
+            <strong>
+                ${escapeHTML(tournament.title || "Tournament")}
+            </strong>
+
+            <br>
+
+            حالت:
+            <strong>
+                ${label}
+            </strong>
+
+            <br>
+
+            💰 هزینه:
+            <strong>
+                ${escapeHTML(
+                    formatEntryFee(entryFee)
+                )}
+            </strong>
+
+            ${
+                mode==="solo"
+                ?
+                `
+                <br><br>
+                اگر جای خالی در یک Squad Solo وجود داشته باشد،
+                به همان تیم اضافه می‌شوی.
+                `
+                :
+                ""
+            }
+
+        `,
+        async()=>{
+
+            if(mode==="solo"){
+
+                await registerSoloTournament(
+                    tournament
+                );
+
+            }
+
+        }
+    );
 
 }
 
@@ -2204,13 +3010,6 @@ async function loadTournamentFriends(){
         در حال دریافت دوستان...
     </div>`;
 
-
-    /*
-       هر دو حالت friendship را می‌گیریم:
-       user_id = current
-       یا
-       friend_id = current
-    */
 
     const {
         data:friendships,
@@ -2272,7 +3071,8 @@ async function loadTournamentFriends(){
 
                 <br>
 
-                برای ثبت‌نام ${requiredFriends === 1 ? "Duo" : "Squad"}
+                برای ثبت‌نام
+                ${requiredFriends === 1 ? "Duo" : "Squad"}
                 باید حداقل
                 ${requiredFriends}
                 دوست داشته باشی.
@@ -2339,24 +3139,16 @@ async function loadTournamentFriends(){
                 : "۳ دوست انتخاب کن."
             }
 
-            ${
-                Number(
-                    selectedTournament?.entry_fee || 0
-                ) > 0
-                ?
-                `<br><br>
-                💰 هزینه:
-                <strong>
-                    ${escapeHTML(
-                        formatEntryFee(
-                            selectedTournament.entry_fee
-                        )
-                    )}
-                </strong>`
-                :
-                `<br><br>
-                💰 رایگان`
-            }
+            <br><br>
+
+            💰 هزینه:
+            <strong>
+                ${escapeHTML(
+                    formatEntryFee(
+                        selectedTournament?.entry_fee
+                    )
+                )}
+            </strong>
 
         </div>
 
@@ -2508,7 +3300,9 @@ function handleFriendSelection(
 
             checkbox.checked=false;
 
-            alert(
+            showToast(
+                "warning",
+                "تعداد انتخاب زیاد است",
                 `فقط ${requiredFriends} نفر می‌توانی انتخاب کنی.`
             );
 
@@ -2604,7 +3398,9 @@ async function createTournamentTeam(){
         requiredFriends
     ){
 
-        alert(
+        showToast(
+            "warning",
+            "تیم کامل نیست",
             `باید دقیقاً ${requiredFriends} نفر انتخاب کنی.`
         );
 
@@ -2631,10 +3427,6 @@ async function createTournamentTeam(){
     "در حال ساخت تیم...";
 
 
-    /*
-       خود کاربر همیشه Player 1 است.
-    */
-
     const squadData = {
 
         player1_id:
@@ -2649,20 +3441,10 @@ async function createTournamentTeam(){
         player4_id:
         selectedFriendIds[2] || null,
 
-        /*
-           برای ثبت مستقیم در تورنمنت
-           Squad از همان ابتدا آماده است.
-        */
-
         status:"ready"
 
     };
 
-
-    /*
-       جلوگیری از ساخت Squad تکراری
-       با همان اعضا
-    */
 
     const {
         data:existingSquads,
@@ -2702,7 +3484,10 @@ async function createTournamentTeam(){
         ? "ثبت Duo"
         : "ثبت Squad";
 
-        alert(
+
+        showToast(
+            "error",
+            "ثبت‌نام ناموفق",
             "خطا در بررسی تیم‌های قبلی."
         );
 
@@ -2721,11 +3506,6 @@ async function createTournamentTeam(){
     let squadId=null;
 
 
-    /*
-       اگر تیم کاملاً مشابهی از قبل وجود داشت،
-       همان را استفاده می‌کنیم.
-    */
-
     const existingMatch =
     (existingSquads || []).find(
         squad=>{
@@ -2740,7 +3520,10 @@ async function createTournamentTeam(){
             .filter(Boolean);
 
 
-            if(members.length !== desiredPlayers.length)
+            if(
+                members.length !==
+                desiredPlayers.length
+            )
                 return false;
 
 
@@ -2760,10 +3543,6 @@ async function createTournamentTeam(){
 
     }
     else{
-
-        /*
-           ساخت Squad جدید
-        */
 
         const {
             data:newSquad,
@@ -2790,8 +3569,9 @@ async function createTournamentTeam(){
             : "ثبت Squad";
 
 
-            alert(
-                "خطا در ساخت تیم:\n" +
+            showToast(
+                "error",
+                "ساخت تیم ناموفق",
                 createError.message
             );
 
@@ -2805,12 +3585,6 @@ async function createTournamentTeam(){
 
     }
 
-
-    /*
-       ثبت تیم در تورنمنت
-       و کسر اعتبار کیف پول
-       در یک عملیات دیتابیسی
-    */
 
     button.textContent =
     "در حال ثبت‌نام و کسر اعتبار...";
@@ -2836,7 +3610,6 @@ async function createTournamentTeam(){
 
         console.error(error);
 
-
         button.disabled=false;
 
         button.textContent =
@@ -2845,11 +3618,11 @@ async function createTournamentTeam(){
         : "ثبت Squad";
 
 
-        alert(
-            "ثبت‌نام انجام نشد:\n" +
-            error.message
+        showToast(
+            "error",
+            "ثبت‌نام ناموفق",
+            error.message || "عملیات ثبت‌نام انجام نشد."
         );
-
 
         return;
 
@@ -2868,19 +3641,449 @@ async function createTournamentTeam(){
     );
 
 
-    alert(
-        `ثبت‌نام موفق بود! 🎉\n\n` +
-        `${type==="duo" ? "Duo" : "Squad"} شما ثبت شد.\n` +
-        `Slot #${data?.slot || "-"}\n\n` +
-        `💰 هزینه: ${formatEntryFee(fee)}\n` +
-        `💳 موجودی باقی‌مانده: ${formatEntryFee(remainingBalance)}`
+    showToast(
+        "success",
+        "ثبت‌نام موفق",
+        `${type==="duo" ? "Duo" : "Squad"} شما با موفقیت ثبت شد. Slot #${data?.slot || "-"}`,
+        6000
     );
+
+
+    if(fee > 0){
+
+        setTimeout(
+            ()=>{
+                showToast(
+                    "success",
+                    "پرداخت موفق",
+                    `مبلغ ${formatEntryFee(fee)} از کیف پول کسر شد. موجودی باقی‌مانده: ${formatEntryFee(remainingBalance)}`,
+                    6500
+                );
+            },
+            500
+        );
+
+    }
 
 
     closeSquadModal();
 
 
     selectedFriendIds=[];
+
+
+    await loadTournaments();
+
+    await loadMyTournaments();
+
+    await checkRoomAnnouncement();
+
+}
+
+
+/* =========================
+   SOLO REGISTER
+========================= */
+
+async function registerSoloTournament(
+    tournament
+){
+
+    const type =
+    String(
+        tournament.type || ""
+    ).toLowerCase();
+
+
+    const slotSize =
+    type==="duo"
+    ?2
+    :type==="squad"
+    ?4
+    :1;
+
+
+    showToast(
+        "warning",
+        "در حال ثبت‌نام",
+        "در حال پیدا کردن جای مناسب برای ثبت‌نام تک‌نفره..."
+    );
+
+
+    /*
+       اول بررسی می‌کنیم کاربر قبلاً
+       در همین تورنمنت ثبت‌نام نکرده باشد.
+    */
+
+    const {
+        data:existingRegistration,
+        error:registrationCheckError
+    } =
+    await supabase
+    .from("tournament_registrations")
+    .select("id")
+    .eq(
+        "tournament_id",
+        tournament.id
+    )
+    .eq(
+        "user_id",
+        currentUser.id
+    )
+    .maybeSingle();
+
+
+    if(registrationCheckError){
+
+        console.error(
+            registrationCheckError
+        );
+
+        showToast(
+            "error",
+            "ثبت‌نام ناموفق",
+            registrationCheckError.message
+        );
+
+        return;
+
+    }
+
+
+    if(existingRegistration){
+
+        showToast(
+            "warning",
+            "قبلاً ثبت‌نام کرده‌ای",
+            "این کاربر قبلاً در این مسابقه ثبت‌نام شده است."
+        );
+
+        return;
+
+    }
+
+
+    /*
+       پیدا کردن ثبت‌نام‌های Solo/نیمه‌خالی
+       همین تورنمنت
+    */
+
+    const {
+        data:registrations,
+        error:registrationsError
+    } =
+    await supabase
+    .from("tournament_registrations")
+    .select(`
+        id,
+        user_id,
+        squad_id,
+        slot
+    `)
+    .eq(
+        "tournament_id",
+        tournament.id
+    )
+    .not(
+        "squad_id",
+        "is",
+        null
+    );
+
+
+    if(registrationsError){
+
+        console.error(
+            registrationsError
+        );
+
+        showToast(
+            "error",
+            "ثبت‌نام ناموفق",
+            registrationsError.message
+        );
+
+        return;
+
+    }
+
+
+    let usableSquad=null;
+
+
+    const squadIds =
+    [
+        ...new Set(
+            (registrations || [])
+            .map(r=>r.squad_id)
+            .filter(Boolean)
+        )
+    ];
+
+
+    if(squadIds.length){
+
+        const {
+            data:squads,
+            error:squadsError
+        } =
+        await supabase
+        .from("squads")
+        .select(`
+            id,
+            player1_id,
+            player2_id,
+            player3_id,
+            player4_id,
+            status
+        `)
+        .in(
+            "id",
+            squadIds
+        );
+
+
+        if(squadsError){
+
+            console.error(
+                squadsError
+            );
+
+            showToast(
+                "error",
+                "ثبت‌نام ناموفق",
+                squadsError.message
+            );
+
+            return;
+
+        }
+
+
+        /*
+           Squad نیمه‌خالی یعنی ظرفیتش
+           کمتر از اندازه تیم باشد.
+        */
+
+        usableSquad =
+        (squads || []).find(
+            squad=>{
+
+                const members =
+                [
+                    squad.player1_id,
+                    squad.player2_id,
+                    squad.player3_id,
+                    squad.player4_id
+                ]
+                .filter(Boolean);
+
+
+                return (
+                    members.length > 0 &&
+                    members.length < slotSize &&
+                    !members.includes(
+                        currentUser.id
+                    )
+                );
+
+            }
+        ) || null;
+
+    }
+
+
+    let squadId=null;
+
+
+    /*
+       اگر Squad نیمه‌خالی پیدا شد،
+       بازیکن جدید را داخل اولین جای خالی می‌گذاریم.
+    */
+
+    if(usableSquad){
+
+        const updateData={};
+
+
+        if(!usableSquad.player1_id)
+            updateData.player1_id=currentUser.id;
+
+        else if(!usableSquad.player2_id)
+            updateData.player2_id=currentUser.id;
+
+        else if(!usableSquad.player3_id)
+            updateData.player3_id=currentUser.id;
+
+        else if(!usableSquad.player4_id)
+            updateData.player4_id=currentUser.id;
+
+
+        if(
+            Object.keys(updateData).length
+        ){
+
+            const {
+                error:updateError
+            } =
+            await supabase
+            .from("squads")
+            .update(updateData)
+            .eq(
+                "id",
+                usableSquad.id
+            );
+
+
+            if(updateError){
+
+                console.error(
+                    updateError
+                );
+
+                showToast(
+                    "error",
+                    "ثبت‌نام ناموفق",
+                    updateError.message
+                );
+
+                return;
+
+            }
+
+        }
+
+
+        squadId =
+        usableSquad.id;
+
+    }
+    else{
+
+        /*
+           اگر تیم نیمه‌خالی نداریم،
+           یک Squad جدید با کاربر Solo
+           ساخته می‌شود.
+        */
+
+        const {
+            data:newSquad,
+            error:createError
+        } =
+        await supabase
+        .from("squads")
+        .insert({
+
+            player1_id:
+            currentUser.id,
+
+            player2_id:null,
+
+            player3_id:null,
+
+            player4_id:null,
+
+            status:"ready"
+
+        })
+        .select()
+        .single();
+
+
+        if(createError){
+
+            console.error(
+                createError
+            );
+
+            showToast(
+                "error",
+                "ساخت تیم Solo ناموفق",
+                createError.message
+            );
+
+            return;
+
+        }
+
+
+        squadId =
+        newSquad.id;
+
+    }
+
+
+    /*
+       حالا ثبت‌نام واقعی و پرداخت
+       از همان RPC قبلی انجام می‌شود.
+    */
+
+    const {
+        data,
+        error
+    } =
+    await supabase.rpc(
+        "register_for_tournament_with_wallet",
+        {
+            p_tournament_id:
+            tournament.id,
+
+            p_squad_id:
+            squadId
+        }
+    );
+
+
+    if(error){
+
+        console.error(error);
+
+        showToast(
+            "error",
+            "ثبت‌نام ناموفق",
+            error.message || "ثبت‌نام انجام نشد."
+        );
+
+        return;
+
+    }
+
+
+    const fee =
+    Number(
+        data?.fee || 0
+    );
+
+
+    const remainingBalance =
+    Number(
+        data?.remaining_balance || 0
+    );
+
+
+    showToast(
+        "success",
+        "ثبت‌نام موفق",
+        `ثبت‌نام تک‌نفره با موفقیت انجام شد. Slot #${data?.slot || "-"}`,
+        6000
+    );
+
+
+    if(fee > 0){
+
+        setTimeout(
+            ()=>{
+                showToast(
+                    "success",
+                    "پرداخت موفق",
+                    `مبلغ ${formatEntryFee(fee)} از کیف پول کسر شد. موجودی باقی‌مانده: ${formatEntryFee(remainingBalance)}`,
+                    6500
+                );
+            },
+            500
+        );
+
+    }
 
 
     await loadTournaments();
@@ -2919,101 +4122,6 @@ document
 
     }
 );
-
-
-/* =========================
-   DIRECT REGISTER
-========================= */
-
-async function doRegister(
-    tournamentId,
-    squadId,
-    tournament
-){
-
-    const entryFee =
-    Number(
-        tournament?.entry_fee || 0
-    );
-
-
-    /*
-       برای Solo هم قبل از ارسال درخواست
-       هزینه را نمایش می‌دهیم.
-       در Duo/Squad این تأیید در ابتدای
-       registerTournament انجام شده است.
-    */
-
-    if(entryFee > 0){
-
-        const confirmed =
-        confirm(
-            `هزینه ثبت‌نام این مسابقه ${formatEntryFee(entryFee)} است.\n\n` +
-            `این مبلغ از کیف پول داخلی CALLAFINO شما کسر می‌شود.\n\n` +
-            `آیا مطمئن هستید؟`
-        );
-
-
-        if(!confirmed)
-            return;
-
-    }
-
-
-    const {
-        data,
-        error
-    } =
-    await supabase.rpc(
-        "register_for_tournament_with_wallet",
-        {
-            p_tournament_id:
-            tournamentId,
-
-            p_squad_id:
-            squadId
-        }
-    );
-
-
-    if(error){
-
-        alert(
-            error.message
-        );
-
-        return;
-
-    }
-
-
-    const fee =
-    Number(
-        data?.fee || 0
-    );
-
-
-    const remainingBalance =
-    Number(
-        data?.remaining_balance || 0
-    );
-
-
-    alert(
-        `ثبت‌نام موفق بود. 🎉\n\n` +
-        `Slot #${data?.slot || "-"}\n\n` +
-        `💰 هزینه: ${formatEntryFee(fee)}\n` +
-        `💳 موجودی باقی‌مانده: ${formatEntryFee(remainingBalance)}`
-    );
-
-
-    await loadTournaments();
-
-    await loadMyTournaments();
-
-    await checkRoomAnnouncement();
-
-}
 
 
 /* =========================
@@ -3143,6 +4251,26 @@ async function loadMyTournaments(){
     });
 
 }
+
+
+/* =========================
+   CLOSE CONFIRM BY OUTSIDE
+========================= */
+
+document
+.getElementById("confirmModal")
+.addEventListener(
+    "click",
+    function(e){
+
+        if(e.target===this){
+
+            this.style.display="none";
+
+        }
+
+    }
+);
 
 
 /* =========================
