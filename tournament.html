@@ -2351,6 +2351,93 @@ function getPlayerAvatar(name){
 
 
 /* =========================================================
+   AVATAR HTML
+========================================================= */
+
+function getPlayerAvatarHTML(
+    name,
+    avatarUrl
+){
+
+    if(
+        avatarUrl &&
+        String(avatarUrl).trim()
+    ){
+
+        return `
+            <img
+                src="${escapeHTML(avatarUrl)}"
+                alt="${escapeHTML(name || "Player")}"
+            >
+        `;
+
+    }
+
+    return getPlayerAvatar(name);
+
+}
+
+
+/* =========================================================
+   SYNC CURRENT USER AVATAR
+========================================================= */
+
+async function syncCurrentUserAvatar(){
+
+    if(!currentUser)
+        return;
+
+    const savedAvatar =
+        localStorage.getItem(
+            "callafino_avatar"
+        );
+
+    if(
+        !savedAvatar ||
+        !savedAvatar.trim()
+    ){
+
+        console.log(
+            "No saved avatar found."
+        );
+
+        return;
+
+    }
+
+    const {
+        error
+    } =
+    await supabase
+    .from("profiles")
+    .update({
+        avatar_url:savedAvatar
+    })
+    .eq(
+        "id",
+        currentUser.id
+    );
+
+    if(error){
+
+        console.error(
+            "Avatar sync error:",
+            error
+        );
+
+    }
+    else{
+
+        console.log(
+            "Avatar synced successfully."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
    LOAD SLOTS
 ========================================================= */
 
@@ -2510,12 +2597,9 @@ async function loadSlots(tournament){
 
                 const avatarUrl =
                 playerId &&
-                profiles[playerId] &&
-                profiles[playerId].avatar_url
-                ?
-                profiles[playerId].avatar_url
-                :
-                null;
+                profiles[playerId]
+                ? profiles[playerId].avatar_url
+                : "";
 
 
                 players.push(`
@@ -2524,16 +2608,10 @@ async function loadSlots(tournament){
 
                         <div class="player-avatar">
 
-                            ${
+                            ${getPlayerAvatarHTML(
+                                name,
                                 avatarUrl
-                                ?
-                                `<img
-                                    src="${escapeHTML(avatarUrl)}"
-                                    alt=""
-                                >`
-                                :
-                                getPlayerAvatar(name)
-                            }
+                            )}
 
                         </div>
 
@@ -3244,7 +3322,6 @@ async function loadTournamentFriends(){
                 ? "ثبت Duo"
                 : "ثبت Squad"
             }
-
         </button>
 
     `;
@@ -3502,6 +3579,14 @@ async function createTournamentTeam(){
 
     button.textContent =
     "در حال ساخت تیم...";
+
+
+    /*
+       ذخیره آواتار انتخاب‌شده
+       قبل از ثبت‌نام
+    */
+
+    await syncCurrentUserAvatar();
 
 
     const squadData = {
@@ -3763,7 +3848,9 @@ async function createTournamentTeam(){
 
     await loadTournaments();
 
+
     await loadMyTournaments();
+
 
     await checkRoomAnnouncement();
 
