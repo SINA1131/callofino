@@ -2305,7 +2305,7 @@ async function getPlayerProfiles(playerIds){
     } =
     await supabase
     .from("profiles")
-    .select("id,username")
+    .select("id,username,avatar_url")
     .in("id",ids);
 
     if(error){
@@ -2508,13 +2508,32 @@ async function loadSlots(tournament){
 
             if(name){
 
+                const avatarUrl =
+                playerId &&
+                profiles[playerId] &&
+                profiles[playerId].avatar_url
+                ?
+                profiles[playerId].avatar_url
+                :
+                null;
+
+
                 players.push(`
 
                     <div class="player">
 
                         <div class="player-avatar">
 
-                            ${getPlayerAvatar(name)}
+                            ${
+                                avatarUrl
+                                ?
+                                `<img
+                                    src="${escapeHTML(avatarUrl)}"
+                                    alt=""
+                                >`
+                                :
+                                getPlayerAvatar(name)
+                            }
 
                         </div>
 
