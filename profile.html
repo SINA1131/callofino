@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
@@ -24,7 +25,7 @@ body{
 }
 
 /* =========================
-   BACKGROUND
+BACKGROUND
 ========================= */
 
 body::before{
@@ -54,7 +55,7 @@ body::after{
 }
 
 /* =========================
-   HEADER
+HEADER
 ========================= */
 
 header{
@@ -98,7 +99,7 @@ nav a:hover{
 }
 
 /* =========================
-   MAIN
+MAIN
 ========================= */
 
 .container{
@@ -108,7 +109,7 @@ nav a:hover{
 }
 
 /* =========================
-   PROFILE HERO
+PROFILE HERO
 ========================= */
 
 .profile-card{
@@ -212,7 +213,7 @@ nav a:hover{
 }
 
 /* =========================
-   STATS
+STATS
 ========================= */
 
 .stats{
@@ -249,7 +250,7 @@ nav a:hover{
 }
 
 /* =========================
-   SECTION
+SECTION
 ========================= */
 
 .section{
@@ -273,7 +274,7 @@ nav a:hover{
 }
 
 /* =========================
-   TOURNAMENTS
+TOURNAMENTS
 ========================= */
 
 .tournaments{
@@ -308,7 +309,7 @@ nav a:hover{
 }
 
 /* =========================
-   WALLET
+WALLET
 ========================= */
 
 .wallet{
@@ -344,7 +345,7 @@ nav a:hover{
 }
 
 /* =========================
-   ACTIONS
+ACTIONS
 ========================= */
 
 .actions{
@@ -382,7 +383,7 @@ nav a:hover{
 }
 
 /* =========================
-   MODAL
+MODAL
 ========================= */
 
 .modal{
@@ -471,7 +472,7 @@ nav a:hover{
 }
 
 /* =========================
-   EMPTY
+EMPTY
 ========================= */
 
 .empty{
@@ -484,7 +485,7 @@ nav a:hover{
 }
 
 /* =========================
-   RESPONSIVE
+RESPONSIVE
 ========================= */
 
 @media(max-width:700px){
@@ -520,7 +521,6 @@ nav a:hover{
     .avatar-grid{
         grid-template-columns:repeat(3,1fr);
     }
-
 }
 
 </style>
@@ -540,7 +540,6 @@ nav a:hover{
 
 </header>
 
-
 <main class="container">
 
     <!-- PROFILE -->
@@ -559,7 +558,6 @@ nav a:hover{
             <div class="online-dot"></div>
 
         </div>
-
 
         <div class="profile-info">
 
@@ -880,35 +878,34 @@ nav a:hover{
 <script>
 
 /* =========================
-   SUPABASE
+SUPABASE
 ========================= */
 
 const SUPABASE_URL =
-    "https://oisqrkqwbskvqkparmiw.supabase.co";
+"https://oisqrkqwbskvqkparmiw.supabase.co";
 
 const SUPABASE_KEY =
-    "sb_publishable_FGoXFElayJeRdyFxyc61hQ_c5CUn5HL";
+"sb_publishable_FGoXFElayJeRdyFxyc61hQ_c5CUn5HL";
 
 const supabaseClient =
-    supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
+supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
 
 
 /* =========================
-   AVATARS
+AVATARS
 ========================= */
 
 const defaultAvatar =
 "https://raw.githubusercontent.com/SINA1131/callofino/main/avatars/file_000000001cec820a80715b1deedc0a36.png";
 
-
 let selectedAvatar = null;
 
 
 /* =========================
-   OPEN MODAL
+OPEN MODAL
 ========================= */
 
 function openAvatarModal(){
@@ -921,7 +918,7 @@ function openAvatarModal(){
 
 
 /* =========================
-   CLOSE MODAL
+CLOSE MODAL
 ========================= */
 
 function closeAvatarModal(){
@@ -934,10 +931,10 @@ function closeAvatarModal(){
 
 
 /* =========================
-   SELECT AVATAR
+SELECT AVATAR
 ========================= */
 
-function selectAvatar(element, url){
+async function selectAvatar(element, url){
 
     document
         .querySelectorAll(".avatar-option")
@@ -957,10 +954,50 @@ function selectAvatar(element, url){
         .src = url;
 
 
+    /* ذخیره محلی */
+
     localStorage.setItem(
         "callafino_avatar",
         url
     );
+
+
+    /* =========================
+       ذخیره در SUPABASE
+    ========================= */
+
+    const {
+        data: {
+            user
+        }
+    } = await supabaseClient.auth.getUser();
+
+
+    if(user){
+
+        const {
+            error
+        } = await supabaseClient
+            .from("profiles")
+            .update({
+                avatar_url:url
+            })
+            .eq(
+                "id",
+                user.id
+            );
+
+
+        if(error){
+
+            console.error(
+                "Avatar save error:",
+                error
+            );
+
+        }
+
+    }
 
 
     setTimeout(() => {
@@ -973,7 +1010,7 @@ function selectAvatar(element, url){
 
 
 /* =========================
-   LOAD USER
+LOAD USER
 ========================= */
 
 async function loadProfile(){
@@ -987,7 +1024,8 @@ async function loadProfile(){
 
     if(!user){
 
-        window.location.href = "login.html";
+        window.location.href =
+            "login.html";
 
         return;
 
@@ -1003,7 +1041,10 @@ async function loadProfile(){
     } = await supabaseClient
         .from("profiles")
         .select("*")
-        .eq("id", user.id)
+        .eq(
+            "id",
+            user.id
+        )
         .maybeSingle();
 
 
@@ -1060,19 +1101,32 @@ async function loadProfile(){
     ========================= */
 
     const savedAvatar =
-        localStorage.getItem(
-            "callafino_avatar"
+        (
+            profile &&
+            profile.avatar_url
+        )
+        ? profile.avatar_url
+        : (
+            localStorage.getItem(
+                "callafino_avatar"
+            ) || defaultAvatar
         );
 
 
-    if(savedAvatar){
+    document
+        .getElementById("profileAvatar")
+        .src =
+        savedAvatar;
 
-        document
-            .getElementById("profileAvatar")
-            .src =
-            savedAvatar;
 
-    }
+    selectedAvatar =
+        savedAvatar;
+
+
+    localStorage.setItem(
+        "callafino_avatar",
+        savedAvatar
+    );
 
 
     /* =========================
@@ -1270,7 +1324,7 @@ async function loadProfile(){
 
 
 /* =========================
-   HTML SAFE
+HTML SAFE
 ========================= */
 
 function escapeHTML(value){
@@ -1286,16 +1340,18 @@ function escapeHTML(value){
 
 
 /* =========================
-   LOGOUT
+LOGOUT
 ========================= */
 
 async function logout(){
 
     await supabaseClient.auth.signOut();
 
+
     localStorage.removeItem(
         "callafino_avatar"
     );
+
 
     window.location.href =
         "login.html";
@@ -1304,7 +1360,7 @@ async function logout(){
 
 
 /* =========================
-   MODAL CLICK OUTSIDE
+MODAL CLICK OUTSIDE
 ========================= */
 
 document
@@ -1326,7 +1382,7 @@ document
 
 
 /* =========================
-   START
+START
 ========================= */
 
 loadProfile();
@@ -1335,3 +1391,4 @@ loadProfile();
 
 </body>
 </html>
+```
