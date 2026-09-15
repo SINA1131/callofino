@@ -429,19 +429,6 @@ button{
     grid-template-rows:repeat(2,1fr);
 }
 
-/* 5 PLAYER GRID */
-
-.slot-players.players-5{
-    grid-template-columns:repeat(2,1fr);
-    grid-template-rows:repeat(3,1fr);
-}
-
-.slot-players.players-5 .player:last-child{
-    grid-column:1 / -1;
-    width:50%;
-    justify-self:center;
-}
-
 .player{
     min-width:0;
     min-height:0;
@@ -558,19 +545,11 @@ button{
 /* 5V5 */
 
 .multiplayer-slot{
-    aspect-ratio:auto;
-    min-height:320px;
+    aspect-ratio:1 / 1;
 }
 
 .multiplayer-slot .slot-players{
-    grid-template-columns:repeat(2,1fr);
-    grid-template-rows:repeat(3,1fr);
-}
-
-.multiplayer-slot .slot-players .player:last-child{
-    grid-column:1 / -1;
-    width:50%;
-    justify-self:center;
+    grid-template-columns:1fr;
 }
 
 .multiplayer-badge{
@@ -1233,10 +1212,6 @@ button{
         border-radius:13px;
     }
 
-    .multiplayer-slot{
-        min-height:280px;
-    }
-
     .slot-title{
         font-size:12px;
     }
@@ -1340,10 +1315,6 @@ button{
 
     .slot{
         min-height:145px;
-    }
-
-    .multiplayer-slot{
-        min-height:250px;
     }
 
     .player-avatar{
@@ -1750,7 +1721,7 @@ from
 
 
 const SUPABASE_URL =
-"https://oisqrkqwbskvqparmiw.supabase.co";
+"https://oisqrkqwbskvqkparmiw.supabase.co";
 
 
 const SUPABASE_KEY =
@@ -2148,17 +2119,11 @@ async function loadTournaments(){
         let slotCount;
 
 
-        /*
-           MULTIPLAYER 5V5
-           2 TEAM / SLOT
-           EACH TEAM = 5 PLAYERS
-        */
-
         if(multiplayer){
 
-            slotSize=5;
+            slotSize=1;
 
-            slotCount=2;
+            slotCount=10;
 
         }
         else{
@@ -2235,18 +2200,6 @@ async function loadTournaments(){
                     Slot
 
                     <br>
-
-                    ${
-                        multiplayer
-                        ? "⚔️ هر Slot شامل ۵ بازیکن"
-                        : ""
-                    }
-
-                    ${
-                        multiplayer
-                        ? "<br>"
-                        : ""
-                    }
 
                     📅
                     ${escapeHTML(
@@ -2386,21 +2339,10 @@ async function showDetails(tournament){
             <strong>👥 حالت</strong>
             ${
                 multiplayer
-                ? "ثبت‌نام انفرادی 5v5"
+                ? "Multiplayer 5v5"
                 : escapeHTML(tournament.type || "-")
             }
         </div>
-
-        ${
-            multiplayer
-            ? `
-            <div class="detail-box">
-                <strong>⚔️ ساختار</strong>
-                ۲ Slot × ۵ بازیکن
-            </div>
-            `
-            : ""
-        }
 
         <div class="detail-box">
             <strong>📅 تاریخ</strong>
@@ -2748,66 +2690,37 @@ async function loadMultiplayerSlots(tournament){
     : [];
 
 
-    /*
-       RPC جدید 5v5 مقدار slot را
-       به صورت POSITION ذخیره می‌کند:
+    const uniqueBySlot=[];
+    const seenSlots=new Set();
 
-       1 تا 5  = Slot 1
-       6 تا 10 = Slot 2
-    */
 
-    const validRegistrations =
-    registrations
-    .filter(registration=>{
+    registrations.forEach(registration=>{
 
-        const position =
+        const slotNumber =
         Number(
             registration.slot
         );
 
-        return (
-            position >= 1 &&
-            position <= 10 &&
-            registration.user_id
-        );
+
+        if(
+            slotNumber >= 1 &&
+            slotNumber <= 10 &&
+            !seenSlots.has(slotNumber)
+        ){
+
+            seenSlots.add(slotNumber);
+
+            uniqueBySlot.push(
+                registration
+            );
+
+        }
 
     });
 
 
-    /*
-       جلوگیری از تکرار user
-       در صورت وجود داده قدیمی یا خراب
-    */
-
-    const uniquePlayers=[];
-    const seenUsers=new Set();
-
-
-    validRegistrations.forEach(
-        registration=>{
-
-            if(
-                !seenUsers.has(
-                    registration.user_id
-                )
-            ){
-
-                seenUsers.add(
-                    registration.user_id
-                );
-
-                uniquePlayers.push(
-                    registration
-                );
-
-            }
-
-        }
-    );
-
-
     const playerIds =
-    uniquePlayers
+    uniqueBySlot
     .map(
         item=>item.user_id
     )
@@ -2823,55 +2736,18 @@ async function loadMultiplayerSlots(tournament){
     container.innerHTML="";
 
 
-    /*
-       دو Slot
-       هر Slot پنج بازیکن
-    */
-
     for(
-        let teamNumber=1;
-        teamNumber<=2;
-        teamNumber++
+        let slotNumber=1;
+        slotNumber<=10;
+        slotNumber++
     ){
 
-        const startPosition =
-        teamNumber===1
-        ? 1
-        : 6;
-
-
-        const endPosition =
-        teamNumber===1
-        ? 5
-        : 10;
-
-
-        const teamPlayers =
-        [];
-
-
-        for(
-            let position=startPosition;
-            position<=endPosition;
-            position++
-        ){
-
-            const registration =
-            uniquePlayers.find(
-                item =>
-                Number(item.slot) ===
-                position
-            );
-
-
-            teamPlayers.push(
-                {
-                    position,
-                    registration
-                }
-            );
-
-        }
+        const registration =
+        uniqueBySlot.find(
+            item =>
+            Number(item.slot) ===
+            slotNumber
+        );
 
 
         const div =
@@ -2882,91 +2758,75 @@ async function loadMultiplayerSlots(tournament){
         "slot multiplayer-slot";
 
 
-        const registeredCount =
-        teamPlayers.filter(
-            item =>
-            item.registration &&
-            item.registration.user_id
-        ).length;
+        let playerHTML;
 
 
-        const playerHTML =
-        teamPlayers
-        .map(
-            item=>{
+        if(
+            registration &&
+            registration.user_id
+        ){
 
-                const registration =
-                item.registration;
-
-
-                if(
-                    registration &&
-                    registration.user_id
-                ){
-
-                    const profile =
-                    profiles[
-                        registration.user_id
-                    ];
+            const profile =
+            profiles[
+                registration.user_id
+            ];
 
 
-                    const name =
-                    profile?.username ||
-                    "Player";
+            const name =
+            profile?.username ||
+            "Player";
 
 
-                    const avatarUrl =
-                    profile?.avatar_url ||
-                    "";
+            const avatarUrl =
+            profile?.avatar_url ||
+            "";
 
 
-                    return `
+            playerHTML = `
 
-                        <div class="player">
+                <div class="player">
 
-                            <div class="player-avatar">
+                    <div class="player-avatar">
 
-                                ${getPlayerAvatarHTML(
-                                    name,
-                                    avatarUrl
-                                )}
-
-                            </div>
-
-                            <div class="player-name">
-
-                                ${escapeHTML(
-                                    name
-                                )}
-
-                            </div>
-
-                        </div>
-
-                    `;
-
-                }
-
-
-                return `
-
-                    <div class="player empty">
-
-                        <div class="player-avatar">
-                            👤
-                        </div>
-
-                        <div class="player-name">
-                            خالی
-                        </div>
+                        ${getPlayerAvatarHTML(
+                            name,
+                            avatarUrl
+                        )}
 
                     </div>
 
-                `;
+                    <div class="player-name">
 
-            }
-        )
-        .join("");
+                        ${escapeHTML(
+                            name
+                        )}
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+        else{
+
+            playerHTML = `
+
+                <div class="player empty">
+
+                    <div class="player-avatar">
+                        👤
+                    </div>
+
+                    <div class="player-name">
+                        خالی
+                    </div>
+
+                </div>
+
+            `;
+
+        }
 
 
         div.innerHTML = `
@@ -2974,11 +2834,11 @@ async function loadMultiplayerSlots(tournament){
             <div class="slot-title">
 
                 <span>
-                    Slot #${teamNumber}
+                    Slot #${slotNumber}
                 </span>
 
                 <span class="slot-size">
-                    ${registeredCount} / 5 نفر
+                    1 نفر
                 </span>
 
             </div>
@@ -2987,23 +2847,11 @@ async function loadMultiplayerSlots(tournament){
             <div
                 class="
                     slot-players
-                    players-5
+                    players-1
                 "
             >
 
                 ${playerHTML}
-
-            </div>
-
-
-            <div class="multiplayer-badge">
-
-                ${
-                    registeredCount >= 5
-                    ? "تیم کامل"
-                    : `${5 - registeredCount} جای خالی`
-
-                }
 
             </div>
 
@@ -3022,12 +2870,6 @@ async function loadMultiplayerSlots(tournament){
 ========================================================= */
 
 async function loadSlots(tournament){
-
-    /*
-       بسیار مهم:
-       Multiplayer را قبل از بررسی tournament.type
-       جدا می‌کنیم.
-    */
 
     if(
         isMultiplayer(tournament)
@@ -3107,6 +2949,12 @@ async function loadSlots(tournament){
     ? data
     : [];
 
+
+    /*
+       جلوگیری از نمایش دوباره یک Slot.
+       اگر RPC یک Slot را چند بار برگرداند،
+       فقط اولین رکورد همان Slot نمایش داده می‌شود.
+    */
 
     const uniqueSlots=[];
     const seenSlots=new Set();
@@ -3671,6 +3519,10 @@ async function registerTournament(tournament){
     );
 
 
+    /*
+       برگرداندن محتوای معمول Battle Royale
+    */
+
     options.innerHTML = `
 
         <div class="register-option">
@@ -3821,14 +3673,7 @@ function openMultiplayerRegistration(tournament){
 
         <br>
 
-        ساختار مسابقه:
-        <strong>
-            ۲ Slot × ۵ بازیکن
-        </strong>
-
-        <br>
-
-        ظرفیت کل:
+        ظرفیت مسابقه:
         <strong>
             10 بازیکن
         </strong>
@@ -3873,11 +3718,8 @@ function openMultiplayerRegistration(tournament){
 
                 <br>
 
-                ۵ نفر اول در Slot #1 قرار می‌گیرند.
-
-                <br>
-
-                ۵ نفر بعدی در Slot #2 قرار می‌گیرند.
+                وقتی 10 بازیکن کامل شد،
+                مسابقه پر می‌شود.
 
             </div>
 
@@ -3888,7 +3730,7 @@ function openMultiplayerRegistration(tournament){
             </button>
 
             <div class="multiplayer-badge">
-                ۲ Slot × ۵ بازیکن
+                ظرفیت: 10 بازیکن
             </div>
 
         </div>
@@ -3968,22 +3810,10 @@ async function registerMultiplayer5v5(tournament){
 
     if(existingRegistration?.length){
 
-        const oldPosition =
-        Number(
-            existingRegistration[0].slot
-        );
-
-
-        const oldTeam =
-        oldPosition >= 6
-        ? 2
-        : 1;
-
-
         showToast(
             "warning",
             "قبلاً ثبت‌نام کرده‌ای",
-            `شما قبلاً در این مسابقه در Slot #${oldTeam} ثبت‌نام کرده‌اید.`,
+            `شما قبلاً در این مسابقه ثبت‌نام کرده‌اید. Slot #${existingRegistration[0].slot || "-"}`,
             5500
         );
 
@@ -4034,11 +3864,7 @@ async function registerMultiplayer5v5(tournament){
     ];
 
 
-    const registeredCount =
-    uniqueUsers.length;
-
-
-    if(registeredCount >= 10){
+    if(uniqueUsers.length >= 10){
 
         showToast(
             "warning",
@@ -4052,27 +3878,24 @@ async function registerMultiplayer5v5(tournament){
     }
 
 
-    /*
-       چون RPC جدید position را
-       بر اساس تعداد بازیکنان تعیین می‌کند،
-       اینجا فقط برای نمایش به کاربر
-       تیم بعدی را محاسبه می‌کنیم.
-    */
-
-    const nextPosition =
-    registeredCount + 1;
+    const nextSlot =
+    findNextAvailableSlot(
+        registrations || []
+    );
 
 
-    const nextTeam =
-    nextPosition <= 5
-    ? 1
-    : 2;
+    if(!nextSlot){
 
+        showToast(
+            "warning",
+            "مسابقه پر شده",
+            "هر 10 اسلات مسابقه پر شده است.",
+            5500
+        );
 
-    const positionInTeam =
-    nextPosition <= 5
-    ? nextPosition
-    : nextPosition - 5;
+        return;
+
+    }
 
 
     showConfirm(
@@ -4095,21 +3918,14 @@ async function registerMultiplayer5v5(tournament){
 
             🪑 Slot:
             <strong>
-                #${nextTeam}
+                #${nextSlot}
             </strong>
 
             <br>
 
-            👥 جایگاه:
+            👥 ظرفیت:
             <strong>
-                ${positionInTeam} / 5
-            </strong>
-
-            <br>
-
-            👥 ظرفیت کل:
-            <strong>
-                ${registeredCount} / 10
+                ${uniqueUsers.length} / 10
             </strong>
 
             <br>
@@ -4139,6 +3955,50 @@ async function registerMultiplayer5v5(tournament){
 
 
 /* =========================================================
+   FIND NEXT AVAILABLE SLOT
+========================================================= */
+
+function findNextAvailableSlot(
+    registrations
+){
+
+    const used =
+    new Set(
+        (registrations || [])
+        .map(
+            item=>Number(item.slot)
+        )
+        .filter(
+            number =>
+            number >= 1 &&
+            number <= 10
+        )
+    );
+
+
+    for(
+        let slot=1;
+        slot<=10;
+        slot++
+    ){
+
+        if(
+            !used.has(slot)
+        ){
+
+            return slot;
+
+        }
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =========================================================
    COMPLETE MULTIPLAYER REGISTRATION
 ========================================================= */
 
@@ -4150,13 +4010,8 @@ async function completeMultiplayerRegistration(
 
 
     /*
-       Multiplayer 5v5 از RPC جداگانه استفاده می‌کند.
-
-       تابع قدیمی:
-       register_for_tournament_with_wallet
-
-       برای Duo/Squad باقی می‌ماند و اینجا
-       اصلاً استفاده نمی‌شود.
+       برای 5v5 از همان RPC فعلی استفاده می‌کنیم
+       ولی squad_id برابر null است.
     */
 
     const {
@@ -4164,10 +4019,13 @@ async function completeMultiplayerRegistration(
         error
     } =
     await supabase.rpc(
-        "register_for_multiplayer_5v5_with_wallet",
+        "register_for_tournament_with_wallet",
         {
             p_tournament_id:
-            tournament.id
+            tournament.id,
+
+            p_squad_id:
+            null
         }
     );
 
@@ -4206,28 +4064,15 @@ async function completeMultiplayerRegistration(
     );
 
 
-    const position =
-    Number(
-        data?.position || data?.slot || 0
-    );
-
-
-    const team =
-    position >= 6
-    ? 2
-    : 1;
-
-
-    const positionInTeam =
-    position >= 6
-    ? position - 5
-    : position;
+    const slot =
+    data?.slot ||
+    "-";
 
 
     showToast(
         "success",
         "ثبت‌نام موفق",
-        `ثبت‌نام Multiplayer 5v5 با موفقیت انجام شد. Slot #${team} — جایگاه ${positionInTeam}/5`,
+        `ثبت‌نام Multiplayer 5v5 با موفقیت انجام شد. Slot #${slot}`,
         6000
     );
 
@@ -5187,45 +5032,10 @@ async function loadMyTournaments(){
             (
                 String(
                     t.match_type || ""
-                ).trim().toLowerCase()
+                ).toLowerCase()
                 ===
                 "multiplayer 5v5"
             );
-
-
-            let slotDisplay;
-
-
-            if(multiplayer){
-
-                const position =
-                Number(
-                    item.slot
-                );
-
-
-                const team =
-                position >= 6
-                ? 2
-                : 1;
-
-
-                const positionInTeam =
-                position >= 6
-                ? position - 5
-                : position;
-
-
-                slotDisplay =
-                `Slot #${team} — ${positionInTeam}/5`;
-
-            }
-            else{
-
-                slotDisplay =
-                `Slot #${item.slot || "-"}`;
-
-            }
 
 
             div.innerHTML = `
@@ -5270,8 +5080,8 @@ async function loadMyTournaments(){
                 <br>
 
                 🪑
-                ${escapeHTML(
-                    slotDisplay
+                Slot #${escapeHTML(
+                    item.slot
                 )}
 
             `;
