@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
@@ -1992,35 +1993,141 @@ function showConfirm(
 
 async function init(){
 
-    const {
-        data:{
-            user
+    try{
+
+        const {
+            data,
+            error
+        } =
+        await supabase.auth.getUser();
+
+
+        if(error){
+
+            console.error(
+                "Supabase auth error:",
+                error
+            );
+
+
+            document.getElementById(
+                "tournaments"
+            ).innerHTML = `
+
+                <div class="error">
+
+                    خطا در بررسی حساب کاربری
+
+                    <br><br>
+
+                    ${escapeHTML(
+                        error.message ||
+                        "خطای ناشناخته"
+                    )}
+
+                </div>
+
+            `;
+
+
+            return;
+
         }
-    } =
-    await supabase.auth.getUser();
 
-    if(!user){
 
-        location.href="login.html";
+        const user =
+        data?.user || null;
 
-        return;
+
+        if(!user){
+
+            document.getElementById(
+                "tournaments"
+            ).innerHTML = `
+
+                <div class="error">
+
+                    برای مشاهده تورنمنت‌ها
+                    ابتدا وارد حساب کاربری شوید.
+
+                    <br><br>
+
+                    <a
+                        href="login.html"
+                        style="
+                            display:inline-block;
+                            margin-top:10px;
+                            padding:12px 20px;
+                            background:#1aff00;
+                            color:#000;
+                            text-decoration:none;
+                            border-radius:9px;
+                            font-weight:bold;
+                        "
+                    >
+                        ورود به حساب
+                    </a>
+
+                </div>
+
+            `;
+
+
+            return;
+
+        }
+
+
+        currentUser=user;
+
+
+        await syncCurrentUserAvatar();
+
+
+        await loadTournaments();
+
+
+        await loadMyTournaments();
+
+
+        await checkRoomAnnouncement();
+
+
+        setInterval(
+            checkRoomAnnouncement,
+            3000
+        );
+
 
     }
+    catch(error){
 
-    currentUser=user;
+        console.error(
+            "Tournament init error:",
+            error
+        );
 
-    await syncCurrentUserAvatar();
 
-    await loadTournaments();
+        document.getElementById(
+            "tournaments"
+        ).innerHTML = `
 
-    await loadMyTournaments();
+            <div class="error">
 
-    await checkRoomAnnouncement();
+                خطا در بارگذاری صفحه Tournament
 
-    setInterval(
-        checkRoomAnnouncement,
-        3000
-    );
+                <br><br>
+
+                ${escapeHTML(
+                    error?.message ||
+                    String(error)
+                )}
+
+            </div>
+
+        `;
+
+    }
 
 }
 
@@ -2691,6 +2798,7 @@ async function loadMultiplayerSlots(tournament){
 
 
     const uniqueBySlot=[];
+
     const seenSlots=new Set();
 
 
@@ -2950,13 +3058,8 @@ async function loadSlots(tournament){
     : [];
 
 
-    /*
-       جلوگیری از نمایش دوباره یک Slot.
-       اگر RPC یک Slot را چند بار برگرداند،
-       فقط اولین رکورد همان Slot نمایش داده می‌شود.
-    */
-
     const uniqueSlots=[];
+
     const seenSlots=new Set();
 
 
@@ -3442,12 +3545,6 @@ async function registerTournament(tournament){
     selectedTournament=tournament;
 
 
-    /*
-       =========================
-       MULTIPLAYER 5V5
-       =========================
-    */
-
     if(
         isMultiplayer(tournament)
     ){
@@ -3466,10 +3563,6 @@ async function registerTournament(tournament){
         tournament.type || ""
     ).toLowerCase();
 
-
-    /*
-       SOLO فعلاً کاملاً غیرفعال است
-    */
 
     if(type==="solo"){
 
@@ -3518,10 +3611,6 @@ async function registerTournament(tournament){
         "registerOptions"
     );
 
-
-    /*
-       برگرداندن محتوای معمول Battle Royale
-    */
 
     options.innerHTML = `
 
@@ -4008,11 +4097,6 @@ async function completeMultiplayerRegistration(
 
     await syncCurrentUserAvatar();
 
-
-    /*
-       برای 5v5 از همان RPC فعلی استفاده می‌کنیم
-       ولی squad_id برابر null است.
-    */
 
     const {
         data,
@@ -5126,3 +5210,4 @@ init();
 </body>
 
 </html>
+```
