@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
@@ -77,7 +76,7 @@ nav a:hover{
 
 .title{
     text-align:center;
-    margin-bottom:40px;
+    margin-bottom:25px;
 }
 
 .title h1{
@@ -91,6 +90,80 @@ nav a:hover{
     color:#777;
     margin-top:10px;
 }
+
+
+/* =========================
+   CUSTOM FILTER
+========================= */
+
+.custom-filter{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    margin:0 auto 35px;
+    flex-wrap:wrap;
+}
+
+.filter-btn{
+    min-width:170px;
+    padding:13px 25px;
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #111,
+            #090909
+        );
+
+    border:1px solid #292929;
+    color:#888;
+
+    font-size:14px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:
+        .25s;
+}
+
+.filter-btn:hover{
+    color:#fff;
+    border-color:#1aff00;
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 0 20px
+        rgba(26,255,0,.08);
+}
+
+.filter-btn.active{
+    background:
+        linear-gradient(
+            145deg,
+            rgba(26,255,0,.16),
+            rgba(26,255,0,.05)
+        );
+
+    border-color:#1aff00;
+
+    color:#1aff00;
+
+    box-shadow:
+        0 0 20px
+        rgba(26,255,0,.12);
+
+    text-shadow:
+        0 0 8px
+        rgba(26,255,0,.25);
+}
+
+
+/* =========================
+   TOURNAMENTS
+========================= */
 
 .tournaments{
     display:grid;
@@ -191,6 +264,7 @@ button{
     background:#151515;
 }
 
+
 /* ROOM */
 
 .room-announcement{
@@ -250,6 +324,7 @@ button{
 .room-timer strong{
     color:#fff;
 }
+
 
 /* DETAILS */
 
@@ -344,6 +419,7 @@ button{
     background:#1aff00;
     color:#000;
 }
+
 
 /* SLOTS */
 
@@ -543,6 +619,7 @@ button{
     color:#555;
 }
 
+
 /* 5V5 */
 
 .multiplayer-slot{
@@ -564,6 +641,7 @@ button{
     font-size:10px;
     font-weight:bold;
 }
+
 
 /* MODAL */
 
@@ -642,6 +720,7 @@ button{
 .close-modal:hover{
     box-shadow:0 0 20px rgba(26,255,0,.3);
 }
+
 
 /* TEAM SELECT */
 
@@ -768,6 +847,7 @@ button{
     line-height:2;
 }
 
+
 /* REGISTER MODE */
 
 .register-options{
@@ -839,6 +919,7 @@ button{
     border-color:rgba(26,255,0,.35);
 }
 
+
 /* 5V5 REGISTER */
 
 .register-option.multiplayer{
@@ -860,6 +941,7 @@ button{
 .register-option.multiplayer .register-option-title{
     font-size:21px;
 }
+
 
 /* SOLO COMING SOON */
 
@@ -924,6 +1006,7 @@ button{
     box-shadow:none !important;
 }
 
+
 /* CONFIRM */
 
 .confirm-info{
@@ -962,6 +1045,7 @@ button{
     border-color:#1aff00;
     color:#fff;
 }
+
 
 /* TOAST */
 
@@ -1115,6 +1199,7 @@ button{
     }
 }
 
+
 /* MY TOURNAMENTS */
 
 .my-tournaments{
@@ -1198,6 +1283,7 @@ button{
     border-radius:10px;
 }
 
+
 @media(max-width:700px){
 
     .slots{
@@ -1239,6 +1325,7 @@ button{
 
 }
 
+
 @media(max-width:600px){
 
     header{
@@ -1268,6 +1355,17 @@ button{
     }
 
     .title p{
+        font-size:13px;
+    }
+
+    .custom-filter{
+        gap:8px;
+        margin-bottom:25px;
+    }
+
+    .filter-btn{
+        min-width:140px;
+        padding:11px 18px;
         font-size:13px;
     }
 
@@ -1307,6 +1405,7 @@ button{
 
 }
 
+
 @media(max-width:420px){
 
     .slots{
@@ -1326,6 +1425,10 @@ button{
 
     .player-name{
         font-size:9px;
+    }
+
+    .filter-btn{
+        min-width:125px;
     }
 
 }
@@ -1360,7 +1463,9 @@ Dashboard
 
 </header>
 
+
 <div class="container">
+
 
 <div class="title">
 
@@ -1373,6 +1478,30 @@ Join tournaments and compete with other players.
 </p>
 
 </div>
+
+
+<!-- =========================
+     CUSTOM FILTER
+========================= -->
+
+<div class="custom-filter">
+
+<button
+    id="battleRoyaleFilter"
+    class="filter-btn active"
+>
+🎯 بتل رویال
+</button>
+
+<button
+    id="multiplayerFilter"
+    class="filter-btn"
+>
+⚔️ مولتی پلیر
+</button>
+
+</div>
+
 
 <div
     id="roomAnnouncement"
@@ -1415,6 +1544,7 @@ Join tournaments and compete with other players.
 
 </div>
 
+
 <div
     id="tournaments"
     class="tournaments"
@@ -1425,6 +1555,7 @@ Loading tournaments...
 </div>
 
 </div>
+
 
 <div
     id="details"
@@ -1444,6 +1575,7 @@ Loading tournaments...
     id="detailsInfo"
     class="details-info"
 ></div>
+
 
 <div class="detail-block">
 
@@ -1468,6 +1600,7 @@ Loading tournaments...
 
 </div>
 
+
 <div class="detail-block">
 
 <h3>
@@ -1491,6 +1624,7 @@ Loading tournaments...
 
 </div>
 
+
 <div class="detail-block">
 
 <h3>
@@ -1504,6 +1638,7 @@ Loading tournaments...
 
 </div>
 
+
 <button
     class="close"
     onclick="closeDetails()"
@@ -1514,6 +1649,7 @@ Loading tournaments...
 </div>
 
 </div>
+
 
 <div class="my-tournaments">
 
@@ -1532,6 +1668,7 @@ Loading...
 </div>
 
 </div>
+
 
 <!-- TEXT MODAL -->
 
@@ -1561,6 +1698,7 @@ Loading...
 </div>
 
 </div>
+
 
 <!-- REGISTER OPTIONS MODAL -->
 
@@ -1607,6 +1745,7 @@ Loading...
 
 </div>
 
+
 <div class="register-option solo solo-coming-soon">
 
 <div class="register-option-icon">
@@ -1636,6 +1775,7 @@ Loading...
 
 </div>
 
+
 <button
     class="close"
     onclick="closeRegisterModeModal()"
@@ -1646,6 +1786,7 @@ Loading...
 </div>
 
 </div>
+
 
 <!-- TEAM MODAL -->
 
@@ -1665,6 +1806,7 @@ Loading...
 </div>
 
 </div>
+
 
 <!-- CONFIRM MODAL -->
 
@@ -1706,11 +1848,13 @@ Loading...
 
 </div>
 
+
 <!-- TOAST -->
 
 <div
     id="toastContainer"
 ></div>
+
 
 <script type="module">
 
@@ -1741,6 +1885,20 @@ let selectedTournament = null;
 let roomTimerInterval = null;
 let selectedFriendIds = [];
 let requiredFriends = 0;
+
+
+/* =========================
+   CURRENT FILTER
+========================= */
+
+let currentFilter = "battle";
+
+
+/* =========================
+   ALL TOURNAMENTS CACHE
+========================= */
+
+let allTournaments = [];
 
 
 /* =========================
@@ -1988,6 +2146,296 @@ function showConfirm(
 
 
 /* =========================
+   FILTER BUTTONS
+========================= */
+
+function setFilter(filter){
+
+    currentFilter = filter;
+
+
+    const battleButton =
+    document.getElementById(
+        "battleRoyaleFilter"
+    );
+
+
+    const multiplayerButton =
+    document.getElementById(
+        "multiplayerFilter"
+    );
+
+
+    battleButton.classList.toggle(
+        "active",
+        filter === "battle"
+    );
+
+
+    multiplayerButton.classList.toggle(
+        "active",
+        filter === "multiplayer"
+    );
+
+
+    renderTournaments();
+
+}
+
+
+/* =========================
+   RENDER FILTERED TOURNAMENTS
+========================= */
+
+function renderTournaments(){
+
+    const container =
+    document.getElementById(
+        "tournaments"
+    );
+
+
+    const filtered =
+    allTournaments.filter(
+        tournament=>{
+
+            if(
+                currentFilter ===
+                "multiplayer"
+            ){
+
+                return isMultiplayer(
+                    tournament
+                );
+
+            }
+
+
+            return !isMultiplayer(
+                tournament
+            );
+
+        }
+    );
+
+
+    if(!filtered.length){
+
+        container.innerHTML = `
+
+            <div class="loading">
+
+                ${
+                    currentFilter === "multiplayer"
+                    ? "هیچ مسابقه Multiplayer 5v5 فعالی وجود ندارد."
+                    : "هیچ مسابقه Battle Royale فعالی وجود ندارد."
+                }
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML="";
+
+
+    filtered.forEach(
+        tournament=>{
+
+            const card =
+            document.createElement("div");
+
+            card.className =
+            "tournament-card";
+
+
+            const image =
+            tournament.image_url
+            ?
+            `<img
+                class="tournament-image"
+                src="${escapeHTML(tournament.image_url)}"
+                alt="${escapeHTML(tournament.title || "Tournament")}"
+            >`
+            :
+            `<div class="tournament-placeholder">
+                🏆
+            </div>`;
+
+
+            const type =
+            String(
+                tournament.type || "-"
+            );
+
+
+            const typeLower =
+            type.toLowerCase();
+
+
+            const multiplayer =
+            isMultiplayer(tournament);
+
+
+            const matchType =
+            getMatchType(tournament);
+
+
+            let slotSize;
+            let slotCount;
+
+
+            if(multiplayer){
+
+                slotSize=1;
+
+                slotCount=10;
+
+            }
+            else{
+
+                slotSize =
+                typeLower === "solo"
+                ? 1
+                : typeLower === "duo"
+                ? 2
+                : typeLower === "squad"
+                ? 4
+                : 1;
+
+
+                slotCount =
+                Math.ceil(
+                    Number(
+                        tournament.max_players || 0
+                    ) / slotSize
+                );
+
+            }
+
+
+            const maxPlayers =
+            multiplayer
+            ? 10
+            : Number(
+                tournament.max_players || 0
+            );
+
+
+            const entryFee =
+            Number(
+                tournament.entry_fee || 0
+            );
+
+
+            card.innerHTML = `
+
+                ${image}
+
+                <div class="tournament-content">
+
+                    <h2>
+                        ${escapeHTML(tournament.title)}
+                    </h2>
+
+                    <div class="info">
+
+                        🎮
+                        ${escapeHTML(tournament.game)}
+
+                        <br>
+
+                        🎯
+                        ${escapeHTML(matchType)}
+
+                        <br>
+
+                        👥
+                        ${multiplayer
+                            ? "ثبت‌نام انفرادی 5v5"
+                            : escapeHTML(type)
+                        }
+
+                        <br>
+
+                        🪑
+                        ${escapeHTML(maxPlayers)}
+                        بازیکن
+                        /
+                        ${escapeHTML(slotCount)}
+                        Slot
+
+                        <br>
+
+                        📅
+                        ${escapeHTML(
+                            tournament.tournament_date || "-"
+                        )}
+
+                        <br>
+
+                        ⏰
+                        ${escapeHTML(
+                            tournament.tournament_time || "-"
+                        )}
+
+                        <br>
+
+                        💰
+                        هزینه ثبت‌نام:
+                        <b>
+                            ${escapeHTML(
+                                formatEntryFee(entryFee)
+                            )}
+                        </b>
+
+                    </div>
+
+                    <button
+                        class="register-btn"
+                        data-register="${tournament.id}"
+                    >
+                        ثبت‌نام در مسابقه
+                    </button>
+
+                    <button
+                        class="view-btn"
+                        data-view="${tournament.id}"
+                    >
+                        مشاهده جزئیات
+                    </button>
+
+                </div>
+            `;
+
+
+            card
+            .querySelector("[data-register]")
+            .onclick =
+            () =>
+            registerTournament(tournament);
+
+
+            card
+            .querySelector("[data-view]")
+            .onclick =
+            () =>
+            showDetails(tournament);
+
+
+            container.appendChild(card);
+
+        }
+    );
+
+}
+
+
+/* =========================
    INIT
 ========================= */
 
@@ -2143,6 +2591,7 @@ async function loadTournaments(){
         "tournaments"
     );
 
+
     const {
         data,
         error
@@ -2157,6 +2606,7 @@ async function loadTournaments(){
         }
     );
 
+
     if(error){
 
         container.innerHTML =
@@ -2168,205 +2618,14 @@ async function loadTournaments(){
 
     }
 
-    if(!data?.length){
 
-        container.innerHTML =
-        `<div class="loading">
-            No tournaments available.
-        </div>`;
-
-        return;
-
-    }
-
-    container.innerHTML="";
-
-    for(const tournament of data){
-
-        const card =
-        document.createElement("div");
-
-        card.className =
-        "tournament-card";
+    allTournaments =
+    Array.isArray(data)
+    ? data
+    : [];
 
 
-        const image =
-        tournament.image_url
-        ?
-        `<img
-            class="tournament-image"
-            src="${escapeHTML(tournament.image_url)}"
-            alt="${escapeHTML(tournament.title || "Tournament")}"
-        >`
-        :
-        `<div class="tournament-placeholder">
-            🏆
-        </div>`;
-
-
-        const type =
-        String(
-            tournament.type || "-"
-        );
-
-
-        const typeLower =
-        type.toLowerCase();
-
-
-        const multiplayer =
-        isMultiplayer(tournament);
-
-
-        const matchType =
-        getMatchType(tournament);
-
-
-        let slotSize;
-        let slotCount;
-
-
-        if(multiplayer){
-
-            slotSize=1;
-
-            slotCount=10;
-
-        }
-        else{
-
-            slotSize =
-            typeLower === "solo"
-            ? 1
-            : typeLower === "duo"
-            ? 2
-            : typeLower === "squad"
-            ? 4
-            : 1;
-
-
-            slotCount =
-            Math.ceil(
-                Number(
-                    tournament.max_players || 0
-                ) / slotSize
-            );
-
-        }
-
-
-        const maxPlayers =
-        multiplayer
-        ? 10
-        : Number(
-            tournament.max_players || 0
-        );
-
-
-        const entryFee =
-        Number(
-            tournament.entry_fee || 0
-        );
-
-
-        card.innerHTML = `
-
-            ${image}
-
-            <div class="tournament-content">
-
-                <h2>
-                    ${escapeHTML(tournament.title)}
-                </h2>
-
-                <div class="info">
-
-                    🎮
-                    ${escapeHTML(tournament.game)}
-
-                    <br>
-
-                    🎯
-                    ${escapeHTML(matchType)}
-
-                    <br>
-
-                    👥
-                    ${multiplayer
-                        ? "ثبت‌نام انفرادی 5v5"
-                        : escapeHTML(type)
-                    }
-
-                    <br>
-
-                    🪑
-                    ${escapeHTML(maxPlayers)}
-                    بازیکن
-                    /
-                    ${escapeHTML(slotCount)}
-                    Slot
-
-                    <br>
-
-                    📅
-                    ${escapeHTML(
-                        tournament.tournament_date || "-"
-                    )}
-
-                    <br>
-
-                    ⏰
-                    ${escapeHTML(
-                        tournament.tournament_time || "-"
-                    )}
-
-                    <br>
-
-                    💰
-                    هزینه ثبت‌نام:
-                    <b>
-                        ${escapeHTML(
-                            formatEntryFee(entryFee)
-                        )}
-                    </b>
-
-                </div>
-
-                <button
-                    class="register-btn"
-                    data-register="${tournament.id}"
-                >
-                    ثبت‌نام در مسابقه
-                </button>
-
-                <button
-                    class="view-btn"
-                    data-view="${tournament.id}"
-                >
-                    مشاهده جزئیات
-                </button>
-
-            </div>
-        `;
-
-
-        card
-        .querySelector("[data-register]")
-        .onclick =
-        () =>
-        registerTournament(tournament);
-
-
-        card
-        .querySelector("[data-view]")
-        .onclick =
-        () =>
-        showDetails(tournament);
-
-
-        container.appendChild(card);
-
-    }
+    renderTournaments();
 
 }
 
@@ -5180,6 +5439,34 @@ async function loadMyTournaments(){
 
 
 /* =========================
+   FILTER EVENTS
+========================= */
+
+document
+.getElementById(
+    "battleRoyaleFilter"
+)
+.addEventListener(
+    "click",
+    ()=>{
+        setFilter("battle");
+    }
+);
+
+
+document
+.getElementById(
+    "multiplayerFilter"
+)
+.addEventListener(
+    "click",
+    ()=>{
+        setFilter("multiplayer");
+    }
+);
+
+
+/* =========================
    CLOSE CONFIRM
 ========================= */
 
@@ -5210,4 +5497,3 @@ init();
 </body>
 
 </html>
-```
