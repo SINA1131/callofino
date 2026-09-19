@@ -967,7 +967,7 @@ ADMIN
 </button>
 
 <button data-page="ranking">
-🏅 Ranking
+لیدربرد
 </button>
 
 <button data-page="settings">
@@ -1945,155 +1945,40 @@ Created
 </section>
 
 
-<!-- RANKING -->
-
-<section class="page" id="ranking">
-
-<h1 class="title">
-Ranking
-</h1>
-
-<p class="subtitle">
-مدیریت جدول رنکینگ
-</p>
-
-<div id="rankingMessage" class="message"></div>
 
 
-<div class="panel">
+<!-- ============================= -->
+<!-- GLOBAL LEADERBOARD MANAGEMENT -->
+<!-- ============================= -->
 
-<div class="panel-title">
-➕ افزودن بازیکن
-</div>
+<section id="ranking" class="admin-section">
 
-<div class="form-grid">
+    <h2>🏆 مدیریت لیدربرد</h2>
 
-<div class="form-group">
+    <p class="section-description">
+        در این بخش می‌توانید رتبه‌های ۱ تا ۱۰ لیدربرد سراسری CALLAFINO را تعیین کنید.
+    </p>
 
-<label>
-Player 1 Name
-</label>
+    <div class="leaderboard-admin-box">
 
-<input
-type="text"
-id="rankPlayer1"
->
+        <div class="leaderboard-admin-header">
+            <h3>🏅 لیدربرد سراسری</h3>
 
-</div>
+            <button
+                type="button"
+                id="loadLeaderboardBtn"
+                class="admin-btn">
+                🔄 بروزرسانی
+            </button>
+        </div>
 
+        <div id="leaderboardAdminList">
 
-<div class="form-group">
+            <!-- رتبه‌ها با JavaScript ساخته می‌شوند -->
 
-<label>
-Player 2 Name
-</label>
+        </div>
 
-<input
-type="text"
-id="rankPlayer2"
->
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-Points
-</label>
-
-<input
-type="number"
-id="rankPoints"
-value="0"
->
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-Position
-</label>
-
-<input
-type="number"
-id="rankPosition"
->
-
-</div>
-
-</div>
-
-
-<div class="actions">
-
-<button
-class="btn"
-id="addRankingBtn"
->
-
-🏅 افزودن
-
-</button>
-
-</div>
-
-</div>
-
-
-<div class="panel">
-
-<div class="table-wrap">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>
-Position
-</th>
-
-<th>
-Player 1
-</th>
-
-<th>
-Player 2
-</th>
-
-<th>
-Points
-</th>
-
-<th>
-Action
-</th>
-
-</tr>
-
-</thead>
-
-<tbody id="rankingTable">
-
-<tr>
-
-<td colspan="5" class="loading">
-در حال دریافت...
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
+    </div>
 
 </section>
 
